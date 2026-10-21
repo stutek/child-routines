@@ -17,6 +17,7 @@ Every routine image is a square 1:1 illustration generated with an image model. 
 - **Generate, never compose.** If the image model fails (quota, error), stop. Do not fake an image with Python/PIL by pasting flat shapes onto other images; those results looked broken and were all rejected.
 - **No reference to a near-copy.** An earlier tooth image (tooth holding a brush above its head, foam on top) was almost identical to existing stock clipart (Pngtree 2020, Pikbest 2019) and was removed. Never ask for that pose.
 - **Show the action, not the result.** "Set the table" is hands placing cutlery next to an empty plate, not a plate with food (that reads as "dinner").
+- **As much detail as the best images.** A sparse room (bare walls, plain objects) looks unfinished next to the others; ask for a busy picture-book page with many homely details.
 - **Keep steps distinct.** "Clear the table" must not show a sink with a tap, because "wash hands" already does.
 - **Same world.** Bath and teeth happen in the same bathroom as the toilet image; the same teddy bear appears in waking up, making the bed and sleeping.
 - **No false promises.** Do not show food the child will not get (pancakes for breakfast at home when breakfast is at kindergarten).
@@ -41,7 +42,7 @@ Every routine image is a square 1:1 illustration generated with an image model. 
 
 **Set the table** — Top-down view through a child's eyes: two small child hands placing a child-size fork and spoon with wooden handles next to an EMPTY white plate on a colorful fabric placemat on a light wooden table. An empty cup and a folded napkin next to the plate. No food anywhere.
 
-**Cartoon** — A cozy rounded retro TV on a small wooden cabinet, its screen glowing softly and showing a friendly smiling cartoon bunny waving (an original character, not any known brand). A soft cushion and a small blanket on the rug in front of the TV, warm evening lamp light.
+**Cartoon** — RICHLY DETAILED like a busy picture-book page: a cozy family living room in the evening. A cute brown teddy bear wearing a blue-and-white striped nightcap sits on a big patterned floor cushion, seen from slightly behind and to the side, happily watching a rounded wooden TV on a low cabinet. On the TV screen, large and clear, an original friendly cartoon bunny waves (not any known character). Around them many homely details: a bookshelf with colorful books and small toys, a woven basket with toy blocks and a ball, framed children's drawings on patterned wallpaper, a window with curtains and a dusky evening sky, a glowing floor lamp, a potted plant, a soft blanket, a detailed patterned rug on wooden floorboards.
 
 **Tidy up toys** — A low, open wooden toy chest, low enough for a small child, with a few toys already inside. Two small child hands putting a colorful ball into the chest. A teddy bear sits on the rug next to the chest waiting to be tidied, with a few colorful wooden blocks beside it. The action of tidying up must be obvious at a glance.
 

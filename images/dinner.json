@@ -1,0 +1,16 @@
+{
+  "id": "dinner",
+  "title": "Plate of pasta, meatballs and vegetables",
+  "model": "Google Gemini image generation (via Antigravity)",
+  "prompt": "unknown (generated before prompts were recorded)",
+  "edits": [
+    "contrast raised: autocontrast(cutoff 0.5/0.3), contrast 1.1, color 1.12, unsharp mask"
+  ],
+  "contributor": "maintainer",
+  "license": "CC0-1.0",
+  "copyright_check": {
+    "date": "2026-10-21",
+    "method": "Google Lens, Exact matches tab (manual)",
+    "result": "no exact matches"
+  }
+}

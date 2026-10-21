@@ -1,0 +1,46 @@
+# Copyright gate: blocks merging a pull request whose new or changed images already exist on the web.
+# Make "copyright-gate / web-match" a required status check on main (see CONTRIBUTING.md, Maintainers).
+#
+# Security: pull_request_target runs this workflow from the base branch with access to the
+# VISION_API_KEY secret. It never checks out or runs code from the pull request; it only downloads
+# the changed image files as data and checks them with the trusted script from the base branch.
+name: copyright-gate
+
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  web-match:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the base branch (trusted scripts only)
+        uses: actions/checkout@v4
+
+      - name: Download changed images from the pull request (data only)
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          PR: ${{ github.event.pull_request.number }}
+          HEAD_REPO: ${{ github.event.pull_request.head.repo.full_name }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          mkdir -p "$RUNNER_TEMP/pr-images"
+          gh api --paginate "repos/$REPO/pulls/$PR/files" \
+            --jq '.[] | select(.status != "removed") | .filename' \
+            | grep -E '^images/[A-Za-z0-9._-]+\.(jpg|jpeg|png)$' > "$RUNNER_TEMP/changed.txt" || true
+          while IFS= read -r f; do
+            gh api -H "Accept: application/vnd.github.raw" "repos/$HEAD_REPO/contents/$f?ref=$HEAD_SHA" \
+              > "$RUNNER_TEMP/pr-images/$(basename "$f")"
+          done < "$RUNNER_TEMP/changed.txt"
+          echo "Changed images:"; cat "$RUNNER_TEMP/changed.txt"
+
+      - name: Look for the images on the web (fails closed)
+        env:
+          VISION_API_KEY: ${{ secrets.VISION_API_KEY }}
+          ALLOWED_PREFIXES: https://github.com/${{ github.repository }}/,https://raw.githubusercontent.com/${{ github.repository }}/
+        run: python3 tools/copyright_check.py "$RUNNER_TEMP"/pr-images/*

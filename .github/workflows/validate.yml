@@ -1,0 +1,30 @@
+# Validate a pull request: image metadata and size, routine files, and that output/ is rebuilt.
+# Make "validate / check" a required status check on main.
+name: validate
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - name: Images and routines
+        run: python3 tools/check_images.py
+      - name: Output is rebuilt from the routines
+        # Lines that differ only in measured colors (style="--step: ...") are ignored: JPEG decoding
+        # may differ slightly between Pillow builds. Any other difference means output/ is stale.
+        run: |
+          python3 tools/build.py
+          git diff --exit-code -I 'style="--step:' -- output/ \
+            || { echo "Run python3 tools/build.py and commit output/."; exit 1; }

@@ -6,8 +6,9 @@ Printable A4 sheets with a young child's daily routine: morning, dinner and bedt
 
 ## Print
 
-1. Open a file from [`output/`](output/) in Chrome, for example `output/sl-vsakdan.html`.
-2. Print: paper A4, margins *None*, scale 100 %. The sky background prints on its own.
+1. Download the files: on the [repository page](https://github.com/stutek/child-routines), click **Code**, then **Download ZIP**, and unzip it. The sheets need the `images/` folder next to `output/`, so opening a single file on GitHub does not work.
+2. Open a file from `output/` in Chrome, for example `output/sl-vsakdan.html`.
+3. Print: paper A4, margins *None*, scale 100 %. The sky background prints on its own.
 
 The sheets keep a 14 mm bottom margin because most home printers cannot print the bottom edge.
 
@@ -22,6 +23,25 @@ python3 tools/build.py          # writes output/<language>-<name>.html
 ```
 
 Images live in [`images/`](images/) with one metadata file each. How to make new ones: [docs/PROMPTS.md](docs/PROMPTS.md).
+
+## Make your own with an AI agent
+
+An AI coding agent (Claude Code, Codex, Gemini CLI or Antigravity) can make the routine for you. It loads the repository's instructions in [AGENTS.md](AGENTS.md) on its own.
+
+1. Get the repository onto your computer (`git clone https://github.com/stutek/child-routines.git`, or the ZIP above) and start the agent in its folder.
+2. Describe the routine in your own words, for example:
+
+   ```text
+   Make an English routine for my 4-year-old in routines/en/daily.json: morning (wake up, toilet, wash hands, teeth, get dressed, kindergarten) and bedtime (bath, pajamas, teeth, story, sleep). Use the existing images where they fit, rebuild, and print it to PDF so I can check it.
+   ```
+
+3. Check the result yourself in Chrome's print preview: every label is whole, the order is right, each picture matches its step.
+
+Recommendations:
+
+- **Keep personal details at home.** Your child's name on your own sheet is fine on your computer; do not commit it to a public fork or a pull request.
+- **Reuse images first.** Many coding agents cannot make images; new ones need an image model (the images here were made with Google Gemini through Antigravity), following [docs/PROMPTS.md](docs/PROMPTS.md) and the [copyright check](.agents/skills/copyright-check/SKILL.md). Look at every new image yourself before you print or share it: models make mistakes, such as hands without a body.
+- **Do not let the agent publish.** Review the changes before you push or open a pull request.
 
 ## Contribute
 

@@ -37,6 +37,10 @@ Vsaka zahteva za združitev sproži dve samodejni preverbi; obe morata uspeti:
 - **validate**: slike in metapodatki, rutine, na novo zgrajen `output/`.
 - **copyright-gate**: vsako novo ali spremenjeno sliko poišče na spletu (Google Cloud Vision, Web Detection). Če splet že ima isto sliko, njen del ali stran, ki jo prikazuje, preverba pade in zahteve ni mogoče združiti. Ročnih izjem ni: ustvarite novo sliko z drugačno kompozicijo in jo pošljite znova. Podobne slike ne štejejo, le kopije.
 
+## Z agentom
+
+Agent lahko zgornje korake opravi namesto vas: glejte [Lastna rutina z agentom](README.sl.md#lastna-rutina-z-agentom). Prispevek ostane vaš: preden odprete zahtevo za združitev, sami poglejte vsako sliko in preverite vsako točko kontrolnega seznama. Agent upošteva ista pravila ([AGENTS.sl.md](AGENTS.sl.md)), vrata za avtorske pravice pa njegovo delo preverijo kot vsako drugo.
+
 ## Zahteva za združitev
 
 Izpolnite kontrolni seznam v predlogi zahteve. V eni zahtevi naj bo ena rutina ali nekaj povezanih slik.

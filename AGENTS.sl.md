@@ -47,5 +47,6 @@ Spremembo preveri vizualno: datoteko iz `output/` z brezglavim Chromom natisni v
 
 - Repozitorij je samozadosten: vse, kar agent potrebuje (pravila, veščine, orodja), je v njem, in nič se ne sklicuje na datoteke zunaj njega. `CLAUDE.md` in `GEMINI.md` le uvozita to datoteko (angleško različico).
 - Nikoli ne oslabi vrat za avtorske pravice (`.github/workflows/copyright-gate.yml`): ostati morajo na `pull_request_target`, ne smejo prevzeti ali pognati kode iz zahteve in morajo ob napaki zavrniti.
+- Ko starš sestavlja rutino za svojega otroka, otrokovega imena in drugih osebnih podatkov ne daj v commit ali zahtevo za združitev.
 - `README`, `CONTRIBUTING` in `AGENTS` drži usklajene v angleščini in slovenščini (`*.sl.md`).
 - Magnetki: priporoči 35 mm ali več, vdelane v plastiko; ameriški valj za majhne dele meri 31,7 mm (CPSC 16 CFR 1501). Več pogoltnjenih magnetov se privlači skozi črevesje.

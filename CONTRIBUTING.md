@@ -70,6 +70,10 @@ Every pull request runs two automatic checks, and both must pass before merging:
 - **validate**: image files and metadata, routine files, rebuilt output.
 - **copyright-gate**: each new or changed image is searched on the web (Google Cloud Vision, Web Detection). If the web already has the same picture, part of it, or a page showing it, the check fails and the pull request cannot be merged. There are no manual exceptions: regenerate the image with a different composition and push again. Visually similar pictures do not count, only copies.
 
+## With an AI agent
+
+An agent can do the steps above for you: see [Make your own with an AI agent](README.md#make-your-own-with-an-ai-agent). The contribution stays yours: before you open the pull request, look at every image and check every item of the checklist yourself. The agent follows the same rules ([AGENTS.md](AGENTS.md)), and the copyright gate checks its work like anyone else's.
+
 ## Pull request
 
 Fill in the checklist in the pull request template. Keep one routine or a few related images per pull request.

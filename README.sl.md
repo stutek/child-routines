@@ -6,8 +6,9 @@ Listi A4 za tisk z dnevno rutino majhnega otroka: jutro, večerja in spanje. Obe
 
 ## Tisk
 
-1. V Chromu odprite datoteko iz [`output/`](output/), na primer `output/sl-vsakdan.html`.
-2. Natisnite: papir A4, robovi *Brez*, merilo 100 %. Ozadje z nebom se natisne samo.
+1. Prenesite datoteke: na [strani repozitorija](https://github.com/stutek/child-routines) kliknite **Code**, nato **Download ZIP**, in arhiv razširite. Listi potrebujejo mapo `images/` ob mapi `output/`, zato odpiranje posamezne datoteke na GitHubu ne deluje.
+2. V Chromu odprite datoteko iz `output/`, na primer `output/sl-vsakdan.html`.
+3. Natisnite: papir A4, robovi *Brez*, merilo 100 %. Ozadje z nebom se natisne samo.
 
 Listi imajo spodaj 14 mm roba, ker večina domačih tiskalnikov spodnjega roba ne natisne.
 
@@ -22,6 +23,25 @@ python3 tools/build.py          # zapiše output/<jezik>-<ime>.html
 ```
 
 Slike so v [`images/`](images/), vsaka s svojo datoteko metapodatkov. Kako ustvariti nove: [docs/PROMPTS.sl.md](docs/PROMPTS.sl.md).
+
+## Lastna rutina z agentom
+
+Agent z umetno inteligenco (Claude Code, Codex, Gemini CLI ali Antigravity) lahko rutino sestavi namesto vas. Navodila repozitorija v [AGENTS.sl.md](AGENTS.sl.md) naloži sam.
+
+1. Repozitorij prenesite na računalnik (`git clone https://github.com/stutek/child-routines.git` ali ZIP zgoraj) in agenta zaženite v njegovi mapi.
+2. Rutino opišite s svojimi besedami, na primer:
+
+   ```text
+   V routines/sl/nasa.json sestavi rutino za mojega štiriletnega otroka: jutro (bujenje, stranišče, umivanje rok, zobki, oblačenje, vrtec) in večer (kopanje, pižama, zobki, pravljica, spanje). Kjer se ujemajo, uporabi obstoječe slike, znova zgradi in natisni v PDF, da ga pregledam.
+   ```
+
+3. Izid preverite sami v predogledu tiskanja v Chromu: vsak napis je cel, vrstni red je pravi, vsaka slika se ujema s svojim korakom.
+
+Priporočila:
+
+- **Osebni podatki ostanejo doma.** Otrokovo ime na lastnem listu je na vašem računalniku v redu; ne commitajte ga v javno kopijo (fork) ali zahtevo za združitev.
+- **Najprej uporabite obstoječe slike.** Mnogi agenti za programiranje slik ne znajo ustvariti; za nove je potreben model za slike (te v repozitoriju so nastale z Google Gemini prek Antigravity), po [docs/PROMPTS.sl.md](docs/PROMPTS.sl.md) in [preverbi avtorstva](.agents/skills/copyright-check/SKILL.sl.md). Vsako novo sliko poglejte sami, preden jo natisnete ali delite: modeli se motijo, na primer narišejo roke brez telesa.
+- **Agent naj ne objavlja.** Spremembe preglejte, preden jih pushate ali odprete zahtevo za združitev.
 
 ## Prispevki
 

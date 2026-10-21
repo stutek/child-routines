@@ -9,12 +9,12 @@
       "steps": [
         {
           "label": "DOBRO JUTRO",
-          "image": "good-morning-sun",
+          "image": "good-morning",
           "color": "#8B5CF6"
         },
         {
           "label": "POSPRAVI POSTELJO",
-          "image": "make-bed-temporary",
+          "image": "make-bed",
           "color": "#A855F7"
         },
         {
@@ -29,7 +29,7 @@
         },
         {
           "label": "ZOBKI",
-          "image": null,
+          "image": "brush-teeth",
           "color": "#F97316"
         },
         {
@@ -61,7 +61,7 @@
         },
         {
           "label": "PRIPRAVI MIZO",
-          "image": null,
+          "image": "set-table",
           "color": "#F43F5E"
         },
         {
@@ -76,7 +76,7 @@
         },
         {
           "label": "POSPRAVI IGRAČE",
-          "image": null,
+          "image": "tidy-toys",
           "color": "#C026D3"
         }
       ]
@@ -93,17 +93,17 @@
         },
         {
           "label": "PIŽAMA",
-          "image": "getting-dressed",
+          "image": "pajamas",
           "color": "#8B5CF6"
         },
         {
           "label": "ZOBKI",
-          "image": null,
+          "image": "brush-teeth",
           "color": "#7C3AED"
         },
         {
           "label": "RISANKA",
-          "image": null,
+          "image": "cartoon",
           "color": "#6366F1"
         },
         {

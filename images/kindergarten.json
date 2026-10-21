@@ -1,17 +1,16 @@
 {
   "id": "kindergarten",
-  "title": "Yellow backpack and sneakers",
-  "model": "Google Gemini image generation (via Antigravity)",
-  "prompt": "unknown (generated before prompts were recorded)",
+  "title": "Yellow backpack with straps and sneakers by the door",
+  "model": "Google Gemini image generation (via Antigravity CLI)",
+  "prompt": "Soft watercolor and gouache children's picture-book illustration, delicate colored-pencil outlines, warm cream paper texture, gentle pastel palette. The scene is set in a real, cozy room of a family home with a floor, walls and a few homely details (plants, a small shelf), like a warm picture-book interior. Clear contrast and rich, saturated colors with defined darker outlines and shadows, not pale or washed out. No clouds, nothing floating. Cute and friendly, for a 4-year-old. Gender-neutral. Everything painted in one consistent watercolor style, no flat vector shapes, no text, no letters, no logos, no brands, no flags, no recognizable existing characters; every character is original. Square 1:1 composition, main subject large and centered, readable at 4 cm size. A cheerful yellow child's backpack seen from a three-quarter back view so that both padded SHOULDER STRAPS are clearly visible, standing on the floor of a cozy home entrance hall next to a pair of small sneakers, near the front door with coat hooks. Ready to go to kindergarten.",
   "edits": [
-    "contrast raised: autocontrast(cutoff 0.5/0.3), contrast 1.1, color 1.12, unsharp mask",
-    "cropped to remove clouds"
+    "contrast raised with tools/enhance.py"
   ],
   "contributor": "maintainer",
   "license": "CC0-1.0",
   "copyright_check": {
     "date": "2026-10-21",
-    "method": "Google Lens, Exact matches tab (manual)",
+    "method": "Google Lens, Exact matches tab (manual), raw and final file",
     "result": "no exact matches"
   }
 }

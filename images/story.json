@@ -1,16 +1,16 @@
 {
   "id": "story",
-  "title": "Open storybook with a sleepy moon",
-  "model": "Google Gemini image generation (via Antigravity)",
-  "prompt": "unknown (generated before prompts were recorded)",
+  "title": "Open storybook on a bed with a pop-up castle",
+  "model": "Google Gemini image generation (via Antigravity CLI)",
+  "prompt": "Soft watercolor and gouache children's picture-book illustration, delicate colored-pencil outlines, warm cream paper texture, gentle pastel palette. The scene is set in a real, cozy room of a family home with a floor, walls and a few homely details (plants, a small shelf), like a warm picture-book interior. Clear contrast and rich, saturated colors with defined darker outlines and shadows, not pale or washed out. No clouds, nothing floating. Cute and friendly, for a 4-year-old. Gender-neutral. Everything painted in one consistent watercolor style, no flat vector shapes, no text, no letters, no logos, no brands, no flags, no recognizable existing characters; every character is original. Square 1:1 composition, main subject large and centered, readable at 4 cm size. A large open picture storybook lying on a cozy bed with a patchwork quilt and a soft pillow. A small magical fairy-tale castle with pastel towers and little flags rises out of the open pages like a pop-up, with tiny golden sparkles around it. A warm glowing bedside lamp and a window with a crescent moon. No characters in the bed, no clouds. Calm bedtime mood.",
   "edits": [
-    "contrast raised: autocontrast(cutoff 0.5/0.3), contrast 1.1, color 1.12, unsharp mask"
+    "contrast raised with tools/enhance.py"
   ],
   "contributor": "maintainer",
   "license": "CC0-1.0",
   "copyright_check": {
     "date": "2026-10-21",
-    "method": "Google Lens, Exact matches tab (manual)",
+    "method": "Google Lens, Exact matches tab (manual), raw and final file",
     "result": "no exact matches"
   }
 }

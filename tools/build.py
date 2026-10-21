@@ -27,15 +27,26 @@ TOOLBAR = {
 }
 
 MISSING_BG = "#FFFFFF"
+MIN_FRAME_LUMINANCE = 0.6  # WCAG relative luminance; keeps frames pastel
 
 
 def edge_color(image_id, side):
-    """Median of the image strip next to the frame (image on the left -> right edge)."""
+    """Median of the lighter half of the image strip next to the frame (image on the left ->
+    right edge). The lighter half is usually the wall or background, not floor or furniture,
+    so the frame stays light."""
     im = Image.open(ROOT / "images" / f"{image_id}.jpg").convert("RGB")
     w, h = im.size
     x0, x1 = (int(w * 0.94), w) if side == "left" else (0, int(w * 0.06))
-    px = list(im.crop((x0, int(h * 0.3), x1, int(h * 0.7))).getdata())
-    return "#%02X%02X%02X" % tuple(int(statistics.median(p[k] for p in px)) for k in range(3))
+    px = sorted(im.crop((x0, int(h * 0.3), x1, int(h * 0.7))).getdata(),
+                key=lambda p: 0.299 * p[0] + 0.587 * p[1] + 0.114 * p[2])
+    light = px[len(px) // 2:]
+    c = [statistics.median(p[k] for p in light) for k in range(3)]
+    # an edge that is dark all over (furniture, floor) is mixed with white until it is pastel
+    for share in [i / 20 for i in range(21)]:
+        mixed = [round(v + (255 - v) * share) for v in c]
+        if _luminance(mixed) >= MIN_FRAME_LUMINANCE:
+            break
+    return "#%02X%02X%02X" % tuple(mixed)
 
 
 def _luminance(c):

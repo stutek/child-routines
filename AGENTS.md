@@ -30,7 +30,7 @@ Check a change visually: print the output file to PDF with headless Chrome and l
 
 ## Layout and its limits
 
-- A step is one object: square image (54 mm) and a frame (92 × 18 mm) with the label and a time field (`__ : __`), plus a 35 mm circle for the magnet. Image, frame and circle share one outline and background; the frame background is the image's edge color, measured by the generator.
+- A step is one object: square image (54 mm) and a frame (92 × 18 mm) with the label and a time field (`__ : __`), plus a 35 mm circle for the magnet. Image, frame and circle share one outline and background; the frame background is the edge color of the image (lighter half of the edge strip, lifted to a pastel if dark), measured by the generator.
 - Images alternate left and right. Width is the binding limit: image + frame + image = 200 mm (A4 minus 5 mm side margins), because a frame reaches into the height of the opposite image.
 - Margins 5 mm top and sides, 14 mm bottom: home printers do not print the bottom 13 to 14 mm (Epson specification: 3 mm top and sides, 14 mm bottom).
 - Labels do not wrap. 14 pt bold uppercase fits about 17 characters (`POSPRAVI POSTELJO`). After changing labels, measure in headless Chrome that each label's `scrollWidth` is smaller than its parent's width.

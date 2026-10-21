@@ -34,3 +34,5 @@ Write the result into the image's `.json`:
 ```json
 "copyright_check": {"date": "YYYY-MM-DD", "method": "Vision Web Detection (raw and final); Google Lens Exact matches", "result": "no exact matches"}
 ```
+
+A match that needed a closer look (similar layout, a near copy, a license question) gets its own write-up in `docs/copyright-investigations/<date>-<image>-<source>.md`: the image by commit, blob and SHA-256, the match with its URL and license, a comparison, the decision and its sources.

@@ -34,3 +34,5 @@ Izid zapiši v `.json` slike:
 ```json
 "copyright_check": {"date": "YYYY-MM-DD", "method": "Vision Web Detection (surova in končna); Google Lens Exact matches", "result": "no exact matches"}
 ```
+
+Ujemanje, ki zahteva natančnejši pregled (podobna postavitev, skoraj kopija, vprašanje licence), dobi svoj zapis v `docs/copyright-investigations/<datum>-<slika>-<vir>.md`: slika s commitom, oznako blob in SHA-256, ujemanje z URL in licenco, primerjava, odločitev in viri.

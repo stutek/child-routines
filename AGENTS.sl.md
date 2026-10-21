@@ -17,6 +17,7 @@ Listi A4 za tisk z rutino majhnega otroka (jutro, večerja, spanje). Visijo na h
 | `tools/lens_check.py`             | Ročna preverba z Google Lens prek razhroščevalnega Chroma.                    |
 | `docs/PROMPTS.md`                 | Slog slik, pozivi in izkušnje.                                                |
 | `.agents/skills/copyright-check/` | Kako preveriti slike pred dodajanjem ali združitvijo.                         |
+| `docs/copyright-investigations/`  | Zapis vsakega ujemanja slike, ki je zahtevalo natančnejši pregled.            |
 
 ## Ukazi
 

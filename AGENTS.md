@@ -17,6 +17,7 @@ Printable A4 routine sheets for young children (morning, dinner, bedtime). They 
 | `tools/lens_check.py`             | Manual Google Lens check through a debugging Chrome.                     |
 | `docs/PROMPTS.md`                 | Image style text, prompts and lessons.                                   |
 | `.agents/skills/copyright-check/` | How to check images before adding or merging them.                       |
+| `docs/copyright-investigations/`  | One write-up per image match that needed a closer look.                  |
 
 ## Commands
 

@@ -18,7 +18,7 @@ Every routine image is a square 1:1 illustration generated with an image model. 
 - **No reference to a near-copy.** An earlier tooth image (tooth holding a brush above its head, foam on top) was almost identical to existing stock clipart (Pngtree 2020, Pikbest 2019) and was removed. Never ask for that pose.
 - **Show the action, not the result.** "Set the table" is hands placing cutlery next to an empty plate, not a plate with food (that reads as "dinner").
 - **As much detail as the best images.** A sparse room (bare walls, plain objects) looks unfinished next to the others; ask for a busy picture-book page with many homely details.
-- **Keep steps distinct.** "Clear the table" must not show a sink with a tap, because "wash hands" already does.
+- **Keep steps distinct.** "Clear the table" must not show a sink with a tap, because "wash hands" already does. Only the sleep image has closed eyes; waking up has eyes wide open.
 - **No disembodied hands.** Hands appear only in a child's-eye view, entering from the bottom edge (set the table, clear the table, pajamas). Otherwise the teddy bear does the action (make the bed, tidy up toys).
 - **Same world.** Bath and teeth happen in the same bathroom as the toilet image; the same teddy bear appears in waking up, making the bed, tidying up and sleeping.
 - **No false promises.** Do not show food the child will not get (pancakes for breakfast at home when breakfast is at kindergarten).
@@ -57,7 +57,7 @@ Every routine image is a square 1:1 illustration generated with an image model. 
 
 **Bath** — The same cozy bathroom as in the reference (mint tiles, wooden shelf, plants, patterned floor): a happy small toddler sitting in a white clawfoot bathtub full of foamy bubbles, playing with a yellow rubber duck. The bathtub stands firmly on the bathroom floor. A fluffy towel hangs nearby. Gender-neutral child.
 
-**Good morning** — The same teddy bear, just woken up, SITTING UP in its small wooden bed under the patchwork quilt and stretching happily with both arms raised above its head, a big sleepy smile. A cozy child's bedroom in the morning: bright warm sunshine streaming through a window, a small rug.
+**Good morning** — The same teddy bear, just woken up, SITTING UP in its small wooden bed under the patchwork quilt and stretching happily with both arms raised above its head, a big smile, its eyes WIDE OPEN, round and bright (NOT closed, NOT squinting; take only the bear's look from the reference, not its closed eyes). A cozy child's bedroom in the morning: bright warm sunshine streaming through a window, a small rug.
 
 **Off to kindergarten** — A cheerful yellow child's backpack seen from a three-quarter back view so that both padded SHOULDER STRAPS are clearly visible, standing on the floor of a cozy home entrance hall next to a pair of small sneakers, near the front door with coat hooks. Ready to go to kindergarten.
 

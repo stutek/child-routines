@@ -30,7 +30,7 @@ Every routine image is a square 1:1 illustration generated with an image model. 
 | cartoon      | cartoon             | style references        |
 | tidy-toys    | tidy up toys        | style references        |
 | brush-teeth  | teeth               | `toilet.jpg` (bathroom) |
-| sleep        | sleep               | `sleep.jpg` (bear)      |
+| sleep        | sleep               | none (see the prompt)   |
 | story        | bedtime story       | style references        |
 | clear-table  | clear the table     | style references        |
 | bath         | bath                | `toilet.jpg` (bathroom) |

@@ -17,7 +17,9 @@ Vsaka slika rutine je kvadratna ilustracija 1 : 1, ustvarjena z modelom za slike
 - **Ustvarjaj, ne sestavljaj.** Če model ne uspe (kvota, napaka), se ustavi. Slike ne ponarejaj s Pythonom z lepljenjem ploskih oblik; taki rezultati so bili vsi zavrnjeni.
 - **Ne zahtevaj drže, ki je kopija.** Zobek, ki drži ščetko nad glavo, s peno na vrhu, je bil skoraj enak obstoječemu klipartu (Pngtree 2020, Pikbest 2019) in je odstranjen.
 - **Pokaži dejanje, ne rezultata.** »Pripravi mizo« so ročice, ki polagajo pribor ob prazen krožnik, ne krožnik s hrano (to bi bila večerja).
+- **Toliko podrobnosti kot najboljše slike.** Prazen prostor (gole stene, preprosti predmeti) ob drugih slikah deluje nedokončano; zahtevaj bogato stran slikanice z veliko domačimi podrobnostmi.
 - **Koraki naj se ločijo.** »Pospravi mizo« ne sme kazati korita s pipo, ker to že kaže »umij roke«.
-- **Isti svet.** Kopanje in zobki so v isti kopalnici kot stranišče; isti medvedek se zbuja, pospravlja posteljo in spi.
+- **Brez rok brez telesa.** Roke so le v pogledu z otrokovimi očmi, ko pridejo od spodnjega roba (pripravi mizo, pospravi mizo, pižama). Sicer dejanje opravi medvedek (pospravi posteljo, pospravi igrače).
+- **Isti svet.** Kopanje in zobki so v isti kopalnici kot stranišče; isti medvedek se zbuja, pospravlja posteljo, pospravlja igrače in spi.
 - **Brez lažnih obljub.** Ne kaži hrane, ki je otrok ne bo dobil (palačinke za zajtrk doma, ko je zajtrk v vrtcu).
 - **Pred uporabo preveri** kontrast (glej AGENTS.sl.md) in avtorstvo na surovi in končni datoteki (`.agents/skills/copyright-check/`).

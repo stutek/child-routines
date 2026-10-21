@@ -19,7 +19,8 @@ Every routine image is a square 1:1 illustration generated with an image model. 
 - **Show the action, not the result.** "Set the table" is hands placing cutlery next to an empty plate, not a plate with food (that reads as "dinner").
 - **As much detail as the best images.** A sparse room (bare walls, plain objects) looks unfinished next to the others; ask for a busy picture-book page with many homely details.
 - **Keep steps distinct.** "Clear the table" must not show a sink with a tap, because "wash hands" already does.
-- **Same world.** Bath and teeth happen in the same bathroom as the toilet image; the same teddy bear appears in waking up, making the bed and sleeping.
+- **No disembodied hands.** Hands appear only in a child's-eye view, entering from the bottom edge (set the table, clear the table, pajamas). Otherwise the teddy bear does the action (make the bed, tidy up toys).
+- **Same world.** Bath and teeth happen in the same bathroom as the toilet image; the same teddy bear appears in waking up, making the bed, tidying up and sleeping.
 - **No false promises.** Do not show food the child will not get (pancakes for breakfast at home when breakfast is at kindergarten).
 - **Check before use:** contrast (see AGENTS.md), and the copyright check on the raw and the final file (`.agents/skills/copyright-check/`).
 
@@ -29,7 +30,7 @@ Every routine image is a square 1:1 illustration generated with an image model. 
 | ------------ | ------------------- | ----------------------- |
 | set-table    | set the table       | style references        |
 | cartoon      | cartoon             | style references        |
-| tidy-toys    | tidy up toys        | style references        |
+| tidy-toys    | tidy up toys        | none (see the prompt)   |
 | brush-teeth  | teeth               | `toilet.jpg` (bathroom) |
 | sleep        | sleep               | none (see the prompt)   |
 | story        | bedtime story       | style references        |
@@ -44,7 +45,7 @@ Every routine image is a square 1:1 illustration generated with an image model. 
 
 **Cartoon** — RICHLY DETAILED like a busy picture-book page: a cozy family living room in the evening. A cute brown teddy bear wearing a blue-and-white striped nightcap sits on a big patterned floor cushion, seen from slightly behind and to the side, happily watching a rounded wooden TV on a low cabinet. On the TV screen, large and clear, an original friendly cartoon bunny waves (not any known character). Around them many homely details: a bookshelf with colorful books and small toys, a woven basket with toy blocks and a ball, framed children's drawings on patterned wallpaper, a window with curtains and a dusky evening sky, a glowing floor lamp, a potted plant, a soft blanket, a detailed patterned rug on wooden floorboards.
 
-**Tidy up toys** — A low, open wooden toy chest, low enough for a small child, with a few toys already inside. Two small child hands putting a colorful ball into the chest. A teddy bear sits on the rug next to the chest waiting to be tidied, with a few colorful wooden blocks beside it. The action of tidying up must be obvious at a glance.
+**Tidy up toys** — (no reference image) A cute brown teddy bear wearing a blue-and-white striped nightcap STANDS on the rug beside a low, open wooden toy chest and, with both paws, puts the last colorful ball into it. The chest is full of toys (wooden blocks, a toy car, a picture book). The floor around it is tidy: NO toys left on the floor. No human hands, no people. A cozy child's room with many homely details: a shelf with colorful books, a plant, framed children's drawings, a window with curtains, a patterned rug on wooden floorboards. The action of tidying up must be obvious at a glance.
 
 **Teeth** — An ORIGINAL cute tooth character (new design, not the common clipart pose of a tooth holding a toothbrush above its head with foam on top): the tooth stands on the edge of the bathroom sink, brushing its front with a small toothbrush held in front of it, a few bubbles around, a cup with toothbrushes next to it, in the same cozy bathroom as the reference with mint tiles, so the white tooth stands out clearly against the colored background. No dental floss.
 

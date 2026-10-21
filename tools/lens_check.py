@@ -6,6 +6,7 @@ the "Exact matches" tab (identical or near-identical images on the web).
 Needs Chrome started with --remote-debugging-port (default 9224, override with CDP_PORT) and a
 separate profile, e.g.:
     google-chrome --remote-debugging-port=9224 --user-data-dir=$HOME/.chrome-debug-profile
+Needs `pip install websockets` (not in requirements.txt; CI does not run this script).
 Do not bypass bot checks or login walls on matched sites.
 """
 import asyncio

@@ -42,6 +42,7 @@ Check a change visually: print the output file to PDF with headless Chrome and l
 
 - Follow `docs/PROMPTS.md`: one watercolor style, real rooms, no clouds (except night), no text, brands, flags or known characters. Generate; never compose an image from pasted parts with code.
 - Image models tend to produce pale images. Raise contrast once with Pillow: `ImageOps.autocontrast(cutoff=(0.5, 0.3))`, `ImageEnhance.Contrast(1.1)`, `ImageEnhance.Color(1.12)`, `UnsharpMask(radius=2, percent=50, threshold=3)`. Crop in the file, not with CSS, so the edge color is measured on the visible edge.
+- Copy the prompt and the reference images into the image's `.json` exactly as passed to the model (from the tool call), never rewritten from `docs/PROMPTS.md`. What is not known stays `unknown`.
 - Before adding any image, follow the skill `.agents/skills/copyright-check/` on the raw and on the final file, and record the result in its `.json`.
 
 ## Rules

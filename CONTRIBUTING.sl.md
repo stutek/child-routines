@@ -27,7 +27,7 @@ Hvala, ker delite rutino svojega otroka. Dodate lahko **rutino** (novo ali prevo
 ## Dodajanje slike
 
 1. Ustvarite kvadratno sliko po [docs/PROMPTS.sl.md](docs/PROMPTS.sl.md) (isti akvarelni slog, resnični prostori, brez oblakov razen ponoči, brez napisov). Shranite jo kot `images/<oznaka>.jpg`, 1024 × 1024 slikovnih pik, JPEG, največ 1,5 MB. Oznaka je angleška, z malimi črkami in vezaji, na primer `brush-teeth`.
-2. Dodajte `images/<oznaka>.json` po zgledu v [angleški različici](CONTRIBUTING.md#add-an-image): model, celoten poziv, urejanje, vaše uporabniško ime na GitHubu, licenca `CC0-1.0` in izid preverbe.
+2. Dodajte `images/<oznaka>.json` po zgledu v [angleški različici](CONTRIBUTING.md#add-an-image): model, celoten poziv (natančno prepisan), zgledne slike, urejanje, vaše uporabniško ime na GitHubu, licenca `CC0-1.0` in izid preverbe.
 3. Najprej preverite sami z iskanjem po slikah (na primer Google Lens, zavihek *Exact matches*), in sicer surovo sliko iz modela in končno datoteko po urejanju. Če enaka ali skoraj enaka slika na spletu že obstaja, je ne pošljite: ustvarite novo z drugačno kompozicijo. Podrobnosti: [preverba avtorstva](.agents/skills/copyright-check/SKILL.sl.md).
 
 ## Vrata za avtorske pravice

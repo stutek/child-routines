@@ -2,7 +2,11 @@
   "id": "cartoon",
   "title": "Retro TV showing a waving bunny",
   "model": "Google Gemini image generation (via Antigravity CLI)",
-  "prompt": "Soft watercolor and gouache children's picture-book illustration, delicate colored-pencil outlines, warm cream paper texture, gentle pastel palette. The scene is set in a real, cozy room of a family home with a floor, walls and a few homely details (plants, a small shelf), like a warm picture-book interior. Clear contrast and rich, saturated colors with defined darker outlines and shadows, not pale or washed out. No clouds, nothing floating. Cute and friendly, for a 4-year-old. Gender-neutral. Everything painted in one consistent watercolor style, no flat vector shapes, no text, no letters, no logos, no brands, no flags, no recognizable existing characters; every character is original. Square 1:1 composition, main subject large and centered, readable at 4 cm size. A cozy rounded retro TV on a small wooden cabinet, its screen glowing softly and showing a friendly smiling cartoon bunny waving (an original character, not any known brand). A soft cushion and a small blanket on the rug in front of the TV, warm evening lamp light.",
+  "prompt": "Soft watercolor and gouache children's picture-book illustration, delicate colored-pencil outlines, warm cream paper texture, gentle pastel palette. Watching a cartoon in the evening: a cozy rounded retro television set on a small low wooden cabinet, its screen glowing softly and showing a friendly smiling cute cartoon bunny waving (an original character, not any known brand or logo). On the warm patterned rug in front of the TV, there is a soft plump floor cushion and a little blanket, ready for cozy evening viewing. Warm soft evening lamp light in the cozy living room, a small houseplant on a shelf in the background. Clear contrast and rich, saturated colors with defined darker outlines and soft watercolor shadows, not pale or washed out. No clouds, nothing floating, no sparkles. Cute, calm, and friendly for a 4-year-old child. Everything painted in one consistent watercolor style matching the reference images, no flat vector shapes, no text, no letters, no logos. Square 1:1 composition, main subject large and centered, readable at 4 cm size.",
+  "reference_images": [
+    "vecer_1_lulanje.jpg (by name: local copy of the toilet image of this set, see toilet.json)",
+    "vecer_2_umij_roke.jpg (by name: local copy of the hand-washing image of this set, see wash-hands.json)"
+  ],
   "edits": [
     "contrast raised with tools/enhance.py"
   ],

@@ -42,6 +42,7 @@ Spremembo preveri vizualno: datoteko iz `output/` z brezglavim Chromom natisni v
 
 - Upoštevaj `docs/PROMPTS.md`: en akvarelni slog, resnični prostori, brez oblakov (razen ponoči), brez napisov, znamk, zastav ali znanih likov. Ustvarjaj; nikoli ne sestavljaj slike iz prilepljenih delov s kodo.
 - Modeli za slike pogosto dajo blede slike. Kontrast povečaj enkrat s Pillow: `ImageOps.autocontrast(cutoff=(0.5, 0.3))`, `ImageEnhance.Contrast(1.1)`, `ImageEnhance.Color(1.12)`, `UnsharpMask(radius=2, percent=50, threshold=3)`. Obrezuj v datoteki, ne s CSS, da se barva roba izmeri na vidnem robu.
+- Poziv in zgledne slike prepiši v `.json` slike natanko tako, kot sta šla modelu (iz klica orodja), nikoli obnovljena iz `docs/PROMPTS.md`. Kar ni znano, ostane `unknown`.
 - Pred dodajanjem vsake slike upoštevaj veščino `.agents/skills/copyright-check/` na surovi in končni datoteki ter izid zapiši v njen `.json`.
 
 ## Pravila

@@ -2,7 +2,10 @@
   "id": "getting-dressed",
   "title": "T-shirt with a sun, trousers and socks",
   "model": "Google Gemini image generation (via Antigravity)",
-  "prompt": "unknown (generated before prompts were recorded)",
+  "prompt": "A whimsical, adorable children's picture book illustration in soft watercolor and gouache style, matching the artistic style of the reference image. Cute children's clothes neatly and playfully arranged: a sweet colorful toddler t-shirt with a cheerful smiling sun print on the front, paired with charming little blue jeans and tiny colorful socks. Soft light pastel green watercolor textured background with subtle delicate sparkles and paper grain. Centered square composition, warm and cozy for a 4-year-old child.",
+  "reference_images": [
+    "dobro_jutro_png_1792594163103.jpg (by name: earlier good-morning image, not in this repository)"
+  ],
   "edits": [
     "contrast raised: autocontrast(cutoff 0.5/0.3), contrast 1.1, color 1.12, unsharp mask"
   ],

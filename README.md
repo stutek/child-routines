@@ -31,9 +31,8 @@ Parents are welcome to add routines, translations and images: see [CONTRIBUTING.
 
 Small magnets are dangerous if a child swallows several. Use magnets larger than 32 mm in every direction (the circles are 35 mm), set in plastic, not small neodymium magnets, and supervise young children.
 
-## Licenses
+## License
 
-- Code (`tools/`, generated HTML): [MIT](LICENSE).
-- Images and routine texts: [CC0 1.0](images/LICENSE.md), public domain. The images were made with an image model; such images are most likely not protected by copyright, so they are dedicated to the public domain instead of being licensed.
+Everything in this repository (code, images, routine texts, documentation) is dedicated to the public domain under [CC0 1.0](LICENSE). You may copy, change and use it for any purpose, without asking and without attribution. The images were made with an image model; such images are most likely not protected by copyright, and CC0 states that plainly instead of claiming rights that may not exist.
 
 For AI agents: [AGENTS.md](AGENTS.md).

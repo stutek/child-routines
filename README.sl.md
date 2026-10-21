@@ -31,9 +31,8 @@ Starši lahko dodajo rutine, prevode in slike: glejte [CONTRIBUTING.sl.md](CONTR
 
 Majhni magneti so nevarni, če otrok pogoltne več kosov. Uporabite magnetke, večje od 32 mm v vsaki smeri (krogi merijo 35 mm), vdelane v plastiko, ne majhnih neodimovih magnetov, in majhne otroke nadzorujte.
 
-## Licence
+## Licenca
 
-- Koda (`tools/`, zgrajeni HTML): [MIT](LICENSE).
-- Slike in besedila rutin: [CC0 1.0](images/LICENSE.md), javna last. Slike so ustvarjene z modelom za slike; take slike najverjetneje niso avtorsko zaščitene, zato so dane v javno last in ne licencirane.
+Vsa vsebina repozitorija (koda, slike, besedila rutin, dokumentacija) je dana v javno last po [CC0 1.0](LICENSE). Smete jo kopirati, spreminjati in uporabljati za kateri koli namen, brez vprašanja in brez navedbe avtorja. Slike so ustvarjene z modelom za slike; take slike najverjetneje niso avtorsko zaščitene, CC0 pa to pove naravnost, namesto da bi zahteval pravice, ki jih morda ni.
 
 Za agente: [AGENTS.sl.md](AGENTS.sl.md).

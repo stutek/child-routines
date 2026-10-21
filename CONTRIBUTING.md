@@ -9,7 +9,7 @@ Thank you for sharing your child's routine. You can add a **routine** (a new one
 - **No real people.** No photos of children or adults, no names, no faces of real people.
 - **No text in images**, no brands, logos, flags or known characters (cartoon, film, toy brands).
 - **Only images you may give away.** Images you generated yourself with an image model, or drew yourself. Never images found on the web, stock images or edited copies of them.
-- Everything you add is dedicated to the public domain under [CC0 1.0](images/LICENSE.md).
+- Everything you add is dedicated to the public domain under [CC0 1.0](LICENSE).
 
 ## Add a routine
 

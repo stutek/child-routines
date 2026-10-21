@@ -9,7 +9,7 @@ Hvala, ker delite rutino svojega otroka. Dodate lahko **rutino** (novo ali prevo
 - **Brez resničnih oseb.** Brez fotografij otrok ali odraslih, brez imen, brez obrazov resničnih ljudi.
 - **Brez napisov na slikah**, brez znamk, logotipov, zastav ali znanih likov (risanke, filmi, blagovne znamke igrač).
 - **Le slike, ki jih smete podariti.** Slike, ki ste jih sami ustvarili z modelom za slike ali sami narisali. Nikoli slik s spleta, iz zbirk ali njihovih predelav.
-- Vse, kar dodate, je dano v javno last po [CC0 1.0](images/LICENSE.md).
+- Vse, kar dodate, je dano v javno last po [CC0 1.0](LICENSE).
 
 ## Dodajanje rutine
 

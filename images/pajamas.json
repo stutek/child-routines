@@ -1,11 +1,11 @@
 {
   "id": "pajamas",
-  "title": "Child's hands holding a pajama top with moons and stars",
+  "title": "Child's hands holding up a soft pajama top with moons and stars, pants on the bed",
   "model": "Google Gemini image generation (via Antigravity CLI)",
-  "prompt": "Soft watercolor and gouache children's picture-book illustration, delicate colored-pencil outlines, warm cream paper texture, gentle pastel palette. Putting on pajamas in the evening, through a child's eyes (first-person point of view): two small cute toddler child hands holding and pulling on a soft pastel pajama top patterned with tiny crescent moons and little stars. The matching soft pajama pants are neatly laid on the bed nearby. Setting is a cozy child's bedroom in the evening with warm soft bedside lamp light and a wooden floor. Clear contrast and rich, saturated colors with defined darker outlines and soft watercolor shadows, not pale or washed out. No clouds, nothing floating, no sparkles. Cute, calm, and friendly for a 4-year-old child. Gender-neutral hands and clothing. Everything painted in one consistent watercolor style matching the reference images, no flat vector shapes, no text, no letters, no logos. Square 1:1 composition, main subject large and centered, readable at 4 cm size.",
+  "prompt": "Soft watercolor and gouache children's picture-book illustration, delicate colored-pencil outlines, warm cream paper texture, gentle pastel palette. The scene is set in a real, cozy room of a family home with a floor, walls and a few homely details (plants, a small shelf), like a warm picture-book interior. Clear contrast and rich, saturated colors with defined darker outlines and shadows, not pale or washed out. No clouds, nothing floating. Cute and friendly, for a 4-year-old. Gender-neutral. Everything painted in one consistent watercolor style, no flat vector shapes, no text, no letters, no logos, no brands, no flags, no recognizable existing characters; every character is original. Square 1:1 composition, main subject large and centered, readable at 4 cm size. Through a child's eyes (first-person view): two small child hands with BARE forearms enter from the bottom edge and lift a soft pastel cotton pajama top with little moons and stars by its shoulders, about to pull it over the head. The soft fabric hangs down limply under its own weight, with natural folds and drooping sleeves; it is NOT stiff and does NOT stand up like a board. The child is not yet wearing any pajamas. The matching pajama pants lie loosely on the bed. A cozy child's bedroom in the evening, warm lamp light, many homely details: a shelf with books and toys, a plant, a window with curtains, a patterned rug. Gender-neutral.",
   "reference_images": [
-    "vecer_1_lulanje.jpg (by name: local copy of the toilet image of this set, see toilet.json)",
-    "vecer_2_umij_roke.jpg (by name: local copy of the hand-washing image of this set, see wash-hands.json)"
+    "images/toilet.jpg (style reference)",
+    "images/wash-hands.jpg (style reference)"
   ],
   "edits": [
     "contrast raised with tools/enhance.py"
@@ -13,8 +13,8 @@
   "contributor": "maintainer",
   "license": "CC0-1.0",
   "copyright_check": {
-    "date": "2026-10-21",
-    "method": "Google Lens, Exact matches tab (manual), raw and final file",
+    "date": "2026-10-22",
+    "method": "Google Lens, Exact matches tab, raw and final file",
     "result": "no exact matches"
   }
 }

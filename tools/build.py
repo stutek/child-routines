@@ -99,10 +99,11 @@ def stars():
 
 
 def clock_text(time, lang):
-    """24-hour time for Slovenian and other languages, 12-hour with AM/PM for English."""
-    if lang != "en":
-        return time
+    """As the browser's Intl formats it for the language: 24-hour without a leading zero (sl: 7:05,
+    19:30), 12-hour with AM/PM for English (US). The sheet maker uses the reader's own locale."""
     h, m = map(int, time.split(":"))
+    if lang != "en":
+        return f"{h}:{m:02d}"
     return f"{(h % 12) or 12}:{m:02d} {'AM' if h < 12 else 'PM'}"
 
 

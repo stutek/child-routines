@@ -106,11 +106,17 @@ function imageSize(n) {
   return Math.min(g.img, Math.floor((4 * row - g.gap) * 2) / 2);
 }
 
-// same as clock_text() in tools/build.py: 24-hour, or 12-hour with AM/PM in English
+// the reader's locale when it matches the page language (en-GB: 19:30, en-US: 7:30 PM, sl: 19:30),
+// else the language itself; tools/build.py clock_text() gives the same for sl and en
 function clockText(time, lang) {
-  if (lang !== "en") return time;
   const [h, m] = time.split(":").map(Number);
-  return `${h % 12 || 12}:${String(m).padStart(2, "0")} ${h < 12 ? "AM" : "PM"}`;
+  const own = navigator.language || "";
+  const locale = own.toLowerCase().startsWith(lang) ? own : lang;
+  try {
+    return new Intl.DateTimeFormat(locale, { hour: "numeric", minute: "2-digit", timeZone: "UTC" }).format(Date.UTC(2020, 0, 1, h, m));
+  } catch (e) {
+    return time;
+  }
 }
 
 function sheetHtml(sheet, lang = "sl") {

@@ -102,7 +102,7 @@ function stars() {
 
 // same as image_size() in tools/build.py
 function imageSize(n) {
-  const g = D.geometry, row = (g.page_h - g.margin - g.margin_bottom - g.title) / (2 * n + 2);
+  const g = D.geometry, row = (g.page_h - g.margin - g.margin_bottom - g.title - g.footer) / (2 * n + 2);
   return Math.min(g.img, Math.floor((4 * row - g.gap) * 2) / 2);
 }
 
@@ -150,8 +150,9 @@ function sheetHtml(sheet, lang = "sl") {
   return `
   <div class="page-a4 rt-page" style="background: ${background};${size}">${starry}
     <div class="rt-grid" style="grid-template-rows: ${gridRows};">
-      <div class="rt-header"><div class="rt-title">${esc(sheet.title)}</div><div class="rt-site">${esc(D.site)}</div></div>${rows}
+      <div class="rt-header"><div class="rt-title">${esc(sheet.title)}</div></div>${rows}
     </div>
+    <div class="rt-footer"><span class="rt-license">${esc(D.license[lang] || D.license.en)}</span><span class="rt-site">${esc(D.site)}</span>${D.qr}</div>
   </div>`;
 }
 
@@ -327,11 +328,14 @@ function update(structure = false) {
   save();
 }
 
-// the A4 sheet shrinks to the width of its column (narrow screen or the right half of a wide one);
-// printing uses @media print (zoom 1)
+// the A4 sheet shrinks to its column: by width on a narrow screen, by width and height side by side,
+// so the whole sheet is in view without scrolling; printing uses @media print (zoom 1)
 function fitPreview() {
-  const a4 = 794, room = document.getElementById("preview").clientWidth - 8;
-  document.getElementById("sheets").style.zoom = room < a4 ? (room / a4).toFixed(3) : "";
+  const a4w = 794, a4h = 1123, preview = document.getElementById("preview");
+  const label = document.getElementById("preview-label");
+  let zoom = (preview.clientWidth - 8) / a4w;
+  if (matchMedia("(min-width: 1100px)").matches) zoom = Math.min(zoom, (innerHeight - 32 - label.offsetHeight - 16) / a4h);
+  document.getElementById("sheets").style.zoom = zoom < 1 ? zoom.toFixed(3) : "";
 }
 window.addEventListener("resize", fitPreview);
 

@@ -34,8 +34,8 @@ window.SHEET_DATA = {
   "bath": {
    "title": "Toddler in a bubble bath in the same bathroom",
    "label": {
-    "sl": "KOPANJE",
-    "en": "BATH"
+    "sl": "OKOPAJ SE",
+    "en": "BATH TIME"
    },
    "keywords": {
     "sl": [
@@ -43,7 +43,8 @@ window.SHEET_DATA = {
      "kopel*",
      "kopaj*",
      "kad",
-     "tus*"
+     "tus*",
+     "okopaj*"
     ],
     "en": [
      "bath*",
@@ -80,7 +81,7 @@ window.SHEET_DATA = {
   "brush-teeth": {
    "title": "Tooth character brushing at the bathroom sink",
    "label": {
-    "sl": "ZOBKI",
+    "sl": "UMIJ ZOBKE",
     "en": "BRUSH TEETH"
    },
    "keywords": {
@@ -100,8 +101,8 @@ window.SHEET_DATA = {
   "care": {
    "title": "Medicine bottle with a green cross, syrup cup, cream jar and tube on a bathroom shelf",
    "label": {
-    "sl": "ZDRAVILA",
-    "en": "MEDICINE"
+    "sl": "ZDRAVILA IN NEGA",
+    "en": "MEDICINE & CREAM"
    },
    "keywords": {
     "sl": [
@@ -133,7 +134,7 @@ window.SHEET_DATA = {
    "title": "Wooden TV with a waving bunny cartoon, lamp, flowering plant and window",
    "label": {
     "sl": "RISANKA",
-    "en": "CARTOON"
+    "en": "CARTOON TIME"
    },
    "keywords": {
     "sl": [
@@ -199,7 +200,7 @@ window.SHEET_DATA = {
   "getting-dressed": {
    "title": "T-shirt with a sun, trousers and socks",
    "label": {
-    "sl": "OBLAČENJE",
+    "sl": "OBLECI SE",
     "en": "GET DRESSED"
    },
    "keywords": {
@@ -247,8 +248,8 @@ window.SHEET_DATA = {
   "kindergarten": {
    "title": "Yellow backpack with straps and sneakers by the door",
    "label": {
-    "sl": "VRTEC",
-    "en": "KINDERGARTEN"
+    "sl": "V VRTEC",
+    "en": "OFF TO SCHOOL"
    },
    "keywords": {
     "sl": [
@@ -273,7 +274,7 @@ window.SHEET_DATA = {
   "make-bed": {
    "title": "Teddy bear standing beside its bed, raising the quilt to make the bed",
    "label": {
-    "sl": "POSPRAVI POSTELJO",
+    "sl": "POSTELJI POSTELJO",
     "en": "MAKE THE BED"
    },
    "keywords": {
@@ -293,8 +294,8 @@ window.SHEET_DATA = {
   "pajamas": {
    "title": "Child's hands holding up a soft pajama top with moons and stars, pants on the bed",
    "label": {
-    "sl": "PIŽAMA",
-    "en": "PAJAMAS"
+    "sl": "OBLECI PIŽAMO",
+    "en": "PUT ON PAJAMAS"
    },
    "keywords": {
     "sl": [
@@ -334,8 +335,8 @@ window.SHEET_DATA = {
   "sleep": {
    "title": "Teddy bear lying asleep in bed under a night sky",
    "label": {
-    "sl": "SPANJE",
-    "en": "SLEEP"
+    "sl": "LAHKO NOČ",
+    "en": "GOOD NIGHT"
    },
    "keywords": {
     "sl": [
@@ -403,8 +404,8 @@ window.SHEET_DATA = {
   "toilet": {
    "title": "Friendly toilet in a cozy bathroom",
    "label": {
-    "sl": "LULANJE",
-    "en": "TOILET"
+    "sl": "NA STRANIŠČE",
+    "en": "USE THE TOILET"
    },
    "keywords": {
     "sl": [

@@ -348,6 +348,11 @@ window.SHEET_DATA = {
        "color": "#EC4899"
       },
       {
+       "label": "ZDRAVILA",
+       "image": null,
+       "color": "#F43F5E"
+      },
+      {
        "label": "ZOBKI",
        "image": "brush-teeth",
        "color": "#F97316"
@@ -410,6 +415,11 @@ window.SHEET_DATA = {
        "label": "KOPANJE",
        "image": "bath",
        "color": "#A855F7"
+      },
+      {
+       "label": "ZDRAVILA",
+       "image": null,
+       "color": "#9333EA"
       },
       {
        "label": "PIŽAMA",

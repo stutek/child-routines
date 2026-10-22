@@ -41,7 +41,7 @@ MISSING_BG = "#FFFFFF"
 
 # Sheet geometry in mm (A4). Rows under the title are all equal, so image centres are evenly spaced;
 # a sheet with many steps gets smaller images to keep GAP between images on the same side.
-GEOMETRY = {"page_h": 297, "margin": 5, "margin_bottom": 14, "title": 14, "footer": 12, "img": 58, "gap": 3}
+GEOMETRY = {"page_h": 297, "margin": 5, "margin_bottom": 14, "title": 14, "footer": 14, "img": 58, "gap": 3}
 
 
 def image_size(n):
@@ -254,7 +254,8 @@ CSS = """
     .rt-license { margin-right: auto; }
     .rt-site { font-weight: 800; color: #5B2A6E; }
     .rt-footer.on-dark, .rt-footer.on-dark .rt-site { color: #F1EEFF; }
-    .rt-footer svg { width: 11mm; height: 11mm; flex: none; background: #ffffff; border-radius: 1mm; padding: 0.5mm; }
+    /* 13 mm with 1.3 mm white around (with the code's own 1-module border, about the 4-module quiet zone) */
+    .rt-footer svg { width: 13mm; height: 13mm; flex: none; background: #ffffff; border-radius: 1mm; padding: 1.3mm; }
     .rt-title {
       display: inline-block;
       font-size: 21pt;

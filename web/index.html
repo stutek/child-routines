@@ -44,6 +44,10 @@
     .maker button:disabled { opacity: 0.45; cursor: not-allowed; }
     .row-top { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
     .row-top .grow { flex: 1 1 200px; }
+    .row-top.fields { align-items: flex-end; }
+    .field { display: flex; flex-direction: column; gap: 4px; }
+    .field-label, .step-head span { font-size: 13px; font-weight: 700; color: #57534E; }
+    .step-head span:first-child { visibility: hidden; }
     .how { margin-left: 20px; color: #475569; line-height: 1.5; }
     .sheet-box { border: 1px solid #E7E0D3; border-radius: 16px; padding: 12px; display: flex; flex-direction: column; gap: 8px; }
     .sheet-head { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
@@ -51,7 +55,7 @@
     .step { display: grid; grid-template-columns: 22px minmax(0, 1fr) 110px 52px 32px; gap: 6px; align-items: center; }
     .step .n { font-weight: 800; color: #64748b; text-align: right; }
     .no-times .step { grid-template-columns: 22px minmax(0, 1fr) 52px 32px; }
-    .no-times .step input[type=time] { display: none; }
+    .no-times .step input[type=time], .no-times .col-time { display: none; }
     .maker button.del { padding: 4px 0; background: transparent; color: #dc2626; line-height: 1; }
     .maker button.del .broom { font-family: 'Noto Emoji', sans-serif; font-size: 22px; }
     .maker button.del:hover { color: #991b1b; }

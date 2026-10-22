@@ -98,7 +98,15 @@ def stars():
         for _ in range(46))
 
 
-def sheet_html(sheet):
+def clock_text(time, lang):
+    """24-hour time for Slovenian and other languages, 12-hour with AM/PM for English."""
+    if lang != "en":
+        return time
+    h, m = map(int, time.split(":"))
+    return f"{(h % 12) or 12}:{m:02d} {'AM' if h < 12 else 'PM'}"
+
+
+def sheet_html(sheet, lang="sl"):
     n = len(sheet["steps"])
     rows = []
     for i, step in enumerate(sheet["steps"], 1):
@@ -110,7 +118,7 @@ def sheet_html(sheet):
                    if image else '<div class="rt-missing">?</div>')
         time = step.get("time")
         clock = ("" if sheet.get("times") is False else  # a sheet without time fields
-                 f'<div class="rt-time">{escape(time)}</div>' if time else
+                 f'<div class="rt-time">{escape(clock_text(time, lang))}</div>' if time else
                  '<div class="rt-time"><span class="blank"></span>:<span class="blank"></span></div>')
         rows.append(f"""
       <div class="rt-pic pic-{side}" style="{style} grid-row: {2 * i} / span 4;">
@@ -380,7 +388,7 @@ def page_html(routine):
     </div>
     <button class="btn-print" onclick="window.print()">{button}</button>
   </div>
-{''.join(sheet_html(s) for s in routine['sheets'])}
+{''.join(sheet_html(s, lang) for s in routine['sheets'])}
 </body>
 </html>
 """

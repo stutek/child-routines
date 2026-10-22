@@ -106,14 +106,21 @@ function imageSize(n) {
   return Math.min(g.img, Math.floor((4 * row - g.gap) * 2) / 2);
 }
 
-function sheetHtml(sheet) {
+// same as clock_text() in tools/build.py: 24-hour, or 12-hour with AM/PM in English
+function clockText(time, lang) {
+  if (lang !== "en") return time;
+  const [h, m] = time.split(":").map(Number);
+  return `${h % 12 || 12}:${String(m).padStart(2, "0")} ${h < 12 ? "AM" : "PM"}`;
+}
+
+function sheetHtml(sheet, lang = "sl") {
   const n = sheet.steps.length;
   const rows = sheet.steps.map((step, k) => {
     const i = k + 1, side = i % 2 ? "left" : "right";
     const bg = step.image && EDGES[step.image] ? EDGES[step.image][side === "left" ? 0 : 1] : D.missingBg;
     const style = `--step: ${step.color}; --bg: ${bg}; --ink: ${labelColor(step.color, bg)};`;
     const picture = step.image ? `<img src="../images/${esc(step.image)}.jpg" alt="${esc(step.label)}" />` : '<div class="rt-missing">?</div>';
-    const clock = sheet.times === false ? "" : step.time ? `<div class="rt-time">${esc(step.time)}</div>`
+    const clock = sheet.times === false ? "" : step.time ? `<div class="rt-time">${esc(clockText(step.time, lang))}</div>`
       : '<div class="rt-time"><span class="blank"></span>:<span class="blank"></span></div>';
     return `
       <div class="rt-pic pic-${side}" style="${style} grid-row: ${2 * i} / span 4;">
@@ -291,7 +298,7 @@ function labelRoom(lab) {
 function renderPreview() {
   const L = t(), s = state.sheet, steps = filled();
   const sky = state.background === "gradient" ? s.sky : state.background;
-  document.getElementById("sheets").innerHTML = sheetHtml({ title: `${ICON[s.sky]} ${s.title.toLocaleUpperCase(state.lang)}`, sky, times: state.times, steps: steps.map(resolve) });
+  document.getElementById("sheets").innerHTML = sheetHtml({ title: `${ICON[s.sky]} ${s.title.toLocaleUpperCase(state.lang)}`, sky, times: state.times, steps: steps.map(resolve) }, state.lang);
 
   const warnings = [];
   steps.forEach((st, k) => { if (st.image === "auto" && !match(st.label)) warnings.push(L.warnNoMatch(`${L.step} ${k + 1}`, st.label)); });

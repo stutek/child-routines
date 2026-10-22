@@ -46,6 +46,28 @@ window.SHEET_DATA = {
     ]
    }
   },
+  "breakfast": {
+   "title": "Toast with butter, an apple and a cup of tea on the kitchen table",
+   "keywords": {
+    "sl": [
+     "zajtrk*",
+     "opecen*",
+     "toast",
+     "kruh*",
+     "jabolk*",
+     "caj",
+     "malic*"
+    ],
+    "en": [
+     "breakfast",
+     "toast",
+     "bread",
+     "apple",
+     "tea",
+     "snack"
+    ]
+   }
+  },
   "brush-teeth": {
    "title": "Tooth character brushing at the bathroom sink",
    "keywords": {
@@ -494,6 +516,7 @@ window.SHEET_DATA = {
 };
 window.SHEET_EDGES = {
   "bath": ["#CBEFE5", "#BAE9D6"],
+  "breakfast": ["#FECD89", "#FFDC9B"],
   "brush-teeth": ["#CFF2E5", "#BBE8D4"],
   "care": ["#ADE2C5", "#BEE9D0"],
   "cartoon": ["#F3C4C1", "#FFF4C5"],

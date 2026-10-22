@@ -32,11 +32,11 @@ Spremembo preveri vizualno: datoteko iz `output/` z brezglavim Chromom natisni v
 
 ## Postavitev in njene meje
 
-- Korak je en predmet: kvadratna slika (54 mm) in okvir (92 × 18 mm) z napisom in poljem za uro (`__ : __`), ob tem krog 35 mm za magnetek. Slika, okvir in krog imajo skupen obris in ozadje; ozadje okvirja je barva roba slike (svetlejša polovica pasu ob robu, pretemna se posvetli v pastelno), ki jo izmeri generator.
-- Slike se izmenjujejo levo in desno. Omejitev je širina: slika + okvir + slika = 200 mm (A4 brez 5 mm stranskih robov), ker okvir seže v višino nasprotne slike.
+- Korak je en predmet: kvadratna slika (58 mm) in okvir (84 × 18 mm) z napisom in poljem za uro (`__ : __`), ob tem krog 35 mm za magnetek tik ob sliki, da otrok poveže sliko in magnetek. Vse mere so spremenljivke CSS iz velikosti papirja (`--page-w`, `--page-h`, `--img`, `--label` v `tools/build.py`); zdaj A4, kasneje ameriški Letter s spremembo spremenljivk strani. Slika, okvir in krog imajo skupen obris in ozadje; ozadje okvirja je barva roba slike (svetlejša polovica pasu ob robu, pretemna se posvetli v pastelno), ki jo izmeri generator.
+- Slike se izmenjujejo levo in desno. Omejitev je širina: slika + okvir + slika = 200 mm (A4 brez 5 mm stranskih robov); vsak mm slike vzame 2 mm okvirju in napisu, ker okvir seže v višino nasprotne slike.
 - Robovi 5 mm zgoraj in ob straneh, 14 mm spodaj: domači tiskalniki spodnjih 13 do 14 mm ne natisnejo (specifikacija Epson: 3 mm zgoraj in ob straneh, 14 mm spodaj).
 - `sheetHtml()` v `web/app.js` zrcali `sheet_html()` v `tools/build.py`: spreminjaj ju skupaj. `web/data.js` je zgrajen; nikoli ga ne urejaj.
-- Napisi se ne prelamljajo. 14 pt krepko z velikimi črkami sprejme okoli 17 znakov (`POSPRAVI POSTELJO`). Po spremembi napisov v brezglavem Chromu izmeri, da `scrollWidth` vsakega napisa ne preseže širine okvirja brez kroga za magnetek, robov in razmika (starš `.rt-text` se širi z napisom, zato ni merilo; pravilno to dela `labelRoom()` v `web/app.js`).
+- Napisi se ne prelamljajo. 13 pt krepko z velikimi črkami sprejme okoli 17 znakov (`POSPRAVI POSTELJO`, 44,2 od 45,0 mm). Po spremembi napisov v brezglavem Chromu izmeri, da `scrollWidth` vsakega napisa ne preseže širine okvirja brez kroga za magnetek, robov in razmika (starš `.rt-text` se širi z napisom, zato ni merilo; pravilno to dela `labelRoom()` v `web/app.js`).
 - Barva napisa se samodejno potemni do kontrasta vsaj 4,5 : 1 z okvirjem (WCAG 2.2, 1.4.3).
 - 6 do 7 korakov na list (največ 8). Dolge rutine razdeli na več listov, namesto da bi manjšal slike.
 

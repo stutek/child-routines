@@ -10,6 +10,14 @@
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
+    /* Sheet geometry, all from the paper size (A4). US Letter later: change --page-w and --page-h
+       (and @page size). The frame takes the width the two images leave. */
+    :root {
+      --page-w: 210mm; --page-h: 297mm; --margin: 5mm; --margin-bottom: 14mm;
+      --img: 58mm; --label: 13pt;
+      --frame-w: calc(var(--page-w) - 2 * var(--margin) - 2 * var(--img));
+    }
+
     body {
       background: #cbd5e1;
       font-family: 'Baloo 2', -apple-system, 'Segoe UI', Roboto, Ubuntu, sans-serif;
@@ -53,9 +61,9 @@
        the area home printers can print (Epson: 3 mm top and sides, 14 mm bottom). */
     .page-a4 {
       position: relative;
-      width: 210mm;
-      height: 297mm;
-      padding: 5mm 5mm 14mm;
+      width: var(--page-w);
+      height: var(--page-h);
+      padding: var(--margin) var(--margin) var(--margin-bottom);
       display: flex;
       flex-direction: column;
       overflow: hidden;
@@ -68,14 +76,14 @@
     .rt-sky { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 
     /* Images alternate left and right, each spanning four half-rows, with the label frame beside it.
-       Image + frame + image = sheet width without margins (200 mm), because a frame reaches into
+       Image + frame + image = sheet width without margins (200 mm on A4), because a frame reaches into
        the height of the opposite image. */
     .rt-grid {
       position: relative;
       flex-grow: 1;
       min-height: 0;
       display: grid;
-      grid-template-columns: 54mm 1fr 54mm;
+      grid-template-columns: var(--img) 1fr var(--img);
     }
 
     .rt-header { grid-column: 1 / -1; grid-row: 1; align-self: center; text-align: center; }
@@ -96,8 +104,8 @@
       position: relative;
       align-self: center;
       justify-self: center;
-      width: 54mm;
-      height: 54mm;
+      width: var(--img);
+      height: var(--img);
       border-radius: 5mm;
       border: 0.9mm solid var(--step);
       background: var(--bg);
@@ -135,7 +143,7 @@
       z-index: 2;
       grid-column: 2;
       align-self: center;
-      width: 92mm;
+      width: var(--frame-w);
       height: 18mm;
       display: flex;
       align-items: center;
@@ -150,9 +158,9 @@
     .rt-card::before, .rt-card::after { content: ""; position: absolute; border-radius: inherit; }
     .rt-card::before { inset: 0; z-index: 0; background: var(--step); }
     .rt-card::after { inset: 0.9mm; z-index: 1; background: var(--bg); border-radius: 0; }
-    .card-left { justify-self: start; margin-left: -0.9mm; border-radius: 0 6mm 6mm 0; padding: 0 2.4mm 0 2.4mm; }
+    .card-left { justify-self: start; margin-left: -0.9mm; border-radius: 0 6mm 6mm 0; flex-direction: row-reverse; padding: 0 2.4mm 0 0; }
     .card-left::after { left: 0; border-radius: 0 5.1mm 5.1mm 0; }
-    .card-right { justify-self: end; margin-right: -0.9mm; border-radius: 6mm 0 0 6mm; flex-direction: row-reverse; padding: 0 2.4mm 0 2.4mm; }
+    .card-right { justify-self: end; margin-right: -0.9mm; border-radius: 6mm 0 0 6mm; padding: 0 0 0 2.4mm; }
     .card-right::after { right: 0; border-radius: 5.1mm 0 0 5.1mm; }
 
     .rt-text { position: relative; z-index: 2; flex-grow: 1; display: flex; flex-direction: column; align-items: center; gap: 0.8mm; }
@@ -182,7 +190,7 @@
 
     .rt-label {
       white-space: nowrap;
-      font-size: 14pt;
+      font-size: var(--label);
       font-weight: 800;
       line-height: 1;
       letter-spacing: 0.3px;

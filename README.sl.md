@@ -1,4 +1,4 @@
-# Otroške rutine
+# Otrokove rutine
 
 [English](README.md) · **Slovenščina**
 

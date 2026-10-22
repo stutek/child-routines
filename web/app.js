@@ -152,7 +152,7 @@ function sheetHtml(sheet, lang = "sl") {
     <div class="rt-grid" style="grid-template-rows: ${gridRows};">
       <div class="rt-header"><div class="rt-title">${esc(sheet.title)}</div></div>${rows}
     </div>
-    <div class="rt-footer"><span class="rt-license">${esc(D.license[lang] || D.license.en)}</span><span class="rt-site">${esc(D.site)}</span>${D.qr}</div>
+    <div class="rt-footer${sheet.sky === "night" ? " on-dark" : ""}"><span class="rt-license">${esc(D.license[lang] || D.license.en)}</span><span class="rt-site">${esc(D.site)}</span>${D.qr}</div>
   </div>`;
 }
 

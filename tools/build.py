@@ -149,7 +149,7 @@ def sheet_html(sheet, lang="sl"):
     <div class="rt-grid" style="grid-template-rows: {grid_rows};">
       <div class="rt-header"><div class="rt-title">{escape(sheet['title'])}</div></div>{''.join(rows)}
     </div>
-    <div class="rt-footer"><span class="rt-license">{escape(LICENSE.get(lang, LICENSE["en"]))}</span><span class="rt-site">{SITE}</span>{QR}</div>
+    <div class="rt-footer{' on-dark' if sheet['sky'] == 'night' else ''}"><span class="rt-license">{escape(LICENSE.get(lang, LICENSE["en"]))}</span><span class="rt-site">{SITE}</span>{QR}</div>
   </div>
 """
 
@@ -244,16 +244,17 @@ CSS = """
 
     .rt-header { grid-column: 1 / -1; grid-row: 1; align-self: center; text-align: center; }
 
-    /* Footer: licence left, address and QR right, on a light band that reads on the night sky too */
+    /* Footer: licence left, address and QR right; only the QR has a white ground (it needs it to scan),
+       the text turns light on the night sky */
     .rt-footer {
       position: relative; flex: none; height: __FOOTER__mm; margin-top: 1mm;
-      display: flex; align-items: center; gap: 2mm; padding: 0 1mm 0 3mm;
-      background: rgba(255, 255, 255, 0.85); border-radius: 3mm;
+      display: flex; align-items: center; gap: 2mm; padding: 0 1mm;
       font-size: 7.5pt; font-weight: 600; color: #475569;
     }
     .rt-license { margin-right: auto; }
     .rt-site { font-weight: 800; color: #5B2A6E; }
-    .rt-footer svg { width: 11mm; height: 11mm; flex: none; }
+    .rt-footer.on-dark, .rt-footer.on-dark .rt-site { color: #F1EEFF; }
+    .rt-footer svg { width: 11mm; height: 11mm; flex: none; background: #ffffff; border-radius: 1mm; padding: 0.5mm; }
     .rt-title {
       display: inline-block;
       font-size: 21pt;

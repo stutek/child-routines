@@ -146,7 +146,7 @@ window.SHEET_DATA = {
    }
   },
   "dinner": {
-   "title": "Plate of pasta, meatballs and vegetables",
+   "title": "Plate of pasta, meatballs, carrots and broccoli on the set-table placemat",
    "keywords": {
     "sl": [
      "vecerj*",
@@ -521,7 +521,7 @@ window.SHEET_EDGES = {
   "care": ["#ADE2C5", "#BEE9D0"],
   "cartoon": ["#F3C4C1", "#FFF4C5"],
   "clear-table": ["#DEDDCB", "#F2D2AD"],
-  "dinner": ["#FCE6C0", "#FCEAD6"],
+  "dinner": ["#FECE87", "#FFDC94"],
   "getting-dressed": ["#DBF4DF", "#D9F3DD"],
   "good-morning": ["#E3D4C1", "#E9E8EE"],
   "kindergarten": ["#E1C7B2", "#E6D59E"],

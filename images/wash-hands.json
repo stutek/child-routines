@@ -22,13 +22,14 @@
   "reference_images": [],
   "edits": [
     "contrast raised: autocontrast(cutoff 0.5/0.3), contrast 1.1, color 1.12, unsharp mask",
-    "text removed from the soap bar (retouch)"
+    "text removed from the soap bar (retouch)",
+    "midtones darkened (gamma 1.15) and contrast x1.3, to match the other images (contrast std 48.7 -> 58.2)"
   ],
   "contributor": "maintainer",
   "license": "CC0-1.0",
   "copyright_check": {
-    "date": "2026-10-21",
-    "method": "Google Lens, Exact matches tab (manual)",
+    "date": "2026-10-22",
+    "method": "Google Lens, Exact matches tab, final file after the contrast edit",
     "result": "no exact matches"
   }
 }

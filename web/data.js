@@ -459,5 +459,5 @@ window.SHEET_EDGES = {
   "story": ["#C8CCDE", "#D1D8EB"],
   "tidy-toys": ["#F7DEBD", "#FFFEEA"],
   "toilet": ["#D4F3E9", "#BCE9D7"],
-  "wash-hands": ["#ECE9D6", "#FAF1E0"],
+  "wash-hands": ["#EFEED3", "#FFF9E0"],
 };

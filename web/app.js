@@ -149,7 +149,7 @@ const EXAMPLE_FOR = { dawn: 0, afternoon: 1, night: 2 };   // sheet of the examp
 const example = sky => D.examples["sl-vsakdan"].sheets[EXAMPLE_FOR[sky] || 0];
 const pad = steps => steps.concat(Array.from({ length: MAX_STEPS }, newStep)).slice(0, MAX_STEPS);
 
-function fromExample(lang, sky = "dawn", base = {}) {
+function fromExample(lang, sky = "night", base = {}) {   // the evening routine opens first
   const ex = example(sky);
   return { lang, background: base.background || "gradient", times: base.times !== false,
            sheet: { title: ex.title, sky, steps: pad(ex.steps.map(st => ({ label: st.label, time: "", image: "auto" }))) } };
@@ -166,7 +166,7 @@ function clean(s) {
   });
   const sh = s.sheet || (Array.isArray(s.sheets) && s.sheets[0]);   // older versions kept several sheets
   if (!sh) return null;
-  const sheet = { title: str(sh.title, 60), sky: D.skies[sh.sky] ? sh.sky : "dawn",
+  const sheet = { title: str(sh.title, 60), sky: D.skies[sh.sky] ? sh.sky : "night",
                   steps: pad((Array.isArray(sh.steps) ? sh.steps : []).slice(0, MAX_STEPS).map(step)) };
   return { lang: T[s.lang] ? s.lang : "sl", background: ["gradient", "white", "none"].includes(s.background) ? s.background : "gradient",
            times: s.times !== false, sheet };

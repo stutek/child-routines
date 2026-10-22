@@ -21,7 +21,7 @@ const T = {
     heading: "Izdelaj svoj list",
     how: ["Izberi tip lista in vpiši do 8 opravil; prazne vrstice se ne natisnejo.", "Sličico izberem sam. Klikni nanjo, da jo zamenjaš.", "Natisni na A4: robovi »Brez«, merilo 100 %."],
     example: "Naloži primer", print: "🖨️ Natisni",
-    type: "Tip lista", sheetTitle: "Naslov lista", skies: { dawn: "🌄 jutro", afternoon: "☀️ dan", night: "🌙 večer" },
+    type: "Tip lista", sheetTitle: "Naslov lista", skies: { dawn: "jutro", afternoon: "dan", night: "večer" },
     times: "Ura na listu", background: "Ozadje", backgrounds: { gradient: "preliv barv", white: "belo", none: "prosojno (se ne natisne)" },
     label: "Opravilo, npr. UMIJ ZOBE", time: "Ura", auto: "Samodejno", none: "Brez sličice", pick: "Zamenjaj sličico", removeStep: "Izprazni vrstico",
     warnNoMatch: (s, l) => `${s}: za »${l}« nimamo sličice. Izberi drugo ali pusti prazno.`,
@@ -32,7 +32,7 @@ const T = {
     heading: "Make your own sheet",
     how: ["Pick the type of sheet and type up to 8 steps; empty rows are not printed.", "I pick the pictures. Click one to change it.", "Print on A4: margins None, scale 100 %."],
     example: "Load example", print: "🖨️ Print",
-    type: "Type of sheet", sheetTitle: "Sheet title", skies: { dawn: "🌄 morning", afternoon: "☀️ day", night: "🌙 evening" },
+    type: "Type of sheet", sheetTitle: "Sheet title", skies: { dawn: "morning", afternoon: "day", night: "evening" },
     times: "Time on the sheet", background: "Background", backgrounds: { gradient: "color gradient", white: "white", none: "transparent (not printed)" },
     label: "Step, e.g. BRUSH TEETH", time: "Time", auto: "Automatic", none: "No picture", pick: "Change picture", removeStep: "Clear row",
     warnNoMatch: (s, l) => `${s}: no picture for "${l}". Pick another or leave it empty.`,
@@ -119,12 +119,6 @@ function clockText(time, lang) {
   }
 }
 
-// same as title_html() in tools/build.py
-function titleHtml(title) {
-  const m = title.match(/^([^\p{L}\p{N}\s]+)\s*(.*)$/u);
-  return m ? `<span class="rt-icon">${esc(m[1])}</span>${esc(m[2])}` : esc(title);
-}
-
 function sheetHtml(sheet, lang = "sl") {
   const n = sheet.steps.length;
   const rows = sheet.steps.map((step, k) => {
@@ -156,7 +150,7 @@ function sheetHtml(sheet, lang = "sl") {
   return `
   <div class="page-a4 rt-page" style="background: ${background};${size}">${starry}
     <div class="rt-grid" style="grid-template-rows: ${gridRows};">
-      <div class="rt-header"><div class="rt-title">${titleHtml(sheet.title)}</div></div>${rows}
+      <div class="rt-header"><div class="rt-title">${esc(sheet.title)}</div></div>${rows}
     </div>
     <div class="rt-footer${sheet.sky === "night" ? " on-dark" : ""}"><span class="rt-license">${esc(D.license[lang] || D.license.en)}</span><span class="rt-site">${esc(D.site)}</span>${D.qr}</div>
   </div>`;
@@ -166,8 +160,7 @@ function sheetHtml(sheet, lang = "sl") {
 
 const newStep = () => ({ label: "", time: "", image: "auto" });
 const EXAMPLE_FOR = { dawn: 0, afternoon: 1, night: 2 };   // sheet of the example routine per type
-// the type sets the title icon; the title itself is plain text (sunrise over a hill, sun, moon)
-const ICON = { dawn: "🌄", afternoon: "☀️", night: "🌙" };
+// titles are plain text; older stored titles and the example may start with an icon, which is dropped
 const bare = s => s.replace(/^[^\p{L}\p{N}]+/u, "").trim();
 const example = sky => D.examples["sl-vsakdan"].sheets[EXAMPLE_FOR[sky] || 0];
 const pad = steps => steps.concat(Array.from({ length: MAX_STEPS }, newStep)).slice(0, MAX_STEPS);
@@ -310,7 +303,7 @@ function labelRoom(lab) {
 function renderPreview() {
   const L = t(), s = state.sheet, steps = filled();
   const sky = state.background === "gradient" ? s.sky : state.background;
-  document.getElementById("sheets").innerHTML = sheetHtml({ title: `${ICON[s.sky]} ${s.title.toLocaleUpperCase(state.lang)}`, sky, times: state.times, steps: steps.map(resolve) }, state.lang);
+  document.getElementById("sheets").innerHTML = sheetHtml({ title: s.title.toLocaleUpperCase(state.lang), sky, times: state.times, steps: steps.map(resolve) }, state.lang);
 
   const warnings = [];
   steps.forEach((st, k) => { if (st.image === "auto" && !match(st.label)) warnings.push(L.warnNoMatch(`${L.step} ${k + 1}`, st.label)); });

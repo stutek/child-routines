@@ -11,7 +11,7 @@
   <title>Routine Sheet Maker</title>
   <!-- one glyph (the broom on the row clear button) from the one-colour Noto Emoji, SIL OFL, served by Google Fonts;
        offline the system's colour emoji shows instead -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Emoji:wght@600&text=%F0%9F%A7%B9%F0%9F%8C%84%E2%98%80%EF%B8%8F%F0%9F%8C%99&display=block">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Emoji:wght@600&text=%F0%9F%A7%B9&display=block">
   <!-- Sheet maker: works offline from a checkout (file://) and on any static host. What the parent types stays in the browser. -->
   <style>
     .maker {
@@ -54,7 +54,6 @@
     .maker button.thumb.missing { border-color: #f59e0b; background: #fffbeb; color: #b45309; }
     .maker button.thumb.empty { background: #f8fafc; border-style: dashed; }
     .maker input.title { font-weight: 700; }
-    .maker select, .maker button { font-family: 'Baloo 2', 'Noto Emoji', sans-serif; }
     /* labels print in capitals, so the fields show them that way too */
     .maker input.title, .step input:not([type=time]) { text-transform: uppercase; }
     .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }

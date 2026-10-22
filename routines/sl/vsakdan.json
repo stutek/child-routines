@@ -3,7 +3,7 @@
   "language": "sl",
   "sheets": [
     {
-      "title": "🌄 JUTRANJA RUTINA",
+      "title": "JUTRANJA RUTINA",
       "sky": "dawn",
       "stars": false,
       "steps": [
@@ -50,7 +50,7 @@
       ]
     },
     {
-      "title": "🍽️ VEČERJA",
+      "title": "VEČERJA",
       "sky": "afternoon",
       "stars": false,
       "steps": [
@@ -87,7 +87,7 @@
       ]
     },
     {
-      "title": "🌙 SPANJE",
+      "title": "SPANJE",
       "sky": "night",
       "stars": true,
       "steps": [

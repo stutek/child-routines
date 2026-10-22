@@ -1,6 +1,6 @@
 {
   "id": "cartoon",
-  "title": "Teddy bear on a floor cushion watching a bunny cartoon in a detailed living room",
+  "title": "Wooden TV with a waving bunny cartoon, lamp, flowering plant and window",
   "keywords": {
     "sl": [
       "risank*",
@@ -18,8 +18,11 @@
     ]
   },
   "model": "Google Gemini image generation (via Antigravity CLI)",
-  "prompt": "Soft watercolor and gouache children's picture-book illustration, delicate colored-pencil outlines, warm cream paper texture, clear contrast and rich colors with defined darker outlines, not pale. RICHLY DETAILED like a busy picture-book page: a cozy family living room in the evening. A cute brown teddy bear wearing a blue-and-white striped nightcap sits on a big patterned floor cushion, seen from slightly behind and to the side, happily watching a rounded wooden TV on a low cabinet. On the TV screen, large and clear, an original friendly cartoon bunny waves (not any known character). Around them many homely details: a bookshelf with colorful books and small toys, a woven basket with toy blocks and a ball, framed children's drawings on patterned wallpaper, a window with curtains and a dusky evening sky, a glowing floor lamp, a potted plant, a soft blanket, a detailed patterned rug on wooden floorboards. No clouds, nothing floating, no light rays. No text, no letters, no logos, no brands. Square 1:1 composition, TV and bear large and central, readable at 4 cm size.",
-  "reference_images": [],
+  "prompt": "Soft watercolor and gouache children's picture-book illustration, delicate colored-pencil outlines, warm cream paper texture, gentle pastel palette. The scene is set in a real, cozy room of a family home with a floor, walls and a few homely details (plants, a small shelf), like a warm picture-book interior. Clear contrast and rich, saturated colors with defined darker outlines and shadows, not pale or washed out. No clouds, nothing floating. Cute and friendly, for a 4-year-old. Gender-neutral. Everything painted in one consistent watercolor style, no flat vector shapes, no text, no letters, no logos, no brands, no flags, no recognizable existing characters; every character is original. Square 1:1 composition, main subject large and centered, readable at 4 cm size. A calm, cozy family living room in the evening, painted exactly in the style of the references: soft watercolor washes with visible paper texture, delicate colored-pencil outlines, warm softly painted wall color, gentle shadows. A rounded wooden TV stands on a low wooden TV cabinet, LARGE and in the middle of the picture. On the TV screen, large and clear, an original friendly cartoon bunny waves (not any known character). Beside it only: a cozy floor lamp with a fabric shade glowing warmly, a potted flowering plant, and a window with a soft dusky evening sky. Wooden floorboards. NOTHING else: no bookshelf, no pictures on the walls, no toys, no cushion, no blanket, no rug, no characters. No letters or numbers anywhere.",
+  "reference_images": [
+    "images/toilet.jpg (style reference)",
+    "night-run cartoon of 2026-10-22 with the bear, not in this repository (style reference)"
+  ],
   "edits": [
     "contrast raised with tools/enhance.py"
   ],
@@ -27,7 +30,7 @@
   "license": "CC0-1.0",
   "copyright_check": {
     "date": "2026-10-22",
-    "method": "Google Lens, Exact matches tab (manual), raw and final file",
+    "method": "Google Lens, Exact matches tab, raw and final file",
     "result": "no exact matches"
   }
 }

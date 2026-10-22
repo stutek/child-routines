@@ -51,7 +51,7 @@ window.SHEET_DATA = {
    }
   },
   "cartoon": {
-   "title": "Teddy bear on a floor cushion watching a bunny cartoon in a detailed living room",
+   "title": "Wooden TV with a waving bunny cartoon, lamp, flowering plant and window",
    "keywords": {
     "sl": [
      "risank*",
@@ -446,7 +446,7 @@ window.SHEET_DATA = {
 window.SHEET_EDGES = {
   "bath": ["#CDF5EC", "#AFE9D6"],
   "brush-teeth": ["#CFF6ED", "#B0EAD7"],
-  "cartoon": ["#FFFFFC", "#FFFFFD"],
+  "cartoon": ["#F6C9C0", "#FFF6C9"],
   "clear-table": ["#D8E3D7", "#FBDCB8"],
   "dinner": ["#FFE9BD", "#FDFEFD"],
   "getting-dressed": ["#EBFCF3", "#DEF7E6"],

@@ -19,7 +19,7 @@ const PALETTES = [
 const T = {
   sl: {
     heading: "Otroške rutine", aboutTitle: "O aplikaciji", howTitle: "Navodila",
-    about: "Vizualizacija rutin otrokom pomaga sprejeti tudi neprijetna navodila, krepi samozavest skozi pozitivna občutja dosežka ob označevanju opravljenih nalog in pomaga uravnavati pričakovanja (kdaj bo risanka?).",
+    about: "Ko otrok na sliki vidi, kaj pride zdaj in kaj potem, se laže loti tudi manj priljubljenih opravil in se manj pogaja. Ko označi opravljen korak, vidi, koliko je že naredil, kar spodbuja samostojnost. List mu pove tudi, kdaj bo risanka.",
     how: ["Izberi tip lista in vpiši do 8 opravil; prazne vrstice se ne natisnejo.", "Sličico izberem sam. Klikni nanjo, da jo zamenjaš.", "Natisni na A4: robovi »Brez«, merilo 100 %."],
     example: "Naloži primer", print: "🖨️ Natisni",
     type: "Tip lista", sheetTitle: "Naslov lista", skies: { dawn: "jutro", afternoon: "dan", night: "večer" },
@@ -31,7 +31,7 @@ const T = {
   },
   en: {
     heading: "Child routines", aboutTitle: "About", howTitle: "How to",
-    about: "Seeing the routine helps children accept even unwelcome instructions, builds confidence through the good feeling of achievement each time they mark a step done, and helps manage expectations (when is cartoon time?).",
+    about: "When a child sees what comes now and what comes next, less favourite tasks get easier and there is less bargaining. Marking each finished step shows how much they have done, which encourages independence. The sheet also tells them when cartoon time is.",
     how: ["Pick the type of sheet and type up to 8 steps; empty rows are not printed.", "I pick the pictures. Click one to change it.", "Print on A4: margins None, scale 100 %."],
     example: "Load example", print: "🖨️ Print",
     type: "Type of sheet", sheetTitle: "Sheet title", skies: { dawn: "morning", afternoon: "day", night: "evening" },

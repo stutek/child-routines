@@ -21,11 +21,11 @@ const T = {
   sl: {
     heading: "Otrokove rutine", aboutTitle: "O aplikaciji", howTitle: "Navodila",
     about: "Ko otrok na listu vidi, kaj pride zdaj in kaj potem, laže sledi rutini in pogajanja je lahko manj. Ko na opravljen korak sam položi magnetek, vidi, koliko je že naredil in kaj ga še čaka. Najbolje deluje, če list sestavita skupaj in ga prve dni skupaj prehodita. Še posebej pride prav, ko otrok prespi pri sorodnikih: starim staršem, tetam in stricem pomaga, da rutino ohranijo.",
-    how: ["Izberi tip rutine in vpiši do 8 opravil; prazne vrstice se ne natisnejo.", "Sličico izberem sam. Klikni nanjo, da jo zamenjaš. Naj otrok izbere slike in vrstni red.", "Natisni na A4: robovi »Brez«, merilo 100 %."],
+    how: ["Izberi tip rutine in vpiši do 8 opravil; prazne vrstice se ne natisnejo.", "Sličico izberem sam. Klikni nanjo, da jo zamenjaš. Naj otrok izbere slike in vrstni red: vrstico povleci za pike.", "Natisni na A4: robovi »Brez«, merilo 100 %."],
     example: "Naloži primer", replaceSheet: "Primer bo zamenjal tvoj list in vpisano se bo izgubilo. Nadaljujem?", print: "🖨️ Natisni",
     type: "Tip rutine", sheetTitle: "Naslov lista", skies: { dawn: "jutro", afternoon: "dan", night: "večer" },
     times: "Ura na listu", background: "Ozadje", backgrounds: { gradient: "preliv barv", white: "belo", none: "prosojno (se ne natisne)" },
-    label: "Opravilo", labelHint: "npr. UMIJ ZOBE", picture: "Sličica", time: "Ura", auto: "Samodejno", none: "Brez sličice", pick: "Zamenjaj sličico", removeStep: "Izprazni vrstico",
+    label: "Opravilo", labelHint: "npr. UMIJ ZOBE", picture: "Sličica", time: "Ura", auto: "Samodejno", none: "Brez sličice", pick: "Zamenjaj sličico", removeStep: "Izprazni vrstico", move: "Premakni korak", moveHint: "Povleci za premik ali tapni tu in nato na novem mestu; s tipkovnico puščici gor in dol",
     warnNoMatch: (s, l) => `${s}: za »${l}« nimamo sličice. Izberi drugo ali pusti prazno.`,
     warnLong: (s, l) => `${s}: napis »${l}« je predolg za okvir; skrajšaj ga.`,
     preview: "👁 Predogled: tako bo natisnjeno (A4)", step: "Korak", ok: "✓ Vse sličice so najdene in vsi napisi se prilegajo.", suggest: "Manjka sličica? Predlagaj jo", warnTitle: "Opozorila",
@@ -33,11 +33,11 @@ const T = {
   en: {
     heading: "Child routines", aboutTitle: "About", howTitle: "How to",
     about: "When a child can see what comes now and what comes next, following the routine gets easier and there can be less bargaining. Placing a magnet on each finished step themselves shows how much they have done and what is left. It works best when you make the sheet together and go through it together for the first few days. It is especially handy when your child sleeps over at relatives': it helps grandparents, aunts and uncles keep the routine.",
-    how: ["Pick the routine type and type up to 8 steps; empty rows are not printed.", "I pick the pictures. Click one to change it. Let your child choose the pictures and the order.", "Print on A4: margins None, scale 100 %."],
+    how: ["Pick the routine type and type up to 8 steps; empty rows are not printed.", "I pick the pictures. Click one to change it. Let your child choose the pictures and the order: drag a row by its dots.", "Print on A4: margins None, scale 100 %."],
     example: "Load example", replaceSheet: "The example will replace your sheet and what you typed will be lost. Continue?", print: "🖨️ Print",
     type: "Routine type", sheetTitle: "Sheet title", skies: { dawn: "morning", afternoon: "day", night: "evening" },
     times: "Time on the sheet", background: "Background", backgrounds: { gradient: "color gradient", white: "white", none: "transparent (not printed)" },
-    label: "Step", labelHint: "e.g. BRUSH TEETH", picture: "Picture", time: "Time", auto: "Automatic", none: "No picture", pick: "Change picture", removeStep: "Clear row",
+    label: "Step", labelHint: "e.g. BRUSH TEETH", picture: "Picture", time: "Time", auto: "Automatic", none: "No picture", pick: "Change picture", removeStep: "Clear row", move: "Move step", moveHint: "Drag to move, or tap here and then at the new place; with the keyboard, the up and down arrows",
     warnNoMatch: (s, l) => `${s}: no picture for "${l}". Pick another or leave it empty.`,
     warnLong: (s, l) => `${s}: "${l}" is too long for the frame; shorten it.`,
     preview: "👁 Preview: this is what prints (A4)", step: "Step", ok: "✓ All pictures found and all labels fit.", suggest: "Missing a picture? Suggest one", warnTitle: "Warnings",
@@ -246,6 +246,44 @@ const field = (text, control, cls = "") => el("label", { class: `field ${cls}`.t
 // a one-colour broom from Noto Emoji (loaded in index.html); it takes the button colour
 const broom = () => el("span", { class: "broom", "aria-hidden": "true" }, "🧹");
 
+// ---------- reordering: drag a row by its grip (mouse or touch), tap a grip and then another, or arrow keys ----------
+// dragging is not the only way (WCAG 2.2, 2.5.7). The numbers are places 1 to 8 and stay put; the row's content moves.
+const shift = (row, y) => { for (const c of row.children) if (!c.classList.contains("n")) c.style.transform = y ? `translateY(${y}px)` : ""; };
+let picked = null;   // row picked by a tap, waiting for the tap at its new place
+function moveStep(from, to) {
+  const steps = state.sheet.steps;
+  steps.splice(to, 0, steps.splice(from, 1)[0]);
+  picked = null; update(true);
+  document.querySelectorAll(".grip")[to].focus();
+}
+function dragRow(e, k, rows) {
+  if (e.button > 0) return;
+  e.preventDefault();
+  const grip = e.currentTarget, ac = new AbortController();
+  grip.setPointerCapture(e.pointerId);
+  document.querySelectorAll(".gallery").forEach(g => { g.hidden = true; });
+  const pitch = rows.length > 1 ? rows[1].getBoundingClientRect().top - rows[0].getBoundingClientRect().top : 1;
+  const y0 = e.clientY;
+  let to = k, moved = false;
+  grip.addEventListener("pointermove", ev => {
+    const dy = ev.clientY - y0;
+    if (!moved && Math.abs(dy) < 5) return;
+    moved = true; rows[k].classList.add("dragging");
+    to = Math.max(0, Math.min(rows.length - 1, k + Math.round(dy / pitch)));
+    rows.forEach((r, i) => shift(r, i === k ? dy : k < i && i <= to ? -pitch : to <= i && i < k ? pitch : 0));
+  }, { signal: ac.signal });
+  const end = () => {
+    ac.abort();
+    rows.forEach(r => { shift(r, 0); r.classList.remove("dragging"); });
+    if (moved) { if (to !== k) moveStep(k, to); return; }
+    if (picked === null) { picked = k; rows[k].classList.add("picked"); }
+    else if (picked === k) { picked = null; rows[k].classList.remove("picked"); }
+    else moveStep(picked, k);
+  };
+  grip.addEventListener("pointerup", end, { signal: ac.signal });
+  grip.addEventListener("pointercancel", end, { signal: ac.signal });
+}
+
 function renderEditor() {
   const L = t(), root = document.getElementById("maker"), sheet = state.sheet;
   document.documentElement.lang = state.lang;
@@ -274,13 +312,14 @@ function renderEditor() {
         oninput: e => { sheet.title = e.target.value; update(); } }), "grow")]),
     el("div", { class: "row-top fields" }, [
       field(L.background, select(L.background, state.background, L.backgrounds, v => { state.background = v; update(true); })),
-      el("label", { class: "grow" }, [times, ` ${L.times}`]),
+      el("label", { class: "grow check" }, [times, L.times]),
       el("button", { onclick: () => { if (typed(sheet) && !confirm(L.replaceSheet)) return; state = fromExample(state.lang, sheet.sky, state); update(true); } }, `${L.example}: ${L.skies[sheet.sky]}`)]));
 
   // column headings label the rows: a screen reader reads a field as "Step 3"
   const box = el("div", { class: "sheet-box" }, el("div", { class: "step step-head", "aria-hidden": "true" }, [
-    el("span"), el("span", { id: "col-label" }, L.label), el("span", { id: "col-time", class: "col-time" }, L.time),
+    el("span"), el("span"), el("span", { id: "col-label" }, L.label), el("span", { id: "col-time", class: "col-time" }, L.time),
     el("span", { id: "col-pic" }, L.picture), el("span")]));
+  const rows = [];
   sheet.steps.forEach((step, k) => {
     const gallery = el("div", { class: "gallery", hidden: true });
     const thumb = el("button", { class: "thumb", title: L.pick, "aria-label": `${L.pick} ${k + 1}`, onclick: () => { gallery.hidden = !gallery.hidden; } });
@@ -295,14 +334,22 @@ function renderEditor() {
       ...Object.entries(D.images).map(([id, img]) =>
         el("button", { title: img.title, onclick: () => choose(id) }, el("img", { src: `../images/${id}.jpg`, alt: img.title, loading: "lazy" }))),
       el("button", { onclick: () => choose("none") }, `∅ ${L.none}`));
-    box.append(el("div", { class: "step" }, [
-      el("span", { class: "n", id: `n-${k}` }, `${k + 1}`),
+    const grip = el("button", { class: "grip", title: L.moveHint, "aria-label": `${L.move} ${k + 1}`,
+      onpointerdown: e => dragRow(e, k, rows), onclick: e => e.preventDefault(),
+      onkeydown: e => {
+        const to = k + (e.key === "ArrowUp" ? -1 : e.key === "ArrowDown" ? 1 : 0);
+        if (to !== k && to >= 0 && to < MAX_STEPS) { e.preventDefault(); moveStep(k, to); }
+      } }, el("span", { class: "dots", "aria-hidden": "true" }));
+    const row = el("div", { class: picked === k ? "step picked" : "step" }, [
+      el("span", { class: "n", id: `n-${k}` }, `${k + 1}`), grip,
       el("input", { value: step.label, placeholder: k === 0 ? L.labelHint : "", maxlength: "24", "aria-labelledby": `col-label n-${k}`, autocapitalize: "characters",
         oninput: e => { step.label = e.target.value; update(); } }),
       el("input", { type: "time", value: step.time, "aria-labelledby": `col-time n-${k}`, oninput: e => { step.time = e.target.value; update(); } }),
       thumb,
       el("button", { class: "del", title: L.removeStep, "aria-label": L.removeStep,
-        onclick: () => { sheet.steps[k] = newStep(); update(true); } }, broom())]), gallery);
+        onclick: () => { sheet.steps[k] = newStep(); update(true); } }, broom())]);
+    rows.push(row);
+    box.append(row, gallery);
     step._thumb = thumb;
   });
   // print comes last, after the parent has filled in the rows and read the warnings

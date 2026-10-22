@@ -40,7 +40,7 @@
     .maker button { border: none; border-radius: 10px; padding: 8px 14px; font-weight: 700; cursor: pointer; background: #e2e8f0; color: #0f172a; }
     .maker button.primary { background: #0F766E; color: #ffffff; box-shadow: 0 3px 0 #134E4A; }
     .maker button.primary:hover { background: #115E59; }
-    .maker button:not(.primary):not(.del):not(.thumb) { background: #DDF3EE; color: #115E59; }
+    .maker button:not(.primary):not(.del):not(.thumb):not(.grip) { background: #DDF3EE; color: #115E59; }
     .maker button:disabled { opacity: 0.45; cursor: not-allowed; }
     .row-top { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
     .row-top .grow { flex: 1 1 200px; }
@@ -50,15 +50,31 @@
     .field-label { position: absolute; top: 0; left: 9px; z-index: 1; padding: 0 4px; background: #ffffff; line-height: 16px; }
     .field-label, .step-head span { font-size: 12.5px; font-weight: 700; color: #115E59; }
     .field select, .field input { padding-top: 9px; }
-    .step-head span:first-child { visibility: hidden; }
+    .step-head span:nth-child(-n+2) { visibility: hidden; }
     .how { margin-left: 20px; color: #475569; line-height: 1.5; }
     .sheet-box { border: 1px solid #E7E0D3; border-radius: 16px; padding: 12px; display: flex; flex-direction: column; gap: 8px; }
     .sheet-head { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
     .sheet-head .title { flex: 1 1 220px; font-weight: 700; }
-    .step { display: grid; grid-template-columns: 22px minmax(0, 1fr) 110px 52px 32px; gap: 6px; align-items: center; }
+    .step { display: grid; grid-template-columns: 22px 20px minmax(0, 1fr) 110px 52px 32px; gap: 6px; align-items: center; }
     .step .n { font-weight: 800; color: #64748b; text-align: right; }
-    .no-times .step { grid-template-columns: 22px minmax(0, 1fr) 52px 32px; }
+    .no-times .step { grid-template-columns: 22px 20px minmax(0, 1fr) 52px 32px; }
     .no-times .step input[type=time], .no-times .col-time { display: none; }
+    /* the grip: six dots next to the fixed step number; drag it, tap it, or use the arrow keys */
+    .maker button.grip { display: flex; align-items: center; justify-content: center; padding: 10px 0; background: transparent;
+                         color: #64748b; cursor: grab; touch-action: none; border-radius: 8px; }
+    .maker button.grip:active { cursor: grabbing; }
+    .grip .dots { width: 9px; height: 15px; background: radial-gradient(circle, currentColor 1.4px, transparent 1.8px) 0 0 / 4.5px 5px; }
+    .step > * { transition: transform 0.15s; }
+    .step.dragging > :not(.n) { position: relative; z-index: 2; transition: none; }
+    .step.dragging input { box-shadow: 0 6px 16px rgba(15, 118, 110, 0.25); }
+    .step.dragging .grip { color: #0F766E; }
+    .step { border-radius: 10px; }
+    .step.picked { background: #DDF3EE; }
+    .step.picked .grip { color: #0F766E; }
+    @media (prefers-reduced-motion: reduce) { .step > * { transition: none; } }
+    /* the checkbox in the page's teal, its label like the field labels */
+    .maker input[type=checkbox] { accent-color: #0F766E; width: 18px; height: 18px; vertical-align: -3px; margin: 0 4px 0 0; }
+    .maker .check { font-weight: 700; color: #115E59; padding-bottom: 10px; }
     .maker button.del { padding: 4px 0; background: transparent; color: #dc2626; line-height: 1; }
     .maker button.del .broom { font-family: 'Noto Emoji', sans-serif; font-size: 22px; }
     .maker button.del:hover { color: #991b1b; }
@@ -81,10 +97,10 @@
     @media (max-width: 640px) {
       body { padding: 8px !important; gap: 16px !important; }
       .maker { padding: 14px; }
-      .step { grid-template-columns: 16px minmax(0, 1fr) 74px 44px 22px; gap: 4px; }
+      .step { grid-template-columns: 14px 18px minmax(0, 1fr) 74px 44px 22px; gap: 4px; }
       .step input[type=time] { font-size: 13px; padding: 6px 2px; }
       .maker button.thumb { width: 44px; height: 44px; }
-      .no-times .step { grid-template-columns: 16px minmax(0, 1fr) 44px 22px; }
+      .no-times .step { grid-template-columns: 14px 18px minmax(0, 1fr) 44px 22px; }
       .gallery { grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); padding-left: 0; }
     }
     .layout { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 24px; }

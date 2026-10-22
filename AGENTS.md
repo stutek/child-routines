@@ -26,6 +26,7 @@ Printable A4 routine sheets for young children (morning, dinner, bedtime). They 
 pip install -r requirements.txt
 python3 tools/check_images.py   # must print 0 errors
 python3 tools/build.py          # rebuild output/ after any change to routines or images
+python3 tools/preview.py        # then refresh docs/preview.jpg (README); needs Chrome and pdftoppm
 ```
 
 Check a change visually: print the output file to PDF with headless Chrome and look at it (`google-chrome --headless=new --print-to-pdf=out.pdf file://$PWD/output/<file>.html`).

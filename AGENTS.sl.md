@@ -26,6 +26,7 @@ Listi A4 za tisk z rutino majhnega otroka (jutro, večerja, spanje). Visijo na h
 pip install -r requirements.txt
 python3 tools/check_images.py   # mora izpisati 0 napak
 python3 tools/build.py          # po vsaki spremembi rutin ali slik znova zgradi output/
+python3 tools/preview.py        # nato osveži docs/preview.jpg (README); potrebuje Chrome in pdftoppm
 ```
 
 Spremembo preveri vizualno: datoteko iz `output/` z brezglavim Chromom natisni v PDF in jo poglej (`google-chrome --headless=new --print-to-pdf=out.pdf file://$PWD/output/<datoteka>.html`).

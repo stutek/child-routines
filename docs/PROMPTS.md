@@ -42,8 +42,7 @@ Every routine image is a square 1:1 illustration generated with an image model. 
 | kindergarten | off to kindergarten | style references        |
 | make-bed     | make the bed        | none (see the prompt)   |
 | pajamas      | pajamas             | style references        |
-| medicine     | medicine            | `toilet.jpg` (bathroom) |
-| cream        | skin cream          | `toilet.jpg` (bathroom) |
+| care         | medicine and care   | style references        |
 
 **Set the table** — Top-down view through a child's eyes: two small child hands placing a child-size fork and spoon with wooden handles next to an EMPTY white plate on a colorful fabric placemat on a light wooden table. An empty cup and a folded napkin next to the plate. No food anywhere.
 
@@ -69,6 +68,4 @@ Every routine image is a square 1:1 illustration generated with an image model. 
 
 **Pajamas** — Through a child's eyes (first-person view): two small child hands with BARE forearms enter from the bottom edge and lift a soft pastel cotton pajama top with little moons and stars by its shoulders, about to pull it over the head. The soft fabric hangs down limply under its own weight, with natural folds and drooping sleeves; it is NOT stiff and does NOT stand up like a board. The child is not yet wearing any pajamas. The matching pajama pants lie loosely on the bed. A cozy child's bedroom in the evening, warm lamp light, many homely details: a shelf with books and toys, a plant, a window with curtains, a patterned rug. Gender-neutral.
 
-**Medicine** — The same cozy bathroom as the reference (mint tiles, wooden shelf, plants), painted in its style. On a HIGH wooden wall shelf, out of a child's reach: a small amber glass medicine bottle with its child-proof cap CLOSED and a plain white label without any text or symbols, and beside it a small clear dosing cup with a little pink syrup. Calm and safe: no pills, no tablets, nothing that looks like candy, no red cross or other medical symbol, no hands, no characters.
-
-**Skin cream** — The same cozy bathroom as the reference (mint tiles, wooden shelf, plants), painted in its style. On the edge of the bathroom sink, LARGE in the picture: an open round jar of white skin cream with a soft swirl on top, its lid leaning beside it, a small plain cream tube and a folded fluffy towel. Labels plain, without any text or symbols. No hands, no characters.
+**Medicine and care** — Only a simple wooden wall shelf in front of mint ceramic bathroom tiles, painted in the style of the references; nothing else in the room. On the shelf, LARGE in the picture, side by side: a small amber glass medicine bottle with its child-proof cap CLOSED and a plain white label with only a simple GREEN cross (the pharmacy sign, never a red cross) and no text; a small clear dosing cup with a little pink syrup; an open round jar of white skin cream with a soft swirl on top, its lid leaning beside it; and a small plain cream tube. No pills, nothing that looks like candy, no toilet, no sink, no tap, no plants, no towel, no hands, no characters, no letters.

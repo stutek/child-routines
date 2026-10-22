@@ -96,7 +96,8 @@ window.SHEET_DATA = {
      "mazil*",
      "nega",
      "negovaln*",
-     "namaz*"
+     "namaz*",
+     "maz*"
     ],
     "en": [
      "medicine*",
@@ -173,7 +174,8 @@ window.SHEET_DATA = {
      "oblac*",
      "obleci",
      "obleka",
-     "obuj*"
+     "obuj*",
+     "oblec*"
     ],
     "en": [
      "get dressed",
@@ -193,7 +195,8 @@ window.SHEET_DATA = {
      "zbujanje",
      "zbudi*",
      "vstajanje",
-     "vstani"
+     "vstani",
+     "prebuj*"
     ],
     "en": [
      "good morning",
@@ -248,7 +251,8 @@ window.SHEET_DATA = {
     "sl": [
      "pizam*",
      "obleci pizamo",
-     "spalna srajc*"
+     "spalna srajc*",
+     "oblecem pizamo"
     ],
     "en": [
      "pajama*",

@@ -45,9 +45,9 @@
                           border: 2px solid #e2e8f0; font-size: 22px; color: #94a3b8; }
     .maker button.thumb.missing { border-color: #f59e0b; background: #fffbeb; color: #b45309; }
     .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(64px, 1fr)); gap: 6px; padding: 6px 0 6px 28px; }
+    .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 8px; padding: 8px 0 8px 28px; }
     .gallery[hidden] { display: none; }
-    .maker .gallery button { padding: 0; height: 64px; border-radius: 10px; overflow: hidden; font-size: 13px; background: #f1f5f9; }
+    .maker .gallery button { padding: 0; aspect-ratio: 1; border-radius: 12px; overflow: hidden; font-size: 14px; background: #f1f5f9; }
     .gallery img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .note { font-size: 13px; color: #b45309; }
     .warnings { background: #fffbeb; border: 1px solid #fde68a; border-radius: 12px; padding: 10px 14px; }
@@ -60,6 +60,7 @@
       .step input[type=time] { font-size: 13px; padding: 6px 2px; }
       .maker button.thumb { width: 44px; height: 44px; }
       .no-times .step { grid-template-columns: 16px minmax(0, 1fr) 44px 22px; }
+      .gallery { grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); padding-left: 0; }
     }
     @media print { .maker { display: none !important; } #preview { zoom: 1 !important; } }
   </style>

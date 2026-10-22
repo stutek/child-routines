@@ -4,13 +4,13 @@
        Google Lens 2026-10-23, 512 px: no exact matches; visual matches are other checklist icons.
        A first version (two checks, a dot, three lines) matched the E-Com Plus marketplace icon exactly
        and was dropped. -->
-  <rect width="32" height="32" rx="7" fill="#7C3AED"/>
-  <g fill="#fff">
+  <rect width="32" height="32" rx="7" fill="#44403C"/>
+  <g fill="#FAF6EE">
     <rect x="4" y="5" width="6.5" height="6.5" rx="1.6"/>
     <rect x="21.5" y="12.75" width="6.5" height="6.5" rx="1.6"/>
     <rect x="4" y="20.5" width="6.5" height="6.5" rx="1.6"/>
   </g>
-  <g fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+  <g fill="none" stroke="#FAF6EE" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
     <path d="M13.5 8.25h5M13.5 23.75h5M13.5 16h5"/>
     <path d="M22 8.25l2 2 3.5-4M4.5 16l2 2 3.5-4"/>
     <circle cx="24.75" cy="23.75" r="2.6"/>

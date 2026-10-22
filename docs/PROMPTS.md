@@ -43,7 +43,8 @@ Every routine image is a square 1:1 illustration generated with an image model. 
 | make-bed     | make the bed        | none (see the prompt)   |
 | pajamas      | pajamas             | style references        |
 | care         | medicine and care   | style references        |
-| breakfast    | breakfast           | style references        |
+| breakfast    | breakfast           | `set-table.jpg` (table) |
+| dinner       | dinner              | `set-table.jpg` (table) |
 
 **Set the table** — Top-down view through a child's eyes: two small child hands placing a child-size fork and spoon with wooden handles next to an EMPTY white plate on a colorful fabric placemat on a light wooden table. An empty cup and a folded napkin next to the plate. No food anywhere.
 
@@ -71,4 +72,6 @@ Every routine image is a square 1:1 illustration generated with an image model. 
 
 **Medicine and care** — Only a simple wooden wall shelf in front of mint ceramic bathroom tiles, painted in the style of the references; nothing else in the room. On the shelf, LARGE in the picture, side by side: a small amber glass medicine bottle with its child-proof cap CLOSED and a plain white label with only a simple GREEN cross (the pharmacy sign, never a red cross) and no text; a small clear dosing cup with a little pink syrup; an open round jar of white skin cream with a soft swirl on top, its lid leaning beside it; and a small plain cream tube. No pills, nothing that looks like candy, no toilet, no sink, no tap, no plants, no towel, no hands, no characters, no letters.
 
-**Breakfast** — A cozy kitchen table in soft morning light, painted in the style of the references. LARGE in the picture: a plate with a slice of golden toast spread with butter, a small butter dish with a butter knife beside it, a fresh red apple, and a warm cup of tea on a saucer. Behind, only a window with morning light and one small plant. No other food, no hands, no characters, no letters. The painting fills the whole square canvas edge to edge, no paper border.
+**Breakfast** — Through a child's eyes, the SAME light wooden table and colorful plaid fabric placemat as the reference, seen from the same viewpoint, painted in its style. Only the table and the placemat: no window, no plants, no chairs in focus, no hands, no characters, no letters. The painting fills the whole square canvas edge to edge, no paper border. On the placemat, LARGE in the picture: a plate with a slice of golden toast spread with butter, a small butter dish with a butter knife, a fresh red apple, and a warm cup of tea on a saucer. No other food.
+
+**Dinner** — Through a child's eyes, the SAME light wooden table and colorful plaid fabric placemat as the reference, seen from the same viewpoint, painted in its style. Only the table and the placemat: no window, no plants, no chairs in focus, no hands, no characters, no letters. The painting fills the whole square canvas edge to edge, no paper border. On the placemat, LARGE in the picture: a white plate with spiral pasta, a few meatballs, sliced carrots and broccoli, a child-size fork and spoon with wooden handles beside it, and a cup of water. No faces on the food, no sparkles.

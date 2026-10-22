@@ -164,7 +164,14 @@ CSS = """
     }
 
     body {
-      background: #cbd5e1;
+      /* warm paper with soft watercolour washes, like the sheets (screen only; print has no body background) */
+      background:
+        radial-gradient(circle at 8% 12%, rgba(221, 204, 246, 0.75) 0, transparent 38%),
+        radial-gradient(circle at 92% 18%, rgba(255, 217, 176, 0.65) 0, transparent 36%),
+        radial-gradient(circle at 20% 92%, rgba(201, 238, 222, 0.7) 0, transparent 40%),
+        radial-gradient(circle at 85% 85%, rgba(246, 201, 222, 0.6) 0, transparent 38%),
+        #FFF8EF;
+      background-attachment: fixed;
       font-family: 'Baloo 2', -apple-system, 'Segoe UI', Roboto, Ubuntu, sans-serif;
       display: flex;
       flex-direction: column;
@@ -190,7 +197,7 @@ CSS = """
     .no-print-toolbar h2 { font-size: 18px; margin-bottom: 3px; }
     .toolbar-info { font-size: 14px; color: #475569; line-height: 1.4; }
     .btn-print {
-      background: #1d4ed8;
+      background: #7C3AED;
       color: white;
       border: none;
       padding: 12px 24px;
@@ -200,7 +207,7 @@ CSS = """
       border-radius: 12px;
       cursor: pointer;
     }
-    .btn-print:hover { background: #1e40af; }
+    .btn-print:hover { background: #6D28D9; }
 
     /* A4 sheet; the sky background prints because of print-color-adjust: exact. Margins stay inside
        the area home printers can print (Epson: 3 mm top and sides, 14 mm bottom). */

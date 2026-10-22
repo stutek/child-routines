@@ -25,7 +25,7 @@ const T = {
     example: "Naloži primer", replaceSheet: "Primer bo zamenjal tvoj list in vpisano se bo izgubilo. Nadaljujem?", print: "🖨️ Natisni",
     type: "Tip rutine", sheetTitle: "Naslov lista", skies: { dawn: "jutro", afternoon: "dan", night: "večer" },
     times: "Ura na listu", background: "Ozadje", backgrounds: { gradient: "preliv barv", white: "belo", none: "prosojno (se ne natisne)" },
-    label: "Opravilo", labelHint: "npr. UMIJ ZOBE", picture: "Sličica", time: "Ura", auto: "Samodejno", none: "Brez sličice", pick: "Zamenjaj sličico", removeStep: "Izprazni vrstico", move: "Premakni korak", moveHint: "Povleci za premik ali tapni tu in nato na novem mestu; s tipkovnico puščici gor in dol",
+    label: "Opravilo", labelHint: "npr. UMIJ ZOBKE", language: "Jezik", moved: n => `Premaknjeno na mesto ${n}`, picture: "Sličica", time: "Ura", auto: "Samodejno", none: "Brez sličice", pick: "Zamenjaj sličico", removeStep: "Izprazni vrstico", move: "Premakni korak", moveHint: "Povleci za premik ali tapni tu in nato na novem mestu; s tipkovnico puščici gor in dol",
     warnNoMatch: (s, l) => `${s}: za »${l}« nimamo sličice. Izberi drugo ali pusti prazno.`,
     warnLong: (s, l) => `${s}: napis »${l}« je predolg za okvir; skrajšaj ga.`,
     preview: "👁 Predogled: tako bo natisnjeno (A4)", step: "Korak", ok: "✓ Vse sličice so najdene in vsi napisi se prilegajo.", suggest: "Manjka sličica? Predlagaj jo", warnTitle: "Opozorila",
@@ -37,7 +37,7 @@ const T = {
     example: "Load example", replaceSheet: "The example will replace your sheet and what you typed will be lost. Continue?", print: "🖨️ Print",
     type: "Routine type", sheetTitle: "Sheet title", skies: { dawn: "morning", afternoon: "day", night: "evening" },
     times: "Time on the sheet", background: "Background", backgrounds: { gradient: "color gradient", white: "white", none: "transparent (not printed)" },
-    label: "Step", labelHint: "e.g. BRUSH TEETH", picture: "Picture", time: "Time", auto: "Automatic", none: "No picture", pick: "Change picture", removeStep: "Clear row", move: "Move step", moveHint: "Drag to move, or tap here and then at the new place; with the keyboard, the up and down arrows",
+    label: "Step", labelHint: "e.g. BRUSH TEETH", language: "Language", moved: n => `Moved to place ${n}`, picture: "Picture", time: "Time", auto: "Automatic", none: "No picture", pick: "Change picture", removeStep: "Clear row", move: "Move step", moveHint: "Drag to move, or tap here and then at the new place; with the keyboard, the up and down arrows",
     warnNoMatch: (s, l) => `${s}: no picture for "${l}". Pick another or leave it empty.`,
     warnLong: (s, l) => `${s}: "${l}" is too long for the frame; shorten it.`,
     preview: "👁 Preview: this is what prints (A4)", step: "Step", ok: "✓ All pictures found and all labels fit.", suggest: "Missing a picture? Suggest one", warnTitle: "Warnings",
@@ -240,6 +240,13 @@ function select(label, value, options, onchange) {
     Object.entries(options).map(([v, text]) => { const o = el("option", { value: v }, text); o.selected = v === value; return o; }));
 }
 
+// each language in its own name and marked with its language (WCAG 2.2, 3.1.2)
+function langSelect(label) {
+  const s = select(label, state.lang, { sl: "Slovenščina", en: "English" }, v => { state.lang = v; update(true); });
+  for (const o of s.options) o.lang = o.value;
+  return s;
+}
+
 // a labelled field: the label text above its control
 const field = (text, control, cls = "") => el("label", { class: `field ${cls}`.trim() }, [el("span", { class: "field-label" }, text), control]);
 
@@ -255,6 +262,7 @@ function moveStep(from, to) {
   steps.splice(to, 0, steps.splice(from, 1)[0]);
   picked = null; update(true);
   document.querySelectorAll(".grip")[to].focus();
+  document.getElementById("announce").textContent = T[state.lang].moved(to + 1);   // read out by screen readers
 }
 function dragRow(e, k, rows) {
   if (e.button > 0) return;
@@ -276,8 +284,8 @@ function dragRow(e, k, rows) {
     ac.abort();
     rows.forEach(r => { shift(r, 0); r.classList.remove("dragging"); });
     if (moved) { if (to !== k) moveStep(k, to); return; }
-    if (picked === null) { picked = k; rows[k].classList.add("picked"); }
-    else if (picked === k) { picked = null; rows[k].classList.remove("picked"); }
+    if (picked === null) { picked = k; rows[k].classList.add("picked"); grip.setAttribute("aria-pressed", "true"); }
+    else if (picked === k) { picked = null; rows[k].classList.remove("picked"); grip.setAttribute("aria-pressed", "false"); }
     else moveStep(picked, k);
   };
   grip.addEventListener("pointerup", end, { signal: ac.signal });
@@ -302,7 +310,7 @@ function renderEditor() {
       el("h1", { class: "grow" }, [el("img", { class: "logo", src: "icon.svg", alt: "" }), L.heading]),
       // each language in its own name, labelled with a globe (W3C: language selection), no flags
       el("label", { class: "lang" }, [el("span", { class: "globe", "aria-hidden": "true" }, "🌐"),
-        select("Language", state.lang, { sl: "Slovenščina", en: "English" }, v => { state.lang = v; update(true); })])]),
+        langSelect(L.language)])]),
     el("h2", {}, L.aboutTitle), el("p", { class: "about" }, L.about),
     el("h2", {}, L.howTitle), el("ol", { class: "how" }, L.how.map(s => el("li", {}, s))),
     // every field has a visible label (WCAG 2.2, 3.3.2); a placeholder disappears once the parent types
@@ -334,7 +342,7 @@ function renderEditor() {
       ...Object.entries(D.images).map(([id, img]) =>
         el("button", { title: img.title, onclick: () => choose(id) }, el("img", { src: `../images/${id}.jpg`, alt: img.title, loading: "lazy" }))),
       el("button", { onclick: () => choose("none") }, `∅ ${L.none}`));
-    const grip = el("button", { class: "grip", title: L.moveHint, "aria-label": `${L.move} ${k + 1}`,
+    const grip = el("button", { class: "grip", title: L.moveHint, "aria-label": `${L.move} ${k + 1}`, "aria-pressed": picked === k ? "true" : "false",
       onpointerdown: e => dragRow(e, k, rows), onclick: e => e.preventDefault(),
       onkeydown: e => {
         const to = k + (e.key === "ArrowUp" ? -1 : e.key === "ArrowDown" ? 1 : 0);
@@ -353,7 +361,7 @@ function renderEditor() {
     step._thumb = thumb;
   });
   // print comes last, after the parent has filled in the rows and read the warnings
-  root.append(box, el("div", { id: "warnings" }),
+  root.append(box, el("div", { id: "warnings", role: "status" }),
     el("div", { class: "row-top" }, el("button", { class: "primary", onclick: () => window.print() }, L.print)));
 }
 

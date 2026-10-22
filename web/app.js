@@ -19,28 +19,34 @@ const PALETTES = [
 
 const T = {
   sl: {
-    heading: "Izdelaj svoj list", intro: "Vpiši korake in uro. Sličico poiščem sam; kjer je nimamo, te opozorim. Tvoji vnosi ostanejo v tvojem brskalniku.",
-    title: "Naslov", lang: "Jezik", example: "Začni iz primera", clear: "Počisti", print: "🖨️ Natisni",
-    sheet: "List", sheetTitle: "Naslov lista", sky: "Nebo", skies: { dawn: "jutro", afternoon: "popoldne", night: "noč" },
+    heading: "Izdelaj svoj list",
+    how: ["Vpiši opravila in po želji uro.", "Sličico izberem sam. Klikni nanjo, da jo zamenjaš.", "Natisni na A4: robovi »Brez«, merilo 100 %."],
+    example: "Primer", clear: "Počisti", print: "🖨️ Natisni",
+    sheet: "List", sheetTitle: "Naslov lista", skies: { dawn: "☀️ jutro", afternoon: "🌤️ popoldne", night: "🌙 noč" },
+    background: "Ozadje", backgrounds: { gradient: "preliv barv", white: "belo", none: "prosojno (se ne natisne)" },
     label: "Opravilo, npr. UMIJ ZOBE", time: "Ura", addStep: "+ Korak", addSheet: "+ List", removeSheet: "Odstrani list",
-    auto: "Samodejno", none: "Brez sličice (prazno polje)", matched: (t, k) => `Sličica: ${t} (prepoznano po »${k}«)`,
-    noMatch: "Za to opravilo nimamo sličice: izberi drugo ali pusti prazno polje.",
-    limit: n => `Največ ${MAX_STEPS} korakov na list (najlepše 6 do 7). Za več dodaj nov list.`,
-    warnNoMatch: (s, l) => `${s}: za »${l}« nimamo sličice.`, warnLong: (s, l) => `${s}: napis »${l}« je predolg za okvir; skrajšaj ga.`,
-    warnEmpty: s => `${s}: korak brez napisa.`, warnTooMany: (s, n) => `${s} ima ${n} korakov, največ ${MAX_STEPS}: razdeli ga na dva lista.`, ok: "Vse sličice so najdene in vsi napisi se prilegajo.",
-    suggest: "Manjka sličica? Predlagaj jo", warnTitle: "Opozorila",
+    auto: "Samodejno", none: "Brez sličice", pick: "Zamenjaj sličico", removeStep: "Odstrani korak",
+    limit: `Največ ${MAX_STEPS} korakov na list (najlepše 6 do 7). Za več dodaj nov list.`,
+    warnNoMatch: (s, l) => `${s}: za »${l}« nimamo sličice. Izberi drugo ali pusti prazno.`,
+    warnLong: (s, l) => `${s}: napis »${l}« je predolg za okvir; skrajšaj ga.`,
+    warnEmpty: s => `${s}: korak brez napisa.`,
+    warnTooMany: (s, n) => `${s} ima ${n} korakov, največ ${MAX_STEPS}: razdeli ga na dva lista.`,
+    ok: "✓ Vse sličice so najdene in vsi napisi se prilegajo.", suggest: "Manjka sličica? Predlagaj jo", warnTitle: "Opozorila",
   },
   en: {
-    heading: "Make your own sheet", intro: "Type the steps and times. I pick the pictures; where we have none, I tell you. What you type stays in your browser.",
-    title: "Title", lang: "Language", example: "Start from the example", clear: "Clear", print: "🖨️ Print",
-    sheet: "Sheet", sheetTitle: "Sheet title", sky: "Sky", skies: { dawn: "morning", afternoon: "afternoon", night: "night" },
+    heading: "Make your own sheet",
+    how: ["Type the steps and, if you like, a time.", "I pick the pictures. Click one to change it.", "Print on A4: margins None, scale 100 %."],
+    example: "Example", clear: "Clear", print: "🖨️ Print",
+    sheet: "Sheet", sheetTitle: "Sheet title", skies: { dawn: "☀️ morning", afternoon: "🌤️ afternoon", night: "🌙 night" },
+    background: "Background", backgrounds: { gradient: "color gradient", white: "white", none: "transparent (not printed)" },
     label: "Step, e.g. BRUSH TEETH", time: "Time", addStep: "+ Step", addSheet: "+ Sheet", removeSheet: "Remove sheet",
-    auto: "Automatic", none: "No picture (empty box)", matched: (t, k) => `Picture: ${t} (matched by "${k}")`,
-    noMatch: "We have no picture for this step: pick another or leave the box empty.",
-    limit: n => `At most ${MAX_STEPS} steps per sheet (6 to 7 look best). Add a sheet for more.`,
-    warnNoMatch: (s, l) => `${s}: no picture for "${l}".`, warnLong: (s, l) => `${s}: "${l}" is too long for the frame; shorten it.`,
-    warnEmpty: s => `${s}: step without a label.`, warnTooMany: (s, n) => `${s} has ${n} steps, at most ${MAX_STEPS}: split it into two sheets.`, ok: "All pictures found and all labels fit.",
-    suggest: "Missing a picture? Suggest one", warnTitle: "Warnings",
+    auto: "Automatic", none: "No picture", pick: "Change picture", removeStep: "Remove step",
+    limit: `At most ${MAX_STEPS} steps per sheet (6 to 7 look best). Add a sheet for more.`,
+    warnNoMatch: (s, l) => `${s}: no picture for "${l}". Pick another or leave it empty.`,
+    warnLong: (s, l) => `${s}: "${l}" is too long for the frame; shorten it.`,
+    warnEmpty: s => `${s}: step without a label.`,
+    warnTooMany: (s, n) => `${s} has ${n} steps, at most ${MAX_STEPS}: split it into two sheets.`,
+    ok: "✓ All pictures found and all labels fit.", suggest: "Missing a picture? Suggest one", warnTitle: "Warnings",
   },
 };
 
@@ -125,12 +131,13 @@ function sheetHtml(sheet) {
         <div class="rt-check"></div>
       </div>`;
   }).join("");
-  const sky = D.skies[sheet.sky] || D.skies.dawn;   // only known skies reach the style attribute
+  const plain = D.plain[sheet.sky];   // only known skies and plain backgrounds reach the style attribute
+  const background = plain || `linear-gradient(180deg, ${D.skies[sheet.sky] || D.skies.dawn})`;
   const starry = sheet.sky === "night"
     ? `<svg class="rt-sky" viewBox="0 0 210 297" preserveAspectRatio="none" aria-hidden="true"><g fill="#FFF8DC">${stars()}</g></svg>` : "";
   const gridRows = `14mm minmax(0, 0.45fr) repeat(${2 * n}, minmax(0, 1fr)) minmax(0, 0.45fr)`;
   return `
-  <div class="page-a4 rt-page" style="background: linear-gradient(180deg, ${sky});">${starry}
+  <div class="page-a4 rt-page" style="background: ${background};">${starry}
     <div class="rt-grid" style="grid-template-rows: ${gridRows};">
       <div class="rt-header"><div class="rt-title">${esc(sheet.title)}</div></div>${rows}
     </div>
@@ -142,7 +149,7 @@ function sheetHtml(sheet) {
 function fromExample(lang) {
   const ex = D.examples["sl-vsakdan"];
   return {
-    lang, title: ex.title,
+    lang, title: ex.title, background: "gradient",
     sheets: ex.sheets.map(s => ({ title: s.title, sky: s.sky, steps: s.steps.map(st => ({ label: st.label, time: "", image: "auto" })) })),
   };
 }
@@ -161,13 +168,16 @@ function clean(s) {
     steps: (Array.isArray(sh && sh.steps) ? sh.steps : []).slice(0, 2 * MAX_STEPS).map(step),
   });
   const sheets = (Array.isArray(s && s.sheets) ? s.sheets : []).slice(0, MAX_SHEETS).map(sheet).filter(sh => sh.steps.length);
-  return sheets.length ? { lang: T[s.lang] ? s.lang : "sl", title: str(s.title, 60), sheets } : null;
+  const background = ["gradient", "white", "none"].includes(s.background) ? s.background : "gradient";
+  return sheets.length ? { lang: T[s.lang] ? s.lang : "sl", title: str(s.title, 60), background, sheets } : null;
 }
 function load() {
   try { const s = clean(JSON.parse(localStorage.getItem(STORE))); if (s) return s; } catch (e) { /* no or bad storage */ }
   return fromExample((navigator.language || "sl").startsWith("sl") ? "sl" : "en");
 }
-function save() { try { localStorage.setItem(STORE, JSON.stringify(state)); } catch (e) { /* no storage */ } }
+function save() {
+  try { localStorage.setItem(STORE, JSON.stringify(state, (k, v) => (k.startsWith("_") ? undefined : v))); } catch (e) { /* no storage */ }
+}
 
 let state = load();
 const t = () => T[state.lang] || T.sl;
@@ -185,73 +195,81 @@ function resolve(step, sheetIndex, k) {
 function el(tag, attrs = {}, children = []) {
   const e = document.createElement(tag);
   for (const [k, v] of Object.entries(attrs)) {
-    if (k.startsWith("on")) e.addEventListener(k.slice(2), v); else if (v !== null && v !== undefined) e.setAttribute(k, v);
+    if (k.startsWith("on")) e.addEventListener(k.slice(2), v); else if (v !== null && v !== undefined && v !== false) e.setAttribute(k, v);
   }
   for (const c of [].concat(children)) e.append(c);
   return e;
 }
+function select(label, value, options, onchange) {
+  return el("select", { "aria-label": label, title: label, onchange: e => onchange(e.target.value) },
+    Object.entries(options).map(([v, text]) => { const o = el("option", { value: v }, text); o.selected = v === value; return o; }));
+}
+const newStep = () => ({ label: "", time: "", image: "auto" });
 
 function renderEditor() {
   const L = t(), root = document.getElementById("maker");
   document.documentElement.lang = state.lang;
-  root.replaceChildren();
-  root.append(el("h1", {}, `🧲 ${L.heading}`), el("p", {}, L.intro));
-
-  const lang = el("select", { "aria-label": L.lang, onchange: e => { state.lang = e.target.value; update(true); } },
-    ["sl", "en"].map(v => { const o = el("option", { value: v }, v === "sl" ? "Slovenščina" : "English"); o.selected = v === state.lang; return o; }));
-  const title = el("input", { class: "grow", value: state.title, "aria-label": L.title, placeholder: L.title,
-    oninput: e => { state.title = e.target.value; update(); } });
-  root.append(el("div", { class: "row-top" }, [title, lang,
-    el("button", { onclick: () => { state = fromExample(state.lang); update(true); } }, L.example),
-    el("button", { onclick: () => { state = { lang: state.lang, title: state.title, sheets: [{ title: "☀️", sky: "dawn", steps: [{ label: "", time: "", image: "auto" }] }] }; update(true); } }, L.clear),
-    el("button", { class: "primary", onclick: () => window.print() }, L.print)]));
+  root.replaceChildren(
+    el("div", { class: "row-top" }, [
+      el("h1", { class: "grow" }, `🧲 ${L.heading}`),
+      select("Language", state.lang, { sl: "SL", en: "EN" }, v => { state.lang = v; update(true); })]),
+    el("ol", { class: "how" }, L.how.map(s => el("li", {}, s))),
+    el("div", { class: "row-top" }, [
+      el("label", { class: "grow" }, [`${L.background}: `,
+        select(L.background, state.background, L.backgrounds, v => { state.background = v; update(true); })]),
+      el("button", { onclick: () => { state = fromExample(state.lang); update(true); } }, L.example),
+      el("button", { onclick: () => { state = { ...state, sheets: [{ title: "☀️", sky: "dawn", steps: [newStep()] }] }; update(true); } }, L.clear),
+      el("button", { class: "primary", onclick: () => window.print() }, L.print)]));
 
   state.sheets.forEach((sheet, si) => {
-    const box = el("div", { class: "sheet-box" });
-    const sky = el("select", { "aria-label": L.sky, onchange: e => { sheet.sky = e.target.value; update(); } },
-      Object.keys(D.skies).map(v => { const o = el("option", { value: v }, L.skies[v] || v); o.selected = v === sheet.sky; return o; }));
-    box.append(el("div", { class: "sheet-head" }, [
-      el("strong", {}, `${L.sheet} ${si + 1}`),
-      el("input", { class: "title", value: sheet.title, "aria-label": L.sheetTitle, oninput: e => { sheet.title = e.target.value; update(); } }),
-      sky,
-      el("button", { disabled: state.sheets.length === 1 ? "" : null, onclick: () => { state.sheets.splice(si, 1); update(true); } }, L.removeSheet)]));
+    const box = el("div", { class: "sheet-box" }, el("div", { class: "sheet-head" }, [
+      el("input", { class: "title", value: sheet.title, "aria-label": L.sheetTitle, placeholder: L.sheetTitle,
+        oninput: e => { sheet.title = e.target.value; update(); } }),
+      state.background === "gradient" ? select(L.sheet, sheet.sky, L.skies, v => { sheet.sky = v; update(); }) : "",
+      el("button", { class: "del", title: L.removeSheet, "aria-label": L.removeSheet, disabled: state.sheets.length === 1,
+        onclick: () => { state.sheets.splice(si, 1); update(true); } }, "×")]));
 
     sheet.steps.forEach((step, k) => {
-      const hint = el("div", { class: "hint" });
-      const pick = el("select", { "aria-label": "image", onchange: e => { step.image = e.target.value; update(); } });
-      const label = el("input", { value: step.label, placeholder: L.label, maxlength: "24", "aria-label": L.label,
-        oninput: e => { step.label = e.target.value; update(); } });
-      const time = el("input", { type: "time", value: step.time, "aria-label": L.time, oninput: e => { step.time = e.target.value; update(); } });
-      const del = el("button", { class: "del", title: "×", onclick: () => { sheet.steps.splice(k, 1); if (!sheet.steps.length) state.sheets.splice(si, 1); update(true); } }, "×");
-      box.append(el("div", { class: "step" }, [el("span", { class: "n" }, `${k + 1}`), label, time, pick, del]), hint);
-      step._ui = { pick, hint };
+      const gallery = el("div", { class: "gallery", hidden: true });
+      const thumb = el("button", { class: "thumb", title: L.pick, "aria-label": L.pick,
+        onclick: () => { gallery.hidden = !gallery.hidden; } });
+      const choose = v => { step.image = v; gallery.hidden = true; update(); };
+      gallery.append(
+        el("button", { onclick: () => choose("auto") }, `🔄 ${L.auto}`),
+        ...Object.entries(D.images).map(([id, img]) =>
+          el("button", { title: img.title, onclick: () => choose(id) }, el("img", { src: `../images/${id}.jpg`, alt: img.title, loading: "lazy" }))),
+        el("button", { onclick: () => choose("none") }, `∅ ${L.none}`));
+      box.append(el("div", { class: "step" }, [
+        el("span", { class: "n" }, `${k + 1}`),
+        el("input", { value: step.label, placeholder: L.label, maxlength: "24", "aria-label": L.label,
+          oninput: e => { step.label = e.target.value; update(); } }),
+        el("input", { type: "time", value: step.time, "aria-label": L.time, oninput: e => { step.time = e.target.value; update(); } }),
+        thumb,
+        el("button", { class: "del", title: L.removeStep, "aria-label": L.removeStep,
+          onclick: () => { sheet.steps.splice(k, 1); if (!sheet.steps.length) state.sheets.splice(si, 1); update(true); } }, "×")]), gallery);
+      step._thumb = thumb;
     });
 
     const full = sheet.steps.length >= MAX_STEPS;
     box.append(el("div", { class: "row-top" }, [
-      el("button", { disabled: full ? "" : null, onclick: () => { sheet.steps.push({ label: "", time: "", image: "auto" }); update(true); } }, L.addStep),
-      full ? el("span", { class: "hint warn" }, L.limit()) : ""]));
+      el("button", { disabled: full, onclick: () => { sheet.steps.push(newStep()); update(true); } }, L.addStep),
+      full ? el("span", { class: "note" }, L.limit) : ""]));
     root.append(box);
   });
 
-  root.append(el("div", { class: "row-top" }, [
-    el("button", { disabled: state.sheets.length >= MAX_SHEETS ? "" : null,
-      onclick: () => { state.sheets.push({ title: "🌙", sky: "night", steps: [{ label: "", time: "", image: "auto" }] }); update(true); } }, L.addSheet)]));
-  root.append(el("div", { id: "warnings" }));
+  root.append(
+    el("div", { class: "row-top" }, el("button", { disabled: state.sheets.length >= MAX_SHEETS,
+      onclick: () => { state.sheets.push({ title: "🌙", sky: "night", steps: [newStep()] }); update(true); } }, L.addSheet)),
+    el("div", { id: "warnings" }));
 }
 
-// refresh image pickers and hints in place, so typing keeps focus
+// refresh each step's picture in place, so typing keeps focus
 function refreshSteps() {
-  const L = t();
   state.sheets.forEach((sheet, si) => sheet.steps.forEach((step, k) => {
-    if (!step._ui) return;
-    const r = resolve(step, si, k), { pick, hint } = step._ui;
-    const options = [[`auto`, `${L.auto}${r.match ? ": " + D.images[r.match.id].title : ""}`]]
-      .concat(Object.entries(D.images).map(([id, img]) => [id, img.title]), [["none", L.none]]);
-    pick.replaceChildren(...options.map(([v, text]) => { const o = el("option", { value: v }, text); o.selected = v === step.image; return o; }));
-    const missing = step.label.trim() && step.image === "auto" && !r.match;
-    hint.className = missing ? "hint warn" : "hint";
-    hint.replaceChildren(missing ? L.noMatch : r.match && step.image === "auto" ? L.matched(D.images[r.match.id].title, r.match.key) : "");
+    if (!step._thumb) return;
+    const r = resolve(step, si, k);
+    step._thumb.classList.toggle("missing", !r.image && step.image !== "none" && !!step.label.trim());
+    step._thumb.replaceChildren(r.image ? el("img", { src: `../images/${r.image}.jpg`, alt: D.images[r.image].title }) : "?");
   }));
 }
 
@@ -266,7 +284,8 @@ function labelRoom(lab) {
 
 function renderPreview() {
   const L = t();
-  const sheets = state.sheets.map((s, si) => ({ title: s.title, sky: s.sky, steps: s.steps.map((st, k) => resolve(st, si, k)) }));
+  const sky = s => (state.background === "gradient" ? s.sky : state.background);
+  const sheets = state.sheets.map((s, si) => ({ title: s.title, sky: sky(s), steps: s.steps.map((st, k) => resolve(st, si, k)) }));
   document.getElementById("preview").innerHTML = sheets.map(sheetHtml).join("");
 
   const warnings = [];
@@ -297,6 +316,14 @@ function update(structure = false) {
   save();
 }
 
+// on a narrow screen the A4 preview shrinks to fit; printing uses @media print (zoom 1)
+function fitPreview() {
+  const a4 = 794, room = document.documentElement.clientWidth - 16;
+  document.getElementById("preview").style.zoom = room < a4 ? (room / a4).toFixed(3) : "";
+}
+window.addEventListener("resize", fitPreview);
+
 document.head.append(el("style", {}, D.css));
+fitPreview();
 document.fonts && document.fonts.ready.then(() => renderPreview());   // re-measure labels once the font is in
 update(true);

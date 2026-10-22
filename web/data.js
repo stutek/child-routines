@@ -6,6 +6,10 @@ window.SHEET_DATA = {
   "afternoon": "#FFF3C4 0%, #FFE0B2 30%, #FFCDB8 62%, #F6C3D9 100%",
   "night": "#EBCDE8 0%, #CDB8EE 25%, #7E78CC 65%, #2A2E6E 100%"
  },
+ "plain": {
+  "white": "#FFFFFF",
+  "none": "none"
+ },
  "missingBg": "#FFFFFF",
  "toolbar": {
   "sl": [

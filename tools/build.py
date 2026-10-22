@@ -239,7 +239,7 @@ CSS = """
       justify-self: center;
       width: var(--img);
       height: var(--img);
-      border-radius: 5mm;
+      border-radius: 7mm;   /* badge radius 5 + gap 1 + border 0.9: concentric with the badge */
       border: 0.9mm solid var(--step);
       background: var(--bg);
       box-shadow: 0 1mm 0 rgba(42, 46, 110, 0.22);
@@ -256,7 +256,7 @@ CSS = """
       font-weight: 800;
       color: color-mix(in srgb, var(--step) 35%, #ffffff);
       border: 1mm dashed color-mix(in srgb, var(--step) 35%, #ffffff);
-      border-radius: 4mm;
+      border-radius: 6mm;
     }
     .pic-left { grid-column: 1; }
     .pic-right { grid-column: 3; }
@@ -301,27 +301,27 @@ CSS = """
     /* Step number as a sticker in the outer top corner of the image */
     .rt-num {
       position: absolute;
-      top: 1mm;
-      width: 13mm;
-      height: 13mm;
+      top: 1.1mm;
+      width: 10mm;
+      height: 10mm;
       border-radius: 50%;
       background: radial-gradient(circle at 35% 30%, color-mix(in srgb, var(--step) 65%, #ffffff), var(--step) 70%);
-      border: 0.8mm solid #ffffff;
+      border: 0.6mm solid #ffffff;
       box-shadow: 0 0.8mm 0 rgba(42, 46, 110, 0.28);
       color: #ffffff;
-      font-size: 20pt;
+      font-size: 15pt;
       font-weight: 800;
       line-height: 1;
       text-shadow: 0 0.3mm 0 rgba(0, 0, 0, 0.18);
       display: flex;
       align-items: center;
       justify-content: center;
-      padding-top: 0.8mm;
+      padding-top: 0.6mm;
     }
-    /* Tight in the corner: the badge (6.5 mm radius) is larger than the corner radius (5 mm), so a
-       concentric inset is impossible; it sits one border width (0.9 mm) in and clears the curve. */
-    .pic-left .rt-num { left: 1mm; }
-    .pic-right .rt-num { right: 1mm; }
+    /* Concentric with the image corner (nested-radius rule): badge centre = corner centre, 7 mm from
+       the outer edges; 1.1 mm from the padding box = 7 - 5 (badge radius) - 0.9 (border). */
+    .pic-left .rt-num { left: 1.1mm; }
+    .pic-right .rt-num { right: 1.1mm; }
 
     .rt-label {
       white-space: nowrap;

@@ -54,6 +54,33 @@ window.SHEET_DATA = {
     ]
    }
   },
+  "care": {
+   "title": "Medicine bottle with a green cross, syrup cup, cream jar and tube on a bathroom shelf",
+   "keywords": {
+    "sl": [
+     "zdravil*",
+     "sirup*",
+     "vitamin*",
+     "kapljic*",
+     "krem*",
+     "mazil*",
+     "nega",
+     "negovaln*",
+     "namaz*"
+    ],
+    "en": [
+     "medicine*",
+     "medication",
+     "syrup",
+     "vitamin*",
+     "drops",
+     "cream*",
+     "lotion",
+     "ointment",
+     "skin care"
+    ]
+   }
+  },
   "cartoon": {
    "title": "Wooden TV with a waving bunny cartoon, lamp, flowering plant and window",
    "keywords": {
@@ -349,7 +376,7 @@ window.SHEET_DATA = {
       },
       {
        "label": "ZDRAVILA",
-       "image": null,
+       "image": "care",
        "color": "#F43F5E"
       },
       {
@@ -418,7 +445,7 @@ window.SHEET_DATA = {
       },
       {
        "label": "ZDRAVILA",
-       "image": null,
+       "image": "care",
        "color": "#9333EA"
       },
       {
@@ -460,6 +487,7 @@ window.SHEET_DATA = {
 window.SHEET_EDGES = {
   "bath": ["#CDF5EC", "#AFE9D6"],
   "brush-teeth": ["#CFF6ED", "#B0EAD7"],
+  "care": ["#AEE8CE", "#CDEED5"],
   "cartoon": ["#F6C9C0", "#FFF6C9"],
   "clear-table": ["#D8E3D7", "#FBDCB8"],
   "dinner": ["#FFE9BD", "#FDFEFD"],

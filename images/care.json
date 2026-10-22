@@ -1,0 +1,44 @@
+{
+  "id": "care",
+  "title": "Medicine bottle with a green cross, syrup cup, cream jar and tube on a bathroom shelf",
+  "keywords": {
+    "sl": [
+      "zdravil*",
+      "sirup*",
+      "vitamin*",
+      "kapljic*",
+      "krem*",
+      "mazil*",
+      "nega",
+      "negovaln*",
+      "namaz*"
+    ],
+    "en": [
+      "medicine*",
+      "medication",
+      "syrup",
+      "vitamin*",
+      "drops",
+      "cream*",
+      "lotion",
+      "ointment",
+      "skin care"
+    ]
+  },
+  "model": "Google Gemini image generation (via Antigravity CLI)",
+  "prompt": "Soft watercolor and gouache children's picture-book illustration, delicate colored-pencil outlines, warm cream paper texture, gentle pastel palette. The scene is set in a real, cozy room of a family home with a floor, walls and a few homely details (plants, a small shelf), like a warm picture-book interior. Clear contrast and rich, saturated colors with defined darker outlines and shadows, not pale or washed out. No clouds, nothing floating. Cute and friendly, for a 4-year-old. Gender-neutral. Everything painted in one consistent watercolor style, no flat vector shapes, no text, no letters, no logos, no brands, no flags, no recognizable existing characters; every character is original. Square 1:1 composition, main subject large and centered, readable at 4 cm size. Only a simple wooden wall shelf in front of mint ceramic bathroom tiles, painted in the style of the references; nothing else in the room. On the shelf, LARGE in the picture, side by side: a small amber glass medicine bottle with its child-proof cap CLOSED and a plain white label with only a simple GREEN cross (the pharmacy sign, never a red cross) and no text; a small clear dosing cup with a little pink syrup; an open round jar of white skin cream with a soft swirl on top, its lid leaning beside it; and a small plain cream tube. No pills, nothing that looks like candy, no toilet, no sink, no tap, no plants, no towel, no hands, no characters, no letters.",
+  "reference_images": [
+    "images/toilet.jpg (style reference)",
+    "images/wash-hands.jpg (style reference)"
+  ],
+  "edits": [
+    "contrast raised with tools/enhance.py"
+  ],
+  "contributor": "maintainer",
+  "license": "CC0-1.0",
+  "copyright_check": {
+    "date": "2026-10-22",
+    "method": "Google Lens, Exact matches tab, raw and final file",
+    "result": "no exact matches"
+  }
+}

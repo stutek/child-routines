@@ -224,7 +224,7 @@ function renderEditor() {
     el("ol", { class: "how" }, L.how.map(s => el("li", {}, s))),
     el("div", { class: "row-top" }, [
       select(L.type, sheet.sky, L.skies, setType),
-      el("input", { class: "grow title", value: sheet.title, "aria-label": L.sheetTitle, placeholder: L.sheetTitle,
+      el("input", { class: "grow title", value: sheet.title, "aria-label": L.sheetTitle, placeholder: L.sheetTitle, autocapitalize: "characters",
         oninput: e => { sheet.title = e.target.value; update(); } })]),
     el("div", { class: "row-top" }, [
       el("label", {}, [`${L.background}: `, select(L.background, state.background, L.backgrounds, v => { state.background = v; update(true); })]),
@@ -245,7 +245,7 @@ function renderEditor() {
       el("button", { onclick: () => choose("none") }, `∅ ${L.none}`));
     box.append(el("div", { class: "step" }, [
       el("span", { class: "n" }, `${k + 1}`),
-      el("input", { value: step.label, placeholder: k === 0 ? L.label : "", maxlength: "24", "aria-label": L.label,
+      el("input", { value: step.label, placeholder: k === 0 ? L.label : "", maxlength: "24", "aria-label": L.label, autocapitalize: "characters",
         oninput: e => { step.label = e.target.value; update(); } }),
       el("input", { type: "time", value: step.time, "aria-label": L.time, oninput: e => { step.time = e.target.value; update(); } }),
       thumb,
@@ -279,7 +279,7 @@ function labelRoom(lab) {
 function renderPreview() {
   const L = t(), s = state.sheet, steps = filled();
   const sky = state.background === "gradient" ? s.sky : state.background;
-  document.getElementById("sheets").innerHTML = sheetHtml({ title: s.title, sky, times: state.times, steps: steps.map(resolve) });
+  document.getElementById("sheets").innerHTML = sheetHtml({ title: s.title.toLocaleUpperCase(state.lang), sky, times: state.times, steps: steps.map(resolve) });
 
   const warnings = [];
   steps.forEach((st, k) => { if (st.image === "auto" && !match(st.label)) warnings.push(L.warnNoMatch(`${L.step} ${k + 1}`, st.label)); });

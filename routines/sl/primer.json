@@ -8,6 +8,11 @@
       "stars": false,
       "steps": [
         {
+          "label": "DOBRO JUTRO",
+          "image": "good-morning",
+          "color": "#8B5CF6"
+        },
+        {
           "label": "NA STRANIŠČE",
           "image": "toilet",
           "color": "#A855F7"
@@ -25,11 +30,6 @@
         {
           "label": "ZAJTRK",
           "image": "breakfast",
-          "color": "#F43F5E"
-        },
-        {
-          "label": "ZDRAVILA IN NEGA",
-          "image": "care",
           "color": "#F43F5E"
         },
         {

@@ -8,11 +8,6 @@
       "stars": false,
       "steps": [
         {
-          "label": "GOOD MORNING",
-          "image": "good-morning",
-          "color": "#8B5CF6"
-        },
-        {
           "label": "USE THE TOILET",
           "image": "toilet",
           "color": "#A855F7"
@@ -30,6 +25,11 @@
         {
           "label": "BREAKFAST",
           "image": "breakfast",
+          "color": "#F43F5E"
+        },
+        {
+          "label": "MEDICINE & CREAM",
+          "image": "care",
           "color": "#F43F5E"
         },
         {
@@ -99,6 +99,11 @@
         {
           "label": "BATH TIME",
           "image": "bath",
+          "color": "#9333EA"
+        },
+        {
+          "label": "MEDICINE & CREAM",
+          "image": "care",
           "color": "#9333EA"
         },
         {

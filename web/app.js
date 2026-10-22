@@ -19,7 +19,7 @@ const PALETTES = [
 const T = {
   sl: {
     heading: "Otrokove rutine", aboutTitle: "O aplikaciji", howTitle: "Navodila",
-    about: "Ko otrok na listu vidi, kaj pride zdaj in kaj potem, laže sledi rutini in pogajanja je lahko manj. Ko na opravljen korak sam položi magnetek, vidi, koliko je že naredil in kaj ga še čaka. Najbolje deluje, če list sestavita skupaj in ga prve dni skupaj prehodita.",
+    about: "Ko otrok na listu vidi, kaj pride zdaj in kaj potem, laže sledi rutini in pogajanja je lahko manj. Ko na opravljen korak sam položi magnetek, vidi, koliko je že naredil in kaj ga še čaka. Najbolje deluje, če list sestavita skupaj in ga prve dni skupaj prehodita. Še posebej pride prav, ko otrok prespi pri sorodnikih: starim staršem, tetam in stricem pomaga, da rutino ohranijo.",
     how: ["Izberi tip lista in vpiši do 8 opravil; prazne vrstice se ne natisnejo.", "Sličico izberem sam. Klikni nanjo, da jo zamenjaš. Naj otrok izbere slike in vrstni red.", "Natisni na A4: robovi »Brez«, merilo 100 %."],
     example: "Naloži primer", print: "🖨️ Natisni",
     type: "Tip lista", sheetTitle: "Naslov lista", skies: { dawn: "jutro", afternoon: "dan", night: "večer" },
@@ -31,7 +31,7 @@ const T = {
   },
   en: {
     heading: "Child routines", aboutTitle: "About", howTitle: "How to",
-    about: "When a child can see what comes now and what comes next, following the routine gets easier and there can be less bargaining. Placing a magnet on each finished step themselves shows how much they have done and what is left. It works best when you make the sheet together and go through it together for the first few days.",
+    about: "When a child can see what comes now and what comes next, following the routine gets easier and there can be less bargaining. Placing a magnet on each finished step themselves shows how much they have done and what is left. It works best when you make the sheet together and go through it together for the first few days. It is especially handy when your child sleeps over at relatives': it helps grandparents, aunts and uncles keep the routine.",
     how: ["Pick the type of sheet and type up to 8 steps; empty rows are not printed.", "I pick the pictures. Click one to change it. Let your child choose the pictures and the order.", "Print on A4: margins None, scale 100 %."],
     example: "Load example", print: "🖨️ Print",
     type: "Type of sheet", sheetTitle: "Sheet title", skies: { dawn: "morning", afternoon: "day", night: "evening" },

@@ -469,11 +469,6 @@ window.SHEET_DATA = {
      "stars": false,
      "steps": [
       {
-       "label": "GOOD MORNING",
-       "image": "good-morning",
-       "color": "#8B5CF6"
-      },
-      {
        "label": "USE THE TOILET",
        "image": "toilet",
        "color": "#A855F7"
@@ -491,6 +486,11 @@ window.SHEET_DATA = {
       {
        "label": "BREAKFAST",
        "image": "breakfast",
+       "color": "#F43F5E"
+      },
+      {
+       "label": "MEDICINE & CREAM",
+       "image": "care",
        "color": "#F43F5E"
       },
       {
@@ -563,6 +563,11 @@ window.SHEET_DATA = {
        "color": "#9333EA"
       },
       {
+       "label": "MEDICINE & CREAM",
+       "image": "care",
+       "color": "#9333EA"
+      },
+      {
        "label": "PUT ON PAJAMAS",
        "image": "pajamas",
        "color": "#8B5CF6"
@@ -601,11 +606,6 @@ window.SHEET_DATA = {
      "stars": false,
      "steps": [
       {
-       "label": "DOBRO JUTRO",
-       "image": "good-morning",
-       "color": "#8B5CF6"
-      },
-      {
        "label": "NA STRANIŠČE",
        "image": "toilet",
        "color": "#A855F7"
@@ -623,6 +623,11 @@ window.SHEET_DATA = {
       {
        "label": "ZAJTRK",
        "image": "breakfast",
+       "color": "#F43F5E"
+      },
+      {
+       "label": "ZDRAVILA IN NEGA",
+       "image": "care",
        "color": "#F43F5E"
       },
       {
@@ -692,6 +697,11 @@ window.SHEET_DATA = {
       {
        "label": "OKOPAJ SE",
        "image": "bath",
+       "color": "#9333EA"
+      },
+      {
+       "label": "ZDRAVILA IN NEGA",
+       "image": "care",
        "color": "#9333EA"
       },
       {

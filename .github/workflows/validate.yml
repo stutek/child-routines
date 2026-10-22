@@ -27,5 +27,5 @@ jobs:
         # Pillow builds. Any other difference means the files are stale.
         run: |
           python3 tools/build.py
-          git diff --exit-code -I 'style="--step:' -I '^  "[a-z0-9-]+": \["#' -- output/ web/data.js \
-            || { echo "Run python3 tools/build.py and commit output/ and web/data.js."; exit 1; }
+          git diff --exit-code -I 'style="--step:' -I '^  "[a-z0-9-]+": \["#' -- output/ web/data.js images/README.md \
+            || { echo "Run python3 tools/build.py and commit output/, web/data.js and images/README.md."; exit 1; }

@@ -10,6 +10,7 @@ Listi A4 za tisk z rutino majhnega otroka (jutro, večerja, spanje). Visijo na h
 | --------------------------------- | ----------------------------------------------------------------------------- |
 | `routines/<jezik>/<ime>.json`     | Rutina: listi, vsak z naslovom, nebom in koraki (napis, oznaka slike, barva). |
 | `images/<oznaka>.jpg` + `.json`   | Slika 1024 × 1024 in metapodatki (model, poziv, ključne besede, preverba).    |
+| `images/README.md`                | Galerija vseh slik, zgradi jo `tools/build.py`.                               |
 | `output/<jezik>-<ime>.html`       | Zgrajeni listi za tisk. Nikoli jih ne urejaj ročno.                           |
 | `web/`                            | Izdelovalnik listov v brskalniku (`index.html`, `app.js`).                    |
 | `tools/build.py`                  | Generator: rutine → output in `web/data.js` za izdelovalnik listov.           |

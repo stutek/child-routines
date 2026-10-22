@@ -1,6 +1,10 @@
 {
   "id": "wash-hands",
   "title": "Child's hands washing under a tap with soap bubbles",
+  "label": {
+    "sl": "UMIJ ROKE",
+    "en": "WASH HANDS"
+  },
   "keywords": {
     "sl": [
       "roke",

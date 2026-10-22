@@ -1,6 +1,10 @@
 {
   "id": "dinner",
   "title": "Plate of pasta, meatballs, carrots and broccoli on the set-table placemat",
+  "label": {
+    "sl": "VEČERJA",
+    "en": "DINNER"
+  },
   "keywords": {
     "sl": [
       "vecerj*",

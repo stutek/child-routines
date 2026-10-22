@@ -1,6 +1,10 @@
 {
   "id": "set-table",
   "title": "Child's hands setting cutlery next to an empty plate",
+  "label": {
+    "sl": "PRIPRAVI MIZO",
+    "en": "SET THE TABLE"
+  },
   "keywords": {
     "sl": [
       "pripravi mizo",

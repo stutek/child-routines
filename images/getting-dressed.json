@@ -1,6 +1,10 @@
 {
   "id": "getting-dressed",
   "title": "T-shirt with a sun, trousers and socks",
+  "label": {
+    "sl": "OBLAČENJE",
+    "en": "GET DRESSED"
+  },
   "keywords": {
     "sl": [
       "oblac*",

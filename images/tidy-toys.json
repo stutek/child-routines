@@ -1,6 +1,10 @@
 {
   "id": "tidy-toys",
   "title": "Teddy bear putting the last ball into a full toy chest",
+  "label": {
+    "sl": "POSPRAVI IGRAČE",
+    "en": "TIDY UP TOYS"
+  },
   "keywords": {
     "sl": [
       "igrac*",

@@ -387,7 +387,7 @@ def web_data(routines):
     images, edges = {}, []
     for path in sorted((ROOT / "images").glob("*.json")):
         meta = json.loads(path.read_text(encoding="utf-8"))
-        images[meta["id"]] = {"title": meta["title"], "keywords": meta.get("keywords", {})}
+        images[meta["id"]] = {"title": meta["title"], "label": meta.get("label", {}), "keywords": meta.get("keywords", {})}
         edges.append(f'  "{meta["id"]}": ["{edge_color(meta["id"], "left")}", "{edge_color(meta["id"], "right")}"],')
     data = {"css": CSS, "skies": SKIES, "plain": PLAIN, "missingBg": MISSING_BG, "toolbar": TOOLBAR, "geometry": GEOMETRY,
             "images": images, "examples": routines}

@@ -1,6 +1,10 @@
 {
   "id": "breakfast",
   "title": "Toast with butter, an apple and a cup of tea on the kitchen table",
+  "label": {
+    "sl": "ZAJTRK",
+    "en": "BREAKFAST"
+  },
   "keywords": {
     "sl": [
       "zajtrk*",

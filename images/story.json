@@ -1,6 +1,10 @@
 {
   "id": "story",
   "title": "Open storybook on a bed with a pop-up castle",
+  "label": {
+    "sl": "PRAVLJICA",
+    "en": "BEDTIME STORY"
+  },
   "keywords": {
     "sl": [
       "pravljic*",

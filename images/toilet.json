@@ -1,6 +1,10 @@
 {
   "id": "toilet",
   "title": "Friendly toilet in a cozy bathroom",
+  "label": {
+    "sl": "LULANJE",
+    "en": "TOILET"
+  },
   "keywords": {
     "sl": [
       "lula*",

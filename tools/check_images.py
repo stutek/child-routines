@@ -43,6 +43,9 @@ def main():
             errors.append(f"{meta_path.name}: field id must be {id_!r}")
         if meta.get("license") != "CC0-1.0":
             errors.append(f"{meta_path.name}: license must be CC0-1.0")
+        label = meta.get("label", {})
+        if not (isinstance(label, dict) and all(isinstance(v, str) and 0 < len(v) <= 17 for v in label.values())):
+            errors.append(f'{meta_path.name}: label must be {{"<language>": "SHORT LABEL"}}, at most 17 characters')
         kw = meta.get("keywords", {})
         if not (isinstance(kw, dict) and all(isinstance(v, list) and all(isinstance(w, str) and w.strip() for w in v) for v in kw.values())):
             errors.append(f'{meta_path.name}: keywords must be {{"<language>": ["word", "start*"]}}')

@@ -1,6 +1,10 @@
 {
   "id": "pajamas",
   "title": "Child's hands holding up a soft pajama top with moons and stars, pants on the bed",
+  "label": {
+    "sl": "PIŽAMA",
+    "en": "PAJAMAS"
+  },
   "keywords": {
     "sl": [
       "pizam*",

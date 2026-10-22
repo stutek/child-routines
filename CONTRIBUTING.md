@@ -54,6 +54,7 @@ Thank you for sharing your child's routine. You can add a **routine** (a new one
    {
      "id": "brush-teeth",
      "title": "Tooth brushing at the bathroom sink",
+     "label": {"en": "BRUSH TEETH", "sl": "ZOBKI"},
      "keywords": {"en": ["teeth", "tooth*", "brush teeth"], "sl": ["zob*"]},
      "model": "name of the image model you used",
      "prompt": "the full prompt you used, copied exactly",
@@ -65,7 +66,7 @@ Thank you for sharing your child's routine. You can add a **routine** (a new one
    }
    ```
 
-   `keywords` are the words a parent would type for this step, per language; `word*` matches the start of a word. The sheet maker in `web/` uses them to pick the picture.
+   `label` is the default step label per language (at most 17 characters); the sheet maker writes it when a parent picks this picture on an empty row. `keywords` are the words a parent would type for this step, per language; `word*` matches the start of a word. The sheet maker in `web/` uses them to pick the picture.
 
 3. Check it yourself first with an image search (for example Google Lens, tab *Exact matches*), both the raw image from the model and the final file after any edit. If the same or almost the same picture already exists on the web, do not submit it: generate a new one with a different composition. Details: [copyright check](.agents/skills/copyright-check/SKILL.md).
 

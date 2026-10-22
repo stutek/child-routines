@@ -1,6 +1,10 @@
 {
   "id": "good-morning",
   "title": "Teddy bear waking up in bed, eyes wide open, stretching in the morning sun",
+  "label": {
+    "sl": "DOBRO JUTRO",
+    "en": "GOOD MORNING"
+  },
   "keywords": {
     "sl": [
       "dobro jutro",

@@ -1,6 +1,10 @@
 {
   "id": "sleep",
   "title": "Teddy bear lying asleep in bed under a night sky",
+  "label": {
+    "sl": "SPANJE",
+    "en": "SLEEP"
+  },
   "keywords": {
     "sl": [
       "spanj*",

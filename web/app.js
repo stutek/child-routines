@@ -26,7 +26,7 @@ const T = {
     label: "Opravilo, npr. UMIJ ZOBE", time: "Ura", auto: "Samodejno", none: "Brez sličice", pick: "Zamenjaj sličico", removeStep: "Izprazni vrstico",
     warnNoMatch: (s, l) => `${s}: za »${l}« nimamo sličice. Izberi drugo ali pusti prazno.`,
     warnLong: (s, l) => `${s}: napis »${l}« je predolg za okvir; skrajšaj ga.`,
-    step: "Korak", ok: "✓ Vse sličice so najdene in vsi napisi se prilegajo.", suggest: "Manjka sličica? Predlagaj jo", warnTitle: "Opozorila",
+    preview: "👁 Predogled: tako bo natisnjeno (A4)", step: "Korak", ok: "✓ Vse sličice so najdene in vsi napisi se prilegajo.", suggest: "Manjka sličica? Predlagaj jo", warnTitle: "Opozorila",
   },
   en: {
     heading: "Make your own sheet",
@@ -37,7 +37,7 @@ const T = {
     label: "Step, e.g. BRUSH TEETH", time: "Time", auto: "Automatic", none: "No picture", pick: "Change picture", removeStep: "Clear row",
     warnNoMatch: (s, l) => `${s}: no picture for "${l}". Pick another or leave it empty.`,
     warnLong: (s, l) => `${s}: "${l}" is too long for the frame; shorten it.`,
-    step: "Step", ok: "✓ All pictures found and all labels fit.", suggest: "Missing a picture? Suggest one", warnTitle: "Warnings",
+    preview: "👁 Preview: this is what prints (A4)", step: "Step", ok: "✓ All pictures found and all labels fit.", suggest: "Missing a picture? Suggest one", warnTitle: "Warnings",
   },
 };
 
@@ -206,9 +206,20 @@ function select(label, value, options, onchange) {
     Object.entries(options).map(([v, text]) => { const o = el("option", { value: v }, text); o.selected = v === value; return o; }));
 }
 
+// a one-colour broom (own drawing, CC0) that takes the button colour; the emoji cannot be recoloured
+function broom() {
+  const b = document.createElement("span");
+  b.innerHTML = '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">'
+    + '<path d="M20 2.5 12.5 10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" fill="none"/>'
+    + '<path d="M9.5 9.5 14.5 14.5 11 21H3l.5-6.5z" fill="currentColor"/>'
+    + '<path d="M6 21l.8-4M8.5 21l1.2-4" stroke="#fff" stroke-width="1.2" stroke-linecap="round"/></svg>';
+  return b.firstChild;
+}
+
 function renderEditor() {
   const L = t(), root = document.getElementById("maker"), sheet = state.sheet;
   document.documentElement.lang = state.lang;
+  document.getElementById("preview-label").textContent = L.preview;
   root.classList.toggle("no-times", !state.times);
   const times = el("input", { type: "checkbox", onchange: e => { state.times = e.target.checked; update(true); } });
   times.checked = state.times;
@@ -237,7 +248,12 @@ function renderEditor() {
   sheet.steps.forEach((step, k) => {
     const gallery = el("div", { class: "gallery", hidden: true });
     const thumb = el("button", { class: "thumb", title: L.pick, "aria-label": L.pick, onclick: () => { gallery.hidden = !gallery.hidden; } });
-    const choose = v => { step.image = v; gallery.hidden = true; update(); };
+    // a picture chosen on an empty row brings its default label (images/<id>.json "label")
+    const choose = v => {
+      step.image = v; gallery.hidden = true;
+      const label = D.images[v] && D.images[v].label;
+      if (!step.label.trim() && label) { step.label = label[state.lang] || label.sl || ""; update(true); } else update();
+    };
     gallery.append(
       el("button", { onclick: () => choose("auto") }, `🔄 ${L.auto}`),
       ...Object.entries(D.images).map(([id, img]) =>
@@ -250,7 +266,7 @@ function renderEditor() {
       el("input", { type: "time", value: step.time, "aria-label": L.time, oninput: e => { step.time = e.target.value; update(); } }),
       thumb,
       el("button", { class: "del", title: L.removeStep, "aria-label": L.removeStep,
-        onclick: () => { sheet.steps[k] = newStep(); update(true); } }, "×")]), gallery);
+        onclick: () => { sheet.steps[k] = newStep(); update(true); } }, broom())]), gallery);
     step._thumb = thumb;
   });
   root.append(box, el("div", { id: "warnings" }));

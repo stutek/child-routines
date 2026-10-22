@@ -1,6 +1,10 @@
 {
   "id": "cartoon",
   "title": "Wooden TV with a waving bunny cartoon, lamp, flowering plant and window",
+  "label": {
+    "sl": "RISANKA",
+    "en": "CARTOON"
+  },
   "keywords": {
     "sl": [
       "risank*",

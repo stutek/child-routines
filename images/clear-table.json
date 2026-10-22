@@ -1,6 +1,10 @@
 {
   "id": "clear-table",
   "title": "Child's hands carrying a used plate from the table",
+  "label": {
+    "sl": "POSPRAVI MIZO",
+    "en": "CLEAR THE TABLE"
+  },
   "keywords": {
     "sl": [
       "pospravi mizo",

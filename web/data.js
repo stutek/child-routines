@@ -32,6 +32,10 @@ window.SHEET_DATA = {
  "images": {
   "bath": {
    "title": "Toddler in a bubble bath in the same bathroom",
+   "label": {
+    "sl": "KOPANJE",
+    "en": "BATH"
+   },
    "keywords": {
     "sl": [
      "kopanj*",
@@ -48,6 +52,10 @@ window.SHEET_DATA = {
   },
   "breakfast": {
    "title": "Toast with butter, an apple and a cup of tea on the kitchen table",
+   "label": {
+    "sl": "ZAJTRK",
+    "en": "BREAKFAST"
+   },
    "keywords": {
     "sl": [
      "zajtrk*",
@@ -70,6 +78,10 @@ window.SHEET_DATA = {
   },
   "brush-teeth": {
    "title": "Tooth character brushing at the bathroom sink",
+   "label": {
+    "sl": "ZOBKI",
+    "en": "BRUSH TEETH"
+   },
    "keywords": {
     "sl": [
      "zob*",
@@ -86,6 +98,10 @@ window.SHEET_DATA = {
   },
   "care": {
    "title": "Medicine bottle with a green cross, syrup cup, cream jar and tube on a bathroom shelf",
+   "label": {
+    "sl": "ZDRAVILA",
+    "en": "MEDICINE"
+   },
    "keywords": {
     "sl": [
      "zdravil*",
@@ -114,6 +130,10 @@ window.SHEET_DATA = {
   },
   "cartoon": {
    "title": "Wooden TV with a waving bunny cartoon, lamp, flowering plant and window",
+   "label": {
+    "sl": "RISANKA",
+    "en": "CARTOON"
+   },
    "keywords": {
     "sl": [
      "risank*",
@@ -133,6 +153,10 @@ window.SHEET_DATA = {
   },
   "clear-table": {
    "title": "Child's hands carrying a used plate from the table",
+   "label": {
+    "sl": "POSPRAVI MIZO",
+    "en": "CLEAR THE TABLE"
+   },
    "keywords": {
     "sl": [
      "pospravi mizo",
@@ -148,6 +172,10 @@ window.SHEET_DATA = {
   },
   "dinner": {
    "title": "Plate of pasta, meatballs, carrots and broccoli on the set-table placemat",
+   "label": {
+    "sl": "VEČERJA",
+    "en": "DINNER"
+   },
    "keywords": {
     "sl": [
      "vecerj*",
@@ -169,6 +197,10 @@ window.SHEET_DATA = {
   },
   "getting-dressed": {
    "title": "T-shirt with a sun, trousers and socks",
+   "label": {
+    "sl": "OBLAČENJE",
+    "en": "GET DRESSED"
+   },
    "keywords": {
     "sl": [
      "oblac*",
@@ -187,6 +219,10 @@ window.SHEET_DATA = {
   },
   "good-morning": {
    "title": "Teddy bear waking up in bed, eyes wide open, stretching in the morning sun",
+   "label": {
+    "sl": "DOBRO JUTRO",
+    "en": "GOOD MORNING"
+   },
    "keywords": {
     "sl": [
      "dobro jutro",
@@ -209,6 +245,10 @@ window.SHEET_DATA = {
   },
   "kindergarten": {
    "title": "Yellow backpack with straps and sneakers by the door",
+   "label": {
+    "sl": "VRTEC",
+    "en": "KINDERGARTEN"
+   },
    "keywords": {
     "sl": [
      "vrtec",
@@ -231,6 +271,10 @@ window.SHEET_DATA = {
   },
   "make-bed": {
    "title": "Teddy bear standing beside its bed, raising the quilt to make the bed",
+   "label": {
+    "sl": "POSPRAVI POSTELJO",
+    "en": "MAKE THE BED"
+   },
    "keywords": {
     "sl": [
      "postelj*",
@@ -247,6 +291,10 @@ window.SHEET_DATA = {
   },
   "pajamas": {
    "title": "Child's hands holding up a soft pajama top with moons and stars, pants on the bed",
+   "label": {
+    "sl": "PIŽAMA",
+    "en": "PAJAMAS"
+   },
    "keywords": {
     "sl": [
      "pizam*",
@@ -264,6 +312,10 @@ window.SHEET_DATA = {
   },
   "set-table": {
    "title": "Child's hands setting cutlery next to an empty plate",
+   "label": {
+    "sl": "PRIPRAVI MIZO",
+    "en": "SET THE TABLE"
+   },
    "keywords": {
     "sl": [
      "pripravi mizo",
@@ -280,6 +332,10 @@ window.SHEET_DATA = {
   },
   "sleep": {
    "title": "Teddy bear lying asleep in bed under a night sky",
+   "label": {
+    "sl": "SPANJE",
+    "en": "SLEEP"
+   },
    "keywords": {
     "sl": [
      "spanj*",
@@ -301,6 +357,10 @@ window.SHEET_DATA = {
   },
   "story": {
    "title": "Open storybook on a bed with a pop-up castle",
+   "label": {
+    "sl": "PRAVLJICA",
+    "en": "BEDTIME STORY"
+   },
    "keywords": {
     "sl": [
      "pravljic*",
@@ -320,6 +380,10 @@ window.SHEET_DATA = {
   },
   "tidy-toys": {
    "title": "Teddy bear putting the last ball into a full toy chest",
+   "label": {
+    "sl": "POSPRAVI IGRAČE",
+    "en": "TIDY UP TOYS"
+   },
    "keywords": {
     "sl": [
      "igrac*",
@@ -337,6 +401,10 @@ window.SHEET_DATA = {
   },
   "toilet": {
    "title": "Friendly toilet in a cozy bathroom",
+   "label": {
+    "sl": "LULANJE",
+    "en": "TOILET"
+   },
    "keywords": {
     "sl": [
      "lula*",
@@ -360,6 +428,10 @@ window.SHEET_DATA = {
   },
   "wash-hands": {
    "title": "Child's hands washing under a tap with soap bubbles",
+   "label": {
+    "sl": "UMIJ ROKE",
+    "en": "WASH HANDS"
+   },
    "keywords": {
     "sl": [
      "roke",

@@ -1,6 +1,10 @@
 {
   "id": "brush-teeth",
   "title": "Tooth character brushing at the bathroom sink",
+  "label": {
+    "sl": "ZOBKI",
+    "en": "BRUSH TEETH"
+  },
   "keywords": {
     "sl": [
       "zob*",

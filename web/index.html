@@ -40,7 +40,8 @@
     .step .n { font-weight: 800; color: #64748b; text-align: right; }
     .no-times .step { grid-template-columns: 22px minmax(0, 1fr) 52px 32px; }
     .no-times .step input[type=time] { display: none; }
-    .maker button.del { padding: 4px 0; background: transparent; color: #94a3b8; font-size: 20px; }
+    .maker button.del { padding: 4px 0; background: transparent; color: #dc2626; font-size: 20px; line-height: 0; }
+    .maker button.del:hover { color: #991b1b; }
     .maker button.thumb { width: 52px; height: 52px; padding: 0; border-radius: 10px; overflow: hidden; background: #f1f5f9;
                           border: 2px solid #e2e8f0; font-size: 22px; color: #94a3b8; }
     .maker button.thumb.missing { border-color: #f59e0b; background: #fffbeb; color: #b45309; }
@@ -68,6 +69,7 @@
     }
     .layout { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 24px; }
     #sheets { display: flex; flex-direction: column; gap: 24px; }
+    .preview-label { font-weight: 800; font-size: 15px; color: #334155; background: #ffffff; border-radius: 10px; padding: 8px 14px; margin-bottom: 10px; display: inline-block; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); }
     /* Wide screen: form on the left, the sheets on the right, staying in view while you edit */
     @media screen and (min-width: 1100px) {
       body { display: block !important; padding: 16px !important; }
@@ -76,7 +78,7 @@
       #preview { position: sticky; top: 16px; max-height: calc(100vh - 32px); overflow: auto; border-radius: 12px; }
     }
     @media print {
-      .maker { display: none !important; }
+      .maker, .preview-label { display: none !important; }
       .layout { display: block !important; }
       #preview { position: static !important; max-height: none !important; overflow: visible !important; }
       #sheets { zoom: 1 !important; gap: 0 !important; }
@@ -87,7 +89,7 @@
 <body>
   <div class="layout">
     <div class="maker" id="maker"></div>
-    <div id="preview"><div id="sheets"></div></div>
+    <div id="preview"><div class="preview-label" id="preview-label"></div><div id="sheets"></div></div>
   </div>
   <script src="app.js"></script>
 </body>

@@ -1,6 +1,10 @@
 {
   "id": "bath",
   "title": "Toddler in a bubble bath in the same bathroom",
+  "label": {
+    "sl": "KOPANJE",
+    "en": "BATH"
+  },
   "keywords": {
     "sl": [
       "kopanj*",

@@ -1,6 +1,10 @@
 {
   "id": "kindergarten",
   "title": "Yellow backpack with straps and sneakers by the door",
+  "label": {
+    "sl": "VRTEC",
+    "en": "KINDERGARTEN"
+  },
   "keywords": {
     "sl": [
       "vrtec",

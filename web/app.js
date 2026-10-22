@@ -233,7 +233,7 @@ function renderEditor() {
       el("button", { class: "primary", onclick: () => window.print() }, L.print)]));
 
   state.sheets.forEach((sheet, si) => {
-    const box = el("div", { class: "sheet-box" }, el("div", { class: "sheet-head" }, [
+    const box = el("div", { class: "sheet-box", onfocusin: () => showSheet(si) }, el("div", { class: "sheet-head" }, [
       el("input", { class: "title", value: sheet.title, "aria-label": L.sheetTitle, placeholder: L.sheetTitle,
         oninput: e => { sheet.title = e.target.value; update(); } }),
       state.background === "gradient" ? select(L.sheet, sheet.sky, L.skies, v => { sheet.sky = v; update(); }) : "",
@@ -297,7 +297,7 @@ function renderPreview() {
   const L = t();
   const sky = s => (state.background === "gradient" ? s.sky : state.background);
   const sheets = state.sheets.map((s, si) => ({ title: s.title, sky: sky(s), times: state.times, steps: s.steps.map((st, k) => resolve(st, si, k)) }));
-  document.getElementById("preview").innerHTML = sheets.map(sheetHtml).join("");
+  document.getElementById("sheets").innerHTML = sheets.map(sheetHtml).join("");
 
   const warnings = [];
   state.sheets.forEach((s, si) => { if (s.steps.length > MAX_STEPS) warnings.push(L.warnTooMany(`${L.sheet} ${si + 1}`, s.steps.length)); });
@@ -327,14 +327,23 @@ function update(structure = false) {
   save();
 }
 
-// on a narrow screen the A4 preview shrinks to fit; printing uses @media print (zoom 1)
+// the A4 sheets shrink to the width of their column (narrow screen or the right half of a wide one);
+// printing uses @media print (zoom 1)
 function fitPreview() {
-  const a4 = 794, room = document.documentElement.clientWidth - 16;
-  document.getElementById("preview").style.zoom = room < a4 ? (room / a4).toFixed(3) : "";
+  const a4 = 794, room = document.getElementById("preview").clientWidth - 8;
+  document.getElementById("sheets").style.zoom = room < a4 ? (room / a4).toFixed(3) : "";
+}
+
+// side by side: editing a sheet brings it into view in the preview column
+function showSheet(si) {
+  const preview = document.getElementById("preview"), page = document.querySelectorAll("#sheets .rt-page")[si];
+  if (!page || preview.scrollHeight <= preview.clientHeight) return;
+  const zoom = parseFloat(document.getElementById("sheets").style.zoom) || 1;
+  preview.scrollTo({ top: page.offsetTop * zoom - 8, behavior: "smooth" });
 }
 window.addEventListener("resize", fitPreview);
 
 document.head.append(el("style", {}, D.css));
+update(true);
 fitPreview();
 document.fonts && document.fonts.ready.then(() => renderPreview());   // re-measure labels once the font is in
-update(true);

@@ -1,19 +1,16 @@
 {
   "id": "cartoon",
-  "title": "Retro TV showing a waving bunny",
+  "title": "Teddy bear on a floor cushion watching a bunny cartoon in a detailed living room",
   "model": "Google Gemini image generation (via Antigravity CLI)",
-  "prompt": "Soft watercolor and gouache children's picture-book illustration, delicate colored-pencil outlines, warm cream paper texture, gentle pastel palette. Watching a cartoon in the evening: a cozy rounded retro television set on a small low wooden cabinet, its screen glowing softly and showing a friendly smiling cute cartoon bunny waving (an original character, not any known brand or logo). On the warm patterned rug in front of the TV, there is a soft plump floor cushion and a little blanket, ready for cozy evening viewing. Warm soft evening lamp light in the cozy living room, a small houseplant on a shelf in the background. Clear contrast and rich, saturated colors with defined darker outlines and soft watercolor shadows, not pale or washed out. No clouds, nothing floating, no sparkles. Cute, calm, and friendly for a 4-year-old child. Everything painted in one consistent watercolor style matching the reference images, no flat vector shapes, no text, no letters, no logos. Square 1:1 composition, main subject large and centered, readable at 4 cm size.",
-  "reference_images": [
-    "vecer_1_lulanje.jpg (by name: local copy of the toilet image of this set, see toilet.json)",
-    "vecer_2_umij_roke.jpg (by name: local copy of the hand-washing image of this set, see wash-hands.json)"
-  ],
+  "prompt": "Soft watercolor and gouache children's picture-book illustration, delicate colored-pencil outlines, warm cream paper texture, clear contrast and rich colors with defined darker outlines, not pale. RICHLY DETAILED like a busy picture-book page: a cozy family living room in the evening. A cute brown teddy bear wearing a blue-and-white striped nightcap sits on a big patterned floor cushion, seen from slightly behind and to the side, happily watching a rounded wooden TV on a low cabinet. On the TV screen, large and clear, an original friendly cartoon bunny waves (not any known character). Around them many homely details: a bookshelf with colorful books and small toys, a woven basket with toy blocks and a ball, framed children's drawings on patterned wallpaper, a window with curtains and a dusky evening sky, a glowing floor lamp, a potted plant, a soft blanket, a detailed patterned rug on wooden floorboards. No clouds, nothing floating, no light rays. No text, no letters, no logos, no brands. Square 1:1 composition, TV and bear large and central, readable at 4 cm size.",
+  "reference_images": [],
   "edits": [
     "contrast raised with tools/enhance.py"
   ],
   "contributor": "maintainer",
   "license": "CC0-1.0",
   "copyright_check": {
-    "date": "2026-10-21",
+    "date": "2026-10-22",
     "method": "Google Lens, Exact matches tab (manual), raw and final file",
     "result": "no exact matches"
   }

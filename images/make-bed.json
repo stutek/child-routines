@@ -1,18 +1,16 @@
 {
   "id": "make-bed",
-  "title": "Child's hands smoothing the quilt, teddy on the made bed",
+  "title": "Teddy bear standing beside its bed, raising the quilt to make the bed",
   "model": "Google Gemini image generation (via Antigravity CLI)",
-  "prompt": "Soft watercolor and gouache children's picture-book illustration, delicate colored-pencil outlines, warm cream paper texture, gentle pastel palette. Making the bed in the morning, through a child's eyes (first-person point of view): two small cute toddler child hands smoothing and pulling up the colorful patchwork quilt neatly over the pillow of the same small wooden bed from the reference image. The exact same cute brown teddy bear wearing its blue-and-white striped nightcap sits tidily and happily on top of the made bed. A cozy child's bedroom in the morning with warm golden sunshine streaming through a window, a wooden floor and a small rug. Strictly NO clouds, nothing floating, no sparkles. Clear contrast and rich, saturated colors with defined darker outlines and soft watercolor shadows, not pale or washed out. Cute, proud, and friendly for a 4-year-old child. Gender-neutral hands. Everything painted in the exact same watercolor children's book style matching the reference image. Square 1:1 composition, bed, child hands, and teddy bear large and centered, readable at 4 cm size.",
-  "reference_images": [
-    "vecer_11_spanje.jpg (by name: earlier sitting-bear sleep image, commit 28a58fe images/sleep.jpg)"
-  ],
+  "prompt": "Soft watercolor and gouache children's picture-book illustration, delicate colored-pencil outlines, warm cream paper texture, clear contrast and rich colors with defined darker outlines, not pale. A cute brown teddy bear wearing a blue-and-white striped nightcap is wide AWAKE and smiling, STANDING on the floor BESIDE its small wooden bed (heart cut-out on the footboard), making the bed: with both paws it holds a patchwork quilt RAISED high in the air, shaking it out to spread it neatly over the bed. The bear is not in the bed. A white pillow at the head of the bed. A cozy child's bedroom in the morning: warm sunshine through a window, a small rug, a plant. No clouds, nothing floating, no light rays. No text, no letters, no logos, no brands. Square 1:1 composition, bear and bed large and centered, readable at 4 cm size.",
+  "reference_images": [],
   "edits": [
     "contrast raised with tools/enhance.py"
   ],
   "contributor": "maintainer",
   "license": "CC0-1.0",
   "copyright_check": {
-    "date": "2026-10-21",
+    "date": "2026-10-22",
     "method": "Google Lens, Exact matches tab (manual), raw and final file",
     "result": "no exact matches"
   }

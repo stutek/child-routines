@@ -24,13 +24,14 @@
   "edits": [
     "contrast raised with tools/enhance.py",
     "softened to match the other images: gamma 0.8, contrast x0.9",
-    "cropped to remove the painted paper border (158, 152, 874, 868) and resized to 1024 x 1024"
+    "cropped to remove the painted paper border (158, 152, 874, 868) and resized to 1024 x 1024",
+    "brightened and desaturated after the crop, to match the other images: gamma 0.7, color x0.88"
   ],
   "contributor": "maintainer",
   "license": "CC0-1.0",
   "copyright_check": {
     "date": "2026-10-22",
-    "method": "Google Lens, Exact matches tab, final file after cropping the paper border",
+    "method": "Google Lens, Exact matches tab, final file after the last edit",
     "result": "no exact matches"
   }
 }

@@ -11,7 +11,7 @@ Listi A4 za tisk z dnevno rutino majhnega otroka: jutro, večerja in spanje. Obe
 ![Trije vzorčni listi: jutro, večerja in spanje](docs/preview.jpg)
 
 1. Odprite izdelovalnik listov. Začne z zgornjim primerom.
-2. Vpišite otrokove korake in po želji uro: prazna ura ostane za ročni vpis, stikalo *Ura na listu* pa polja za uro izklopi. Vsakemu koraku se izbere sličica; kliknite nanjo, da jo zamenjate. Stran opozori, kadar za korak nima sličice, kadar je napis predolg ali kadar ima list več kot 8 korakov.
+2. Izberite tip lista (jutro, popoldne, večer) in vpišite do 8 korakov; prazne vrstice se ne natisnejo. Po želji vpišite uro: prazna ura ostane za ročni vpis, stikalo *Ura na listu* pa polja za uro izklopi. Vsakemu koraku se izbere sličica; kliknite nanjo, da jo zamenjate. Stran opozori, kadar za korak nima sličice ali kadar je napis predolg.
 3. Izberite ozadje (preliv barv, belo ali prosojno) in natisnite na A4: robovi *Brez*, merilo 100 %.
 
 Vaši vnosi ostanejo v vašem brskalniku. Listi imajo spodaj 14 mm roba, ker večina domačih tiskalnikov spodnjega roba ne natisne.

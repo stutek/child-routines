@@ -11,7 +11,7 @@ Printable A4 sheets with a young child's daily routine: morning, dinner and bedt
 ![Three example sheets: morning, dinner and bedtime](docs/preview.jpg)
 
 1. Open the sheet maker. It starts with the example above.
-2. Type your child's steps and, if you like, a time: an empty time stays blank to write by hand, and *Time on the sheet* turns the time fields off. A picture is picked for each step; click it to change it. The page warns when it has no picture for a step, when a label is too long, or when a sheet has more than 8 steps.
+2. Pick the type of sheet (morning, afternoon, evening) and type up to 8 steps; empty rows are not printed. Add a time if you like: an empty time stays blank to write by hand, and *Time on the sheet* turns the time fields off. A picture is picked for each step; click it to change it. The page warns when it has no picture for a step or when a label is too long.
 3. Choose the background (color gradient, white, or transparent) and print on A4: margins *None*, scale 100 %.
 
 What you type stays in your browser. The sheets keep a 14 mm bottom margin because most home printers cannot print the bottom edge.

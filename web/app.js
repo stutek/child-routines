@@ -5,8 +5,7 @@
 
 const D = window.SHEET_DATA;
 const EDGES = window.SHEET_EDGES;
-const MAX_STEPS = 8;     // layout limit; 6 to 7 look best (AGENTS.md)
-const MAX_SHEETS = 4;
+const MAX_STEPS = 8;     // layout limit (AGENTS.md); the form always shows this many rows
 const STORE = "child-routines-maker";
 const CONTRIBUTE = "https://github.com/stutek/child-routines/blob/main/CONTRIBUTING.md#add-an-image";
 
@@ -20,33 +19,25 @@ const PALETTES = [
 const T = {
   sl: {
     heading: "Izdelaj svoj list",
-    how: ["Vpiši opravila in po želji uro. Prazna ura ostane za ročni vpis.", "Sličico izberem sam. Klikni nanjo, da jo zamenjaš.", "Natisni na A4: robovi »Brez«, merilo 100 %."],
+    how: ["Izberi tip lista in vpiši do 8 opravil; prazne vrstice se ne natisnejo.", "Sličico izberem sam. Klikni nanjo, da jo zamenjaš.", "Natisni na A4: robovi »Brez«, merilo 100 %."],
     example: "Primer", clear: "Počisti", print: "🖨️ Natisni",
-    sheet: "List", sheetTitle: "Naslov lista", skies: { dawn: "☀️ jutro", afternoon: "🌤️ popoldne", night: "🌙 noč" },
+    type: "Tip lista", sheetTitle: "Naslov lista", skies: { dawn: "☀️ jutro", afternoon: "🌤️ popoldne", night: "🌙 večer" },
     times: "Ura na listu", background: "Ozadje", backgrounds: { gradient: "preliv barv", white: "belo", none: "prosojno (se ne natisne)" },
-    label: "Opravilo, npr. UMIJ ZOBE", time: "Ura", addStep: "+ Korak", addSheet: "+ List", removeSheet: "Odstrani list",
-    auto: "Samodejno", none: "Brez sličice", pick: "Zamenjaj sličico", removeStep: "Odstrani korak",
-    limit: `Največ ${MAX_STEPS} korakov na list (najlepše 6 do 7). Za več dodaj nov list.`,
+    label: "Opravilo, npr. UMIJ ZOBE", time: "Ura", auto: "Samodejno", none: "Brez sličice", pick: "Zamenjaj sličico", removeStep: "Izprazni vrstico",
     warnNoMatch: (s, l) => `${s}: za »${l}« nimamo sličice. Izberi drugo ali pusti prazno.`,
     warnLong: (s, l) => `${s}: napis »${l}« je predolg za okvir; skrajšaj ga.`,
-    warnEmpty: s => `${s}: korak brez napisa.`,
-    warnTooMany: (s, n) => `${s} ima ${n} korakov, največ ${MAX_STEPS}: razdeli ga na dva lista.`,
-    ok: "✓ Vse sličice so najdene in vsi napisi se prilegajo.", suggest: "Manjka sličica? Predlagaj jo", warnTitle: "Opozorila",
+    step: "Korak", ok: "✓ Vse sličice so najdene in vsi napisi se prilegajo.", suggest: "Manjka sličica? Predlagaj jo", warnTitle: "Opozorila",
   },
   en: {
     heading: "Make your own sheet",
-    how: ["Type the steps and, if you like, a time. An empty time stays blank to write by hand.", "I pick the pictures. Click one to change it.", "Print on A4: margins None, scale 100 %."],
+    how: ["Pick the type of sheet and type up to 8 steps; empty rows are not printed.", "I pick the pictures. Click one to change it.", "Print on A4: margins None, scale 100 %."],
     example: "Example", clear: "Clear", print: "🖨️ Print",
-    sheet: "Sheet", sheetTitle: "Sheet title", skies: { dawn: "☀️ morning", afternoon: "🌤️ afternoon", night: "🌙 night" },
+    type: "Type of sheet", sheetTitle: "Sheet title", skies: { dawn: "☀️ morning", afternoon: "🌤️ afternoon", night: "🌙 evening" },
     times: "Time on the sheet", background: "Background", backgrounds: { gradient: "color gradient", white: "white", none: "transparent (not printed)" },
-    label: "Step, e.g. BRUSH TEETH", time: "Time", addStep: "+ Step", addSheet: "+ Sheet", removeSheet: "Remove sheet",
-    auto: "Automatic", none: "No picture", pick: "Change picture", removeStep: "Remove step",
-    limit: `At most ${MAX_STEPS} steps per sheet (6 to 7 look best). Add a sheet for more.`,
+    label: "Step, e.g. BRUSH TEETH", time: "Time", auto: "Automatic", none: "No picture", pick: "Change picture", removeStep: "Clear row",
     warnNoMatch: (s, l) => `${s}: no picture for "${l}". Pick another or leave it empty.`,
     warnLong: (s, l) => `${s}: "${l}" is too long for the frame; shorten it.`,
-    warnEmpty: s => `${s}: step without a label.`,
-    warnTooMany: (s, n) => `${s} has ${n} steps, at most ${MAX_STEPS}: split it into two sheets.`,
-    ok: "✓ All pictures found and all labels fit.", suggest: "Missing a picture? Suggest one", warnTitle: "Warnings",
+    step: "Step", ok: "✓ All pictures found and all labels fit.", suggest: "Missing a picture? Suggest one", warnTitle: "Warnings",
   },
 };
 
@@ -151,32 +142,34 @@ function sheetHtml(sheet) {
   </div>`;
 }
 
-// ---------- state ----------
+// ---------- state: one sheet, always MAX_STEPS rows; empty rows are left off the sheet ----------
 
-function fromExample(lang) {
-  const ex = D.examples["sl-vsakdan"];
-  return {
-    lang, title: ex.title, background: "gradient", times: true,
-    sheets: ex.sheets.map(s => ({ title: s.title, sky: s.sky, steps: s.steps.map(st => ({ label: st.label, time: "", image: "auto" })) })),
-  };
+const newStep = () => ({ label: "", time: "", image: "auto" });
+const EXAMPLE_FOR = { dawn: 0, afternoon: 1, night: 2 };   // sheet of the example routine per type
+const example = sky => D.examples["sl-vsakdan"].sheets[EXAMPLE_FOR[sky] || 0];
+const pad = steps => steps.concat(Array.from({ length: MAX_STEPS }, newStep)).slice(0, MAX_STEPS);
+
+function fromExample(lang, sky = "dawn", base = {}) {
+  const ex = example(sky);
+  return { lang, background: base.background || "gradient", times: base.times !== false,
+           sheet: { title: ex.title, sky, steps: pad(ex.steps.map(st => ({ label: st.label, time: "", image: "auto" }))) } };
 }
 // Stored state is untrusted: every page on stutek.github.io shares this origin and its storage.
 // Keep only known values, so nothing from storage reaches the markup unchecked.
 function clean(s) {
+  if (!s || typeof s !== "object") return null;
   const str = (v, max) => (typeof v === "string" ? v : "").slice(0, max);
   const step = st => ({
     label: str(st && st.label, 40),
     time: /^([01]\d|2[0-3]):[0-5]\d$/.test(st && st.time) ? st.time : "",
     image: st && (st.image === "none" || D.images[st.image]) ? st.image : "auto",
   });
-  const sheet = sh => ({
-    title: str(sh && sh.title, 60),
-    sky: sh && D.skies[sh.sky] ? sh.sky : "dawn",
-    steps: (Array.isArray(sh && sh.steps) ? sh.steps : []).slice(0, 2 * MAX_STEPS).map(step),
-  });
-  const sheets = (Array.isArray(s && s.sheets) ? s.sheets : []).slice(0, MAX_SHEETS).map(sheet).filter(sh => sh.steps.length);
-  const background = ["gradient", "white", "none"].includes(s.background) ? s.background : "gradient";
-  return sheets.length ? { lang: T[s.lang] ? s.lang : "sl", title: str(s.title, 60), background, times: s.times !== false, sheets } : null;
+  const sh = s.sheet || (Array.isArray(s.sheets) && s.sheets[0]);   // older versions kept several sheets
+  if (!sh) return null;
+  const sheet = { title: str(sh.title, 60), sky: D.skies[sh.sky] ? sh.sky : "dawn",
+                  steps: pad((Array.isArray(sh.steps) ? sh.steps : []).slice(0, MAX_STEPS).map(step)) };
+  return { lang: T[s.lang] ? s.lang : "sl", background: ["gradient", "white", "none"].includes(s.background) ? s.background : "gradient",
+           times: s.times !== false, sheet };
 }
 function load() {
   try { const s = clean(JSON.parse(localStorage.getItem(STORE))); if (s) return s; } catch (e) { /* no or bad storage */ }
@@ -188,13 +181,14 @@ function save() {
 
 let state = load();
 const t = () => T[state.lang] || T.sl;
+const filled = () => state.sheet.steps.filter(st => st.label.trim());
 
-// resolved step for drawing: uppercase label, chosen or matched image, palette color
-function resolve(step, sheetIndex, k) {
+// resolved step for drawing: uppercase label, chosen or matched image, palette color by type and position
+function resolve(step, k) {
   const m = match(step.label);
   const image = step.image === "auto" ? (m ? m.id : null) : step.image === "none" ? null : step.image;
   return { label: step.label.toLocaleUpperCase(state.lang), time: step.time, image, match: m,
-           color: PALETTES[sheetIndex % PALETTES.length][k % MAX_STEPS] };
+           color: PALETTES[EXAMPLE_FOR[state.sheet.sky] || 0][k % MAX_STEPS] };
 }
 
 // ---------- editor ----------
@@ -211,77 +205,66 @@ function select(label, value, options, onchange) {
   return el("select", { "aria-label": label, title: label, onchange: e => onchange(e.target.value) },
     Object.entries(options).map(([v, text]) => { const o = el("option", { value: v }, text); o.selected = v === value; return o; }));
 }
-const newStep = () => ({ label: "", time: "", image: "auto" });
 
 function renderEditor() {
-  const L = t(), root = document.getElementById("maker");
+  const L = t(), root = document.getElementById("maker"), sheet = state.sheet;
   document.documentElement.lang = state.lang;
   root.classList.toggle("no-times", !state.times);
   const times = el("input", { type: "checkbox", onchange: e => { state.times = e.target.checked; update(true); } });
   times.checked = state.times;
+  // a title still equal to an example title follows the type; a title the parent typed stays
+  const setType = v => {
+    const auto = Object.keys(EXAMPLE_FOR).some(k => example(k).title === sheet.title) || !sheet.title.trim();
+    sheet.sky = v; if (auto) sheet.title = example(v).title; update(true);
+  };
   root.replaceChildren(
     el("div", { class: "row-top" }, [
       el("h1", { class: "grow" }, `🧲 ${L.heading}`),
       select("Language", state.lang, { sl: "SL", en: "EN" }, v => { state.lang = v; update(true); })]),
     el("ol", { class: "how" }, L.how.map(s => el("li", {}, s))),
     el("div", { class: "row-top" }, [
-      el("label", { class: "grow" }, [`${L.background}: `,
-        select(L.background, state.background, L.backgrounds, v => { state.background = v; update(true); })]),
-      el("label", {}, [times, ` ${L.times}`]),
-      el("button", { onclick: () => { state = fromExample(state.lang); update(true); } }, L.example),
-      el("button", { onclick: () => { state = { ...state, sheets: [{ title: "☀️", sky: "dawn", steps: [newStep()] }] }; update(true); } }, L.clear),
+      select(L.type, sheet.sky, L.skies, setType),
+      el("input", { class: "grow title", value: sheet.title, "aria-label": L.sheetTitle, placeholder: L.sheetTitle,
+        oninput: e => { sheet.title = e.target.value; update(); } })]),
+    el("div", { class: "row-top" }, [
+      el("label", {}, [`${L.background}: `, select(L.background, state.background, L.backgrounds, v => { state.background = v; update(true); })]),
+      el("label", { class: "grow" }, [times, ` ${L.times}`]),
+      el("button", { onclick: () => { state = fromExample(state.lang, sheet.sky, state); update(true); } }, L.example),
+      el("button", { onclick: () => { sheet.steps = pad([]); update(true); } }, L.clear),
       el("button", { class: "primary", onclick: () => window.print() }, L.print)]));
 
-  state.sheets.forEach((sheet, si) => {
-    const box = el("div", { class: "sheet-box", onfocusin: () => showSheet(si) }, el("div", { class: "sheet-head" }, [
-      el("input", { class: "title", value: sheet.title, "aria-label": L.sheetTitle, placeholder: L.sheetTitle,
-        oninput: e => { sheet.title = e.target.value; update(); } }),
-      state.background === "gradient" ? select(L.sheet, sheet.sky, L.skies, v => { sheet.sky = v; update(); }) : "",
-      el("button", { class: "del", title: L.removeSheet, "aria-label": L.removeSheet, disabled: state.sheets.length === 1,
-        onclick: () => { state.sheets.splice(si, 1); update(true); } }, "×")]));
-
-    sheet.steps.forEach((step, k) => {
-      const gallery = el("div", { class: "gallery", hidden: true });
-      const thumb = el("button", { class: "thumb", title: L.pick, "aria-label": L.pick,
-        onclick: () => { gallery.hidden = !gallery.hidden; } });
-      const choose = v => { step.image = v; gallery.hidden = true; update(); };
-      gallery.append(
-        el("button", { onclick: () => choose("auto") }, `🔄 ${L.auto}`),
-        ...Object.entries(D.images).map(([id, img]) =>
-          el("button", { title: img.title, onclick: () => choose(id) }, el("img", { src: `../images/${id}.jpg`, alt: img.title, loading: "lazy" }))),
-        el("button", { onclick: () => choose("none") }, `∅ ${L.none}`));
-      box.append(el("div", { class: "step" }, [
-        el("span", { class: "n" }, `${k + 1}`),
-        el("input", { value: step.label, placeholder: L.label, maxlength: "24", "aria-label": L.label,
-          oninput: e => { step.label = e.target.value; update(); } }),
-        el("input", { type: "time", value: step.time, "aria-label": L.time, oninput: e => { step.time = e.target.value; update(); } }),
-        thumb,
-        el("button", { class: "del", title: L.removeStep, "aria-label": L.removeStep,
-          onclick: () => { sheet.steps.splice(k, 1); if (!sheet.steps.length) state.sheets.splice(si, 1); update(true); } }, "×")]), gallery);
-      step._thumb = thumb;
-    });
-
-    const full = sheet.steps.length >= MAX_STEPS;
-    box.append(el("div", { class: "row-top" }, [
-      el("button", { disabled: full, onclick: () => { sheet.steps.push(newStep()); update(true); } }, L.addStep),
-      full ? el("span", { class: "note" }, L.limit) : ""]));
-    root.append(box);
+  const box = el("div", { class: "sheet-box" });
+  sheet.steps.forEach((step, k) => {
+    const gallery = el("div", { class: "gallery", hidden: true });
+    const thumb = el("button", { class: "thumb", title: L.pick, "aria-label": L.pick, onclick: () => { gallery.hidden = !gallery.hidden; } });
+    const choose = v => { step.image = v; gallery.hidden = true; update(); };
+    gallery.append(
+      el("button", { onclick: () => choose("auto") }, `🔄 ${L.auto}`),
+      ...Object.entries(D.images).map(([id, img]) =>
+        el("button", { title: img.title, onclick: () => choose(id) }, el("img", { src: `../images/${id}.jpg`, alt: img.title, loading: "lazy" }))),
+      el("button", { onclick: () => choose("none") }, `∅ ${L.none}`));
+    box.append(el("div", { class: "step" }, [
+      el("span", { class: "n" }, `${k + 1}`),
+      el("input", { value: step.label, placeholder: k === 0 ? L.label : "", maxlength: "24", "aria-label": L.label,
+        oninput: e => { step.label = e.target.value; update(); } }),
+      el("input", { type: "time", value: step.time, "aria-label": L.time, oninput: e => { step.time = e.target.value; update(); } }),
+      thumb,
+      el("button", { class: "del", title: L.removeStep, "aria-label": L.removeStep,
+        onclick: () => { sheet.steps[k] = newStep(); update(true); } }, "×")]), gallery);
+    step._thumb = thumb;
   });
-
-  root.append(
-    el("div", { class: "row-top" }, el("button", { disabled: state.sheets.length >= MAX_SHEETS,
-      onclick: () => { state.sheets.push({ title: "🌙", sky: "night", steps: [newStep()] }); update(true); } }, L.addSheet)),
-    el("div", { id: "warnings" }));
+  root.append(box, el("div", { id: "warnings" }));
 }
 
-// refresh each step's picture in place, so typing keeps focus
+// refresh each row's picture in place, so typing keeps focus; an empty row shows no picture
 function refreshSteps() {
-  state.sheets.forEach((sheet, si) => sheet.steps.forEach((step, k) => {
+  state.sheet.steps.forEach((step, k) => {
     if (!step._thumb) return;
-    const r = resolve(step, si, k);
-    step._thumb.classList.toggle("missing", !r.image && step.image !== "none" && !!step.label.trim());
-    step._thumb.replaceChildren(r.image ? el("img", { src: `../images/${r.image}.jpg`, alt: D.images[r.image].title }) : "?");
-  }));
+    const empty = !step.label.trim(), r = resolve(step, k);
+    step._thumb.classList.toggle("missing", !empty && !r.image && step.image !== "none");
+    step._thumb.classList.toggle("empty", empty);
+    step._thumb.replaceChildren(!empty && r.image ? el("img", { src: `../images/${r.image}.jpg`, alt: D.images[r.image].title }) : empty ? "" : "?");
+  });
 }
 
 // ---------- preview and warnings ----------
@@ -294,23 +277,15 @@ function labelRoom(lab) {
 }
 
 function renderPreview() {
-  const L = t();
-  const sky = s => (state.background === "gradient" ? s.sky : state.background);
-  const sheets = state.sheets.map((s, si) => ({ title: s.title, sky: sky(s), times: state.times, steps: s.steps.map((st, k) => resolve(st, si, k)) }));
-  document.getElementById("sheets").innerHTML = sheets.map(sheetHtml).join("");
+  const L = t(), s = state.sheet, steps = filled();
+  const sky = state.background === "gradient" ? s.sky : state.background;
+  document.getElementById("sheets").innerHTML = sheetHtml({ title: s.title, sky, times: state.times, steps: steps.map(resolve) });
 
   const warnings = [];
-  state.sheets.forEach((s, si) => { if (s.steps.length > MAX_STEPS) warnings.push(L.warnTooMany(`${L.sheet} ${si + 1}`, s.steps.length)); });
-  state.sheets.forEach((s, si) => s.steps.forEach((st, k) => {
-    const where = `${L.sheet} ${si + 1}, ${k + 1}`;
-    if (!st.label.trim()) warnings.push(L.warnEmpty(where));
-    else if (st.image === "auto" && !match(st.label)) warnings.push(L.warnNoMatch(where, st.label));
-  }));
+  steps.forEach((st, k) => { if (st.image === "auto" && !match(st.label)) warnings.push(L.warnNoMatch(`${L.step} ${k + 1}`, st.label)); });
   // labels do not wrap: compare each with the frame width left beside the magnet circle (AGENTS.md)
-  document.querySelectorAll("#preview .rt-page").forEach((page, si) => {
-    page.querySelectorAll(".rt-label").forEach((lab, k) => {
-      if (lab.scrollWidth > labelRoom(lab)) warnings.push(L.warnLong(`${L.sheet} ${si + 1}, ${k + 1}`, lab.textContent));
-    });
+  document.querySelectorAll("#sheets .rt-label").forEach((lab, k) => {
+    if (lab.scrollWidth > labelRoom(lab)) warnings.push(L.warnLong(`${L.step} ${k + 1}`, lab.textContent));
   });
   const box = document.getElementById("warnings");
   box.className = warnings.length ? "warnings" : "warnings ok";
@@ -327,19 +302,11 @@ function update(structure = false) {
   save();
 }
 
-// the A4 sheets shrink to the width of their column (narrow screen or the right half of a wide one);
+// the A4 sheet shrinks to the width of its column (narrow screen or the right half of a wide one);
 // printing uses @media print (zoom 1)
 function fitPreview() {
   const a4 = 794, room = document.getElementById("preview").clientWidth - 8;
   document.getElementById("sheets").style.zoom = room < a4 ? (room / a4).toFixed(3) : "";
-}
-
-// side by side: editing a sheet brings it into view in the preview column
-function showSheet(si) {
-  const preview = document.getElementById("preview"), page = document.querySelectorAll("#sheets .rt-page")[si];
-  if (!page || preview.scrollHeight <= preview.clientHeight) return;
-  const zoom = parseFloat(document.getElementById("sheets").style.zoom) || 1;
-  preview.scrollTo({ top: page.offsetTop * zoom - 8, behavior: "smooth" });
 }
 window.addEventListener("resize", fitPreview);
 

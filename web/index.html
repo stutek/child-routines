@@ -82,7 +82,7 @@
       body { display: block !important; padding: 16px !important; }
       .layout { display: grid; grid-template-columns: minmax(440px, 1fr) minmax(0, 1fr); align-items: start; gap: 16px; }
       .maker { max-width: none; }
-      #preview { position: sticky; top: 16px; max-height: calc(100vh - 32px); overflow: auto; border-radius: 12px; }
+      #preview { position: sticky; top: 16px; max-height: calc(100vh - 32px); overflow: auto; }   /* square: the sheet prints with square corners */
     }
     @media print {
       .maker, .preview-label { display: none !important; }

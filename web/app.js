@@ -18,7 +18,8 @@ const PALETTES = [
 
 const T = {
   sl: {
-    heading: "Izdelaj svoj list",
+    heading: "Otroške rutine", aboutTitle: "O aplikaciji", howTitle: "Navodila",
+    about: "Vizualizacija rutin otrokom pomaga sprejeti tudi neprijetna navodila, krepi samozavest skozi pozitivna občutja dosežka ob označevanju opravljenih nalog in pomaga uravnavati pričakovanja (kdaj bo risanka?).",
     how: ["Izberi tip lista in vpiši do 8 opravil; prazne vrstice se ne natisnejo.", "Sličico izberem sam. Klikni nanjo, da jo zamenjaš.", "Natisni na A4: robovi »Brez«, merilo 100 %."],
     example: "Naloži primer", print: "🖨️ Natisni",
     type: "Tip lista", sheetTitle: "Naslov lista", skies: { dawn: "jutro", afternoon: "dan", night: "večer" },
@@ -29,7 +30,8 @@ const T = {
     preview: "👁 Predogled: tako bo natisnjeno (A4)", step: "Korak", ok: "✓ Vse sličice so najdene in vsi napisi se prilegajo.", suggest: "Manjka sličica? Predlagaj jo", warnTitle: "Opozorila",
   },
   en: {
-    heading: "Make your own sheet",
+    heading: "Child routines", aboutTitle: "About", howTitle: "How to",
+    about: "Seeing the routine helps children accept even unwelcome instructions, builds confidence through the good feeling of achievement each time they mark a step done, and helps manage expectations (when is cartoon time?).",
     how: ["Pick the type of sheet and type up to 8 steps; empty rows are not printed.", "I pick the pictures. Click one to change it.", "Print on A4: margins None, scale 100 %."],
     example: "Load example", print: "🖨️ Print",
     type: "Type of sheet", sheetTitle: "Sheet title", skies: { dawn: "morning", afternoon: "day", night: "evening" },
@@ -230,6 +232,7 @@ const broom = () => el("span", { class: "broom", "aria-hidden": "true" }, "🧹"
 function renderEditor() {
   const L = t(), root = document.getElementById("maker"), sheet = state.sheet;
   document.documentElement.lang = state.lang;
+  document.title = L.heading;
   document.getElementById("preview-label").textContent = L.preview;
   root.classList.toggle("no-times", !state.times);
   const times = el("input", { type: "checkbox", onchange: e => { state.times = e.target.checked; update(true); } });
@@ -243,7 +246,8 @@ function renderEditor() {
     el("div", { class: "row-top" }, [
       el("h1", { class: "grow" }, `🧲 ${L.heading}`),
       select("Language", state.lang, { sl: "SL", en: "EN" }, v => { state.lang = v; update(true); })]),
-    el("ol", { class: "how" }, L.how.map(s => el("li", {}, s))),
+    el("h2", {}, L.aboutTitle), el("p", { class: "about" }, L.about),
+    el("h2", {}, L.howTitle), el("ol", { class: "how" }, L.how.map(s => el("li", {}, s))),
     el("div", { class: "row-top" }, [
       select(L.type, sheet.sky, L.skies, setType),
       el("input", { class: "grow title", value: sheet.title, "aria-label": L.sheetTitle, placeholder: L.sheetTitle, autocapitalize: "characters",

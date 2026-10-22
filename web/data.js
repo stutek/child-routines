@@ -456,7 +456,7 @@ window.SHEET_DATA = {
    "language": "sl",
    "sheets": [
     {
-     "title": "☀️ JUTRANJA RUTINA",
+     "title": "🌄 JUTRANJA RUTINA",
      "sky": "dawn",
      "stars": false,
      "steps": [

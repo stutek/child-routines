@@ -21,7 +21,7 @@ const T = {
     heading: "Izdelaj svoj list",
     how: ["Izberi tip lista in vpiši do 8 opravil; prazne vrstice se ne natisnejo.", "Sličico izberem sam. Klikni nanjo, da jo zamenjaš.", "Natisni na A4: robovi »Brez«, merilo 100 %."],
     example: "Primer", clear: "Počisti", print: "🖨️ Natisni",
-    type: "Tip lista", sheetTitle: "Naslov lista", skies: { dawn: "☀️ jutro", afternoon: "🌤️ popoldne", night: "🌙 večer" },
+    type: "Tip lista", sheetTitle: "Naslov lista", skies: { dawn: "🌄 jutro", afternoon: "☀️ dan", night: "🌙 večer" },
     times: "Ura na listu", background: "Ozadje", backgrounds: { gradient: "preliv barv", white: "belo", none: "prosojno (se ne natisne)" },
     label: "Opravilo, npr. UMIJ ZOBE", time: "Ura", auto: "Samodejno", none: "Brez sličice", pick: "Zamenjaj sličico", removeStep: "Izprazni vrstico",
     warnNoMatch: (s, l) => `${s}: za »${l}« nimamo sličice. Izberi drugo ali pusti prazno.`,
@@ -32,7 +32,7 @@ const T = {
     heading: "Make your own sheet",
     how: ["Pick the type of sheet and type up to 8 steps; empty rows are not printed.", "I pick the pictures. Click one to change it.", "Print on A4: margins None, scale 100 %."],
     example: "Example", clear: "Clear", print: "🖨️ Print",
-    type: "Type of sheet", sheetTitle: "Sheet title", skies: { dawn: "☀️ morning", afternoon: "🌤️ afternoon", night: "🌙 evening" },
+    type: "Type of sheet", sheetTitle: "Sheet title", skies: { dawn: "🌄 morning", afternoon: "☀️ day", night: "🌙 evening" },
     times: "Time on the sheet", background: "Background", backgrounds: { gradient: "color gradient", white: "white", none: "transparent (not printed)" },
     label: "Step, e.g. BRUSH TEETH", time: "Time", auto: "Automatic", none: "No picture", pick: "Change picture", removeStep: "Clear row",
     warnNoMatch: (s, l) => `${s}: no picture for "${l}". Pick another or leave it empty.`,
@@ -146,13 +146,16 @@ function sheetHtml(sheet) {
 
 const newStep = () => ({ label: "", time: "", image: "auto" });
 const EXAMPLE_FOR = { dawn: 0, afternoon: 1, night: 2 };   // sheet of the example routine per type
+// the type sets the title icon; the title itself is plain text (sunrise over a hill, sun, moon)
+const ICON = { dawn: "🌄", afternoon: "☀️", night: "🌙" };
+const bare = s => s.replace(/^[^\p{L}\p{N}]+/u, "").trim();
 const example = sky => D.examples["sl-vsakdan"].sheets[EXAMPLE_FOR[sky] || 0];
 const pad = steps => steps.concat(Array.from({ length: MAX_STEPS }, newStep)).slice(0, MAX_STEPS);
 
 function fromExample(lang, sky = "night", base = {}) {   // the evening routine opens first
   const ex = example(sky);
   return { lang, background: base.background || "gradient", times: base.times !== false,
-           sheet: { title: ex.title, sky, steps: pad(ex.steps.map(st => ({ label: st.label, time: "", image: "auto" }))) } };
+           sheet: { title: bare(ex.title), sky, steps: pad(ex.steps.map(st => ({ label: st.label, time: "", image: "auto" }))) } };
 }
 // Stored state is untrusted: every page on stutek.github.io shares this origin and its storage.
 // Keep only known values, so nothing from storage reaches the markup unchecked.
@@ -166,7 +169,7 @@ function clean(s) {
   });
   const sh = s.sheet || (Array.isArray(s.sheets) && s.sheets[0]);   // older versions kept several sheets
   if (!sh) return null;
-  const sheet = { title: str(sh.title, 60), sky: D.skies[sh.sky] ? sh.sky : "night",
+  const sheet = { title: bare(str(sh.title, 60)), sky: D.skies[sh.sky] ? sh.sky : "night",
                   steps: pad((Array.isArray(sh.steps) ? sh.steps : []).slice(0, MAX_STEPS).map(step)) };
   return { lang: T[s.lang] ? s.lang : "sl", background: ["gradient", "white", "none"].includes(s.background) ? s.background : "gradient",
            times: s.times !== false, sheet };
@@ -225,8 +228,8 @@ function renderEditor() {
   times.checked = state.times;
   // a title still equal to an example title follows the type; a title the parent typed stays
   const setType = v => {
-    const auto = Object.keys(EXAMPLE_FOR).some(k => example(k).title === sheet.title) || !sheet.title.trim();
-    sheet.sky = v; if (auto) sheet.title = example(v).title; update(true);
+    const auto = Object.keys(EXAMPLE_FOR).some(k => bare(example(k).title) === sheet.title) || !sheet.title.trim();
+    sheet.sky = v; if (auto) sheet.title = bare(example(v).title); update(true);
   };
   root.replaceChildren(
     el("div", { class: "row-top" }, [
@@ -295,7 +298,7 @@ function labelRoom(lab) {
 function renderPreview() {
   const L = t(), s = state.sheet, steps = filled();
   const sky = state.background === "gradient" ? s.sky : state.background;
-  document.getElementById("sheets").innerHTML = sheetHtml({ title: s.title.toLocaleUpperCase(state.lang), sky, times: state.times, steps: steps.map(resolve) });
+  document.getElementById("sheets").innerHTML = sheetHtml({ title: `${ICON[s.sky]} ${s.title.toLocaleUpperCase(state.lang)}`, sky, times: state.times, steps: steps.map(resolve) });
 
   const warnings = [];
   steps.forEach((st, k) => { if (st.image === "auto" && !match(st.label)) warnings.push(L.warnNoMatch(`${L.step} ${k + 1}`, st.label)); });

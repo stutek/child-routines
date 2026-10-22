@@ -209,15 +209,8 @@ function select(label, value, options, onchange) {
     Object.entries(options).map(([v, text]) => { const o = el("option", { value: v }, text); o.selected = v === value; return o; }));
 }
 
-// a one-colour broom (own drawing, CC0) that takes the button colour; the emoji cannot be recoloured
-function broom() {
-  const b = document.createElement("span");
-  b.innerHTML = '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">'
-    + '<path d="M20 2.5 12.5 10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" fill="none"/>'
-    + '<path d="M9.5 9.5 14.5 14.5 11 21H3l.5-6.5z" fill="currentColor"/>'
-    + '<path d="M6 21l.8-4M8.5 21l1.2-4" stroke="#fff" stroke-width="1.2" stroke-linecap="round"/></svg>';
-  return b.firstChild;
-}
+// the broom icon "mop" from Material Symbols (loaded in index.html); it takes the button colour
+const broom = () => el("span", { class: "material-symbols-rounded", "aria-hidden": "true" }, "mop");
 
 function renderEditor() {
   const L = t(), root = document.getElementById("maker"), sheet = state.sheet;

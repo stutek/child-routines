@@ -9,6 +9,8 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' file:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' file:; base-uri 'none'; form-action 'none'">
   <meta name="referrer" content="no-referrer">
   <title>Routine Sheet Maker</title>
+  <!-- one icon (the broom on the row clear button) from Material Symbols, Apache 2.0, served by Google Fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,500,1,0&icon_names=mop&display=block">
   <!-- Sheet maker: works offline from a checkout (file://) and on any static host. What the parent types stays in the browser. -->
   <style>
     .maker {
@@ -40,7 +42,8 @@
     .step .n { font-weight: 800; color: #64748b; text-align: right; }
     .no-times .step { grid-template-columns: 22px minmax(0, 1fr) 52px 32px; }
     .no-times .step input[type=time] { display: none; }
-    .maker button.del { padding: 4px 0; background: transparent; color: #dc2626; font-size: 20px; line-height: 0; }
+    .maker button.del { padding: 4px 0; background: transparent; color: #dc2626; line-height: 1; }
+    .maker button.del .material-symbols-rounded { font-size: 24px; }
     .maker button.del:hover { color: #991b1b; }
     .maker button.thumb { width: 52px; height: 52px; padding: 0; border-radius: 10px; overflow: hidden; background: #f1f5f9;
                           border: 2px solid #e2e8f0; font-size: 22px; color: #94a3b8; }

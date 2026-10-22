@@ -137,7 +137,7 @@ function sheetHtml(sheet) {
   return `
   <div class="page-a4 rt-page" style="background: ${background};${size}">${starry}
     <div class="rt-grid" style="grid-template-rows: ${gridRows};">
-      <div class="rt-header"><div class="rt-title">${esc(sheet.title)}</div></div>${rows}
+      <div class="rt-header"><div class="rt-title">${esc(sheet.title)}</div><div class="rt-site">${esc(D.site)}</div></div>${rows}
     </div>
   </div>`;
 }

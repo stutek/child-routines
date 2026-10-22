@@ -191,9 +191,15 @@ function clean(s) {
   return { lang: T[s.lang] ? s.lang : "sl", background: ["gradient", "white", "none"].includes(s.background) ? s.background : "gradient",
            times: s.times !== false, sheet };
 }
+// first visit: the first of the browser's languages the page has (navigator.languages), else English
+function browserLang() {
+  const langs = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || ""];
+  for (const l of langs) { const code = l.toLowerCase().slice(0, 2); if (T[code]) return code; }
+  return "en";
+}
 function load() {
   try { const s = clean(JSON.parse(localStorage.getItem(STORE))); if (s) return s; } catch (e) { /* no or bad storage */ }
-  return fromExample((navigator.language || "sl").startsWith("sl") ? "sl" : "en");
+  return fromExample(browserLang());
 }
 function save() {
   try { localStorage.setItem(STORE, JSON.stringify(state, (k, v) => (k.startsWith("_") ? undefined : v))); } catch (e) { /* no storage */ }
@@ -245,7 +251,9 @@ function renderEditor() {
   root.replaceChildren(
     el("div", { class: "row-top" }, [
       el("h1", { class: "grow" }, `🧲 ${L.heading}`),
-      select("Language", state.lang, { sl: "SL", en: "EN" }, v => { state.lang = v; update(true); })]),
+      // each language in its own name, labelled with a globe (W3C: language selection), no flags
+      el("label", { class: "lang" }, [el("span", { class: "globe", "aria-hidden": "true" }, "🌐"),
+        select("Language", state.lang, { sl: "Slovenščina", en: "English" }, v => { state.lang = v; update(true); })])]),
     el("h2", {}, L.aboutTitle), el("p", { class: "about" }, L.about),
     el("h2", {}, L.howTitle), el("ol", { class: "how" }, L.how.map(s => el("li", {}, s))),
     el("div", { class: "row-top" }, [

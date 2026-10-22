@@ -109,6 +109,12 @@ function stars() {
   return out;
 }
 
+// same as image_size() in tools/build.py
+function imageSize(n) {
+  const g = D.geometry, row = (g.page_h - g.margin - g.margin_bottom - g.title) / (2 * n + 2);
+  return Math.min(g.img, Math.floor((4 * row - g.gap) * 2) / 2);
+}
+
 function sheetHtml(sheet) {
   const n = sheet.steps.length;
   const rows = sheet.steps.map((step, k) => {
@@ -135,9 +141,10 @@ function sheetHtml(sheet) {
   const background = plain || `linear-gradient(180deg, ${D.skies[sheet.sky] || D.skies.dawn})`;
   const starry = sheet.sky === "night"
     ? `<svg class="rt-sky" viewBox="0 0 210 297" preserveAspectRatio="none" aria-hidden="true"><g fill="#FFF8DC">${stars()}</g></svg>` : "";
-  const gridRows = `14mm minmax(0, 0.45fr) repeat(${2 * n}, minmax(0, 1fr)) minmax(0, 0.45fr)`;
+  const gridRows = `${D.geometry.title}mm repeat(${2 * n + 2}, minmax(0, 1fr))`;
+  const img = imageSize(n), size = img < D.geometry.img ? ` --img: ${img}mm;` : "";
   return `
-  <div class="page-a4 rt-page" style="background: ${background};">${starry}
+  <div class="page-a4 rt-page" style="background: ${background};${size}">${starry}
     <div class="rt-grid" style="grid-template-rows: ${gridRows};">
       <div class="rt-header"><div class="rt-title">${esc(sheet.title)}</div></div>${rows}
     </div>

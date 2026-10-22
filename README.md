@@ -6,7 +6,7 @@ Printable A4 sheets with a young child's daily routine: morning, dinner and bedt
 
 ## Try it
 
-**[Make your own sheet](https://stutek.github.io/child-routines/web/)** · [Example sheets, ready to print](https://stutek.github.io/child-routines/output/sl-vsakdan.html)
+**[Make your own sheet](https://stutek.github.io/child-routines/web/)** · [Example sheets, ready to print](https://stutek.github.io/child-routines/output/en-example.html)
 
 ![Three example sheets: morning, dinner and bedtime](docs/preview.jpg)
 
@@ -19,7 +19,7 @@ What you type stays in your browser. The sheets keep a 14 mm bottom margin becau
 ## Print without the sheet maker
 
 1. Download the files: on the [repository page](https://github.com/stutek/child-routines), click **Code**, then **Download ZIP**, and unzip it. The sheets need the `images/` folder next to `output/`, so opening a single file on GitHub does not work.
-2. Open `output/sl-vsakdan.html` in Chrome, or `web/index.html` to make your own (it also works offline).
+2. Open `output/en-example.html` in Chrome, or `web/index.html` to make your own (it also works offline).
 3. Print: paper A4, margins *None*, scale 100 %.
 
 ## Make your own from files

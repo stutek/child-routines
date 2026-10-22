@@ -6,7 +6,7 @@ Listi A4 za tisk z dnevno rutino majhnega otroka: jutro, večerja in spanje. Obe
 
 ## Preizkusite
 
-**[Izdelajte svoj list](https://stutek.github.io/child-routines/web/)** · [Vzorčni listi, pripravljeni za tisk](https://stutek.github.io/child-routines/output/sl-vsakdan.html)
+**[Izdelajte svoj list](https://stutek.github.io/child-routines/web/)** · [Vzorčni listi, pripravljeni za tisk](https://stutek.github.io/child-routines/output/sl-primer.html)
 
 ![Trije vzorčni listi: jutro, večerja in spanje](docs/preview.jpg)
 
@@ -19,7 +19,7 @@ Vaši vnosi ostanejo v vašem brskalniku. Listi imajo spodaj 14 mm roba, ker ve�
 ## Tisk brez izdelovalnika
 
 1. Prenesite datoteke: na [strani repozitorija](https://github.com/stutek/child-routines) kliknite **Code**, nato **Download ZIP**, in arhiv razširite. Listi potrebujejo mapo `images/` ob mapi `output/`, zato odpiranje posamezne datoteke na GitHubu ne deluje.
-2. V Chromu odprite `output/sl-vsakdan.html` ali `web/index.html` za lasten list (deluje tudi brez povezave).
+2. V Chromu odprite `output/sl-primer.html` ali `web/index.html` za lasten list (deluje tudi brez povezave).
 3. Natisnite: papir A4, robovi *Brez*, merilo 100 %.
 
 ## Lastna rutina iz datotek

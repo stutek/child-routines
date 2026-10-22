@@ -12,7 +12,7 @@ from pathlib import Path
 from PIL import Image
 
 ROOT = Path(__file__).resolve().parent.parent
-SHEETS = ROOT / "output" / "sl-vsakdan.html"
+SHEETS = ROOT / "output" / "sl-primer.html"   # the public example, following good habits
 OUT = ROOT / "docs" / "preview.jpg"
 GAP = 24
 

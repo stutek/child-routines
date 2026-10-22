@@ -459,6 +459,270 @@ window.SHEET_DATA = {
   }
  },
  "examples": {
+  "en-example": {
+   "title": "Example routine",
+   "language": "en",
+   "sheets": [
+    {
+     "title": "MORNING ROUTINE",
+     "sky": "dawn",
+     "stars": false,
+     "steps": [
+      {
+       "label": "GOOD MORNING",
+       "image": "good-morning",
+       "color": "#8B5CF6"
+      },
+      {
+       "label": "USE THE TOILET",
+       "image": "toilet",
+       "color": "#A855F7"
+      },
+      {
+       "label": "WASH HANDS",
+       "image": "wash-hands",
+       "color": "#D946EF"
+      },
+      {
+       "label": "GET DRESSED",
+       "image": "getting-dressed",
+       "color": "#EC4899"
+      },
+      {
+       "label": "BREAKFAST",
+       "image": "breakfast",
+       "color": "#F43F5E"
+      },
+      {
+       "label": "BRUSH TEETH",
+       "image": "brush-teeth",
+       "color": "#F97316"
+      },
+      {
+       "label": "MAKE THE BED",
+       "image": "make-bed",
+       "color": "#EAB308"
+      },
+      {
+       "label": "OFF TO SCHOOL",
+       "image": "kindergarten",
+       "color": "#0EA5E9"
+      }
+     ]
+    },
+    {
+     "title": "DINNER",
+     "sky": "afternoon",
+     "stars": false,
+     "steps": [
+      {
+       "label": "USE THE TOILET",
+       "image": "toilet",
+       "color": "#F59E0B"
+      },
+      {
+       "label": "WASH HANDS",
+       "image": "wash-hands",
+       "color": "#F97316"
+      },
+      {
+       "label": "SET THE TABLE",
+       "image": "set-table",
+       "color": "#F43F5E"
+      },
+      {
+       "label": "DINNER",
+       "image": "dinner",
+       "color": "#EC4899"
+      },
+      {
+       "label": "CLEAR THE TABLE",
+       "image": "clear-table",
+       "color": "#D946EF"
+      },
+      {
+       "label": "TIDY UP TOYS",
+       "image": "tidy-toys",
+       "color": "#C026D3"
+      }
+     ]
+    },
+    {
+     "title": "EVENING ROUTINE",
+     "sky": "night",
+     "stars": true,
+     "steps": [
+      {
+       "label": "CARTOON TIME",
+       "image": "cartoon",
+       "color": "#A855F7"
+      },
+      {
+       "label": "BATH TIME",
+       "image": "bath",
+       "color": "#9333EA"
+      },
+      {
+       "label": "PUT ON PAJAMAS",
+       "image": "pajamas",
+       "color": "#8B5CF6"
+      },
+      {
+       "label": "BRUSH TEETH",
+       "image": "brush-teeth",
+       "color": "#7C3AED"
+      },
+      {
+       "label": "USE THE TOILET",
+       "image": "toilet",
+       "color": "#6366F1"
+      },
+      {
+       "label": "BEDTIME STORY",
+       "image": "story",
+       "color": "#3B82F6"
+      },
+      {
+       "label": "GOOD NIGHT",
+       "image": "sleep",
+       "color": "#4F46E5"
+      }
+     ]
+    }
+   ]
+  },
+  "sl-primer": {
+   "title": "Primer rutine",
+   "language": "sl",
+   "sheets": [
+    {
+     "title": "JUTRANJA RUTINA",
+     "sky": "dawn",
+     "stars": false,
+     "steps": [
+      {
+       "label": "DOBRO JUTRO",
+       "image": "good-morning",
+       "color": "#8B5CF6"
+      },
+      {
+       "label": "NA STRANIŠČE",
+       "image": "toilet",
+       "color": "#A855F7"
+      },
+      {
+       "label": "UMIJ ROKE",
+       "image": "wash-hands",
+       "color": "#D946EF"
+      },
+      {
+       "label": "OBLECI SE",
+       "image": "getting-dressed",
+       "color": "#EC4899"
+      },
+      {
+       "label": "ZAJTRK",
+       "image": "breakfast",
+       "color": "#F43F5E"
+      },
+      {
+       "label": "UMIJ ZOBKE",
+       "image": "brush-teeth",
+       "color": "#F97316"
+      },
+      {
+       "label": "POSTELJI POSTELJO",
+       "image": "make-bed",
+       "color": "#EAB308"
+      },
+      {
+       "label": "V VRTEC",
+       "image": "kindergarten",
+       "color": "#0EA5E9"
+      }
+     ]
+    },
+    {
+     "title": "VEČERJA",
+     "sky": "afternoon",
+     "stars": false,
+     "steps": [
+      {
+       "label": "NA STRANIŠČE",
+       "image": "toilet",
+       "color": "#F59E0B"
+      },
+      {
+       "label": "UMIJ ROKE",
+       "image": "wash-hands",
+       "color": "#F97316"
+      },
+      {
+       "label": "PRIPRAVI MIZO",
+       "image": "set-table",
+       "color": "#F43F5E"
+      },
+      {
+       "label": "VEČERJA",
+       "image": "dinner",
+       "color": "#EC4899"
+      },
+      {
+       "label": "POSPRAVI MIZO",
+       "image": "clear-table",
+       "color": "#D946EF"
+      },
+      {
+       "label": "POSPRAVI IGRAČE",
+       "image": "tidy-toys",
+       "color": "#C026D3"
+      }
+     ]
+    },
+    {
+     "title": "VEČERNA RUTINA",
+     "sky": "night",
+     "stars": true,
+     "steps": [
+      {
+       "label": "RISANKA",
+       "image": "cartoon",
+       "color": "#A855F7"
+      },
+      {
+       "label": "OKOPAJ SE",
+       "image": "bath",
+       "color": "#9333EA"
+      },
+      {
+       "label": "OBLECI PIŽAMO",
+       "image": "pajamas",
+       "color": "#8B5CF6"
+      },
+      {
+       "label": "UMIJ ZOBKE",
+       "image": "brush-teeth",
+       "color": "#7C3AED"
+      },
+      {
+       "label": "NA STRANIŠČE",
+       "image": "toilet",
+       "color": "#6366F1"
+      },
+      {
+       "label": "PRAVLJICA",
+       "image": "story",
+       "color": "#3B82F6"
+      },
+      {
+       "label": "LAHKO NOČ",
+       "image": "sleep",
+       "color": "#4F46E5"
+      }
+     ]
+    }
+   ]
+  },
   "sl-vsakdan": {
    "title": "Dnevna rutina",
    "language": "sl",

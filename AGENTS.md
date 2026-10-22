@@ -55,5 +55,6 @@ Check a change visually: print the output file to PDF with headless Chrome and l
 - This repository is self-contained: everything an agent needs (rules, skills, tools) is in it, and nothing refers to files outside it. `CLAUDE.md` and `GEMINI.md` only import this file.
 - Never weaken the copyright gate (`.github/workflows/copyright-gate.yml`): it must stay on `pull_request_target`, must not check out or run pull request code, and must fail closed.
 - When a parent makes a routine for their own child, keep the child's name and other personal details out of commits and pull requests.
+- The examples (`routines/sl/primer.json`, `routines/en/example.json`; the sheet maker loads them) model good habits, e.g. screens at least an hour before sleep (KidsHealth), hands washed before meals, teeth after the last meal. `routines/sl/vsakdan.json` is the maintainer's own family routine; leave it as it is.
 - Keep `README`, `CONTRIBUTING` and `AGENTS` in English and Slovenian in sync (`*.sl.md`).
 - Magnets: recommend 35 mm or more, set in plastic; the US small-parts cylinder is 31.7 mm wide (CPSC 16 CFR 1501). Several swallowed magnets attract each other through the intestines.

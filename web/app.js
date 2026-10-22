@@ -19,8 +19,8 @@ const PALETTES = [
 const T = {
   sl: {
     heading: "Otrokove rutine", aboutTitle: "O aplikaciji", howTitle: "Navodila",
-    about: "Ko otrok na sliki vidi, kaj pride zdaj in kaj potem, se laže loti tudi manj priljubljenih opravil in se manj pogaja. Ko označi opravljen korak, vidi, koliko je že naredil, kar spodbuja samostojnost. List mu pove tudi, kdaj bo risanka.",
-    how: ["Izberi tip lista in vpiši do 8 opravil; prazne vrstice se ne natisnejo.", "Sličico izberem sam. Klikni nanjo, da jo zamenjaš.", "Natisni na A4: robovi »Brez«, merilo 100 %."],
+    about: "Ko otrok na listu vidi, kaj pride zdaj in kaj potem, laže sledi rutini in pogajanja je lahko manj. Ko na opravljen korak sam položi magnetek, vidi, koliko je že naredil in kaj ga še čaka. Najbolje deluje, če list sestavita skupaj in ga prve dni skupaj prehodita.",
+    how: ["Izberi tip lista in vpiši do 8 opravil; prazne vrstice se ne natisnejo.", "Sličico izberem sam. Klikni nanjo, da jo zamenjaš. Naj otrok izbere slike in vrstni red.", "Natisni na A4: robovi »Brez«, merilo 100 %."],
     example: "Naloži primer", print: "🖨️ Natisni",
     type: "Tip lista", sheetTitle: "Naslov lista", skies: { dawn: "jutro", afternoon: "dan", night: "večer" },
     times: "Ura na listu", background: "Ozadje", backgrounds: { gradient: "preliv barv", white: "belo", none: "prosojno (se ne natisne)" },
@@ -31,8 +31,8 @@ const T = {
   },
   en: {
     heading: "Child routines", aboutTitle: "About", howTitle: "How to",
-    about: "When a child sees what comes now and what comes next, less favourite tasks get easier and there is less bargaining. Marking each finished step shows how much they have done, which encourages independence. The sheet also tells them when cartoon time is.",
-    how: ["Pick the type of sheet and type up to 8 steps; empty rows are not printed.", "I pick the pictures. Click one to change it.", "Print on A4: margins None, scale 100 %."],
+    about: "When a child can see what comes now and what comes next, following the routine gets easier and there can be less bargaining. Placing a magnet on each finished step themselves shows how much they have done and what is left. It works best when you make the sheet together and go through it together for the first few days.",
+    how: ["Pick the type of sheet and type up to 8 steps; empty rows are not printed.", "I pick the pictures. Click one to change it. Let your child choose the pictures and the order.", "Print on A4: margins None, scale 100 %."],
     example: "Load example", print: "🖨️ Print",
     type: "Type of sheet", sheetTitle: "Sheet title", skies: { dawn: "morning", afternoon: "day", night: "evening" },
     times: "Time on the sheet", background: "Background", backgrounds: { gradient: "color gradient", white: "white", none: "transparent (not printed)" },
@@ -166,11 +166,13 @@ const newStep = () => ({ label: "", time: "", image: "auto" });
 const EXAMPLE_FOR = { dawn: 0, afternoon: 1, night: 2 };   // sheet of the example routine per type
 // titles are plain text; older stored titles and the example may start with an icon, which is dropped
 const bare = s => s.replace(/^[^\p{L}\p{N}]+/u, "").trim();
-const example = sky => D.examples["sl-vsakdan"].sheets[EXAMPLE_FOR[sky] || 0];
+// examples follow good habits (routines/sl/primer.json, routines/en/example.json), in the page language
+const EXAMPLE_IN = { sl: "sl-primer", en: "en-example" };
+const example = (sky, lang = (typeof state !== "undefined" && state.lang) || "sl") => D.examples[EXAMPLE_IN[lang] || "sl-primer"].sheets[EXAMPLE_FOR[sky] || 0];
 const pad = steps => steps.concat(Array.from({ length: MAX_STEPS }, newStep)).slice(0, MAX_STEPS);
 
 function fromExample(lang, sky = "night", base = {}) {   // the evening routine opens first
-  const ex = example(sky);
+  const ex = example(sky, lang);
   return { lang, background: base.background || "gradient", times: base.times !== false,
            sheet: { title: bare(ex.title), sky, steps: pad(ex.steps.map(st => ({ label: st.label, time: "", image: "auto" }))) } };
 }

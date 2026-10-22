@@ -1,0 +1,132 @@
+{
+  "title": "Primer rutine",
+  "language": "sl",
+  "sheets": [
+    {
+      "title": "JUTRANJA RUTINA",
+      "sky": "dawn",
+      "stars": false,
+      "steps": [
+        {
+          "label": "DOBRO JUTRO",
+          "image": "good-morning",
+          "color": "#8B5CF6"
+        },
+        {
+          "label": "NA STRANIŠČE",
+          "image": "toilet",
+          "color": "#A855F7"
+        },
+        {
+          "label": "UMIJ ROKE",
+          "image": "wash-hands",
+          "color": "#D946EF"
+        },
+        {
+          "label": "OBLECI SE",
+          "image": "getting-dressed",
+          "color": "#EC4899"
+        },
+        {
+          "label": "ZAJTRK",
+          "image": "breakfast",
+          "color": "#F43F5E"
+        },
+        {
+          "label": "UMIJ ZOBKE",
+          "image": "brush-teeth",
+          "color": "#F97316"
+        },
+        {
+          "label": "POSTELJI POSTELJO",
+          "image": "make-bed",
+          "color": "#EAB308"
+        },
+        {
+          "label": "V VRTEC",
+          "image": "kindergarten",
+          "color": "#0EA5E9"
+        }
+      ]
+    },
+    {
+      "title": "VEČERJA",
+      "sky": "afternoon",
+      "stars": false,
+      "steps": [
+        {
+          "label": "NA STRANIŠČE",
+          "image": "toilet",
+          "color": "#F59E0B"
+        },
+        {
+          "label": "UMIJ ROKE",
+          "image": "wash-hands",
+          "color": "#F97316"
+        },
+        {
+          "label": "PRIPRAVI MIZO",
+          "image": "set-table",
+          "color": "#F43F5E"
+        },
+        {
+          "label": "VEČERJA",
+          "image": "dinner",
+          "color": "#EC4899"
+        },
+        {
+          "label": "POSPRAVI MIZO",
+          "image": "clear-table",
+          "color": "#D946EF"
+        },
+        {
+          "label": "POSPRAVI IGRAČE",
+          "image": "tidy-toys",
+          "color": "#C026D3"
+        }
+      ]
+    },
+    {
+      "title": "VEČERNA RUTINA",
+      "sky": "night",
+      "stars": true,
+      "steps": [
+        {
+          "label": "RISANKA",
+          "image": "cartoon",
+          "color": "#A855F7"
+        },
+        {
+          "label": "OKOPAJ SE",
+          "image": "bath",
+          "color": "#9333EA"
+        },
+        {
+          "label": "OBLECI PIŽAMO",
+          "image": "pajamas",
+          "color": "#8B5CF6"
+        },
+        {
+          "label": "UMIJ ZOBKE",
+          "image": "brush-teeth",
+          "color": "#7C3AED"
+        },
+        {
+          "label": "NA STRANIŠČE",
+          "image": "toilet",
+          "color": "#6366F1"
+        },
+        {
+          "label": "PRAVLJICA",
+          "image": "story",
+          "color": "#3B82F6"
+        },
+        {
+          "label": "LAHKO NOČ",
+          "image": "sleep",
+          "color": "#4F46E5"
+        }
+      ]
+    }
+  ]
+}

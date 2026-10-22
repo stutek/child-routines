@@ -20,7 +20,7 @@ const T = {
   sl: {
     heading: "Izdelaj svoj list",
     how: ["Izberi tip lista in vpiši do 8 opravil; prazne vrstice se ne natisnejo.", "Sličico izberem sam. Klikni nanjo, da jo zamenjaš.", "Natisni na A4: robovi »Brez«, merilo 100 %."],
-    example: "Primer", clear: "Počisti", print: "🖨️ Natisni",
+    example: "Naloži primer", print: "🖨️ Natisni",
     type: "Tip lista", sheetTitle: "Naslov lista", skies: { dawn: "🌄 jutro", afternoon: "☀️ dan", night: "🌙 večer" },
     times: "Ura na listu", background: "Ozadje", backgrounds: { gradient: "preliv barv", white: "belo", none: "prosojno (se ne natisne)" },
     label: "Opravilo, npr. UMIJ ZOBE", time: "Ura", auto: "Samodejno", none: "Brez sličice", pick: "Zamenjaj sličico", removeStep: "Izprazni vrstico",
@@ -31,7 +31,7 @@ const T = {
   en: {
     heading: "Make your own sheet",
     how: ["Pick the type of sheet and type up to 8 steps; empty rows are not printed.", "I pick the pictures. Click one to change it.", "Print on A4: margins None, scale 100 %."],
-    example: "Example", clear: "Clear", print: "🖨️ Print",
+    example: "Load example", print: "🖨️ Print",
     type: "Type of sheet", sheetTitle: "Sheet title", skies: { dawn: "🌄 morning", afternoon: "☀️ day", night: "🌙 evening" },
     times: "Time on the sheet", background: "Background", backgrounds: { gradient: "color gradient", white: "white", none: "transparent (not printed)" },
     label: "Step, e.g. BRUSH TEETH", time: "Time", auto: "Automatic", none: "No picture", pick: "Change picture", removeStep: "Clear row",
@@ -251,7 +251,6 @@ function renderEditor() {
       el("label", {}, [`${L.background}: `, select(L.background, state.background, L.backgrounds, v => { state.background = v; update(true); })]),
       el("label", { class: "grow" }, [times, ` ${L.times}`]),
       el("button", { onclick: () => { state = fromExample(state.lang, sheet.sky, state); update(true); } }, L.example),
-      el("button", { onclick: () => { sheet.steps = pad([]); update(true); } }, L.clear),
       el("button", { class: "primary", onclick: () => window.print() }, L.print)]));
 
   const box = el("div", { class: "sheet-box" });

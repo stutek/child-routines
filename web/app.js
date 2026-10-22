@@ -119,6 +119,12 @@ function clockText(time, lang) {
   }
 }
 
+// same as title_html() in tools/build.py
+function titleHtml(title) {
+  const m = title.match(/^([^\p{L}\p{N}\s]+)\s*(.*)$/u);
+  return m ? `<span class="rt-icon">${esc(m[1])}</span>${esc(m[2])}` : esc(title);
+}
+
 function sheetHtml(sheet, lang = "sl") {
   const n = sheet.steps.length;
   const rows = sheet.steps.map((step, k) => {
@@ -150,7 +156,7 @@ function sheetHtml(sheet, lang = "sl") {
   return `
   <div class="page-a4 rt-page" style="background: ${background};${size}">${starry}
     <div class="rt-grid" style="grid-template-rows: ${gridRows};">
-      <div class="rt-header"><div class="rt-title">${esc(sheet.title)}</div></div>${rows}
+      <div class="rt-header"><div class="rt-title">${titleHtml(sheet.title)}</div></div>${rows}
     </div>
     <div class="rt-footer${sheet.sky === "night" ? " on-dark" : ""}"><span class="rt-license">${esc(D.license[lang] || D.license.en)}</span><span class="rt-site">${esc(D.site)}</span>${D.qr}</div>
   </div>`;
@@ -250,7 +256,7 @@ function renderEditor() {
     el("div", { class: "row-top" }, [
       el("label", {}, [`${L.background}: `, select(L.background, state.background, L.backgrounds, v => { state.background = v; update(true); })]),
       el("label", { class: "grow" }, [times, ` ${L.times}`]),
-      el("button", { onclick: () => { state = fromExample(state.lang, sheet.sky, state); update(true); } }, L.example),
+      el("button", { onclick: () => { state = fromExample(state.lang, sheet.sky, state); update(true); } }, `${L.example}: ${L.skies[sheet.sky]}`),
       el("button", { class: "primary", onclick: () => window.print() }, L.print)]));
 
   const box = el("div", { class: "sheet-box" });

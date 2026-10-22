@@ -8,6 +8,7 @@ replacing an image. Labels get the darkest shade of the step color needed for 4.
 The sheet markup in sheet_html() is mirrored in web/app.js (sheetHtml); change both together.
 """
 import json
+import re
 import random
 import statistics
 from html import escape
@@ -101,6 +102,14 @@ def stars():
         for _ in range(46))
 
 
+def title_html(title):
+    """A leading icon gets its own span (one-colour Noto Emoji, centred on the text); the rest is text."""
+    m = re.match(r"^([^\w\s]+)\s*(.*)$", title)
+    if not m:
+        return escape(title)
+    return f'<span class="rt-icon">{escape(m[1])}</span>{escape(m[2])}'
+
+
 def clock_text(time, lang):
     """As the browser's Intl formats it for the language: 24-hour without a leading zero (sl: 7:05,
     19:30), 12-hour with AM/PM for English (US). The sheet maker uses the reader's own locale."""
@@ -147,7 +156,7 @@ def sheet_html(sheet, lang="sl"):
     return f"""
   <div class="page-a4 rt-page" style="background: {background};{size}">{starry}
     <div class="rt-grid" style="grid-template-rows: {grid_rows};">
-      <div class="rt-header"><div class="rt-title">{escape(sheet['title'])}</div></div>{''.join(rows)}
+      <div class="rt-header"><div class="rt-title">{title_html(sheet['title'])}</div></div>{''.join(rows)}
     </div>
     <div class="rt-footer{' on-dark' if sheet['sky'] == 'night' else ''}"><span class="rt-license">{escape(LICENSE.get(lang, LICENSE["en"]))}</span><span class="rt-site">{SITE}</span>{QR}</div>
   </div>
@@ -156,6 +165,8 @@ def sheet_html(sheet, lang="sl"):
 
 CSS = """
     @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap');
+    /* one-colour icons (title icons, broom) from Noto Emoji, only these glyphs: sunrise, sun, moon, plate, broom */
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Emoji:wght@600&text=%F0%9F%8C%84%E2%98%80%EF%B8%8F%F0%9F%8C%99%F0%9F%8D%BD%F0%9F%A7%B9&display=block');
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -268,6 +279,7 @@ CSS = """
       border-radius: 30px;
       padding: 1mm 7mm 0.2mm;
     }
+    .rt-icon { font-family: 'Noto Emoji', sans-serif; font-weight: 600; font-size: 0.95em; display: inline-block; vertical-align: -0.12em; margin-right: 2mm; }
 
     .rt-pic {
       position: relative;

@@ -252,7 +252,7 @@ function renderEditor() {
   };
   root.replaceChildren(
     el("div", { class: "row-top" }, [
-      el("h1", { class: "grow" }, `🧲 ${L.heading}`),
+      el("h1", { class: "grow" }, [el("img", { class: "logo", src: "icon.svg", alt: "" }), L.heading]),
       // each language in its own name, labelled with a globe (W3C: language selection), no flags
       el("label", { class: "lang" }, [el("span", { class: "globe", "aria-hidden": "true" }, "🌐"),
         select("Language", state.lang, { sl: "Slovenščina", en: "English" }, v => { state.lang = v; update(true); })])]),

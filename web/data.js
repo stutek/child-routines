@@ -456,7 +456,7 @@ window.SHEET_EDGES = {
   "getting-dressed": ["#EBFCF3", "#DEF7E6"],
   "good-morning": ["#ECE0D3", "#F6F7F7"],
   "kindergarten": ["#E7DECC", "#E2D3B8"],
-  "make-bed": ["#FFFDF5", "#FFFEF5"],
+  "make-bed": ["#F2DDC3", "#FBFAF2"],
   "pajamas": ["#FDD5BF", "#FCD6BD"],
   "set-table": ["#FDE8D7", "#FFDD9C"],
   "sleep": ["#D0CBD9", "#E2E0E9"],

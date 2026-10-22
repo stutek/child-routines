@@ -15,16 +15,18 @@
     ]
   },
   "model": "Google Gemini image generation (via Antigravity CLI)",
-  "prompt": "Soft watercolor and gouache children's picture-book illustration, delicate colored-pencil outlines, warm cream paper texture, clear contrast and rich colors with defined darker outlines, not pale. A cute brown teddy bear wearing a blue-and-white striped nightcap is wide AWAKE and smiling, STANDING on the floor BESIDE its small wooden bed (heart cut-out on the footboard), making the bed: with both paws it holds a patchwork quilt RAISED high in the air, shaking it out to spread it neatly over the bed. The bear is not in the bed. A white pillow at the head of the bed. A cozy child's bedroom in the morning: warm sunshine through a window, a small rug, a plant. No clouds, nothing floating, no light rays. No text, no letters, no logos, no brands. Square 1:1 composition, bear and bed large and centered, readable at 4 cm size.",
-  "reference_images": [],
+  "prompt": "Recreate the SAME picture (same bear, pose, raised patchwork quilt, bed with the heart, room, colors and drawing) with one change only: the painting fills the WHOLE square canvas edge to edge, with NO cream paper border or white margin around it. Do not zoom in: keep the whole bed and the bear fully in the picture.",
+  "reference_images": [
+    "images/make-bed.jpg (commit 0d04f0c, the same picture with a paper border; recreated edge to edge)"
+  ],
   "edits": [
-    "contrast raised with tools/enhance.py"
+    "brightened and desaturated like good-morning and sleep: gamma 0.85, color x0.88 (no tools/enhance.py: the reference was already enhanced)"
   ],
   "contributor": "maintainer",
   "license": "CC0-1.0",
   "copyright_check": {
     "date": "2026-10-22",
-    "method": "Google Lens, Exact matches tab (manual), raw and final file",
+    "method": "Google Lens, Exact matches tab, raw and final file",
     "result": "no exact matches"
   }
 }

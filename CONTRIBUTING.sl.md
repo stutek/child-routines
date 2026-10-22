@@ -15,8 +15,9 @@ Hvala, ker delite rutino svojega otroka. Dodate lahko **rutino** (novo ali prevo
 
 1. Kopirajte datoteko iz `routines/<jezik>/` v `routines/<vaš jezik>/<ime>.json` (koda jezika, na primer `sl`, `en`, `de`; ime z malimi črkami in vezaji).
 2. Uredite jo; oblika je opisana v [angleški različici](CONTRIBUTING.md#add-a-routine):
-   - `sky`: `dawn`, `afternoon`, `night` ali lasten CSS preliv.
+   - `sky`: `dawn`, `afternoon`, `night`, lasten CSS preliv ali `white` oziroma `none` (prosojno).
    - `stars`: `true` doda zvezdice (za nočne liste).
+   - `times`: `false` izpusti polja za uro na tem listu.
    - Največ 8 korakov na list, najlepše je 6 do 7. Dolge rutine razdelite na več listov.
    - `label`: kratko, z velikimi črkami, kjer gre z eno besedo, največ okoli 17 znakov.
    - `image`: oznaka slike iz `images/` ali `null` za prazno polje.

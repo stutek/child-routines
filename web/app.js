@@ -20,10 +20,10 @@ const PALETTES = [
 const T = {
   sl: {
     heading: "Izdelaj svoj list",
-    how: ["Vpiši opravila in po želji uro.", "Sličico izberem sam. Klikni nanjo, da jo zamenjaš.", "Natisni na A4: robovi »Brez«, merilo 100 %."],
+    how: ["Vpiši opravila in po želji uro. Prazna ura ostane za ročni vpis.", "Sličico izberem sam. Klikni nanjo, da jo zamenjaš.", "Natisni na A4: robovi »Brez«, merilo 100 %."],
     example: "Primer", clear: "Počisti", print: "🖨️ Natisni",
     sheet: "List", sheetTitle: "Naslov lista", skies: { dawn: "☀️ jutro", afternoon: "🌤️ popoldne", night: "🌙 noč" },
-    background: "Ozadje", backgrounds: { gradient: "preliv barv", white: "belo", none: "prosojno (se ne natisne)" },
+    times: "Ura na listu", background: "Ozadje", backgrounds: { gradient: "preliv barv", white: "belo", none: "prosojno (se ne natisne)" },
     label: "Opravilo, npr. UMIJ ZOBE", time: "Ura", addStep: "+ Korak", addSheet: "+ List", removeSheet: "Odstrani list",
     auto: "Samodejno", none: "Brez sličice", pick: "Zamenjaj sličico", removeStep: "Odstrani korak",
     limit: `Največ ${MAX_STEPS} korakov na list (najlepše 6 do 7). Za več dodaj nov list.`,
@@ -35,10 +35,10 @@ const T = {
   },
   en: {
     heading: "Make your own sheet",
-    how: ["Type the steps and, if you like, a time.", "I pick the pictures. Click one to change it.", "Print on A4: margins None, scale 100 %."],
+    how: ["Type the steps and, if you like, a time. An empty time stays blank to write by hand.", "I pick the pictures. Click one to change it.", "Print on A4: margins None, scale 100 %."],
     example: "Example", clear: "Clear", print: "🖨️ Print",
     sheet: "Sheet", sheetTitle: "Sheet title", skies: { dawn: "☀️ morning", afternoon: "🌤️ afternoon", night: "🌙 night" },
-    background: "Background", backgrounds: { gradient: "color gradient", white: "white", none: "transparent (not printed)" },
+    times: "Time on the sheet", background: "Background", backgrounds: { gradient: "color gradient", white: "white", none: "transparent (not printed)" },
     label: "Step, e.g. BRUSH TEETH", time: "Time", addStep: "+ Step", addSheet: "+ Sheet", removeSheet: "Remove sheet",
     auto: "Automatic", none: "No picture", pick: "Change picture", removeStep: "Remove step",
     limit: `At most ${MAX_STEPS} steps per sheet (6 to 7 look best). Add a sheet for more.`,
@@ -116,7 +116,7 @@ function sheetHtml(sheet) {
     const bg = step.image && EDGES[step.image] ? EDGES[step.image][side === "left" ? 0 : 1] : D.missingBg;
     const style = `--step: ${step.color}; --bg: ${bg}; --ink: ${labelColor(step.color, bg)};`;
     const picture = step.image ? `<img src="../images/${esc(step.image)}.jpg" alt="${esc(step.label)}" />` : '<div class="rt-missing">?</div>';
-    const clock = step.time ? `<div class="rt-time">${esc(step.time)}</div>`
+    const clock = sheet.times === false ? "" : step.time ? `<div class="rt-time">${esc(step.time)}</div>`
       : '<div class="rt-time"><span class="blank"></span>:<span class="blank"></span></div>';
     return `
       <div class="rt-pic pic-${side}" style="${style} grid-row: ${2 * i} / span 4;">
@@ -149,7 +149,7 @@ function sheetHtml(sheet) {
 function fromExample(lang) {
   const ex = D.examples["sl-vsakdan"];
   return {
-    lang, title: ex.title, background: "gradient",
+    lang, title: ex.title, background: "gradient", times: true,
     sheets: ex.sheets.map(s => ({ title: s.title, sky: s.sky, steps: s.steps.map(st => ({ label: st.label, time: "", image: "auto" })) })),
   };
 }
@@ -169,7 +169,7 @@ function clean(s) {
   });
   const sheets = (Array.isArray(s && s.sheets) ? s.sheets : []).slice(0, MAX_SHEETS).map(sheet).filter(sh => sh.steps.length);
   const background = ["gradient", "white", "none"].includes(s.background) ? s.background : "gradient";
-  return sheets.length ? { lang: T[s.lang] ? s.lang : "sl", title: str(s.title, 60), background, sheets } : null;
+  return sheets.length ? { lang: T[s.lang] ? s.lang : "sl", title: str(s.title, 60), background, times: s.times !== false, sheets } : null;
 }
 function load() {
   try { const s = clean(JSON.parse(localStorage.getItem(STORE))); if (s) return s; } catch (e) { /* no or bad storage */ }
@@ -209,6 +209,9 @@ const newStep = () => ({ label: "", time: "", image: "auto" });
 function renderEditor() {
   const L = t(), root = document.getElementById("maker");
   document.documentElement.lang = state.lang;
+  root.classList.toggle("no-times", !state.times);
+  const times = el("input", { type: "checkbox", onchange: e => { state.times = e.target.checked; update(true); } });
+  times.checked = state.times;
   root.replaceChildren(
     el("div", { class: "row-top" }, [
       el("h1", { class: "grow" }, `🧲 ${L.heading}`),
@@ -217,6 +220,7 @@ function renderEditor() {
     el("div", { class: "row-top" }, [
       el("label", { class: "grow" }, [`${L.background}: `,
         select(L.background, state.background, L.backgrounds, v => { state.background = v; update(true); })]),
+      el("label", {}, [times, ` ${L.times}`]),
       el("button", { onclick: () => { state = fromExample(state.lang); update(true); } }, L.example),
       el("button", { onclick: () => { state = { ...state, sheets: [{ title: "☀️", sky: "dawn", steps: [newStep()] }] }; update(true); } }, L.clear),
       el("button", { class: "primary", onclick: () => window.print() }, L.print)]));
@@ -285,7 +289,7 @@ function labelRoom(lab) {
 function renderPreview() {
   const L = t();
   const sky = s => (state.background === "gradient" ? s.sky : state.background);
-  const sheets = state.sheets.map((s, si) => ({ title: s.title, sky: sky(s), steps: s.steps.map((st, k) => resolve(st, si, k)) }));
+  const sheets = state.sheets.map((s, si) => ({ title: s.title, sky: sky(s), times: state.times, steps: s.steps.map((st, k) => resolve(st, si, k)) }));
   document.getElementById("preview").innerHTML = sheets.map(sheetHtml).join("");
 
   const warnings = [];

@@ -4,17 +4,23 @@
 
 Printable A4 sheets with a young child's daily routine: morning, dinner and bedtime. Hang them on the fridge or another metal board. The child follows the pictures and puts a magnet on the circle of each finished step (or ticks it with a pen when you print a fresh sheet each time). Adults read the order and write the planned time next to each step, which helps grandparents or a babysitter when the child sleeps over.
 
-## Print
+## Try it
+
+**[Make your own sheet](https://stutek.github.io/child-routines/web/)** · [Example sheets, ready to print](https://stutek.github.io/child-routines/output/sl-vsakdan.html)
+
+![Three example sheets: morning, dinner and bedtime](docs/preview.jpg)
+
+1. Open the sheet maker. It starts with the example above.
+2. Type your child's steps and, if you like, a time: an empty time stays blank to write by hand, and *Time on the sheet* turns the time fields off. A picture is picked for each step; click it to change it. The page warns when it has no picture for a step, when a label is too long, or when a sheet has more than 8 steps.
+3. Choose the background (color gradient, white, or transparent) and print on A4: margins *None*, scale 100 %.
+
+What you type stays in your browser. The sheets keep a 14 mm bottom margin because most home printers cannot print the bottom edge.
+
+## Print without the sheet maker
 
 1. Download the files: on the [repository page](https://github.com/stutek/child-routines), click **Code**, then **Download ZIP**, and unzip it. The sheets need the `images/` folder next to `output/`, so opening a single file on GitHub does not work.
-2. Open a file from `output/` in Chrome, for example `output/sl-vsakdan.html`.
-3. Print: paper A4, margins *None*, scale 100 %. The sky background prints on its own.
-
-The sheets keep a 14 mm bottom margin because most home printers cannot print the bottom edge.
-
-## Make your own in the browser
-
-Open `web/index.html` from the downloaded folder in Chrome, type the steps and times, and print. The page picks a picture for each step by keyword and warns when it has none, when a label is too long for its frame or when a sheet has more than 8 steps. Nothing leaves your browser.
+2. Open `output/sl-vsakdan.html` in Chrome, or `web/index.html` to make your own (it also works offline).
+3. Print: paper A4, margins *None*, scale 100 %.
 
 ## Make your own from files
 

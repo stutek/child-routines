@@ -96,7 +96,8 @@ def sheet_html(sheet):
         picture = (f'<img src="../images/{escape(image)}.jpg" alt="{escape(step["label"].capitalize())}" />'
                    if image else '<div class="rt-missing">?</div>')
         time = step.get("time")
-        clock = (f'<div class="rt-time">{escape(time)}</div>' if time else
+        clock = ("" if sheet.get("times") is False else  # a sheet without time fields
+                 f'<div class="rt-time">{escape(time)}</div>' if time else
                  '<div class="rt-time"><span class="blank"></span>:<span class="blank"></span></div>')
         rows.append(f"""
       <div class="rt-pic pic-{side}" style="{style} grid-row: {2 * i} / span 4;">

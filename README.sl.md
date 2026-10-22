@@ -4,17 +4,23 @@
 
 Listi A4 za tisk z dnevno rutino majhnega otroka: jutro, večerja in spanje. Obesite jih na hladilnik ali drugo kovinsko ploščo. Otrok sledi sličicam in na krog vsakega opravljenega koraka položi magnetek (ali ga odkljuka s pisalom, če list vsakič natisnete na novo). Odrasli preberejo vrstni red in ob vsak korak vpišejo predvideno uro, kar pomaga starim staršem ali varuški, ko otrok prespi pri njih.
 
-## Tisk
+## Preizkusite
+
+**[Izdelajte svoj list](https://stutek.github.io/child-routines/web/)** · [Vzorčni listi, pripravljeni za tisk](https://stutek.github.io/child-routines/output/sl-vsakdan.html)
+
+![Trije vzorčni listi: jutro, večerja in spanje](docs/preview.jpg)
+
+1. Odprite izdelovalnik listov. Začne z zgornjim primerom.
+2. Vpišite otrokove korake in po želji uro: prazna ura ostane za ročni vpis, stikalo *Ura na listu* pa polja za uro izklopi. Vsakemu koraku se izbere sličica; kliknite nanjo, da jo zamenjate. Stran opozori, kadar za korak nima sličice, kadar je napis predolg ali kadar ima list več kot 8 korakov.
+3. Izberite ozadje (preliv barv, belo ali prosojno) in natisnite na A4: robovi *Brez*, merilo 100 %.
+
+Vaši vnosi ostanejo v vašem brskalniku. Listi imajo spodaj 14 mm roba, ker večina domačih tiskalnikov spodnjega roba ne natisne.
+
+## Tisk brez izdelovalnika
 
 1. Prenesite datoteke: na [strani repozitorija](https://github.com/stutek/child-routines) kliknite **Code**, nato **Download ZIP**, in arhiv razširite. Listi potrebujejo mapo `images/` ob mapi `output/`, zato odpiranje posamezne datoteke na GitHubu ne deluje.
-2. V Chromu odprite datoteko iz `output/`, na primer `output/sl-vsakdan.html`.
-3. Natisnite: papir A4, robovi *Brez*, merilo 100 %. Ozadje z nebom se natisne samo.
-
-Listi imajo spodaj 14 mm roba, ker večina domačih tiskalnikov spodnjega roba ne natisne.
-
-## Lastna rutina v brskalniku
-
-V Chromu odprite `web/index.html` iz prenesene mape, vpišite korake in ure ter natisnite. Stran vsakemu koraku po ključnih besedah poišče sličico in opozori, kadar je nima, kadar je napis predolg za okvir ali kadar ima list več kot 8 korakov. Nič ne zapusti vašega brskalnika.
+2. V Chromu odprite `output/sl-vsakdan.html` ali `web/index.html` za lasten list (deluje tudi brez povezave).
+3. Natisnite: papir A4, robovi *Brez*, merilo 100 %.
 
 ## Lastna rutina iz datotek
 

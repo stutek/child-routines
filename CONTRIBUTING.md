@@ -34,8 +34,9 @@ Thank you for sharing your child's routine. You can add a **routine** (a new one
    }
    ```
 
-   - `sky`: `dawn`, `afternoon`, `night`, or your own CSS gradient stops.
+   - `sky`: `dawn`, `afternoon`, `night`, your own CSS gradient stops, or `white` or `none` (transparent).
    - `stars`: `true` adds small stars (for night sheets).
+   - `times`: `false` leaves out the time fields on this sheet.
    - Up to 8 steps per sheet; 6 to 7 look best. Split long routines into more sheets.
    - `label`: short, uppercase, one word where possible. The build fails visually if a label is too long: keep it under about 17 characters.
    - `image`: an image id from `images/`, or `null` for an empty placeholder.

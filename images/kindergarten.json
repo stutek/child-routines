@@ -27,13 +27,14 @@
     "vecer_2_umij_roke.jpg (by name: local copy of the hand-washing image of this set, see wash-hands.json)"
   ],
   "edits": [
-    "contrast raised with tools/enhance.py"
+    "contrast raised with tools/enhance.py",
+    "cropped to remove the painted paper border (124, 132, 904, 912) and resized to 1024 x 1024"
   ],
   "contributor": "maintainer",
   "license": "CC0-1.0",
   "copyright_check": {
-    "date": "2026-10-21",
-    "method": "Google Lens, Exact matches tab (manual), raw and final file",
+    "date": "2026-10-22",
+    "method": "Google Lens, Exact matches tab, final file after cropping the paper border",
     "result": "no exact matches"
   }
 }

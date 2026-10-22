@@ -32,6 +32,8 @@ python3 tools/preview.py        # then refresh docs/preview.jpg (README); needs 
 
 Check a change visually: print the output file to PDF with headless Chrome and look at it (`google-chrome --headless=new --print-to-pdf=out.pdf file://$PWD/output/<file>.html`).
 
+Test touch in the sheet maker (CDP `Input.dispatchTouchEvent`) in a headless Chrome and with the target scrolled into view: a Chrome window in the background draws no frames, so the call never returns.
+
 ## Layout and its limits
 
 - A step is one object: square image (58 mm; smaller on a sheet with many steps, 52.5 mm at 8, to keep 3 mm between images, `image_size()` in `tools/build.py`) and a frame (84 × 18 mm) with the label and a time field (`__ : __`), plus a 35 mm circle for the magnet next to the image, so the child links picture and magnet. All sizes are CSS variables from the paper size (`--page-w`, `--page-h`, `--img`, `--label` in `tools/build.py`); A4 now, US Letter later by changing the page variables. Image, frame and circle share one outline and background; the frame background is the color of the image strip that fades into the frame (inner 20 %, measured separately for the left and right edge, without the darkest quarter of pixels, lifted to a pastel if dark), measured by the generator.

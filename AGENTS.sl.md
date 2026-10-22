@@ -32,6 +32,8 @@ python3 tools/preview.py        # nato osveži docs/preview.jpg (README); potreb
 
 Spremembo preveri vizualno: datoteko iz `output/` z brezglavim Chromom natisni v PDF in jo poglej (`google-chrome --headless=new --print-to-pdf=out.pdf file://$PWD/output/<datoteka>.html`).
 
+Dotik v izdelovalniku (CDP `Input.dispatchTouchEvent`) preizkusi v brezglavem Chromu in s ciljem, pomaknjenim v vidno polje: okno Chroma v ozadju ne izrisuje slik, zato se klic nikoli ne vrne.
+
 ## Postavitev in njene meje
 
 - Korak je en predmet: kvadratna slika (58 mm; na listu z veliko koraki manjša, 52,5 mm pri 8, da ostanejo 3 mm med slikami, `image_size()` v `tools/build.py`) in okvir (84 × 18 mm) z napisom in poljem za uro (`__ : __`), ob tem krog 35 mm za magnetek tik ob sliki, da otrok poveže sliko in magnetek. Vse mere so spremenljivke CSS iz velikosti papirja (`--page-w`, `--page-h`, `--img`, `--label` v `tools/build.py`); zdaj A4, kasneje ameriški Letter s spremembo spremenljivk strani. Slika, okvir in krog imajo skupen obris in ozadje; ozadje okvirja je barva pasu slike, ki se preliva v okvir (notranjih 20 %, ločeno za levi in desni rob, brez najtemnejše četrtine pik, pretemna se posvetli v pastelno), ki jo izmeri generator.

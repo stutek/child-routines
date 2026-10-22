@@ -93,9 +93,11 @@ function stars() {
   let s = 7;
   const rnd = () => { s = (s * 1664525 + 1013904223) % 4294967296; return s / 4294967296; };
   const pick = a => a[Math.floor(rnd() * a.length)];
-  let out = "";
-  for (let i = 0; i < 46; i++) {
-    out += `<circle cx="${(3 + rnd() * 204).toFixed(1)}" cy="${(110 + rnd() * 185).toFixed(1)}" r="${pick([0.35, 0.5, 0.7, 0.9])}" opacity="${(0.45 + rnd() * 0.5).toFixed(2)}"/>`;
+  let out = "", n = 0;
+  while (n < 46) {   // no stars behind the footer text (264 to 286 mm), as stars() in tools/build.py
+    const x = 3 + rnd() * 204, y = 110 + rnd() * 185, r = pick([0.35, 0.5, 0.7, 0.9]), o = 0.45 + rnd() * 0.5;
+    if (y > 264 && y < 286) continue;
+    out += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r}" opacity="${o.toFixed(2)}"/>`; n++;
   }
   return out;
 }

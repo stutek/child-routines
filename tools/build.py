@@ -93,12 +93,18 @@ def label_color(step, background, minimum=4.5):
     return "#1E1B4B"
 
 
+FOOTER_BAND = (264, 286)   # mm from the top: no stars behind the footer text
+
+
 def stars():
     rnd = random.Random(7)
-    return "".join(
-        f'<circle cx="{rnd.uniform(3, 207):.1f}" cy="{rnd.uniform(110, 295):.1f}" '
-        f'r="{rnd.choice([0.35, 0.5, 0.7, 0.9])}" opacity="{rnd.uniform(0.45, 0.95):.2f}"/>'
-        for _ in range(46))
+    out = []
+    while len(out) < 46:
+        x, y = rnd.uniform(3, 207), rnd.uniform(110, 295)
+        r, o = rnd.choice([0.35, 0.5, 0.7, 0.9]), rnd.uniform(0.45, 0.95)
+        if not FOOTER_BAND[0] < y < FOOTER_BAND[1]:
+            out.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{r}" opacity="{o:.2f}"/>')
+    return "".join(out)
 
 
 def clock_text(time, lang):

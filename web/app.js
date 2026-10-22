@@ -209,8 +209,8 @@ function select(label, value, options, onchange) {
     Object.entries(options).map(([v, text]) => { const o = el("option", { value: v }, text); o.selected = v === value; return o; }));
 }
 
-// the broom icon "mop" from Material Symbols (loaded in index.html); it takes the button colour
-const broom = () => el("span", { class: "material-symbols-rounded", "aria-hidden": "true" }, "mop");
+// a one-colour broom from Noto Emoji (loaded in index.html); it takes the button colour
+const broom = () => el("span", { class: "broom", "aria-hidden": "true" }, "🧹");
 
 function renderEditor() {
   const L = t(), root = document.getElementById("maker"), sheet = state.sheet;

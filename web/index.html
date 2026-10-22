@@ -3,8 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Static page, no server: scripts only from this site, no inline scripts, no forms, no outside
+       images; styles inline (the sheet CSS) and the font from Google Fonts. file: keeps it working
+       when opened from a checkout. GitHub Pages cannot send headers, so frame-ancestors is not set. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' file:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' file:; base-uri 'none'; form-action 'none'">
+  <meta name="referrer" content="no-referrer">
   <title>Routine Sheet Maker</title>
-  <!-- Sheet maker: works offline from a checkout (file://) and on any static host. Nothing leaves the browser. -->
+  <!-- Sheet maker: works offline from a checkout (file://) and on any static host. What the parent types stays in the browser. -->
   <style>
     .maker {
       width: 100%;

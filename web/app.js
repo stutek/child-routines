@@ -19,7 +19,7 @@ const PALETTES = [
 
 const T = {
   sl: {
-    heading: "Izdelaj svoj list", intro: "Vpiši korake in uro. Sličico poiščem sam; kjer je nimamo, te opozorim. Vse ostane v tvojem brskalniku.",
+    heading: "Izdelaj svoj list", intro: "Vpiši korake in uro. Sličico poiščem sam; kjer je nimamo, te opozorim. Tvoji vnosi ostanejo v tvojem brskalniku.",
     title: "Naslov", lang: "Jezik", example: "Začni iz primera", clear: "Počisti", print: "🖨️ Natisni",
     sheet: "List", sheetTitle: "Naslov lista", sky: "Nebo", skies: { dawn: "jutro", afternoon: "popoldne", night: "noč" },
     label: "Opravilo, npr. UMIJ ZOBE", time: "Ura", addStep: "+ Korak", addSheet: "+ List", removeSheet: "Odstrani list",
@@ -31,7 +31,7 @@ const T = {
     suggest: "Manjka sličica? Predlagaj jo", warnTitle: "Opozorila",
   },
   en: {
-    heading: "Make your own sheet", intro: "Type the steps and times. I pick the pictures; where we have none, I tell you. Everything stays in your browser.",
+    heading: "Make your own sheet", intro: "Type the steps and times. I pick the pictures; where we have none, I tell you. What you type stays in your browser.",
     title: "Title", lang: "Language", example: "Start from the example", clear: "Clear", print: "🖨️ Print",
     sheet: "Sheet", sheetTitle: "Sheet title", sky: "Sky", skies: { dawn: "morning", afternoon: "afternoon", night: "night" },
     label: "Step, e.g. BRUSH TEETH", time: "Time", addStep: "+ Step", addSheet: "+ Sheet", removeSheet: "Remove sheet",
@@ -107,7 +107,7 @@ function sheetHtml(sheet) {
   const n = sheet.steps.length;
   const rows = sheet.steps.map((step, k) => {
     const i = k + 1, side = i % 2 ? "left" : "right";
-    const bg = step.image ? EDGES[step.image][side === "left" ? 0 : 1] : D.missingBg;
+    const bg = step.image && EDGES[step.image] ? EDGES[step.image][side === "left" ? 0 : 1] : D.missingBg;
     const style = `--step: ${step.color}; --bg: ${bg}; --ink: ${labelColor(step.color, bg)};`;
     const picture = step.image ? `<img src="../images/${esc(step.image)}.jpg" alt="${esc(step.label)}" />` : '<div class="rt-missing">?</div>';
     const clock = step.time ? `<div class="rt-time">${esc(step.time)}</div>`
@@ -125,7 +125,7 @@ function sheetHtml(sheet) {
         <div class="rt-check"></div>
       </div>`;
   }).join("");
-  const sky = D.skies[sheet.sky] || sheet.sky;
+  const sky = D.skies[sheet.sky] || D.skies.dawn;   // only known skies reach the style attribute
   const starry = sheet.sky === "night"
     ? `<svg class="rt-sky" viewBox="0 0 210 297" preserveAspectRatio="none" aria-hidden="true"><g fill="#FFF8DC">${stars()}</g></svg>` : "";
   const gridRows = `14mm minmax(0, 0.45fr) repeat(${2 * n}, minmax(0, 1fr)) minmax(0, 0.45fr)`;
@@ -146,8 +146,25 @@ function fromExample(lang) {
     sheets: ex.sheets.map(s => ({ title: s.title, sky: s.sky, steps: s.steps.map(st => ({ label: st.label, time: "", image: "auto" })) })),
   };
 }
+// Stored state is untrusted: every page on stutek.github.io shares this origin and its storage.
+// Keep only known values, so nothing from storage reaches the markup unchecked.
+function clean(s) {
+  const str = (v, max) => (typeof v === "string" ? v : "").slice(0, max);
+  const step = st => ({
+    label: str(st && st.label, 40),
+    time: /^([01]\d|2[0-3]):[0-5]\d$/.test(st && st.time) ? st.time : "",
+    image: st && (st.image === "none" || D.images[st.image]) ? st.image : "auto",
+  });
+  const sheet = sh => ({
+    title: str(sh && sh.title, 60),
+    sky: sh && D.skies[sh.sky] ? sh.sky : "dawn",
+    steps: (Array.isArray(sh && sh.steps) ? sh.steps : []).slice(0, 2 * MAX_STEPS).map(step),
+  });
+  const sheets = (Array.isArray(s && s.sheets) ? s.sheets : []).slice(0, MAX_SHEETS).map(sheet).filter(sh => sh.steps.length);
+  return sheets.length ? { lang: T[s.lang] ? s.lang : "sl", title: str(s.title, 60), sheets } : null;
+}
 function load() {
-  try { const s = JSON.parse(localStorage.getItem(STORE)); if (s && s.sheets) return s; } catch (e) { /* no storage */ }
+  try { const s = clean(JSON.parse(localStorage.getItem(STORE))); if (s) return s; } catch (e) { /* no or bad storage */ }
   return fromExample((navigator.language || "sl").startsWith("sl") ? "sl" : "en");
 }
 function save() { try { localStorage.setItem(STORE, JSON.stringify(state)); } catch (e) { /* no storage */ } }

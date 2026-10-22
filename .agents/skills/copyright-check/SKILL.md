@@ -14,6 +14,7 @@ An image may enter `images/` only if no copy of it, or of a part of it, exists o
 - Right after generating an image, on the **raw** model output.
 - Again on the **final** file after any edit (contrast, crop, retouch). Edits can weaken detection, so both versions must pass.
 - On every pull request: the `copyright-gate` workflow checks the final files automatically.
+- Any other graphic the project ships, such as `web/icon.svg`, before its first commit: Lens on a 512 px render; the gate does not cover it. Record the result in a comment in the file.
 
 ## How
 

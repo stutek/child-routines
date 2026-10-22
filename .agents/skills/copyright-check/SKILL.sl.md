@@ -14,6 +14,7 @@ Slika sme v `images/` le, če na spletu ni njene kopije ali kopije njenega dela.
 - Takoj po ustvarjanju, na **surovi** sliki, kot jo vrne model.
 - Še enkrat na **končni** datoteki po vsakem urejanju (kontrast, obrez, retuša). Urejanje lahko oslabi zaznavo, zato morata preverbo prestati obe različici.
 - Ob vsaki zahtevi za združitev: potek `copyright-gate` končne datoteke preveri samodejno.
+- Vsako drugo grafiko, ki jo projekt objavi, npr. `web/icon.svg`, pred prvim commitom: Lens na izrisu 512 px; vrata je ne pokrijejo. Izid zapiši v komentar v datoteki.
 
 ## Kako
 

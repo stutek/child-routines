@@ -9,9 +9,10 @@ Listi A4 za tisk z rutino majhnega otroka (jutro, večerja, spanje). Visijo na h
 | Pot                               | Vsebina                                                                       |
 | --------------------------------- | ----------------------------------------------------------------------------- |
 | `routines/<jezik>/<ime>.json`     | Rutina: listi, vsak z naslovom, nebom in koraki (napis, oznaka slike, barva). |
-| `images/<oznaka>.jpg` + `.json`   | Slika 1024 × 1024 in njeni metapodatki (model, poziv, urejanje, preverba).    |
+| `images/<oznaka>.jpg` + `.json`   | Slika 1024 × 1024 in metapodatki (model, poziv, ključne besede, preverba).    |
 | `output/<jezik>-<ime>.html`       | Zgrajeni listi za tisk. Nikoli jih ne urejaj ročno.                           |
-| `tools/build.py`                  | Generator: rutine → output.                                                   |
+| `web/`                            | Izdelovalnik listov v brskalniku (`index.html`, `app.js`).                    |
+| `tools/build.py`                  | Generator: rutine → output in `web/data.js` za izdelovalnik listov.           |
 | `tools/check_images.py`           | Preverba, ki teče v CI.                                                       |
 | `tools/copyright_check.py`        | Vrata za avtorske pravice (Vision Web Detection).                             |
 | `tools/lens_check.py`             | Ročna preverba z Google Lens prek razhroščevalnega Chroma.                    |
@@ -34,7 +35,8 @@ Spremembo preveri vizualno: datoteko iz `output/` z brezglavim Chromom natisni v
 - Korak je en predmet: kvadratna slika (54 mm) in okvir (92 × 18 mm) z napisom in poljem za uro (`__ : __`), ob tem krog 35 mm za magnetek. Slika, okvir in krog imajo skupen obris in ozadje; ozadje okvirja je barva roba slike (svetlejša polovica pasu ob robu, pretemna se posvetli v pastelno), ki jo izmeri generator.
 - Slike se izmenjujejo levo in desno. Omejitev je širina: slika + okvir + slika = 200 mm (A4 brez 5 mm stranskih robov), ker okvir seže v višino nasprotne slike.
 - Robovi 5 mm zgoraj in ob straneh, 14 mm spodaj: domači tiskalniki spodnjih 13 do 14 mm ne natisnejo (specifikacija Epson: 3 mm zgoraj in ob straneh, 14 mm spodaj).
-- Napisi se ne prelamljajo. 14 pt krepko z velikimi črkami sprejme okoli 17 znakov (`POSPRAVI POSTELJO`). Po spremembi napisov v brezglavem Chromu izmeri, da je `scrollWidth` vsakega napisa manjši od širine starša.
+- `sheetHtml()` v `web/app.js` zrcali `sheet_html()` v `tools/build.py`: spreminjaj ju skupaj. `web/data.js` je zgrajen; nikoli ga ne urejaj.
+- Napisi se ne prelamljajo. 14 pt krepko z velikimi črkami sprejme okoli 17 znakov (`POSPRAVI POSTELJO`). Po spremembi napisov v brezglavem Chromu izmeri, da `scrollWidth` vsakega napisa ne preseže širine okvirja brez kroga za magnetek, robov in razmika (starš `.rt-text` se širi z napisom, zato ni merilo; pravilno to dela `labelRoom()` v `web/app.js`).
 - Barva napisa se samodejno potemni do kontrasta vsaj 4,5 : 1 z okvirjem (WCAG 2.2, 1.4.3).
 - 6 do 7 korakov na list (največ 8). Dolge rutine razdeli na več listov, namesto da bi manjšal slike.
 

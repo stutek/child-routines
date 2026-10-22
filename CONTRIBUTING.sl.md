@@ -20,6 +20,7 @@ Hvala, ker delite rutino svojega otroka. Dodate lahko **rutino** (novo ali prevo
    - Največ 8 korakov na list, najlepše je 6 do 7. Dolge rutine razdelite na več listov.
    - `label`: kratko, z velikimi črkami, kjer gre z eno besedo, največ okoli 17 znakov.
    - `image`: oznaka slike iz `images/` ali `null` za prazno polje.
+   - `time`: neobvezno, na primer `"07:30"`; natisne se namesto praznega polja za uro.
    - `color`: barva koraka; napis se samodejno potemni za berljiv kontrast.
 3. Poženite `python3 tools/check_images.py` in `python3 tools/build.py`, odprite novo datoteko v `output/` in jo preverite v predogledu tiskanja v Chromu.
 4. Commitajte rutino in na novo zgrajeno datoteko v `output/`.
@@ -27,7 +28,7 @@ Hvala, ker delite rutino svojega otroka. Dodate lahko **rutino** (novo ali prevo
 ## Dodajanje slike
 
 1. Ustvarite kvadratno sliko po [docs/PROMPTS.sl.md](docs/PROMPTS.sl.md) (isti akvarelni slog, resnični prostori, brez oblakov razen ponoči, brez napisov). Shranite jo kot `images/<oznaka>.jpg`, 1024 × 1024 slikovnih pik, JPEG, največ 1,5 MB. Oznaka je angleška, z malimi črkami in vezaji, na primer `brush-teeth`.
-2. Dodajte `images/<oznaka>.json` po zgledu v [angleški različici](CONTRIBUTING.md#add-an-image): model, celoten poziv (natančno prepisan), zgledne slike, urejanje, vaše uporabniško ime na GitHubu, licenca `CC0-1.0` in izid preverbe.
+2. Dodajte `images/<oznaka>.json` po zgledu v [angleški različici](CONTRIBUTING.md#add-an-image): model, ključne besede (besede, ki bi jih starš vpisal za ta korak; `beseda*` ujame začetek besede), celoten poziv (natančno prepisan), zgledne slike, urejanje, vaše uporabniško ime na GitHubu, licenca `CC0-1.0` in izid preverbe.
 3. Najprej preverite sami z iskanjem po slikah (na primer Google Lens, zavihek *Exact matches*), in sicer surovo sliko iz modela in končno datoteko po urejanju. Če enaka ali skoraj enaka slika na spletu že obstaja, je ne pošljite: ustvarite novo z drugačno kompozicijo. Podrobnosti: [preverba avtorstva](.agents/skills/copyright-check/SKILL.sl.md).
 
 ## Vrata za avtorske pravice

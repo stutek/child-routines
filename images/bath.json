@@ -1,6 +1,19 @@
 {
   "id": "bath",
   "title": "Toddler in a bubble bath in the same bathroom",
+  "keywords": {
+    "sl": [
+      "kopanj*",
+      "kopel*",
+      "kopaj*",
+      "kad",
+      "tus*"
+    ],
+    "en": [
+      "bath*",
+      "shower"
+    ]
+  },
   "model": "Google Gemini image generation (via Antigravity CLI)",
   "prompt": "Soft watercolor and gouache children's picture-book illustration, delicate colored-pencil outlines, warm cream paper texture, gentle pastel palette. Bath time: set in the exact same cozy bathroom as the reference image, with mint-green square wall tiles, wooden trim, and a small potted plant on a shelf. A cheerful, happy small toddler is sitting safely in a classic white clawfoot bathtub filled with warm water and fluffy white bubbles, playing with a small yellow rubber duck. The bathtub stands firmly on the bathroom floor. Strictly NO clouds, nothing floating in the air. A soft fluffy towel hangs nearby. Gender-neutral toddler child with a joyful smile. Clear contrast and rich, saturated colors with defined darker outlines and soft watercolor shadows, not pale or washed out. Cute, playful, and friendly for a 4-year-old child. Everything painted in the exact same watercolor style matching the reference image. Square 1:1 composition, bathtub and child large and centered, readable at 4 cm size.",
   "reference_images": [

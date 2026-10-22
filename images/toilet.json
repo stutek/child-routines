@@ -1,6 +1,26 @@
 {
   "id": "toilet",
   "title": "Friendly toilet in a cozy bathroom",
+  "keywords": {
+    "sl": [
+      "lula*",
+      "stranisc*",
+      "wc",
+      "kahlic*",
+      "kakanj*",
+      "kakat*",
+      "potreb*",
+      "kopalnic*"
+    ],
+    "en": [
+      "toilet",
+      "potty",
+      "pee",
+      "wee",
+      "bathroom",
+      "loo"
+    ]
+  },
   "model": "Google Gemini image generation (via Antigravity)",
   "prompt": "Children's picture book illustration in warm watercolor and gouache style. A cute, friendly, clean white porcelain toilet bowl in a bright, cozy bathroom. The toilet has a simple cheerful friendly presence, with a clean wooden or pastel seat. Beside it is a neat toilet paper roll on a holder and a small bathroom tile floor. Gender-neutral, minimalist, soft textures, pastel mint green background, warm and inviting atmosphere suitable for a 4-year-old child. No harsh lines, whimsical picture book art.",
   "reference_images": [],

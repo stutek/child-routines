@@ -1,6 +1,19 @@
 {
   "id": "make-bed",
   "title": "Teddy bear standing beside its bed, raising the quilt to make the bed",
+  "keywords": {
+    "sl": [
+      "postelj*",
+      "postilj*",
+      "postlj*"
+    ],
+    "en": [
+      "make the bed",
+      "make bed",
+      "make your bed",
+      "making the bed"
+    ]
+  },
   "model": "Google Gemini image generation (via Antigravity CLI)",
   "prompt": "Soft watercolor and gouache children's picture-book illustration, delicate colored-pencil outlines, warm cream paper texture, clear contrast and rich colors with defined darker outlines, not pale. A cute brown teddy bear wearing a blue-and-white striped nightcap is wide AWAKE and smiling, STANDING on the floor BESIDE its small wooden bed (heart cut-out on the footboard), making the bed: with both paws it holds a patchwork quilt RAISED high in the air, shaking it out to spread it neatly over the bed. The bear is not in the bed. A white pillow at the head of the bed. A cozy child's bedroom in the morning: warm sunshine through a window, a small rug, a plant. No clouds, nothing floating, no light rays. No text, no letters, no logos, no brands. Square 1:1 composition, bear and bed large and centered, readable at 4 cm size.",
   "reference_images": [],

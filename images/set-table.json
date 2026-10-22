@@ -1,6 +1,19 @@
 {
   "id": "set-table",
   "title": "Child's hands setting cutlery next to an empty plate",
+  "keywords": {
+    "sl": [
+      "pripravi mizo",
+      "priprava mize",
+      "pogrn*",
+      "pogrinj*"
+    ],
+    "en": [
+      "set the table",
+      "lay the table",
+      "set table"
+    ]
+  },
   "model": "Google Gemini image generation (via Antigravity CLI)",
   "prompt": "Soft watercolor and gouache children's picture-book illustration, delicate colored-pencil outlines, warm cream paper texture, gentle pastel palette. Setting the table for dinner, top-down first-person perspective through a child's eyes: two small cute toddler child hands gently placing a child-sized fork and spoon with wooden handles neatly beside an EMPTY clean white ceramic plate on a colorful woven fabric placemat on a warm light wooden dining table. Next to the empty plate is an empty small pastel ceramic cup and a neatly folded cloth napkin. Strictly NO food anywhere on the plate or table, completely empty plate. Set in a cozy warm family kitchen or dining room. Clear contrast and rich, saturated colors with defined darker outlines and soft watercolor shadows, not pale or washed out. No clouds, nothing floating, no sparkles. Cute, inviting, and friendly for a 4-year-old child. Gender-neutral hands. Painted in a consistent watercolor children's book style matching the reference images, no flat vector shapes, no text, no letters, no logos. Square 1:1 composition, main subject large and centered, readable at 4 cm size.",
   "reference_images": [

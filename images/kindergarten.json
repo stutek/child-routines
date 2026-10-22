@@ -1,6 +1,25 @@
 {
   "id": "kindergarten",
   "title": "Yellow backpack with straps and sneakers by the door",
+  "keywords": {
+    "sl": [
+      "vrtec",
+      "vrtc*",
+      "sola",
+      "solo",
+      "v solo",
+      "odhod",
+      "gremo ven"
+    ],
+    "en": [
+      "kindergarten",
+      "preschool",
+      "nursery",
+      "daycare",
+      "school",
+      "leave"
+    ]
+  },
   "model": "Google Gemini image generation (via Antigravity CLI)",
   "prompt": "Soft watercolor and gouache children's picture-book illustration, delicate colored-pencil outlines, warm cream paper texture, gentle pastel palette. Ready to go to kindergarten: a cheerful cute yellow child's backpack standing neatly on the wooden floor of a cozy home entrance hallway. The backpack is seen from a three-quarter back view so that BOTH padded shoulder straps and the top grab handle are clearly visible and prominent. Beside the backpack on the floor sits a pair of small cute child's sneakers. In the background is a cozy wooden front entryway with a coat rack with a little jacket and a small potted plant. Bright morning daylight. Clear contrast and rich, saturated colors with defined darker outlines and soft watercolor shadows, not pale or washed out. No clouds, nothing floating, no sparkles. Cute, cheerful, and friendly for a 4-year-old child. Everything painted in one consistent watercolor style matching the reference images, no flat vector shapes, no text, no letters, no logos. Square 1:1 composition, backpack and shoes large and centered, readable at 4 cm size.",
   "reference_images": [

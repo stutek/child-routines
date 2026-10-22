@@ -12,7 +12,11 @@ Listi A4 za tisk z dnevno rutino majhnega otroka: jutro, večerja in spanje. Obe
 
 Listi imajo spodaj 14 mm roba, ker večina domačih tiskalnikov spodnjega roba ne natisne.
 
-## Lastna rutina
+## Lastna rutina v brskalniku
+
+V Chromu odprite `web/index.html` iz prenesene mape, vpišite korake in ure ter natisnite. Stran vsakemu koraku po ključnih besedah poišče sličico in opozori, kadar je nima, kadar je napis predolg za okvir ali kadar ima list več kot 8 korakov. Nič ne zapusti vašega brskalnika.
+
+## Lastna rutina iz datotek
 
 Rutine so podatkovne datoteke v [`routines/<jezik>/`](routines/). Eno kopirajte, spremenite napise, sličice in barve, nato znova zgradite:
 

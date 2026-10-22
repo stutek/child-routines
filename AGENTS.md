@@ -9,9 +9,10 @@ Printable A4 routine sheets for young children (morning, dinner, bedtime). They 
 | Path                              | Content                                                                  |
 | --------------------------------- | ------------------------------------------------------------------------ |
 | `routines/<lang>/<name>.json`     | A routine: sheets, each with title, sky, steps (label, image id, color). |
-| `images/<id>.jpg` + `.json`       | 1024 × 1024 image and its metadata (model, prompt, edits, check).        |
+| `images/<id>.jpg` + `.json`       | 1024 × 1024 image and metadata (model, prompt, keywords, edits, check).  |
 | `output/<lang>-<name>.html`       | Generated sheets for printing. Never edit by hand.                       |
-| `tools/build.py`                  | Generator: routines → output.                                            |
+| `web/`                            | Sheet maker in the browser (`index.html`, `app.js`); keywords match.     |
+| `tools/build.py`                  | Generator: routines → output, and `web/data.js` for the sheet maker.     |
 | `tools/check_images.py`           | Validation run in CI.                                                    |
 | `tools/copyright_check.py`        | Copyright gate (Vision Web Detection).                                   |
 | `tools/lens_check.py`             | Manual Google Lens check through a debugging Chrome.                     |
@@ -34,7 +35,8 @@ Check a change visually: print the output file to PDF with headless Chrome and l
 - A step is one object: square image (54 mm) and a frame (92 × 18 mm) with the label and a time field (`__ : __`), plus a 35 mm circle for the magnet. Image, frame and circle share one outline and background; the frame background is the edge color of the image (lighter half of the edge strip, lifted to a pastel if dark), measured by the generator.
 - Images alternate left and right. Width is the binding limit: image + frame + image = 200 mm (A4 minus 5 mm side margins), because a frame reaches into the height of the opposite image.
 - Margins 5 mm top and sides, 14 mm bottom: home printers do not print the bottom 13 to 14 mm (Epson specification: 3 mm top and sides, 14 mm bottom).
-- Labels do not wrap. 14 pt bold uppercase fits about 17 characters (`POSPRAVI POSTELJO`). After changing labels, measure in headless Chrome that each label's `scrollWidth` is smaller than its parent's width.
+- `web/app.js` `sheetHtml()` mirrors `tools/build.py` `sheet_html()`: change both together. `web/data.js` is generated; never edit it.
+- Labels do not wrap. 14 pt bold uppercase fits about 17 characters (`POSPRAVI POSTELJO`). After changing labels, measure in headless Chrome that each label's `scrollWidth` fits the frame width minus the magnet circle, paddings and gap (its parent `.rt-text` grows with the label, so it is no measure; `web/app.js` `labelRoom()` does it right).
 - Label color is darkened automatically to at least 4.5 : 1 contrast against the frame (WCAG 2.2, 1.4.3).
 - 6 to 7 steps per sheet (at most 8). Split long routines into more sheets rather than shrinking images.
 

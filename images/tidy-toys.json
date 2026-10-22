@@ -1,6 +1,20 @@
 {
   "id": "tidy-toys",
   "title": "Teddy bear in a nightcap putting the last ball into a full toy chest",
+  "keywords": {
+    "sl": [
+      "igrac*",
+      "igrack*",
+      "skrinj*"
+    ],
+    "en": [
+      "toys",
+      "tidy up",
+      "tidy*",
+      "clean up",
+      "put away toys"
+    ]
+  },
   "model": "Google Gemini image generation (via Antigravity CLI)",
   "prompt": "Soft watercolor and gouache children's picture-book illustration, delicate colored-pencil outlines, warm cream paper texture, gentle pastel palette. The scene is set in a real, cozy room of a family home with a floor, walls and a few homely details (plants, a small shelf), like a warm picture-book interior. Clear contrast and rich, saturated colors with defined darker outlines and shadows, not pale or washed out. No clouds, nothing floating. Cute and friendly, for a 4-year-old. Gender-neutral. Everything painted in one consistent watercolor style, no flat vector shapes, no text, no letters, no logos, no brands, no flags, no recognizable existing characters; every character is original. Square 1:1 composition, main subject large and centered, readable at 4 cm size. A cute brown teddy bear wearing a blue-and-white striped nightcap STANDS on the rug beside a low, open wooden toy chest and, with both paws, puts the last colorful ball into it. The chest is full of toys (wooden blocks, a toy car, a picture book). The floor around it is tidy: NO toys left on the floor. No human hands, no people. A cozy child's room with many homely details: a shelf with colorful books, a plant, framed children's drawings, a window with curtains, a patterned rug on wooden floorboards. The action of tidying up must be obvious at a glance.",
   "reference_images": [],

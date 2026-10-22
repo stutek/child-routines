@@ -3,7 +3,7 @@
     python3 tools/check_images.py
 
 - every images/<id>.jpg has images/<id>.json with the required fields, and vice versa
-- images are square 1024 x 1024 JPEG, at most 1.5 MB, license CC0-1.0
+- images are square 1024 x 1024 JPEG, at most 1.5 MB, license CC0-1.0; keywords per language are lists
 - every routine step points to an existing image or to null (empty placeholder)
 """
 import json
@@ -43,6 +43,9 @@ def main():
             errors.append(f"{meta_path.name}: field id must be {id_!r}")
         if meta.get("license") != "CC0-1.0":
             errors.append(f"{meta_path.name}: license must be CC0-1.0")
+        kw = meta.get("keywords", {})
+        if not (isinstance(kw, dict) and all(isinstance(v, list) and all(isinstance(w, str) and w.strip() for w in v) for v in kw.values())):
+            errors.append(f'{meta_path.name}: keywords must be {{"<language>": ["word", "start*"]}}')
         if not str(meta.get("prompt", "")).strip():
             errors.append(f"{meta_path.name}: prompt must not be empty")
         if jpg.stat().st_size > MAX_BYTES:

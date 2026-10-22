@@ -1,6 +1,22 @@
 {
   "id": "cartoon",
   "title": "Teddy bear on a floor cushion watching a bunny cartoon in a detailed living room",
+  "keywords": {
+    "sl": [
+      "risank*",
+      "tv",
+      "televizij*",
+      "ekran*",
+      "film*"
+    ],
+    "en": [
+      "cartoon*",
+      "tv",
+      "television",
+      "screen time",
+      "show"
+    ]
+  },
   "model": "Google Gemini image generation (via Antigravity CLI)",
   "prompt": "Soft watercolor and gouache children's picture-book illustration, delicate colored-pencil outlines, warm cream paper texture, clear contrast and rich colors with defined darker outlines, not pale. RICHLY DETAILED like a busy picture-book page: a cozy family living room in the evening. A cute brown teddy bear wearing a blue-and-white striped nightcap sits on a big patterned floor cushion, seen from slightly behind and to the side, happily watching a rounded wooden TV on a low cabinet. On the TV screen, large and clear, an original friendly cartoon bunny waves (not any known character). Around them many homely details: a bookshelf with colorful books and small toys, a woven basket with toy blocks and a ball, framed children's drawings on patterned wallpaper, a window with curtains and a dusky evening sky, a glowing floor lamp, a potted plant, a soft blanket, a detailed patterned rug on wooden floorboards. No clouds, nothing floating, no light rays. No text, no letters, no logos, no brands. Square 1:1 composition, TV and bear large and central, readable at 4 cm size.",
   "reference_images": [],

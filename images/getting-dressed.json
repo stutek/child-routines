@@ -1,6 +1,20 @@
 {
   "id": "getting-dressed",
   "title": "T-shirt with a sun, trousers and socks",
+  "keywords": {
+    "sl": [
+      "oblac*",
+      "obleci",
+      "obleka",
+      "obuj*"
+    ],
+    "en": [
+      "get dressed",
+      "getting dressed",
+      "dress*",
+      "clothes"
+    ]
+  },
   "model": "Google Gemini image generation (via Antigravity)",
   "prompt": "A whimsical, adorable children's picture book illustration in soft watercolor and gouache style, matching the artistic style of the reference image. Cute children's clothes neatly and playfully arranged: a sweet colorful toddler t-shirt with a cheerful smiling sun print on the front, paired with charming little blue jeans and tiny colorful socks. Soft light pastel green watercolor textured background with subtle delicate sparkles and paper grain. Centered square composition, warm and cozy for a 4-year-old child.",
   "reference_images": [

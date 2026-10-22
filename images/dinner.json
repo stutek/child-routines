@@ -1,6 +1,24 @@
 {
   "id": "dinner",
   "title": "Plate of pasta, meatballs and vegetables",
+  "keywords": {
+    "sl": [
+      "vecerj*",
+      "jej",
+      "jemo",
+      "jest",
+      "obed*",
+      "kosil*",
+      "hrana"
+    ],
+    "en": [
+      "dinner",
+      "eat*",
+      "meal",
+      "supper",
+      "lunch"
+    ]
+  },
   "model": "Google Gemini image generation (via Antigravity)",
   "prompt": "unknown (generated before prompts were recorded)",
   "edits": [

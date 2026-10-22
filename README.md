@@ -12,7 +12,11 @@ Printable A4 sheets with a young child's daily routine: morning, dinner and bedt
 
 The sheets keep a 14 mm bottom margin because most home printers cannot print the bottom edge.
 
-## Make your own
+## Make your own in the browser
+
+Open `web/index.html` from the downloaded folder in Chrome, type the steps and times, and print. The page picks a picture for each step by keyword and warns when it has none, when a label is too long for its frame or when a sheet has more than 8 steps. Nothing leaves your browser.
+
+## Make your own from files
 
 Routines are data files in [`routines/<language>/`](routines/). Copy one, change the labels, images and colors, then rebuild:
 

@@ -39,6 +39,7 @@ Thank you for sharing your child's routine. You can add a **routine** (a new one
    - Up to 8 steps per sheet; 6 to 7 look best. Split long routines into more sheets.
    - `label`: short, uppercase, one word where possible. The build fails visually if a label is too long: keep it under about 17 characters.
    - `image`: an image id from `images/`, or `null` for an empty placeholder.
+   - `time`: optional, e.g. `"07:30"`; printed instead of the empty time field.
    - `color`: the step color; labels are darkened automatically for readable contrast.
 3. Run `python3 tools/check_images.py` and `python3 tools/build.py`, open the new file in `output/` and check it in Chrome's print preview.
 4. Commit the routine and the rebuilt `output/` file.
@@ -52,6 +53,7 @@ Thank you for sharing your child's routine. You can add a **routine** (a new one
    {
      "id": "brush-teeth",
      "title": "Tooth brushing at the bathroom sink",
+     "keywords": {"en": ["teeth", "tooth*", "brush teeth"], "sl": ["zob*"]},
      "model": "name of the image model you used",
      "prompt": "the full prompt you used, copied exactly",
      "reference_images": ["images you passed to the model, or nothing"],
@@ -61,6 +63,8 @@ Thank you for sharing your child's routine. You can add a **routine** (a new one
      "copyright_check": {"date": "YYYY-MM-DD", "method": "how you checked", "result": "no exact matches"}
    }
    ```
+
+   `keywords` are the words a parent would type for this step, per language; `word*` matches the start of a word. The sheet maker in `web/` uses them to pick the picture.
 
 3. Check it yourself first with an image search (for example Google Lens, tab *Exact matches*), both the raw image from the model and the final file after any edit. If the same or almost the same picture already exists on the web, do not submit it: generate a new one with a different composition. Details: [copyright check](.agents/skills/copyright-check/SKILL.md).
 

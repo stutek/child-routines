@@ -265,8 +265,7 @@ function renderEditor() {
     el("div", { class: "row-top" }, [
       el("label", {}, [`${L.background}: `, select(L.background, state.background, L.backgrounds, v => { state.background = v; update(true); })]),
       el("label", { class: "grow" }, [times, ` ${L.times}`]),
-      el("button", { onclick: () => { state = fromExample(state.lang, sheet.sky, state); update(true); } }, `${L.example}: ${L.skies[sheet.sky]}`),
-      el("button", { class: "primary", onclick: () => window.print() }, L.print)]));
+      el("button", { onclick: () => { state = fromExample(state.lang, sheet.sky, state); update(true); } }, `${L.example}: ${L.skies[sheet.sky]}`)]));
 
   const box = el("div", { class: "sheet-box" });
   sheet.steps.forEach((step, k) => {
@@ -293,7 +292,9 @@ function renderEditor() {
         onclick: () => { sheet.steps[k] = newStep(); update(true); } }, broom())]), gallery);
     step._thumb = thumb;
   });
-  root.append(box, el("div", { id: "warnings" }));
+  // print comes last, after the parent has filled in the rows and read the warnings
+  root.append(box, el("div", { id: "warnings" }),
+    el("div", { class: "row-top" }, el("button", { class: "primary", onclick: () => window.print() }, L.print)));
 }
 
 // refresh each row's picture in place, so typing keeps focus; an empty row shows no picture

@@ -46,15 +46,15 @@ MIN_FRAME_LUMINANCE = 0.6  # WCAG relative luminance; keeps frames pastel
 
 
 def edge_color(image_id, side):
-    """Median of the lighter half of the image strip next to the frame (image on the left ->
-    right edge). The lighter half is usually the wall or background, not floor or furniture,
-    so the frame stays light."""
+    """Median of the image strip that fades into the frame (the inner 20 %, as the CSS mask; image
+    on the left -> right edge), without its darkest quarter (outlines, furniture, floor). The
+    lighter half alone picked near-white paper specks and lost the background's hue."""
     im = Image.open(ROOT / "images" / f"{image_id}.jpg").convert("RGB")
     w, h = im.size
-    x0, x1 = (int(w * 0.94), w) if side == "left" else (0, int(w * 0.06))
-    px = sorted(im.crop((x0, int(h * 0.3), x1, int(h * 0.7))).getdata(),
+    x0, x1 = (int(w * 0.8), w) if side == "left" else (0, int(w * 0.2))
+    px = sorted(im.crop((x0, int(h * 0.3), x1, int(h * 0.7))).get_flattened_data(),
                 key=lambda p: 0.299 * p[0] + 0.587 * p[1] + 0.114 * p[2])
-    light = px[len(px) // 2:]
+    light = px[len(px) // 4:]
     c = [statistics.median(p[k] for p in light) for k in range(3)]
     # an edge that is dark all over (furniture, floor) is mixed with white until it is pastel
     for share in [i / 20 for i in range(21)]:

@@ -626,11 +626,6 @@ window.SHEET_DATA = {
        "color": "#EC4899"
       },
       {
-       "label": "ZAJTRK",
-       "image": "breakfast",
-       "color": "#F43F5E"
-      },
-      {
        "label": "UMIJ ZOBKE",
        "image": "brush-teeth",
        "color": "#F97316"

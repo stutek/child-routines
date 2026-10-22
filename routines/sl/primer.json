@@ -10,37 +10,37 @@
         {
           "label": "DOBRO JUTRO",
           "image": "good-morning",
-          "color": "#8B5CF6"
+          "color": "#D97706"
         },
         {
           "label": "NA STRANIŠČE",
           "image": "toilet",
-          "color": "#A855F7"
+          "color": "#EA580C"
         },
         {
           "label": "UMIJ ROKE",
           "image": "wash-hands",
-          "color": "#D946EF"
+          "color": "#DC2626"
         },
         {
           "label": "OBLECI SE",
           "image": "getting-dressed",
-          "color": "#EC4899"
+          "color": "#65A30D"
         },
         {
           "label": "UMIJ ZOBKE",
           "image": "brush-teeth",
-          "color": "#F97316"
+          "color": "#16A34A"
         },
         {
           "label": "POSTELJI POSTELJO",
           "image": "make-bed",
-          "color": "#EAB308"
+          "color": "#0D9488"
         },
         {
           "label": "V VRTEC",
           "image": "kindergarten",
-          "color": "#0EA5E9"
+          "color": "#0284C7"
         }
       ]
     },
@@ -52,32 +52,32 @@
         {
           "label": "NA STRANIŠČE",
           "image": "toilet",
-          "color": "#F59E0B"
+          "color": "#16A34A"
         },
         {
           "label": "UMIJ ROKE",
           "image": "wash-hands",
-          "color": "#F97316"
+          "color": "#0D9488"
         },
         {
           "label": "PRIPRAVI MIZO",
           "image": "set-table",
-          "color": "#F43F5E"
+          "color": "#0284C7"
         },
         {
           "label": "VEČERJA",
           "image": "dinner",
-          "color": "#EC4899"
+          "color": "#2563EB"
         },
         {
           "label": "POSPRAVI MIZO",
           "image": "clear-table",
-          "color": "#D946EF"
+          "color": "#D97706"
         },
         {
           "label": "POSPRAVI IGRAČE",
           "image": "tidy-toys",
-          "color": "#C026D3"
+          "color": "#EA580C"
         }
       ]
     },
@@ -89,42 +89,42 @@
         {
           "label": "RISANKA",
           "image": "cartoon",
-          "color": "#A855F7"
+          "color": "#0284C7"
         },
         {
           "label": "OKOPAJ SE",
           "image": "bath",
-          "color": "#9333EA"
+          "color": "#0D9488"
         },
         {
           "label": "ZDRAVILA IN NEGA",
           "image": "care",
-          "color": "#9333EA"
+          "color": "#2563EB"
         },
         {
           "label": "OBLECI PIŽAMO",
           "image": "pajamas",
-          "color": "#8B5CF6"
+          "color": "#16A34A"
         },
         {
           "label": "UMIJ ZOBKE",
           "image": "brush-teeth",
-          "color": "#7C3AED"
+          "color": "#0369A1"
         },
         {
           "label": "NA STRANIŠČE",
           "image": "toilet",
-          "color": "#6366F1"
+          "color": "#1D4ED8"
         },
         {
           "label": "PRAVLJICA",
           "image": "story",
-          "color": "#3B82F6"
+          "color": "#115E59"
         },
         {
           "label": "LAHKO NOČ",
           "image": "sleep",
-          "color": "#4F46E5"
+          "color": "#1E40AF"
         }
       ]
     }

@@ -9,11 +9,12 @@ const MAX_STEPS = 8;     // layout limit (AGENTS.md); the form always shows this
 const STORE = "child-routines-maker";
 const CONTRIBUTE = "https://github.com/stutek/child-routines/blob/main/CONTRIBUTING.md#add-an-image";
 
-// Step colors per sheet, taken from the example routine and extended to eight steps
+// Step colors per sheet, the same as the example routines: gender-neutral playroom colours (no pink or
+// purple), each dark enough for a white step number at 3 : 1 (WCAG 2.2, large text)
 const PALETTES = [
-  ["#8B5CF6", "#A855F7", "#D946EF", "#EC4899", "#F97316", "#EAB308", "#0EA5E9", "#14B8A6"],
-  ["#F59E0B", "#F97316", "#F43F5E", "#EC4899", "#D946EF", "#C026D3", "#9333EA", "#7C3AED"],
-  ["#A855F7", "#8B5CF6", "#7C3AED", "#6366F1", "#3B82F6", "#4F46E5", "#312E81", "#1E3A8A"],
+  ["#D97706", "#EA580C", "#DC2626", "#65A30D", "#16A34A", "#0D9488", "#0284C7", "#2563EB"],
+  ["#16A34A", "#0D9488", "#0284C7", "#2563EB", "#D97706", "#EA580C", "#DC2626", "#65A30D"],
+  ["#0284C7", "#0D9488", "#2563EB", "#16A34A", "#0369A1", "#1D4ED8", "#115E59", "#1E40AF"],
 ];
 
 const T = {

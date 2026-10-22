@@ -18,9 +18,9 @@ from PIL import Image
 ROOT = Path(__file__).resolve().parent.parent
 
 SKIES = {
-    "dawn": "#D9CCF6 0%, #F6C9DE 22%, #FFD9B0 45%, #FFF0B8 70%, #D3ECFF 100%",
-    "afternoon": "#FFF3C4 0%, #FFE0B2 30%, #FFCDB8 62%, #F6C3D9 100%",
-    "night": "#EBCDE8 0%, #CDB8EE 25%, #7E78CC 65%, #2A2E6E 100%",
+    "dawn": "#D6ECFF 0%, #FFF1C1 30%, #FFDDB0 55%, #FFF4D6 78%, #DDF3E4 100%",
+    "afternoon": "#FFF6CC 0%, #FFE7B3 30%, #DDF3E4 65%, #CDEBFA 100%",
+    "night": "#CFE3F7 0%, #93B5E6 25%, #3F5FA8 65%, #1B2A5C 100%",
 }
 
 # The footer of every sheet: licence, address and a QR code (web/qr.svg, from tools/qr.py), so a
@@ -201,7 +201,7 @@ CSS = """
     .no-print-toolbar h2 { font-size: 18px; margin-bottom: 3px; }
     .toolbar-info { font-size: 14px; color: #475569; line-height: 1.4; }
     .btn-print {
-      background: #44403C;   /* ink of web/icon.svg, like the sheet maker */
+      background: #0F766E;   /* the colour of web/icon.svg, like the sheet maker */
       color: white;
       border: none;
       padding: 12px 24px;
@@ -211,7 +211,7 @@ CSS = """
       border-radius: 12px;
       cursor: pointer;
     }
-    .btn-print:hover { background: #292524; }
+    .btn-print:hover { background: #115E59; }
 
     /* A4 sheet; the sky background prints because of print-color-adjust: exact. Margins stay inside
        the area home printers can print (Epson: 3 mm top and sides, 14 mm bottom). */
@@ -252,8 +252,8 @@ CSS = """
       font-size: 7.5pt; font-weight: 600; color: #475569;
     }
     .rt-license { margin-right: auto; }
-    .rt-site { font-weight: 800; color: #5B2A6E; }
-    .rt-footer.on-dark, .rt-footer.on-dark .rt-site { color: #F1EEFF; }
+    .rt-site { font-weight: 800; color: #115E59; }
+    .rt-footer.on-dark, .rt-footer.on-dark .rt-site { color: #EEF4FF; }
     /* 13 mm with 1.3 mm white around (with the code's own 1-module border, about the 4-module quiet zone) */
     .rt-footer svg { width: 13mm; height: 13mm; flex: none; background: #ffffff; border-radius: 1mm; padding: 1.3mm; }
     .rt-title {
@@ -262,9 +262,9 @@ CSS = """
       font-weight: 800;
       line-height: 1.1;
       letter-spacing: 1px;
-      color: #5B2A6E;
+      color: #115E59;
       background: rgba(255, 255, 255, 0.85);
-      border: 2.5px solid #5B2A6E;
+      border: 2.5px solid #115E59;
       border-radius: 30px;
       padding: 1mm 7mm 0.2mm;
     }

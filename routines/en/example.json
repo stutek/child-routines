@@ -10,42 +10,42 @@
         {
           "label": "GOOD MORNING",
           "image": "good-morning",
-          "color": "#8B5CF6"
+          "color": "#D97706"
         },
         {
           "label": "USE THE TOILET",
           "image": "toilet",
-          "color": "#A855F7"
+          "color": "#EA580C"
         },
         {
           "label": "WASH HANDS",
           "image": "wash-hands",
-          "color": "#D946EF"
+          "color": "#DC2626"
         },
         {
           "label": "GET DRESSED",
           "image": "getting-dressed",
-          "color": "#EC4899"
+          "color": "#65A30D"
         },
         {
           "label": "BREAKFAST",
           "image": "breakfast",
-          "color": "#F43F5E"
+          "color": "#16A34A"
         },
         {
           "label": "BRUSH TEETH",
           "image": "brush-teeth",
-          "color": "#F97316"
+          "color": "#0D9488"
         },
         {
           "label": "MAKE THE BED",
           "image": "make-bed",
-          "color": "#EAB308"
+          "color": "#0284C7"
         },
         {
           "label": "OFF TO SCHOOL",
           "image": "kindergarten",
-          "color": "#0EA5E9"
+          "color": "#2563EB"
         }
       ]
     },
@@ -57,32 +57,32 @@
         {
           "label": "USE THE TOILET",
           "image": "toilet",
-          "color": "#F59E0B"
+          "color": "#16A34A"
         },
         {
           "label": "WASH HANDS",
           "image": "wash-hands",
-          "color": "#F97316"
+          "color": "#0D9488"
         },
         {
           "label": "SET THE TABLE",
           "image": "set-table",
-          "color": "#F43F5E"
+          "color": "#0284C7"
         },
         {
           "label": "DINNER",
           "image": "dinner",
-          "color": "#EC4899"
+          "color": "#2563EB"
         },
         {
           "label": "CLEAR THE TABLE",
           "image": "clear-table",
-          "color": "#D946EF"
+          "color": "#D97706"
         },
         {
           "label": "TIDY UP TOYS",
           "image": "tidy-toys",
-          "color": "#C026D3"
+          "color": "#EA580C"
         }
       ]
     },
@@ -94,42 +94,42 @@
         {
           "label": "CARTOON TIME",
           "image": "cartoon",
-          "color": "#A855F7"
+          "color": "#0284C7"
         },
         {
           "label": "BATH TIME",
           "image": "bath",
-          "color": "#9333EA"
+          "color": "#0D9488"
         },
         {
           "label": "MEDICINE & CREAM",
           "image": "care",
-          "color": "#9333EA"
+          "color": "#2563EB"
         },
         {
           "label": "PUT ON PAJAMAS",
           "image": "pajamas",
-          "color": "#8B5CF6"
+          "color": "#16A34A"
         },
         {
           "label": "BRUSH TEETH",
           "image": "brush-teeth",
-          "color": "#7C3AED"
+          "color": "#0369A1"
         },
         {
           "label": "USE THE TOILET",
           "image": "toilet",
-          "color": "#6366F1"
+          "color": "#1D4ED8"
         },
         {
           "label": "BEDTIME STORY",
           "image": "story",
-          "color": "#3B82F6"
+          "color": "#115E59"
         },
         {
           "label": "GOOD NIGHT",
           "image": "sleep",
-          "color": "#4F46E5"
+          "color": "#1E40AF"
         }
       ]
     }

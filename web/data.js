@@ -254,7 +254,7 @@ window.SHEET_DATA = {
    }
   },
   "tidy-toys": {
-   "title": "Teddy bear in a nightcap putting the last ball into a full toy chest",
+   "title": "Teddy bear putting the last ball into a full toy chest",
    "keywords": {
     "sl": [
      "igrac*",
@@ -457,7 +457,7 @@ window.SHEET_EDGES = {
   "set-table": ["#FDE8D7", "#FFDD9C"],
   "sleep": ["#FFFEEC", "#FFFEEB"],
   "story": ["#C8CCDE", "#D1D8EB"],
-  "tidy-toys": ["#F0DABE", "#FEFAE8"],
+  "tidy-toys": ["#F7DEBD", "#FFFEEA"],
   "toilet": ["#D4F3E9", "#BCE9D7"],
   "wash-hands": ["#ECE9D6", "#FAF1E0"],
 };

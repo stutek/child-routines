@@ -18,7 +18,7 @@ const PALETTES = [
 
 const T = {
   sl: {
-    heading: "Otroške rutine", aboutTitle: "O aplikaciji", howTitle: "Navodila",
+    heading: "Otrokove rutine", aboutTitle: "O aplikaciji", howTitle: "Navodila",
     about: "Ko otrok na sliki vidi, kaj pride zdaj in kaj potem, se laže loti tudi manj priljubljenih opravil in se manj pogaja. Ko označi opravljen korak, vidi, koliko je že naredil, kar spodbuja samostojnost. List mu pove tudi, kdaj bo risanka.",
     how: ["Izberi tip lista in vpiši do 8 opravil; prazne vrstice se ne natisnejo.", "Sličico izberem sam. Klikni nanjo, da jo zamenjaš.", "Natisni na A4: robovi »Brez«, merilo 100 %."],
     example: "Naloži primer", print: "🖨️ Natisni",

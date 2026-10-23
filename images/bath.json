@@ -20,9 +20,9 @@
     ]
   },
   "model": "Google Gemini image generation (via Antigravity CLI, image-generator subagent)",
-  "prompt": "Recreate this exact children's picture-book illustration in the same soft watercolor and gouache style, same cozy mint-tiled bathroom, same composition, camera angle, colors, light, bathtub, plant, shelf and details. The only change: there is NO child and NO person anywhere: the bathtub is empty of people, filled with warm water and soft white bubbles, one small yellow rubber duck floats on the bubbles, and a folded towel lies ready on the side of the tub. The bath is clearly ready for a child. No text, no letters, no logos. Square 1:1.",
+  "prompt": "Recreate this exact children's picture-book illustration in the same soft watercolor and gouache style, same cozy mint-tiled bathroom, same composition, camera angle, colors, light, bathtub with foam, yellow rubber duck, towel, plant, shelf and details. The only change: remove every bubble floating in the air above or beside the tub; the foam stays only inside the bathtub. Nothing floats in the air. No people. No text, no letters, no logos. Square 1:1.",
   "reference_images": [
-    "images/bath.jpg (commit 65555ab, the same picture with a toddler in the tub; recreated without a child)"
+    "images/bath.jpg (commit 0de206c, the same picture with bubbles floating in the air; recreated without them)"
   ],
   "edits": [
     "contrast raised once with the values of tools/enhance.py"

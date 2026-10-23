@@ -868,7 +868,7 @@ window.SHEET_DATA = {
  }
 };
 window.SHEET_EDGES = {
-  "bath": ["#C7F0E8", "#AFEAD6"],
+  "bath": ["#C0F2EC", "#A1EBD7"],
   "breakfast": ["#FECD89", "#FFDC9B"],
   "brush-teeth": ["#CFF2E5", "#BBE8D4"],
   "care": ["#ADE2C5", "#BEE9D0"],

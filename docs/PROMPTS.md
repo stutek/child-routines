@@ -19,7 +19,10 @@ Every routine image is a square 1:1 illustration generated with an image model. 
 - **Show the action, not the result.** "Set the table" is hands placing cutlery next to an empty plate, not a plate with food (that reads as "dinner").
 - **Rich but readable.** A real room with a few homely details, never bare; at 4 cm the main subject fills most of the picture and the background stays calm (at most 3 to 4 details). No letters or numbers anywhere, also not on toys or clocks.
 - **Keep steps distinct.** "Clear the table" must not show a sink with a tap, because "wash hands" already does. Only the sleep image has closed eyes; waking up has eyes wide open.
-- **No disembodied hands.** Hands appear only in a child's-eye view, entering from the bottom edge (set the table, clear the table, pajamas). Otherwise the teddy bear does the action (make the bed, tidy up toys).
+- **Who does the action (provisional, until the beta feedback).** A step shows the action, done by one of three:
+  - the child's own hands, in a child's-eye view entering from the bottom edge, where a child sees its own action (wash hands, set and clear the table, pajamas, getting dressed, spoon to the mouth); never disembodied hands from elsewhere;
+  - the teddy bear, where the action cannot be seen through the child's eyes (waking up, brushing teeth, making the bed, tidying toys, shoes on at the door, sleep);
+  - only the room or the objects for private or adult steps (toilet, bath, medicine and care).
 - **Cloth obeys gravity.** Clothes, quilts and towels hang, drape and fold; they never stand stiff like a board. Do not show the child already wearing what it is putting on.
 - **Same world.** Bath and teeth happen in the same bathroom as the toilet image; the same teddy bear appears in waking up, making the bed, tidying up and sleeping. It wears its striped nightcap only around sleep (good morning, make the bed, sleep); in other scenes it has no cap. A fix to the shared room (tiles on both walls) goes into every picture of that room: compare them side by side.
 - **Model good habits.** Images show safe, healthy behavior, never a bad example: a seat stays well back from a screen, never close to it.

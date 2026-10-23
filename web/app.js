@@ -146,8 +146,8 @@ function centres(n) {
 // else the language itself; tools/build.py clock_text() gives the same for sl and en
 function clockText(time, lang) {
   const [h, m] = time.split(":").map(Number);
-  const own = navigator.language || "";
-  const locale = own.toLowerCase().startsWith(lang) ? own : lang;
+  const reader = navigator.language || "";
+  const locale = reader.toLowerCase().startsWith(lang) ? reader : lang;
   try {
     return new Intl.DateTimeFormat(locale, { hour: "numeric", minute: "2-digit", timeZone: "UTC" }).format(Date.UTC(2020, 0, 1, h, m));
   } catch (e) {
@@ -231,25 +231,27 @@ function showUndo(prev, message = t().replaced) {
 const typed = sheet => sheet.steps.some(s => s.label.trim() || s.time || s.image !== "auto") && !EXAMPLE_ROWS.has(rowsKey(sheet.steps));
 // Stored state is untrusted: every page on stutek.github.io shares this origin and its storage.
 // Keep only known values, so nothing from storage reaches the markup unchecked.
+// only a table's own keys count: "constructor" or "__proto__" exist on every object and would pass a plain lookup
+const own = (table, key) => typeof key === "string" && Object.prototype.hasOwnProperty.call(table, key);
 function clean(s) {
   if (!s || typeof s !== "object") return null;
   const str = (v, max) => (typeof v === "string" ? v : "").slice(0, max);
   const step = st => ({
     label: str(st && st.label, 40),
     time: /^([01]\d|2[0-3]):[0-5]\d$/.test(st && st.time) ? st.time : "",
-    image: st && (st.image === "none" || D.images[st.image]) ? st.image : "auto",
+    image: st && (st.image === "none" || own(D.images, st.image)) ? st.image : "auto",
   });
   const sh = s.sheet || (Array.isArray(s.sheets) && s.sheets[0]);   // older versions kept several sheets
   if (!sh) return null;
-  const sheet = { title: bare(str(sh.title, 60)), sky: D.skies[sh.sky] ? sh.sky : "night",
+  const sheet = { title: bare(str(sh.title, 60)), sky: own(D.skies, sh.sky) ? sh.sky : "night",
                   steps: pad((Array.isArray(sh.steps) ? sh.steps : []).slice(0, MAX_STEPS).map(step)) };
-  return { lang: T[s.lang] ? s.lang : "sl", background: ["gradient", "white", "none"].includes(s.background) ? s.background : "gradient",
+  return { lang: own(T, s.lang) ? s.lang : "sl", background: ["gradient", "white", "none"].includes(s.background) ? s.background : "gradient",
            times: s.times !== false, sheet };
 }
 // first visit: the first of the browser's languages the page has (navigator.languages), else English
 function browserLang() {
   const langs = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || ""];
-  for (const l of langs) { const code = l.toLowerCase().slice(0, 2); if (T[code]) return code; }
+  for (const l of langs) { const code = String(l).toLowerCase().slice(0, 2); if (own(T, code)) return code; }
   return "en";
 }
 // ---------- share link: the sheet in the URL fragment (never sent to a server), base64url of compact JSON ----------
@@ -265,7 +267,7 @@ function encodeSheet(st) {
 // the same checks as stored state (clean()); anything broken gives null
 function decodeSheet(data) {
   try {
-    if (!/^[A-Za-z0-9_-]+$/.test(data)) return null;
+    if (data.length > 2000 || !/^[A-Za-z0-9_-]+$/.test(data)) return null;   // a real link is ~400 characters
     const bin = atob(data.replace(/-/g, "+").replace(/_/g, "/"));
     const j = JSON.parse(new TextDecoder("utf-8", { fatal: true }).decode(Uint8Array.from(bin, c => c.charCodeAt(0))));
     if (!j || typeof j !== "object" || !Array.isArray(j.r)) return null;

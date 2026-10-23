@@ -182,6 +182,23 @@ def main():
             bad = [k for k, v in json.loads(got).items() if not v]
             if bad:
                 errors.append(f"A1 layout checks failed: {bad}")
+            # hostile links: keys every object has ("constructor", "__proto__", "toString") and an oversized link are
+            # ignored or replaced by defaults; the page still renders, throws nothing and stores nothing broken
+            hostile = [{"l": "constructor", "b": "gradient", "t": 1, "s": "__proto__", "h": "<img src=x onerror=alert(1)>", "r": [["<b>X</b>", "25:99", "toString"]]},
+                       {"l": "__proto__", "s": "constructor", "r": [["A", "", "constructor"]]}]
+            for case in [base64.urlsafe_b64encode(json.dumps(h).encode()).decode().rstrip("=") for h in hostile] + ["A" * 5000]:
+                cdp.events.clear()
+                cdp.call("Page.navigate", url="about:blank"); cdp.wait(0.3)
+                cdp.call("Page.navigate", url=PAGE + "#" + case); cdp.wait(1.5)
+                got = json.loads(cdp.call("Runtime.evaluate", returnByValue=True, expression="""JSON.stringify({
+                  rendered: !!document.querySelector('#sheets .rt-title') && !!document.querySelector('#maker h1').textContent,
+                  noInjectedImg: !document.querySelector('#sheets img[src="x"]') && !document.querySelector('#sheets b'),
+                  lang: document.documentElement.lang,
+                  stored: (() => { try { return JSON.parse(localStorage.getItem(Object.keys(localStorage)[0]) || '{}').lang || ''; } catch (e) { return 'bad'; } })() })""")["result"]["value"])
+                thrown = [e for e in cdp.events if e.get("method") == "Runtime.exceptionThrown"]
+                print(f"hostile link ({len(case)} chars): {got}, exceptions {len(thrown)}")
+                if not (got["rendered"] and got["noInjectedImg"] and got["lang"] in ("sl", "en") and got["stored"] in ("", "sl", "en")) or thrown:
+                    errors.append(f"hostile link not handled: {got}, exceptions {len(thrown)}")
             # a click on a section's summary folds it (after the slide), a second click opens it again
             got = cdp.call("Runtime.evaluate", awaitPromise=True, returnByValue=True, expression="""(async () => {
               const d = document.getElementById('watch'), s = d.querySelector('summary'), wait = () => new Promise(r => setTimeout(r, 400));

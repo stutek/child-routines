@@ -61,7 +61,9 @@
     .maker summary::after { content: "▾ " attr(data-hide); margin-left: auto; font-size: 13px; font-weight: 700; color: #115E59;
       background: #DDF3EE; border-radius: 999px; padding: 2px 12px; white-space: nowrap; }
     .maker details:not([open]) > summary::after { content: "▸ " attr(data-show); }
-    .maker .fold-body { border: 1px solid #E7E0D3; border-radius: 12px; padding: 8px 12px; }
+    /* the frame holds the title and the content: folded, the framed title stays */
+    .maker details { border: 1px solid #E7E0D3; border-radius: 12px; padding: 6px 12px; }
+    .maker .fold-body { padding: 2px 0 4px; }
     .maker details .more { margin: 6px 0 0; }
     .maker details ul, .maker details ol { margin: 2px 0 0 18px; padding: 0; }
     .maker .warn .danger { font-family: 'Noto Emoji', sans-serif; font-weight: 600; font-size: 22px; line-height: 1.1; color: #B45309; }

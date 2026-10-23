@@ -186,7 +186,7 @@ def main():
               const d = document.getElementById('watch'), s = d.querySelector('summary'), wait = () => new Promise(r => setTimeout(r, 400));
               s.click(); await wait(); const closed = !d.open;
               s.click(); await wait();
-              return JSON.stringify({ closed, reopened: d.open, framed: getComputedStyle(d.querySelector('.fold-body')).borderTopStyle === 'solid' });
+              return JSON.stringify({ closed, reopened: d.open, framed: getComputedStyle(d).borderTopStyle === 'solid' });
             })()""")["result"]["value"]
             print(f"fold and unfold: {got}")
             bad = [k for k, v in json.loads(got).items() if not v]

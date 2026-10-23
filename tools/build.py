@@ -7,6 +7,7 @@ Each frame's background is the color of its image edge next to the frame, so reb
 replacing an image. Labels get the darkest shade of the step color needed for 4.5 : 1 contrast.
 The sheet markup in sheet_html() is mirrored in web/app.js (sheetHtml); change both together.
 """
+import colorsys
 import json
 import random
 import statistics
@@ -108,6 +109,10 @@ def edge_color(image_id, side):
                 key=lambda p: 0.299 * p[0] + 0.587 * p[1] + 0.114 * p[2])
     light = px[len(px) // 4:]
     c = [statistics.median(p[k] for p in light) for k in range(3)]
+    # colours stay gender-neutral (AGENTS.md): a purple or pink hue (270°–355°) turns peach (25°)
+    h, l, s = colorsys.rgb_to_hls(*(v / 255 for v in c))
+    if 270 / 360 <= h < 355 / 360:
+        c = [v * 255 for v in colorsys.hls_to_rgb(25 / 360, l, s)]
     # an edge that is dark all over (furniture, floor) is mixed with white until it is pastel
     for share in [i / 20 for i in range(21)]:
         mixed = [round(v + (255 - v) * share) for v in c]

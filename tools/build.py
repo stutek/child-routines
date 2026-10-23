@@ -18,7 +18,7 @@ from PIL import Image
 ROOT = Path(__file__).resolve().parent.parent
 
 SKIES = {
-    "dawn": "#D6ECFF 0%, #FFF1C1 30%, #FFDDB0 55%, #FFF4D6 78%, #DDF3E4 100%",
+    "dawn": "#FFB45E 0%, #FFCF9A 12%, #FFE9A8 25%, #FFF1C1 38%, #FFEAC9 58%, #FFF4D6 78%, #DDF3E4 100%",
     "afternoon": "#FFF6CC 0%, #FFE7B3 30%, #DDF3E4 65%, #CDEBFA 100%",
     # night: light blue behind the pictures (less ink, the last picture stands out), dark only under
     # the last picture, so the light footer text keeps its contrast

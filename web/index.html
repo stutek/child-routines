@@ -38,7 +38,10 @@
     .maker input, .maker select, .maker button { font: inherit; font-size: 15px; }
     .maker input, .maker select { border: 1px solid #cbd5e1; border-radius: 8px; padding: 6px 8px; background: #fff; min-width: 0; }
     .maker button { border: none; border-radius: 10px; padding: 8px 14px; font-weight: 700; cursor: pointer; background: #e2e8f0; color: #0f172a; }
+    /* the two action buttons share one shape; the fill tells the main action (Print) from the other */
+    .maker button.primary, .maker button.secondary { border-radius: 12px; padding: 10px 20px; font-size: 16px; }
     .maker button.primary { background: #0F766E; color: #ffffff; box-shadow: 0 3px 0 #134E4A; }
+    .maker button.secondary { box-shadow: 0 3px 0 #A7DCCF; }
     .maker button.primary:hover { background: #115E59; }
     .maker button:not(.primary):not(.del):not(.thumb):not(.grip) { background: #DDF3EE; color: #115E59; }
     .maker button:disabled { opacity: 0.45; cursor: not-allowed; }

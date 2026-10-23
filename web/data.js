@@ -13,11 +13,11 @@ window.SHEET_DATA = {
  "missingBg": "#FFFFFF",
  "toolbar": {
   "sl": [
-   "🖨️ Natisni",
+   "Natisni",
    "Listi A4 za hladilnik. Chrome natisne tudi ozadje."
   ],
   "en": [
-   "🖨️ Print",
+   "Print",
    "A4 sheets for the fridge. Chrome prints the background too."
   ]
  },

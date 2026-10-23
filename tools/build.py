@@ -33,8 +33,8 @@ QR = (ROOT / "web" / "qr.svg").read_text(encoding="utf-8").strip()
 PLAIN = {"white": "#FFFFFF", "none": "none"}
 
 TOOLBAR = {
-    "sl": ("🖨️ Natisni", "Listi A4 za hladilnik. Chrome natisne tudi ozadje."),
-    "en": ("🖨️ Print", "A4 sheets for the fridge. Chrome prints the background too."),
+    "sl": ("Natisni", "Listi A4 za hladilnik. Chrome natisne tudi ozadje."),
+    "en": ("Print", "A4 sheets for the fridge. Chrome prints the background too."),
 }
 
 MISSING_BG = "#FFFFFF"

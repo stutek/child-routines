@@ -22,7 +22,7 @@ const T = {
     heading: "Otrokove rutine", aboutTitle: "O aplikaciji", howTitle: "Navodila",
     about: "Ko otrok na listu vidi, kaj pride zdaj in kaj potem, laže sledi rutini in pogajanja je lahko manj. Ko na opravljen korak sam položi magnetek, vidi, koliko je že naredil in kaj ga še čaka. Najbolje deluje, če list sestavita skupaj in ga prve dni skupaj prehodita. Še posebej pride prav, ko otrok prespi pri sorodnikih: starim staršem, tetam in stricem pomaga, da rutino ohranijo.",
     how: ["Izberi tip rutine in vpiši do 8 opravil; prazne vrstice se ne natisnejo.", "Sličico izberem sam. Klikni nanjo, da jo zamenjaš. Naj otrok izbere slike in vrstni red: vrstico povleci za pike.", "Natisni na A4: robovi »Brez«, merilo 100 %."],
-    example: "Naloži primer", replaceSheet: "Primer bo zamenjal tvoj list in vpisano se bo izgubilo. Nadaljujem?", print: "🖨️ Natisni",
+    example: "Naloži primer", replaceSheet: "Primer bo zamenjal tvoj list in vpisano se bo izgubilo. Nadaljujem?", print: "Natisni",
     type: "Tip rutine", sheetTitle: "Naslov lista", skies: { dawn: "jutro", afternoon: "dan", night: "večer" },
     times: "Ura na listu", background: "Ozadje", backgrounds: { gradient: "preliv barv", white: "belo", none: "prosojno (se ne natisne)" },
     label: "Opravilo", labelHint: "npr. UMIJ ZOBKE", language: "Jezik", moved: n => `Premaknjeno na mesto ${n}`, picture: "Sličica", time: "Ura", auto: "Samodejno", none: "Brez sličice", pick: "Zamenjaj sličico", removeStep: "Izprazni vrstico", move: "Premakni korak", moveHint: "Povleci za premik ali tapni tu in nato na novem mestu; s tipkovnico puščici gor in dol",
@@ -34,7 +34,7 @@ const T = {
     heading: "Child routines", aboutTitle: "About", howTitle: "How to",
     about: "When a child can see what comes now and what comes next, following the routine gets easier and there can be less bargaining. Placing a magnet on each finished step themselves shows how much they have done and what is left. It works best when you make the sheet together and go through it together for the first few days. It is especially handy when your child sleeps over at relatives': it helps grandparents, aunts and uncles keep the routine.",
     how: ["Pick the routine type and type up to 8 steps; empty rows are not printed.", "I pick the pictures. Click one to change it. Let your child choose the pictures and the order: drag a row by its dots.", "Print on A4: margins None, scale 100 %."],
-    example: "Load example", replaceSheet: "The example will replace your sheet and what you typed will be lost. Continue?", print: "🖨️ Print",
+    example: "Load example", replaceSheet: "The example will replace your sheet and what you typed will be lost. Continue?", print: "Print",
     type: "Routine type", sheetTitle: "Sheet title", skies: { dawn: "morning", afternoon: "day", night: "evening" },
     times: "Time on the sheet", background: "Background", backgrounds: { gradient: "color gradient", white: "white", none: "transparent (not printed)" },
     label: "Step", labelHint: "e.g. BRUSH TEETH", language: "Language", moved: n => `Moved to place ${n}`, picture: "Picture", time: "Time", auto: "Automatic", none: "No picture", pick: "Change picture", removeStep: "Clear row", move: "Move step", moveHint: "Drag to move, or tap here and then at the new place; with the keyboard, the up and down arrows",
@@ -321,7 +321,7 @@ function renderEditor() {
     el("div", { class: "row-top fields" }, [
       field(L.background, select(L.background, state.background, L.backgrounds, v => { state.background = v; update(true); })),
       el("label", { class: "grow check" }, [times, L.times]),
-      el("button", { onclick: () => { if (typed(sheet) && !confirm(L.replaceSheet)) return; state = fromExample(state.lang, sheet.sky, state); update(true); } }, `${L.example}: ${L.skies[sheet.sky]}`)]));
+      el("button", { class: "secondary", onclick: () => { if (typed(sheet) && !confirm(L.replaceSheet)) return; state = fromExample(state.lang, sheet.sky, state); update(true); } }, `${L.example}: ${L.skies[sheet.sky]}`)]));
 
   // column headings label the rows: a screen reader reads a field as "Step 3"
   const box = el("div", { class: "sheet-box" }, el("div", { class: "step step-head", "aria-hidden": "true" }, [

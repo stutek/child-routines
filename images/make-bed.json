@@ -24,13 +24,14 @@
     "images/make-bed.jpg (commit 0d04f0c, the same picture with a paper border; recreated edge to edge)"
   ],
   "edits": [
-    "brightened and desaturated like good-morning and sleep: gamma 0.85, color x0.88 (no tools/enhance.py: the reference was already enhanced)"
+    "brightened and desaturated like good-morning and sleep: gamma 0.85, color x0.88 (no tools/enhance.py: the reference was already enhanced)",
+    "cropped 8 % from the top and the left edge (less empty wall, larger bear) and scaled back to 1024 x 1024"
   ],
   "contributor": "maintainer",
   "license": "CC0-1.0",
   "copyright_check": {
-    "date": "2026-10-22",
-    "method": "Google Lens, Exact matches tab, raw and final file",
-    "result": "no exact matches"
+    "date": "2026-10-23",
+    "method": "Google Lens, Exact and Visual matches tabs, final file",
+    "result": "no exact matches; visual matches show other teddy bears in beds, no same composition"
   }
 }

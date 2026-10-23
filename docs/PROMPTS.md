@@ -21,7 +21,7 @@ Every routine image is a square 1:1 illustration generated with an image model. 
 - **Keep steps distinct.** "Clear the table" must not show a sink with a tap, because "wash hands" already does. Only the sleep image has closed eyes; waking up has eyes wide open.
 - **No disembodied hands.** Hands appear only in a child's-eye view, entering from the bottom edge (set the table, clear the table, pajamas). Otherwise the teddy bear does the action (make the bed, tidy up toys).
 - **Cloth obeys gravity.** Clothes, quilts and towels hang, drape and fold; they never stand stiff like a board. Do not show the child already wearing what it is putting on.
-- **Same world.** Bath and teeth happen in the same bathroom as the toilet image; the same teddy bear appears in waking up, making the bed, tidying up and sleeping. It wears its striped nightcap only around sleep (good morning, make the bed, sleep); in other scenes it has no cap.
+- **Same world.** Bath and teeth happen in the same bathroom as the toilet image; the same teddy bear appears in waking up, making the bed, tidying up and sleeping. It wears its striped nightcap only around sleep (good morning, make the bed, sleep); in other scenes it has no cap. A fix to the shared room (tiles on both walls) goes into every picture of that room: compare them side by side.
 - **Model good habits.** Images show safe, healthy behavior, never a bad example: a seat stays well back from a screen, never close to it.
 - **No false promises.** Do not show food the child will not get (pancakes for breakfast at home when breakfast is at kindergarten).
 - **Check before use:** contrast (see AGENTS.md), and the copyright check on the raw and the final file (`.agents/skills/copyright-check/`).

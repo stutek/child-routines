@@ -26,9 +26,9 @@
     ]
   },
   "model": "Google Gemini image generation (via Antigravity CLI, image-generator subagent)",
-  "prompt": "Recreate this exact children's picture-book illustration in the same soft watercolor and gouache style, same cozy mint-tiled bathroom, same composition, camera angle, colors, light, toilet paper roll, plant and details. The only change: the toilet is a plain, realistic white porcelain toilet with a wooden seat and lid, with NO face: no eyes, no mouth, no cheeks, no blush, no expression, nothing that looks like a character. Everything else stays as in the reference. No text, no letters, no logos. Square 1:1.",
+  "prompt": "Recreate this exact children's picture-book illustration in the same soft watercolor, gouache, and clean ink line style, cozy mint-green bathroom, same composition, camera angle, colors, and lighting. A clean white porcelain toilet with a warm wooden seat and upright open wooden lid sits in the center. Crucial change: The wall on the left now features the exact same square mint-green ceramic tile wainscoting as the right wall—several rows of square mint tiles rising up from the wooden baseboard to the exact same mid-wall height on both walls (not just a single row on the left). Above the tile line, smooth mint/pale turquoise painted walls. Retain all other elements faithfully: the wooden toilet paper holder with roll, round woven basket with spare rolls on the floor, small wooden shelf with tiny potted succulent and blue hanging hand towel, wooden framed leaf picture, wooden window frame with sheer white curtain on the left, leafy twig plant in ceramic vase on the floor, cream floor tiles with blue dot accents, fringed floor rug. No floating objects, no people, no faces on objects, no text, no logos. Square 1:1.",
   "reference_images": [
-    "images/toilet.jpg (commit 28a58fe, the same picture with a face on the toilet; recreated without it)"
+    "images/toilet.jpg (commit 51d9474, the same picture with a single row of tiles on the left wall; recreated with matching tiles)"
   ],
   "edits": [
     "contrast raised once with the values of tools/enhance.py"
@@ -37,7 +37,7 @@
   "license": "CC0-1.0",
   "copyright_check": {
     "date": "2026-10-23",
-    "method": "Google Lens, Exact matches tab, raw and final file",
-    "result": "no exact matches"
+    "method": "Google Lens, Exact and Visual matches tabs, raw and final file",
+    "result": "no exact matches; visual matches show other toilets, no same composition"
   }
 }

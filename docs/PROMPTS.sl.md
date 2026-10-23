@@ -21,7 +21,7 @@ Vsaka slika rutine je kvadratna ilustracija 1 : 1, ustvarjena z modelom za slike
 - **Koraki naj se ločijo.** »Pospravi mizo« ne sme kazati korita s pipo, ker to že kaže »umij roke«. Zaprte oči ima le slika spanja; ob prebujanju so oči široko odprte.
 - **Brez rok brez telesa.** Roke so le v pogledu z otrokovimi očmi, ko pridejo od spodnjega roba (pripravi mizo, pospravi mizo, pižama). Sicer dejanje opravi medvedek (pospravi posteljo, pospravi igrače).
 - **Blago se podreja teži.** Oblačila, odeje in brisače visijo, se gubijo in polegajo; nikoli ne stojijo toge kot deska. Otrok ne nosi že tega, kar si oblači.
-- **Isti svet.** Kopanje in zobki so v isti kopalnici kot stranišče; isti medvedek se zbuja, pospravlja posteljo, pospravlja igrače in spi. Progasto čepico nosi le ob spanju (dobro jutro, pospravi posteljo, spanje); drugod je brez nje.
+- **Isti svet.** Kopanje in zobki so v isti kopalnici kot stranišče; isti medvedek se zbuja, pospravlja posteljo, pospravlja igrače in spi. Progasto čepico nosi le ob spanju (dobro jutro, pospravi posteljo, spanje); drugod je brez nje. Popravek skupnega prostora (ploščice na obeh stenah) gre v vse slike tega prostora: primerjaj jih drugo ob drugi.
 - **Pokaži dobre navade.** Slike kažejo varno, zdravo vedenje, nikoli slabega zgleda: sedež je daleč od zaslona, nikoli tik ob njem.
 - **Brez lažnih obljub.** Ne kaži hrane, ki je otrok ne bo dobil (palačinke za zajtrk doma, ko je zajtrk v vrtcu).
 - **Pred uporabo preveri** kontrast (glej AGENTS.sl.md) in avtorstvo na surovi in končni datoteki (`.agents/skills/copyright-check/`).

@@ -2,9 +2,9 @@
 
 [English](README.md) · **Slovenščina**
 
-**[Odprite izdelovalnik listov →](https://stutek.github.io/child-routines/)**
+**[Naredite svoj list →](https://stutek.github.io/child-routines/)**
 
-Natisljivi listi A4 z dnevno rutino za otroke od 3 let: jutro, večerja in večer. Otrok sledi sličicam in opravljen korak označi z magnetkom ali kljukico. Odrasli preberejo vrstni red in uro.
+Listi A4 z dnevno rutino za otroke od 3 let: jutro, večerja in večer. Otrok sledi sličicam. Opravljen korak označi z magnetkom v krogu ali s kljukico. Odrasli preberejo vrstni red in uro.
 
 ![Trije vzorčni listi: jutro, večerja in večer](docs/preview.jpg)
 
@@ -12,31 +12,32 @@ Brezplačno, brez prijave in brez oglasov. Kar vpišete, ostane v vašem brskaln
 
 ## Kako naredim svoj list
 
-1. Odprite [izdelovalnik](https://stutek.github.io/child-routines/), najlaže na računalniku. Začne s primerom večerne rutine.
-2. Izberite tip rutine in vpišite korake (največ 8). Naslov in napise lahko spremenite, sličico zamenjate s klikom, vrstni red z vlečenjem za pike. Uro vpišite ali jo skrijte (*Ura na listu*).
+1. Odprite [stran za izdelavo lista](https://stutek.github.io/child-routines/). Najlažje gre na računalniku. Stran se odpre s primerom večerne rutine.
+2. Izberite tip rutine in vpišite 3–4 korake (največ 8). Sličico zamenjate s klikom nanjo. Vrstico premaknete tako, da jo povlečete za pike. Uro vpišite ali izklopite *Ura na listu*.
 3. Kliknite **Natisni**: A4, robovi *Brez*, merilo 100 %. Za babico ali tiskarno izberite *Shrani kot PDF*. List lahko pritrdite na hladilnik ali tablo.
 
 ## Kako ga uporabljamo
 
-- **List sestavite skupaj z otrokom**, prve dni pa korake opravite skupaj. Sličice naj izbere otrok, vrstni red vi.
-- **Začnite z eno rutino**, pri triletniku s 3–4 koraki.
-- **Magnetek pomeni »narejeno«.** Kot nagrada lahko otroku vzame veselje.
-- **Ura je za odrasle.** Če korak izpade ali se vrstni red pomeša, ostanite mirni in poskusite znova naslednjič.
-- **Ko otrok prespi pri sorodnikih,** naj gre list z njim.
+- **List sestavite skupaj z otrokom.** Vi vpišete korake, otrok izbere sličice.
+- **Prve dni korake opravite skupaj.**
+- **Začnite s 3–4 koraki.** Ko otrok rutino zna, dodajte nove.
+- **Magnetek pomeni »narejeno«.** Ne obljubljajte daril za magnetke: nagrada lahko otroku vzame veselje do opravila.
+- **Ure na listu so za odrasle,** ne za priganjanje. Če korak izpade ali se vrstni red pomeša, ohranite mir in poskusite znova naslednjič.
+- **Ko otrok prespi pri starih starših, teti ali stricu,** naj gre list z njim. Znano zaporedje mu lahko da občutek varnosti.
 
 Vzorčni listi so [tu](https://stutek.github.io/child-routines/output/sl-primer.html), pripravljeni za tisk.
 
 ## Varnost
 
-- **Starost:** od 3 let naprej.
-- **Magnetki:** otrok ne sme pogoltniti magnetka ali delčka. Pazite na mlajše sorojence. Če se zgodi, takoj k zdravniku.
-- **Pisala:** za kljukice uporabite otroška pisala, varna za uporabo in kemično varna.
-- **Zdravila:** daje in hrani jih odrasel; niso sladkarija.
+- **Starost:** list je za otroke od 3 let naprej.
+- **Magnetki:** izberite velike v plastiki in jih shranite zunaj dosega mlajših otrok. Če otrok pogoltne magnetek, takoj pojdite k zdravniku.
+- **Pisala:** za kljukice uporabite otroška, kemično varna pisala.
+- **Zdravila:** daje in hrani jih odrasel. Niso sladkarija.
 - **Kopanje:** otroka nikoli ne pustite samega v kadi.
 
 ## Vam je pomagalo?
 
-Kliknite **⭐ Star** na [strani projekta](https://github.com/stutek/child-routines) (potreben je račun na GitHubu) ali povezavo delite z drugimi starši.
+Pošljite povezavo drugim staršem. Če imate račun na GitHubu, kliknite še **⭐ Star** na [strani projekta](https://github.com/stutek/child-routines).
 
 ## Za napredne
 

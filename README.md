@@ -2,9 +2,9 @@
 
 **English** · [Slovenščina](README.sl.md)
 
-**[Open the sheet maker →](https://stutek.github.io/child-routines/)**
+**[Make your sheet →](https://stutek.github.io/child-routines/)**
 
-Printable A4 sheets with a daily routine for children aged 3 and up: morning, dinner and evening. Your child follows the pictures and marks each finished step with a magnet or a tick. Adults read the order and the time.
+A4 sheets with a daily routine for children aged 3 and up: morning, dinner and evening. Your child follows the pictures. They mark each finished step with a magnet on its circle or a tick. Adults read the order and the time.
 
 ![Three example sheets: morning, dinner and evening](docs/preview.jpg)
 
@@ -12,31 +12,32 @@ Free, no sign-up and no ads. What you type stays in your browser.
 
 ## How to make your sheet
 
-1. Open the [sheet maker](https://stutek.github.io/child-routines/), easiest on a computer. It starts with an example evening routine.
-2. Pick the routine type and type the steps (up to 8). You can change the title and labels, swap a picture by clicking it, and reorder by dragging the dots. Type a time or hide it (*Time on the sheet*).
+1. Open the [sheet maker](https://stutek.github.io/child-routines/). It is easiest on a computer. It opens with an example evening routine.
+2. Pick the routine type and type 3–4 steps (up to 8). Click a picture to change it. Drag a row by its dots to move it. Type a time, or turn off *Time on the sheet*.
 3. Click **Print**: A4, margins *None*, scale 100%. For a grandparent or a print shop, choose *Save as PDF*. You can put the sheet on the fridge or a board.
 
 ## How to use it
 
-- **Make the sheet together with your child**, and do the steps together for the first few days. Your child picks the pictures, you set the order.
-- **Start with one routine**, for a three-year-old with 3–4 steps.
-- **A magnet means "done".** As a reward it can take the joy away.
-- **The time is for adults.** If a step is skipped or the order gets mixed up, stay calm and try again next time.
-- **When your child sleeps over at relatives',** send the sheet along.
+- **Make the sheet together with your child.** You type the steps, your child picks the pictures.
+- **Do the steps together for the first few days.**
+- **Start with 3–4 steps.** When your child knows the routine, add more.
+- **A magnet means “done”.** Don't promise gifts for magnets: a reward can take away the joy of the task.
+- **The times on the sheet are for adults,** not for hurrying. If a step is skipped or the order gets mixed up, stay calm and try again next time.
+- **When your child sleeps over at grandparents', an aunt's or an uncle's,** send the sheet along. A familiar order can give a child a sense of security.
 
 Example sheets, ready to print, are [here](https://stutek.github.io/child-routines/output/en-example.html).
 
 ## Safety
 
-- **Age:** 3 and up.
-- **Magnets:** a child must not swallow a magnet or a piece of one. Mind younger siblings. If it happens, see a doctor at once.
-- **Pens:** for ticks, use pens made for children, safe to use and chemically safe.
-- **Medicine:** an adult gives and keeps it; it is not a sweet.
+- **Age:** the sheet is for children aged 3 and up.
+- **Magnets:** choose large ones in plastic and keep them out of reach of younger children. If a child swallows a magnet, see a doctor at once.
+- **Pens:** for ticks, use children's chemically safe pens.
+- **Medicine:** an adult gives and keeps it. It is not a sweet.
 - **Bath:** never leave a child alone in the bath.
 
 ## Did it help?
 
-Click **⭐ Star** on the [project page](https://github.com/stutek/child-routines) (needs a GitHub account) or share the link with other parents.
+Send the link to other parents. If you have a GitHub account, also click **⭐ Star** on the [project page](https://github.com/stutek/child-routines).
 
 ## For advanced users
 

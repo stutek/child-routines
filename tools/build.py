@@ -306,14 +306,15 @@ CSS = """
     .pic-left { grid-column: 1; }
     .pic-right { grid-column: 3; }
 
-    /* The inner image edge fades into the frame background (--bg) */
+    /* The inner image edge fades into the frame background (--bg). The fade ends at 97 %, not 100 %:
+       at 100 % the last pixels keep a trace of the dark image grain next to the flat frame (a thin line). */
     .pic-left img {
-      -webkit-mask-image: linear-gradient(to right, #000 80%, transparent 100%);
-      mask-image: linear-gradient(to right, #000 80%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to right, #000 80%, transparent 97%);
+      mask-image: linear-gradient(to right, #000 80%, transparent 97%);
     }
     .pic-right img {
-      -webkit-mask-image: linear-gradient(to left, #000 80%, transparent 100%);
-      mask-image: linear-gradient(to left, #000 80%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to left, #000 80%, transparent 97%);
+      mask-image: linear-gradient(to left, #000 80%, transparent 97%);
     }
 
     .rt-card {

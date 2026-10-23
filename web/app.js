@@ -110,10 +110,27 @@ function stars() {
   return out;
 }
 
-// same as image_size() in tools/build.py
-function imageSize(n) {
-  const g = D.geometry, row = (g.page_h - g.margin - g.margin_bottom - g.title - g.footer) / (2 * n + 2);
-  return Math.min(g.img, Math.floor((4 * row - g.gap) * 2) / 2);
+// same as layout() and centres() in tools/build.py
+function layout(n) {
+  const g = D.geometry, w = g.page_w - 2 * g.margin;
+  const area = g.page_h - g.margin - g.margin_bottom - g.title - g.footer + g.footer_gap, span = area - 2 * g.edge, top = Math.floor((w - g.gap) / 2 * 2) / 2;
+  const half = x => Math.floor(x * 2) / 2;
+  let narrow, wide;
+  if (n === 1) { narrow = g.img; wide = top; }
+  else {
+    const k = n - 1;
+    narrow = Math.min(g.img, half((2 * span - g.gap * k) / (n + 1)));
+    const a = 2 * (span - (g.frame_h / 2 + g.gap) * k) / (n + 1), c = 2 * (span - (g.circle / 2 + g.gap) * k) / (n + 1);
+    const free = (w - g.circle - g.gap) / 2;
+    wide = Math.min(top, half(a <= free ? a : Math.max(free, Math.min(a, c))));
+  }
+  const img = Math.max(narrow, wide);
+  return { img, wide: wide > narrow, p: n > 1 ? (span - img) / (n - 1) : 0, area };
+}
+
+function centres(n) {
+  const g = D.geometry, { img, p, area } = layout(n);
+  return Array.from({ length: n }, (_, k) => n === 1 ? g.title + area / 2 : Math.round((g.title + g.edge + img / 2 + k * p) * 1000) / 1000);
 }
 
 // the reader's locale when it matches the page language (en-GB: 19:30, en-US: 7:30 PM, sl: 19:30),
@@ -130,7 +147,7 @@ function clockText(time, lang) {
 }
 
 function sheetHtml(sheet, lang = "sl") {
-  const n = sheet.steps.length;
+  const n = sheet.steps.length, ys = centres(n);
   const rows = sheet.steps.map((step, k) => {
     const i = k + 1, side = i % 2 ? "left" : "right";
     const bg = step.image && EDGES[step.image] ? EDGES[step.image][side === "left" ? 0 : 1] : D.missingBg;
@@ -139,11 +156,11 @@ function sheetHtml(sheet, lang = "sl") {
     const clock = sheet.times === false ? "" : step.time ? `<div class="rt-time">${esc(clockText(step.time, lang))}</div>`
       : '<div class="rt-time"><span class="blank"></span>:<span class="blank"></span></div>';
     return `
-      <div class="rt-pic pic-${side}" style="${style} grid-row: ${2 * i} / span 4;">
+      <div class="rt-pic pic-${side}" style="${style} --y: ${ys[k]}mm;">
         ${picture}
         <div class="rt-num">${i}</div>
       </div>
-      <div class="rt-card card-${side}" style="${style} grid-row: ${2 * i + 1} / span 2;">
+      <div class="rt-card card-${side}" style="${style} --y: ${ys[k]}mm;">
         <div class="rt-text">
           <div class="rt-label">${esc(step.label)}</div>
           ${clock}
@@ -155,11 +172,10 @@ function sheetHtml(sheet, lang = "sl") {
   const background = plain || `linear-gradient(180deg, ${D.skies[sheet.sky] || D.skies.dawn})`;
   const starry = sheet.sky === "night"
     ? `<svg class="rt-sky" viewBox="0 0 210 297" preserveAspectRatio="none" aria-hidden="true"><g fill="#FFF8DC">${stars()}</g></svg>` : "";
-  const gridRows = `${D.geometry.title}mm repeat(${2 * n + 2}, minmax(0, 1fr))`;
-  const img = imageSize(n), size = img < D.geometry.img ? ` --img: ${img}mm;` : "";
+  const { img, wide } = layout(n), size = img !== D.geometry.img ? ` --img: ${img}mm;` : "";
   return `
-  <div class="page-a4 rt-page" style="background: ${background};${size}">${starry}
-    <div class="rt-grid" style="grid-template-rows: ${gridRows};">
+  <div class="page-a4 rt-page${wide ? " rt-wide" : ""}" style="background: ${background};${size}">${starry}
+    <div class="rt-grid">
       <div class="rt-header"><div class="rt-title">${esc(sheet.title)}</div></div>${rows}
     </div>
     <div class="rt-footer${sheet.sky === "night" ? " on-dark" : ""}"><span class="rt-license"><img class="rt-under3" src="under3.jpg" alt="${esc(D.under3[lang] || D.under3.en)}"><span class="rt-legal"><span class="rt-safety">${esc(D.safety[lang] || D.safety.en)}</span>${esc(D.license[lang] || D.license.en)}</span></span><span class="rt-site">${esc(D.site)}</span>${D.qr}</div>

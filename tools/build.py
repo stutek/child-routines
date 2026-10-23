@@ -45,15 +45,50 @@ TOOLBAR = {
 
 MISSING_BG = "#FFFFFF"
 
-# Sheet geometry in mm (A4). Rows under the title are all equal, so image centres are evenly spaced;
-# a sheet with many steps gets smaller images to keep GAP between images on the same side.
-GEOMETRY = {"page_h": 297, "margin": 5, "margin_bottom": 14, "title": 14, "footer": 14, "img": 58, "gap": 3}
+# Sheet geometry in mm (A4). The first picture sits `edge` under the title row and the last `edge` above the
+# footer; the step centres are evenly spaced in between. "img" is the largest picture, "gap" the clearance between objects.
+GEOMETRY = {"page_h": 297, "page_w": 210, "margin": 5, "margin_bottom": 14, "title": 12, "footer": 14, "img": 58,
+            "gap": 3, "edge": 1.5, "frame_h": 18, "circle": 35, "footer_gap": 1}
 
 
-def image_size(n):
+def floor_half(x):
+    return int(x * 2) / 2
+
+
+def layout(n):
+    """Picture size, whether the frames are wide, and the step spacing for n steps (n >= 1).
+    Narrow frames (width - 2 pictures, 84 mm at 58 mm): pictures on the same side keep `gap` (2p >= img + gap).
+    Wide frames (from the own picture to the far edge): the frame of a step passes the opposite column, so the next
+    picture must clear it (p >= img/2 + frame_h/2 + gap); a picture wider than half the free width minus the circle
+    also has to clear the neighbour's circle (p >= img/2 + circle/2 + gap). The larger picture wins; at most two columns apart."""
     g = GEOMETRY
-    row = (g["page_h"] - g["margin"] - g["margin_bottom"] - g["title"] - g["footer"]) / (2 * n + 2)
-    return min(g["img"], int((4 * row - g["gap"]) * 2) / 2)
+    w = g["page_w"] - 2 * g["margin"]
+    # steps area: from under the title row to the footer; the footer's own gap above it counts as space for the last picture
+    span = g["page_h"] - g["margin"] - g["margin_bottom"] - g["title"] - g["footer"] + g["footer_gap"] - 2 * g["edge"]
+    top = floor_half((w - g["gap"]) / 2)   # pictures in the two columns keep `gap` between them
+    if n == 1:
+        narrow, wide = g["img"], top
+    else:
+        k = n - 1
+        narrow = min(g["img"], floor_half((2 * span - g["gap"] * k) / (n + 1)))
+        a = 2 * (span - (g["frame_h"] / 2 + g["gap"]) * k) / (n + 1)             # frame clearance
+        c = 2 * (span - (g["circle"] / 2 + g["gap"]) * k) / (n + 1)              # circle clearance
+        free = (w - g["circle"] - g["gap"]) / 2                                   # no horizontal overlap with the circle
+        wide = min(top, floor_half(a if a <= free else max(free, min(a, c))))
+    img = max(narrow, wide)
+    p = (span - img) / (n - 1) if n > 1 else 0
+    return img, wide > narrow, p
+
+
+def centres(n):
+    """Step centres in mm from the top of the steps area (title row included)."""
+    g = GEOMETRY
+    img, wide, p = layout(n)
+    if n == 1:
+        return [g["title"] + (g["page_h"] - g["margin"] - g["margin_bottom"] - g["title"] - g["footer"] + g["footer_gap"]) / 2]
+    return [round(g["title"] + g["edge"] + img / 2 + k * p, 3) for k in range(n)]
+
+
 MIN_FRAME_LUMINANCE = 0.6  # WCAG relative luminance; keeps frames pastel
 
 
@@ -124,6 +159,7 @@ def clock_text(time, lang):
 
 def sheet_html(sheet, lang="sl"):
     n = len(sheet["steps"])
+    ys = centres(n)
     rows = []
     for i, step in enumerate(sheet["steps"], 1):
         side = "left" if i % 2 else "right"
@@ -137,11 +173,11 @@ def sheet_html(sheet, lang="sl"):
                  f'<div class="rt-time">{escape(clock_text(time, lang))}</div>' if time else
                  '<div class="rt-time"><span class="blank"></span>:<span class="blank"></span></div>')
         rows.append(f"""
-      <div class="rt-pic pic-{side}" style="{style} grid-row: {2 * i} / span 4;">
+      <div class="rt-pic pic-{side}" style="{style} --y: {ys[i - 1]:g}mm;">
         {picture}
         <div class="rt-num">{i}</div>
       </div>
-      <div class="rt-card card-{side}" style="{style} grid-row: {2 * i + 1} / span 2;">
+      <div class="rt-card card-{side}" style="{style} --y: {ys[i - 1]:g}mm;">
         <div class="rt-text">
           <div class="rt-label">{escape(step['label'])}</div>
           {clock}
@@ -152,13 +188,11 @@ def sheet_html(sheet, lang="sl"):
     background = plain or f'linear-gradient(180deg, {SKIES.get(sheet["sky"], sheet["sky"])})'
     starry = (f'\n    <svg class="rt-sky" viewBox="0 0 210 297" preserveAspectRatio="none" aria-hidden="true">'
               f'<g fill="#FFF8DC">{stars()}</g></svg>') if sheet.get("stars") and not plain else ""
-    # half-rows: title, then 2n + 2 equal ones; image i spans 4 (from 2i), its frame the middle 2
-    grid_rows = f"{GEOMETRY['title']}mm repeat({2 * n + 2}, minmax(0, 1fr))"
-    img = image_size(n)
-    size = f" --img: {img:g}mm;" if img < GEOMETRY["img"] else ""
+    img, wide, _ = layout(n)
+    size = f" --img: {img:g}mm;" if img != GEOMETRY["img"] else ""
     return f"""
-  <div class="page-a4 rt-page" style="background: {background};{size}">{starry}
-    <div class="rt-grid" style="grid-template-rows: {grid_rows};">
+  <div class="page-a4 rt-page{' rt-wide' if wide else ''}" style="background: {background};{size}">{starry}
+    <div class="rt-grid">
       <div class="rt-header"><div class="rt-title">{escape(sheet['title'])}</div></div>{''.join(rows)}
     </div>
     <div class="rt-footer{' on-dark' if sheet['sky'] == 'night' else ''}"><span class="rt-license"><img class="rt-under3" src="../web/under3.jpg" alt="{escape(UNDER3.get(lang, UNDER3["en"]))}"><span class="rt-legal"><span class="rt-safety">{escape(SAFETY.get(lang, SAFETY["en"]))}</span>{escape(LICENSE.get(lang, LICENSE["en"]))}</span></span><span class="rt-site">{SITE}</span>{QR}</div>
@@ -180,6 +214,8 @@ CSS = """
       --img: __IMG__mm; --label: 13pt;
       --frame-w: calc(var(--page-w) - 2 * var(--margin) - 2 * var(--img));
     }
+    /* few steps: the frame reaches from its picture to the far edge, over the opposite column */
+    .rt-wide { --frame-w: calc(var(--page-w) - 2 * var(--margin) - var(--img) + 0.9mm); }
 
     body {
       /* plain warm paper, like the paper of the pictures; colour stays on the sheets (screen only; print has no body background) */
@@ -239,18 +275,12 @@ CSS = """
 
     .rt-sky { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 
-    /* Images alternate left and right, each spanning four half-rows, with the label frame beside it.
-       Image + frame + image = sheet width without margins (200 mm on A4), because a frame reaches into
-       the height of the opposite image. */
-    .rt-grid {
-      position: relative;
-      flex-grow: 1;
-      min-height: 0;
-      display: grid;
-      grid-template-columns: var(--img) 1fr var(--img);
-    }
+    /* Images alternate left and right at evenly spaced centres (--y), with the label frame beside it.
+       Narrow frames: image + frame + image = sheet width without margins (200 mm on A4), because a frame
+       reaches into the height of the opposite image. Wide frames (.rt-wide): image + frame = 200 mm. */
+    .rt-grid { position: relative; flex-grow: 1; min-height: 0; }
 
-    .rt-header { grid-column: 1 / -1; grid-row: 1; align-self: center; text-align: center; }
+    .rt-header { position: absolute; top: 0; left: 0; right: 0; height: __TITLE__mm; display: flex; align-items: center; justify-content: center; }
 
     /* Footer: licence left, address and QR right; only the QR has a white ground (it needs it to scan),
        the text turns light on the night sky */
@@ -281,9 +311,8 @@ CSS = """
     }
 
     .rt-pic {
-      position: relative;
-      align-self: center;
-      justify-self: center;
+      position: absolute;
+      top: calc(var(--y) - var(--img) / 2);
       width: var(--img);
       height: var(--img);
       border-radius: 7mm;   /* badge radius 5 + gap 1 + border 0.9: concentric with the badge */
@@ -305,8 +334,8 @@ CSS = """
       border: 1mm dashed color-mix(in srgb, var(--step) 35%, #ffffff);
       border-radius: 6mm;
     }
-    .pic-left { grid-column: 1; }
-    .pic-right { grid-column: 3; }
+    .pic-left { left: 0; }
+    .pic-right { right: 0; }
 
     /* The inner image edge fades into the frame background (--bg), only where the frame (18 mm) joins
        it; the corners above and below stay sharp. The second layer keeps the image whole outside that
@@ -326,10 +355,9 @@ CSS = """
     }
 
     .rt-card {
-      position: relative;
+      position: absolute;
+      top: calc(var(--y) - 9mm);
       z-index: 2;
-      grid-column: 2;
-      align-self: center;
       width: var(--frame-w);
       height: 18mm;
       display: flex;
@@ -346,9 +374,9 @@ CSS = """
     .rt-card::before, .rt-card::after { content: ""; position: absolute; border-radius: inherit; }
     .rt-card::before { inset: 0; z-index: 0; background: var(--step); }
     .rt-card::after { inset: 0.9mm; z-index: 1; background: var(--bg); border-radius: 0; }
-    .card-left { justify-self: start; margin-left: -0.9mm; border-radius: 0 6mm 6mm 0; flex-direction: row-reverse; padding: 0 2.4mm 0 0; }
+    .card-left { left: calc(var(--img) - 0.9mm); border-radius: 0 6mm 6mm 0; flex-direction: row-reverse; padding: 0 2.4mm 0 0; }
     .card-left::after { left: -0.3mm; border-radius: 0 5.1mm 5.1mm 0; }
-    .card-right { justify-self: end; margin-right: -0.9mm; border-radius: 6mm 0 0 6mm; padding: 0 0 0 2.4mm; }
+    .card-right { right: calc(var(--img) - 0.9mm); border-radius: 6mm 0 0 6mm; padding: 0 0 0 2.4mm; }
     .card-right::after { right: -0.3mm; border-radius: 5.1mm 0 0 5.1mm; }
 
     .rt-text { position: relative; z-index: 2; flex-grow: 1; display: flex; flex-direction: column; align-items: center; gap: 0.8mm; }
@@ -406,7 +434,7 @@ CSS = """
 """
 
 
-CSS = CSS.replace("__IMG__", str(GEOMETRY["img"])).replace("__FOOTER__", str(GEOMETRY["footer"] - 1))
+CSS = CSS.replace("__IMG__", str(GEOMETRY["img"])).replace("__TITLE__", str(GEOMETRY["title"])).replace("__FOOTER__", str(GEOMETRY["footer"] - 1))
 
 
 def page_html(routine):

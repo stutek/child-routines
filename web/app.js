@@ -22,27 +22,27 @@ const PALETTES = [
 const T = {
   sl: {
     heading: "Otrokove rutine", aboutTitle: "O aplikaciji", howTitle: "Navodila",
-    about: "Ko otrok na listu vidi, kaj pride zdaj in kaj potem, mu je laže slediti rutini. Ko na opravljen korak sam položi magnetek ali nariše kljukico, vidi, koliko je že naredil in kaj ga še čaka. Predlagamo, da list sestavita skupaj in prve dni ob njem skupaj opravita vsak korak. Še posebej pride prav, kadar otrok prespi pri sorodnikih: starim staršem, tetam in stricem pomaga slediti rutini, ki jo otrok pozna od doma. Znano zaporedje mu lahko da občutek varnosti in ga pomiri.",
-    how: ["Najlaže na računalniku, kjer je predogled ob obrazcu. Izberi »Tip rutine« (jutro, dan ali večer) in vpiši korake, največ 8. Pri triletniku začni z eno rutino in 3–4 koraki.", "Sličico stran izbere sama; klikni nanjo, če jo želiš zamenjati. Naj otrok izbere sličice.", "Naslov in napise lahko poljubno spremeniš; prazne vrstice se ne natisnejo.", "Uro vpiši ali jo skrij s stikalom »Ura na listu«. Vrstni red spremeniš tako, da vrstico povlečeš za pike.", "Klikni »Natisni« in izberi A4, robove »Brez« in merilo 100 %. List lahko pritrdiš na hladilnik ali tablo; otrok opravljen korak označi z magnetkom ali kljukico."],
+    about: "Ko otrok na listu vidi, kaj pride na vrsto, mu je rutina lažja. Opravljen korak sam označi z magnetkom ali kljukico. List sestavita skupaj, prve dni pa korake opravita skupaj. Pomaga tudi pri starih starših, tetah in stricih: znano zaporedje otroku lahko da občutek varnosti.",
+    how: ["Najlaže na računalniku. Izberi »Tip rutine« in vpiši korake (največ 8). Pri triletniku začni z eno rutino s 3–4 koraki.", "Sličico izbere stran; s klikom jo zamenjaš. Naj otrok izbere sličice.", "Naslov in napise lahko spremeniš. Prazne vrstice se ne natisnejo.", "Uro vpiši ali jo skrij (»Ura na listu«). Vrstni red spremeniš z vlečenjem za pike.", "Klikni »Natisni«: A4, robovi »Brez«, merilo 100 %. List lahko pritrdiš na hladilnik ali tablo."],
     example: "Naloži primer", replaceSheet: "Primer bo zamenjal tvoj list in vpisano se bo izgubilo. Nadaljujem?", print: "Natisni",
     type: "Tip rutine", sheetTitle: "Naslov lista", skies: { dawn: "jutro", afternoon: "dan", night: "večer" },
     times: "Ura na listu", background: "Ozadje", backgrounds: { gradient: "preliv barv", white: "belo", none: "prosojno (se ne natisne)" },
     label: "Opravilo", labelHint: "npr. UMIJ ZOBKE", language: "Jezik", moved: n => `Premaknjeno na mesto ${n}`, picture: "Sličica", time: "Ura", auto: "Samodejno", none: "Brez sličice", pick: "Zamenjaj sličico", removeStep: "Izprazni vrstico", move: "Premakni korak", moveHint: "Povleci za premik ali tapni tu in nato na novem mestu; s tipkovnico puščici gor in dol",
     warnNoMatch: (s, l) => `${s}: za »${l}« nimamo sličice. Izberi drugo ali pusti prazno.`,
     warnLong: (s, l) => `${s}: napis »${l}« je predolg za okvir; skrajšaj ga.`,
-    preview: "👁 Predogled: tako bo natisnjeno (A4)", step: "Korak", ok: "✓ Vse sličice so najdene in vsi napisi se prilegajo.", suggest: "Manjka sličica? Predlagaj jo", warnTitle: "Opozorila", watchTitle: "Na kaj paziti", watch: [["Starost", "list in magnetki so namenjeni otrokom od 3 let naprej."], ["Magnetki", "otrok ne sme pogoltniti magnetka ali njegovega delčka. Pazite tudi na mlajše sorojence. Če se to zgodi, takoj k zdravniku."], ["Zdravila", "sličica otroka le spomni, da je čas zanje; daje in hrani jih odrasel."], ["Nagrada", "magnetek pomeni »narejeno«. Če postane nagrada ali kazen, se otrok lahko trudi za nagrado, ne za opravilo."], ["Pritisk", "ura je za odrasle; list kaže vrstni red in ni test. Če otrok kak korak preskoči, ni drame."]], guide: "Navodila in varnost", project: "Projekt na GitHubu",
+    preview: "👁 Predogled: tako bo natisnjeno (A4)", step: "Korak", ok: "✓ Vse sličice so najdene in vsi napisi se prilegajo.", suggest: "Manjka sličica? Predlagaj jo", warnTitle: "Opozorila", watchTitle: "Na kaj paziti", watch: [["Starost", "od 3 let naprej."], ["Magnetki", "otrok ne sme pogoltniti magnetka ali delčka. Pazite na mlajše sorojence. Če se zgodi, takoj k zdravniku."], ["Zdravila", "daje in hrani jih odrasel; niso sladkarija."], ["Nagrada", "magnetek pomeni »narejeno«. Kot nagrada lahko otroku vzame veselje."], ["Pritisk", "ura je za odrasle. Preskočen korak ni drama."]], guide: "Navodila in varnost", project: "Projekt na GitHubu",
   },
   en: {
     heading: "Child routines", aboutTitle: "About", howTitle: "How to",
-    about: "When a child can see what comes now and what comes next, the routine is easier to follow. Putting a magnet or drawing a tick on each finished step themselves shows how much they have done and what is left. We suggest making the sheet together and, for the first few days, doing each step together with the sheet. It is especially handy when your child sleeps over at relatives': it helps grandparents, aunts and uncles follow the routine your child knows from home. A familiar order can give your child a sense of security and calm them.",
-    how: ["Easiest on a computer, where the preview is next to the form. Pick the “Routine type” (morning, day or evening) and type the steps, up to 8. For a three-year-old, start with one routine and 3–4 steps.", "The page picks a picture for each step; click it to change it. Let your child choose the pictures.", "You can change the title and every label as you like; empty rows are not printed.", "Type a time or hide it with the “Time on the sheet” switch. To change the order, drag a row by its dots.", "Click “Print” and choose A4, margins None and scale 100 %. You can put the sheet on the fridge or a board; your child marks each finished step with a magnet or a tick."],
+    about: "When a child sees what comes next, the routine gets easier. They mark each finished step with a magnet or a tick. Make the sheet together, and do the steps together for the first few days. It also helps at grandparents', aunts' and uncles': a familiar order can give a child a sense of security.",
+    how: ["Easiest on a computer. Pick the “Routine type” and type the steps (up to 8). For a three-year-old, start with one routine of 3–4 steps.", "The page picks a picture; click it to change it. Let your child choose the pictures.", "You can change the title and labels. Empty rows are not printed.", "Type a time or hide it (“Time on the sheet”). Drag a row by its dots to reorder.", "Click “Print”: A4, margins None, scale 100 %. You can put the sheet on the fridge or a board."],
     example: "Load example", replaceSheet: "The example will replace your sheet and what you typed will be lost. Continue?", print: "Print",
     type: "Routine type", sheetTitle: "Sheet title", skies: { dawn: "morning", afternoon: "day", night: "evening" },
     times: "Time on the sheet", background: "Background", backgrounds: { gradient: "color gradient", white: "white", none: "transparent (not printed)" },
     label: "Step", labelHint: "e.g. BRUSH TEETH", language: "Language", moved: n => `Moved to place ${n}`, picture: "Picture", time: "Time", auto: "Automatic", none: "No picture", pick: "Change picture", removeStep: "Clear row", move: "Move step", moveHint: "Drag to move, or tap here and then at the new place; with the keyboard, the up and down arrows",
     warnNoMatch: (s, l) => `${s}: no picture for "${l}". Pick another or leave it empty.`,
     warnLong: (s, l) => `${s}: "${l}" is too long for the frame; shorten it.`,
-    preview: "👁 Preview: this is what prints (A4)", step: "Step", ok: "✓ All pictures found and all labels fit.", suggest: "Missing a picture? Suggest one", warnTitle: "Warnings", watchTitle: "What to watch for", watch: [["Age", "the sheet and the magnets are meant for children aged 3 and up."], ["Magnets", "a child must not swallow a magnet or a piece of one. Mind younger siblings too. If it happens, see a doctor at once."], ["Medicine", "the picture only reminds the child it is time; an adult gives and keeps the medicine."], ["Rewards", "a magnet means “done”. If it becomes a reward or a punishment, the child may work for the reward rather than the task."], ["Pressure", "the time is for adults; the sheet shows the order, it is not a test. If your child skips a step, no drama."]], guide: "How to use it and safety", project: "Project on GitHub",
+    preview: "👁 Preview: this is what prints (A4)", step: "Step", ok: "✓ All pictures found and all labels fit.", suggest: "Missing a picture? Suggest one", warnTitle: "Warnings", watchTitle: "What to watch for", watch: [["Age", "3 and up."], ["Magnets", "a child must not swallow a magnet or a piece of one. Mind younger siblings. If it happens, see a doctor at once."], ["Medicine", "an adult gives and keeps it; it is not a sweet."], ["Rewards", "a magnet means “done”. As a reward it can take the joy away."], ["Pressure", "the time is for adults. A skipped step is no drama."]], guide: "How to use it and safety", project: "Project on GitHub",
   },
 };
 
@@ -159,7 +159,7 @@ function sheetHtml(sheet, lang = "sl") {
     <div class="rt-grid" style="grid-template-rows: ${gridRows};">
       <div class="rt-header"><div class="rt-title">${esc(sheet.title)}</div></div>${rows}
     </div>
-    <div class="rt-footer${sheet.sky === "night" ? " on-dark" : ""}"><span class="rt-license">${esc(D.license[lang] || D.license.en)}</span><span class="rt-site">${esc(D.site)}</span>${D.qr}</div>
+    <div class="rt-footer${sheet.sky === "night" ? " on-dark" : ""}"><span class="rt-license"><span class="rt-safety">${esc(D.safety[lang] || D.safety.en)}</span>${esc(D.license[lang] || D.license.en)}</span><span class="rt-site">${esc(D.site)}</span>${D.qr}</div>
   </div>`;
 }
 
@@ -298,7 +298,8 @@ function renderEditor() {
   const L = t(), root = document.getElementById("maker"), sheet = state.sheet;
   document.documentElement.lang = state.lang;
   document.title = L.heading;
-  document.getElementById("preview-label").textContent = L.preview;
+  // Print sits with the preview: on a computer it stays in view next to the sheet
+  document.getElementById("preview-label").replaceChildren(el("span", {}, L.preview), el("button", { class: "print", onclick: () => window.print() }, L.print));
   root.classList.toggle("no-times", !state.times);
   const times = el("input", { type: "checkbox", onchange: e => { state.times = e.target.checked; update(true); } });
   times.checked = state.times;
@@ -368,9 +369,7 @@ function renderEditor() {
     box.append(row, gallery);
     step._thumb = thumb;
   });
-  // print comes last, after the parent has filled in the rows and read the warnings
-  root.append(box, el("div", { id: "warnings", role: "status" }),
-    el("div", { class: "row-top" }, el("button", { class: "primary", onclick: () => window.print() }, L.print)));
+  root.append(box, el("div", { id: "warnings", role: "status" }));
 }
 
 // refresh each row's picture in place, so typing keeps focus; an empty row shows no picture

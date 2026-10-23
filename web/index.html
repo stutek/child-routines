@@ -121,7 +121,10 @@
     /* the preview takes the column's width, so fitPreview() scales the sheet to it, not to itself */
     #preview { width: 100%; max-width: 840px; }
     #sheets { display: flex; flex-direction: column; gap: 24px; }
-    .preview-label { font-weight: 800; font-size: 15px; color: #334155; background: #ffffff; border-radius: 10px; padding: 8px 14px; margin-bottom: 10px; display: inline-block; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); }
+    .preview-label { font-weight: 800; font-size: 15px; color: #334155; background: #ffffff; border-radius: 10px; padding: 8px 8px 8px 14px; margin-bottom: 10px; display: inline-flex; align-items: center; gap: 14px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); }
+    .preview-label .print { font: inherit; font-size: 16px; font-weight: 700; border: none; border-radius: 12px; padding: 8px 20px; cursor: pointer; background: #0F766E; color: #ffffff; }
+    .preview-label .print:hover { background: #115E59; }
+    .preview-label .print:focus-visible { outline: 3px solid #0F766E; outline-offset: 2px; }
     /* Wide screen: form on the left, the sheets on the right, staying in view while you edit */
     @media screen and (min-width: 1100px) {
       body { display: block !important; padding: 16px !important; }

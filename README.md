@@ -4,7 +4,7 @@
 
 **[Open the sheet maker →](https://stutek.github.io/child-routines/)**
 
-Printable A4 sheets with a daily routine for children aged 3 and up: morning, dinner and evening. You can put the printed sheet on the fridge or a board. Your child follows the pictures and marks each finished step by putting a magnet on its circle or drawing a tick. Adults read the order and the time on the sheet.
+Printable A4 sheets with a daily routine for children aged 3 and up: morning, dinner and evening. Your child follows the pictures and marks each finished step with a magnet or a tick. Adults read the order and the time.
 
 ![Three example sheets: morning, dinner and evening](docs/preview.jpg)
 
@@ -12,30 +12,30 @@ Free, no sign-up and no ads. What you type stays in your browser.
 
 ## How to make your sheet
 
-1. Open the [sheet maker](https://stutek.github.io/child-routines/), easiest on a computer, where the preview is next to the form. It starts with an example evening routine.
-2. Pick the routine type (morning, day, evening) and type up to 8 steps. You can change the sheet title and every label as you like. The page picks a picture for each step; click it to change it. To change the order, drag a row by the dots on its left. The time is optional: leave it empty and write it in by hand later, or hide the time fields with the *Time on the sheet* switch.
-3. Click **Print**. In the print window choose A4 paper, margins *None* and scale 100%. To send the sheet to a grandparent or a print shop, choose *Save as PDF* instead of a printer.
+1. Open the [sheet maker](https://stutek.github.io/child-routines/), easiest on a computer. It starts with an example evening routine.
+2. Pick the routine type and type the steps (up to 8). You can change the title and labels, swap a picture by clicking it, and reorder by dragging the dots. Type a time or hide it (*Time on the sheet*).
+3. Click **Print**: A4, margins *None*, scale 100%. For a grandparent or a print shop, choose *Save as PDF*. You can put the sheet on the fridge or a board.
 
 ## How to use it
 
-- **Make the sheet together with your child** and, for the first few days, do each step together with the sheet. Let your child pick the pictures; you set the order.
-- **A magnet on the circle means "done".** It is not a reward: do not take it away as a punishment and do not tie sweets or cartoons to it.
-- **Start with one routine**, for a three-year-old with 3–4 steps, and add to it bit by bit. If your child skips a step, no drama: the sheet shows the order, it is not a test.
-- **The time is for adults.** A young child follows the order of the pictures, not the clock.
-- **When your child sleeps over at grandparents' or relatives',** send the sheet along: they see what comes next and when, too.
+- **Make the sheet together with your child**, and do the steps together for the first few days. Your child picks the pictures, you set the order.
+- **Start with one routine**, for a three-year-old with 3–4 steps.
+- **A magnet means "done".** As a reward it can take the joy away.
+- **The time is for adults.** A skipped step is no drama.
+- **When your child sleeps over at relatives',** send the sheet along.
 
 Example sheets, ready to print, are [here](https://stutek.github.io/child-routines/output/en-example.html).
 
 ## Safety
 
-- **Age:** the sheet and the magnets are meant for children aged 3 and up.
-- **Magnets:** a child must not swallow a magnet or a piece of one. Mind younger siblings too. If it happens, see a doctor at once.
-- **Medicine and care:** an adult gives medicine and keeps it out of the child's reach. The step on the sheet only reminds the child that it is time for it.
+- **Age:** 3 and up.
+- **Magnets:** a child must not swallow a magnet or a piece of one. Mind younger siblings. If it happens, see a doctor at once.
+- **Medicine:** an adult gives and keeps it; it is not a sweet.
 - **Bath:** never leave a child alone in the bath.
 
 ## Did it help?
 
-Click **⭐ Star** at the top of the [project page on GitHub](https://github.com/stutek/child-routines) (needs a free GitHub account) or share the link with other parents. That tells us the project is worth more work.
+Click **⭐ Star** on the [project page](https://github.com/stutek/child-routines) (needs a GitHub account) or share the link with other parents.
 
 ## For advanced users
 

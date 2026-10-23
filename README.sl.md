@@ -4,7 +4,7 @@
 
 **[Odprite izdelovalnik listov →](https://stutek.github.io/child-routines/)**
 
-Natisljivi listi A4 z dnevno rutino za otroke od 3 let naprej: jutro, večerja in večer. Natisnjen list lahko pritrdite na hladilnik ali tablo. Otrok sledi sličicam in vsak opravljen korak označi tako, da na krog položi magnetek ali nariše kljukico. Odrasli na listu preberejo vrstni red in uro.
+Natisljivi listi A4 z dnevno rutino za otroke od 3 let: jutro, večerja in večer. Otrok sledi sličicam in opravljen korak označi z magnetkom ali kljukico. Odrasli preberejo vrstni red in uro.
 
 ![Trije vzorčni listi: jutro, večerja in večer](docs/preview.jpg)
 
@@ -12,30 +12,30 @@ Brezplačno, brez prijave in brez oglasov. Kar vpišete, ostane v vašem brskaln
 
 ## Kako naredim svoj list
 
-1. Odprite [izdelovalnik](https://stutek.github.io/child-routines/), najlaže na računalniku, kjer je predogled lista ob obrazcu. Začne s primerom večerne rutine.
-2. Izberite tip rutine (jutro, dan, večer) in vpišite do 8 korakov. Naslov lista in vse napise lahko poljubno spremenite. Sličico stran izbere sama; kliknite nanjo, če jo želite zamenjati. Vrstni red spremenite tako, da vrstico povlečete za pike na levi. Ura je neobvezna: prazno polje lahko izpolnite kasneje s pisalom, s stikalom *Ura na listu* pa polja za uro skrijete.
-3. Kliknite **Natisni**. V oknu za tiskanje izberite papir A4, robove *Brez* in merilo 100 %. Če želite list poslati babici ali tiskarni, namesto tiskalnika izberite *Shrani kot PDF*.
+1. Odprite [izdelovalnik](https://stutek.github.io/child-routines/), najlaže na računalniku. Začne s primerom večerne rutine.
+2. Izberite tip rutine in vpišite korake (največ 8). Naslov in napise lahko spremenite, sličico zamenjate s klikom, vrstni red z vlečenjem za pike. Uro vpišite ali jo skrijte (*Ura na listu*).
+3. Kliknite **Natisni**: A4, robovi *Brez*, merilo 100 %. Za babico ali tiskarno izberite *Shrani kot PDF*. List lahko pritrdite na hladilnik ali tablo.
 
 ## Kako ga uporabljamo
 
-- **List sestavite skupaj z otrokom** in prve dni ob njem skupaj opravite vsak korak. Naj izbere sličice; vrstni red določite vi.
-- **Magnetek na krogu pomeni »narejeno«.** Ni nagrada: ne jemljite ga za kazen in ne vežite nanj sladkarij ali risank.
-- **Začnite z eno rutino**, pri triletniku s 3–4 koraki, in jo dopolnjujte postopoma. Če otrok kak korak preskoči, ni drame: list kaže vrstni red, ni test.
-- **Ura je za odrasle.** Majhen otrok se ravna po vrstnem redu sličic, ne po uri.
-- **Ko otrok prespi pri starih starših ali sorodnikih,** naj gre list z njim: tudi oni vidijo, kaj sledi in kdaj.
+- **List sestavite skupaj z otrokom**, prve dni pa korake opravite skupaj. Sličice naj izbere otrok, vrstni red vi.
+- **Začnite z eno rutino**, pri triletniku s 3–4 koraki.
+- **Magnetek pomeni »narejeno«.** Kot nagrada lahko otroku vzame veselje.
+- **Ura je za odrasle.** Preskočen korak ni drama.
+- **Ko otrok prespi pri sorodnikih,** naj gre list z njim.
 
 Vzorčni listi so [tu](https://stutek.github.io/child-routines/output/sl-primer.html), pripravljeni za tisk.
 
 ## Varnost
 
-- **Starost:** list in magnetki so namenjeni otrokom od 3 let naprej.
-- **Magnetki:** otrok ne sme pogoltniti magnetka ali njegovega delčka. Pazite tudi na mlajše sorojence. Če se to zgodi, takoj k zdravniku.
-- **Zdravila in nega:** zdravila daje odrasel in jih hrani zunaj otrokovega dosega. Korak na listu otroka le spomni, da je čas zanje.
+- **Starost:** od 3 let naprej.
+- **Magnetki:** otrok ne sme pogoltniti magnetka ali delčka. Pazite na mlajše sorojence. Če se zgodi, takoj k zdravniku.
+- **Zdravila:** daje in hrani jih odrasel; niso sladkarija.
 - **Kopanje:** otroka nikoli ne pustite samega v kadi.
 
 ## Vam je pomagalo?
 
-Kliknite **⭐ Star** na vrhu [strani projekta na GitHubu](https://github.com/stutek/child-routines) (potreben je brezplačen račun na GitHubu) ali povezavo delite z drugimi starši. Tako bomo vedeli, da je projekt vreden nadaljnjega dela.
+Kliknite **⭐ Star** na [strani projekta](https://github.com/stutek/child-routines) (potreben je račun na GitHubu) ali povezavo delite z drugimi starši.
 
 ## Za napredne
 

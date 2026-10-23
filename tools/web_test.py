@@ -166,10 +166,11 @@ def main():
               const d = [...document.querySelectorAll('#maker details')], box = document.querySelector('#maker .sheet-box');
               const btn = document.querySelector('#actionbar .print'), hint = document.getElementById('print-hint');
               const copy = document.querySelector('#actionbar .copy'), lh = document.getElementById('link-hint'), undo = document.getElementById('undo');
-              const row = undo.parentElement, sel = row.querySelector('select');
+              const row = [...document.querySelectorAll('#maker .row-top.fields')].find(r => r.querySelector('button.secondary')), sel = row.querySelector('select');
               return JSON.stringify({
                 copyInBar: !!copy && copy.getAttribute('aria-describedby') === 'link-hint' && !!lh && lh.textContent.length > 10 && !!document.querySelector('#actionbar #linkbox') && !document.getElementById('preview-label') && getComputedStyle(document.getElementById('actionbar')).position === 'sticky' && document.getElementById('maker').lastElementChild === document.getElementById('actionbar') && !!document.getElementById('preview').getAttribute('aria-label'),
                 noActionsRow: !document.querySelector('#maker .actions') && document.querySelectorAll('#maker .copy').length === 1 && !row.querySelector('.copy'),
+                undoLine: !!(row.compareDocumentPosition(undo) & Node.DOCUMENT_POSITION_FOLLOWING) && !!(undo.compareDocumentPosition(box) & Node.DOCUMENT_POSITION_FOLLOWING) && undo.parentElement === document.getElementById('maker'),
                 exampleWithBackground: !!sel && !!row.querySelector('input[type=checkbox]') && [...row.querySelectorAll('button.secondary')].length === 1,
                 warnAbove: !!warn && !!(warn.compareDocumentPosition(field) & Node.DOCUMENT_POSITION_FOLLOWING) && warn.tagName === 'DETAILS' && warn.querySelectorAll('li').length >= 7 && !!warn.querySelector('summary .danger'),
                 iconHidden: warn.querySelector('.danger').getAttribute('aria-hidden') === 'true',

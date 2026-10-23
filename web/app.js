@@ -224,7 +224,7 @@ let undoTimer;
 function hideUndo() { clearTimeout(undoTimer); const u = document.getElementById("undo"); if (u) u.replaceChildren(); }
 function showUndo(prev, message = t().replaced) {
   const L = t(), u = document.getElementById("undo");
-  u.replaceChildren(message + " ", el("button", { onclick: () => { state = prev; update(true); document.getElementById("announce").textContent = L.undone; } }, L.undo));
+  u.replaceChildren(message + " ", el("button", { onclick: () => { state = prev; update(true); document.getElementById("announce").textContent = L.undone; } }, [el("img", { class: "icon", src: "undo.svg", alt: "" }), L.undo]));
   document.getElementById("announce").textContent = `${message} ${L.undo}?`;
   undoTimer = setTimeout(hideUndo, 10000);
 }
@@ -448,8 +448,9 @@ function renderEditor() {
         const prev = typed(sheet) && JSON.parse(JSON.stringify(state, (k, v) => (k.startsWith("_") ? undefined : v)));
         state = fromExample(state.lang, sheet.sky, state); update(true);
         if (prev) showUndo(prev);
-      } }, `${L.example}: ${L.skies[sheet.sky]}`),
-      el("span", { id: "undo", class: "undo" })]));
+      } }, `${L.example}: ${L.skies[sheet.sky]}`)]),
+    // the undo notice has its own line between the controls and the steps (example loaded, step removed)
+    el("div", { id: "undo", class: "undo" }));
 
   // column headings label the rows: a screen reader reads a field as "Step 3"
   const box = el("div", { class: "sheet-box" }, el("div", { class: "step step-head", "aria-hidden": "true" }, [

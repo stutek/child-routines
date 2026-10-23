@@ -2,27 +2,48 @@
 
 [English](README.md) · **Slovenščina**
 
-Listi A4 za tisk z dnevno rutino majhnega otroka: jutro, večerja in spanje. Obesite jih na hladilnik ali drugo kovinsko ploščo. Otrok sledi sličicam in na krog vsakega opravljenega koraka položi magnetek (ali ga odkljuka s pisalom, če list vsakič natisnete na novo). Odrasli preberejo vrstni red in ob vsak korak vpišejo predvideno uro, kar pomaga starim staršem ali varuški, ko otrok prespi pri njih.
+**[Odprite izdelovalnik listov →](https://stutek.github.io/child-routines/)**
 
-## Preizkusite
+Natisljivi listi A4 z dnevno rutino za otroke od 2 do 6 let: jutro, večerja in večer. List obesite na hladilnik. Otrok sledi sličicam in na krog ob vsakem opravljenem koraku položi magnetek. Odrasli na listu preberejo vrstni red in uro.
 
-**[Izdelajte svoj list](https://stutek.github.io/child-routines/web/)** · [Vzorčni listi, pripravljeni za tisk](https://stutek.github.io/child-routines/output/sl-primer.html)
+![Trije vzorčni listi: jutro, večerja in večer](docs/preview.jpg)
 
-![Trije vzorčni listi: jutro, večerja in spanje](docs/preview.jpg)
+Brezplačno, brez prijave in brez oglasov. Kar vpišete, ostane v vašem brskalniku.
 
-1. Odprite izdelovalnik listov. Začne z zgornjim primerom.
-2. Izberite tip lista (jutro, popoldne, večer) in vpišite do 8 korakov; prazne vrstice se ne natisnejo. Po želji vpišite uro: prazna ura ostane za ročni vpis, stikalo *Ura na listu* pa polja za uro izklopi. Vsakemu koraku se izbere sličica; kliknite nanjo, da jo zamenjate. Stran opozori, kadar za korak nima sličice ali kadar je napis predolg.
-3. Izberite ozadje (preliv barv, belo ali prosojno) in natisnite na A4: robovi *Brez*, merilo 100 %.
+## Kako naredim svoj list
 
-Vaši vnosi ostanejo v vašem brskalniku. Listi imajo spodaj 14 mm roba, ker večina domačih tiskalnikov spodnjega roba ne natisne.
+1. Odprite [izdelovalnik](https://stutek.github.io/child-routines/). Začne s primerom večerne rutine.
+2. Izberite vrsto rutine (jutro, dan, večer) in vpišite do 8 korakov. Sličico stran izbere sama; kliknite nanjo, če jo želite zamenjati. Vrstni red spremenite tako, da vrstico povlečete za pike na levi. Ura je neobvezna: prazno polje lahko izpolnite kasneje s pisalom.
+3. Kliknite **Natisni**. V oknu za tiskanje izberite papir A4, robove *Brez* in merilo 100 %. Če želite list poslati babici ali tiskarni, namesto tiskalnika izberite *Shrani kot PDF*.
 
-## Tisk brez izdelovalnika
+## Kako ga uporabljamo
 
-1. Prenesite datoteke: na [strani repozitorija](https://github.com/stutek/child-routines) kliknite **Code**, nato **Download ZIP**, in arhiv razširite. Listi potrebujejo mapo `images/` ob mapi `output/`, zato odpiranje posamezne datoteke na GitHubu ne deluje.
-2. V Chromu odprite `output/sl-primer.html` ali `web/index.html` za lasten list (deluje tudi brez povezave).
-3. Natisnite: papir A4, robovi *Brez*, merilo 100 %.
+- **List sestavite skupaj z otrokom** in ga prve dni skupaj prehodite. Naj izbere sličice; vrstni red določite vi.
+- **Magnetek na krogu pomeni »narejeno«.** Ni nagrada: ne jemljite ga za kazen in ne vežite nanj sladkarij ali risank.
+- **Ura je za odrasle.** Majhen otrok se ravna po vrstnem redu sličic, ne po uri.
+- **Ko otrok prespi pri starih starših ali sorodnikih,** naj gre list z njim: tudi oni vidijo, kaj sledi in kdaj.
 
-## Lastna rutina iz datotek
+Vzorčni listi so [tu](https://stutek.github.io/child-routines/output/sl-primer.html), pripravljeni za tisk.
+
+## Varnost
+
+- **Magnetki:** uporabite magnetke, večje od 3,5 cm, vdelane v plastiko, brez majhnih delov, ki bi se lahko odlepili. Počenega zavrzite. Če otrok pogoltne več magnetov, se lahko v črevesju privlačijo: takoj k zdravniku.
+- **Zdravila in nega:** zdravila daje odrasel in jih hrani zunaj otrokovega dosega. Korak na listu otroka le spomni, da je čas zanje.
+- **Kopanje:** otroka nikoli ne pustite samega v kadi.
+
+## Vam je pomagalo?
+
+Kliknite **⭐ Star** na vrhu [strani projekta na GitHubu](https://github.com/stutek/child-routines) (potreben je brezplačen račun na GitHubu) ali povezavo delite z drugimi starši. Tako bomo vedeli, da je projekt vreden nadaljnjega dela.
+
+## Za napredne
+
+### Tisk brez povezave
+
+1. Na [strani projekta](https://github.com/stutek/child-routines) kliknite **Code**, nato **Download ZIP**, in arhiv razširite. Listi potrebujejo mapo `images/` ob mapi `output/`, zato odpiranje posamezne datoteke na GitHubu ne deluje.
+2. V Chromu odprite `web/index.html` za lasten list ali `output/sl-primer.html` za vzorec.
+3. Natisnite kot zgoraj.
+
+### Lastna rutina iz datotek
 
 Rutine so podatkovne datoteke v [`routines/<jezik>/`](routines/). Eno kopirajte, spremenite napise, sličice in barve, nato znova zgradite:
 
@@ -34,7 +55,7 @@ python3 tools/build.py          # zapiše output/<jezik>-<ime>.html
 
 Slike so v [`images/`](images/), vsaka s svojo datoteko metapodatkov. Kako ustvariti nove: [docs/PROMPTS.sl.md](docs/PROMPTS.sl.md).
 
-## Lastna rutina z agentom
+### Lastna rutina z agentom
 
 Agent z umetno inteligenco (Claude Code, Codex, Gemini CLI ali Antigravity) lahko rutino sestavi namesto vas. Navodila repozitorija v [AGENTS.sl.md](AGENTS.sl.md) naloži sam.
 
@@ -50,19 +71,15 @@ Agent z umetno inteligenco (Claude Code, Codex, Gemini CLI ali Antigravity) lahk
 Priporočila:
 
 - **Osebni podatki ostanejo doma.** Otrokovo ime na lastnem listu je na vašem računalniku v redu; ne commitajte ga v javno kopijo (fork) ali zahtevo za združitev.
-- **Najprej uporabite obstoječe slike.** Mnogi agenti za programiranje slik ne znajo ustvariti; za nove je potreben model za slike (te v repozitoriju so nastale z Google Gemini prek Antigravity), po [docs/PROMPTS.sl.md](docs/PROMPTS.sl.md) in [preverbi avtorstva](.agents/skills/copyright-check/SKILL.sl.md). Vsako novo sliko poglejte sami, preden jo natisnete ali delite: modeli se motijo, na primer narišejo roke brez telesa.
+- **Najprej uporabite obstoječe slike.** Mnogi agenti za programiranje slik ne znajo ustvariti; za nove je potreben model za slike (te v repozitoriju so nastale z Google Gemini prek Antigravity), po [docs/PROMPTS.sl.md](docs/PROMPTS.sl.md) in [preverbi avtorstva](.agents/skills/copyright-check/SKILL.sl.md). Vsako novo sliko poglejte sami, preden jo natisnete ali delite.
 - **Agent naj ne objavlja.** Spremembe preglejte, preden jih pushate ali odprete zahtevo za združitev.
 
-## Prispevki
+### Prispevki
 
 Starši lahko dodajo rutine, prevode in slike: glejte [CONTRIBUTING.sl.md](CONTRIBUTING.sl.md). Vsaka nova slika mora pred združitvijo prestati samodejna vrata za avtorske pravice.
 
-## Magnetki in varnost
-
-Majhni magneti so nevarni, če otrok pogoltne več kosov. Uporabite magnetke, večje od 32 mm v vsaki smeri (krogi merijo 35 mm), vdelane v plastiko, ne majhnih neodimovih magnetov, in majhne otroke nadzorujte.
-
 ## Licenca
 
-Vsa vsebina repozitorija (koda, slike, besedila rutin, dokumentacija) je dana v javno last po [CC0 1.0](LICENSE). Smete jo kopirati, spreminjati in uporabljati za kateri koli namen, brez vprašanja in brez navedbe avtorja. Slike so ustvarjene z modelom za slike; take slike najverjetneje niso avtorsko zaščitene, CC0 pa to pove naravnost, namesto da bi zahteval pravice, ki jih morda ni.
+Vsa vsebina (koda, slike, besedila rutin, dokumentacija) je dana v javno last po [CC0 1.0](LICENSE): smete jo kopirati, spreminjati in uporabljati za kateri koli namen, brez vprašanja in brez navedbe avtorja. Slike so ustvarjene z modelom za slike; take slike najverjetneje niso avtorsko zaščitene, CC0 pa to pove naravnost. CC0 ne velja za morebitne pravice tretjih oseb.
 
 Za agente: [AGENTS.sl.md](AGENTS.sl.md).

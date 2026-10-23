@@ -2,67 +2,84 @@
 
 **English** · [Slovenščina](README.sl.md)
 
-Printable A4 sheets with a young child's daily routine: morning, dinner and bedtime. Hang them on the fridge or another metal board. The child follows the pictures and puts a magnet on the circle of each finished step (or ticks it with a pen when you print a fresh sheet each time). Adults read the order and write the planned time next to each step, which helps grandparents or a babysitter when the child sleeps over.
+**[Open the sheet maker →](https://stutek.github.io/child-routines/)**
 
-## Try it
+Printable A4 sheets with a daily routine for children aged 2 to 6: morning, dinner and evening. Hang the sheet on the fridge. Your child follows the pictures and puts a magnet on the circle next to each finished step. Adults read the order and the time on the sheet.
 
-**[Make your own sheet](https://stutek.github.io/child-routines/web/)** · [Example sheets, ready to print](https://stutek.github.io/child-routines/output/en-example.html)
+![Three example sheets: morning, dinner and evening](docs/preview.jpg)
 
-![Three example sheets: morning, dinner and bedtime](docs/preview.jpg)
+Free, no sign-up and no ads. What you type stays in your browser.
 
-1. Open the sheet maker. It starts with the example above.
-2. Pick the type of sheet (morning, afternoon, evening) and type up to 8 steps; empty rows are not printed. Add a time if you like: an empty time stays blank to write by hand, and *Time on the sheet* turns the time fields off. A picture is picked for each step; click it to change it. The page warns when it has no picture for a step or when a label is too long.
-3. Choose the background (color gradient, white, or transparent) and print on A4: margins *None*, scale 100 %.
+## How to make your sheet
 
-What you type stays in your browser. The sheets keep a 14 mm bottom margin because most home printers cannot print the bottom edge.
+1. Open the [sheet maker](https://stutek.github.io/child-routines/). It starts with an example evening routine.
+2. Pick the routine type (morning, day, evening) and type up to 8 steps. The page picks a picture for each step; click it to change it. To change the order, drag a row by the dots on its left. The time is optional: leave it empty and write it in by hand later.
+3. Click **Print**. In the print window choose A4 paper, margins *None* and scale 100%. To send the sheet to a grandparent or a print shop, choose *Save as PDF* instead of a printer.
 
-## Print without the sheet maker
+## How to use it
 
-1. Download the files: on the [repository page](https://github.com/stutek/child-routines), click **Code**, then **Download ZIP**, and unzip it. The sheets need the `images/` folder next to `output/`, so opening a single file on GitHub does not work.
-2. Open `output/en-example.html` in Chrome, or `web/index.html` to make your own (it also works offline).
-3. Print: paper A4, margins *None*, scale 100 %.
+- **Make the sheet together with your child** and go through it together for the first few days. Let your child pick the pictures; you set the order.
+- **A magnet on the circle means "done".** It is not a reward: do not take it away as a punishment and do not tie sweets or cartoons to it.
+- **The time is for adults.** A young child follows the order of the pictures, not the clock.
+- **When your child sleeps over at grandparents' or relatives',** send the sheet along: they see what comes next and when, too.
 
-## Make your own from files
+Example sheets, ready to print, are [here](https://stutek.github.io/child-routines/output/en-example.html).
 
-Routines are data files in [`routines/<language>/`](routines/). Copy one, change the labels, images and colors, then rebuild:
+## Safety
+
+- **Magnets:** use magnets larger than 3.5 cm, set in plastic, with no small parts that could come off. Throw away a cracked one. If a child swallows more than one magnet, they can attract each other inside the gut: see a doctor at once.
+- **Medicine and care:** an adult gives medicine and keeps it out of the child's reach. The step on the sheet only reminds the child that it is time for it.
+- **Bath:** never leave a child alone in the bath.
+
+## Did it help?
+
+Click **⭐ Star** at the top of the [project page on GitHub](https://github.com/stutek/child-routines) (needs a free GitHub account) or share the link with other parents. That tells us the project is worth more work.
+
+## For advanced users
+
+### Print without a connection
+
+1. On the [project page](https://github.com/stutek/child-routines) click **Code**, then **Download ZIP**, and unpack it. The sheets need the `images/` folder next to `output/`, so opening a single file on GitHub does not work.
+2. In Chrome, open `web/index.html` for your own sheet or `output/en-example.html` for the example.
+3. Print as above.
+
+### Your own routine from files
+
+Routines are data files in [`routines/<lang>/`](routines/). Copy one, change the labels, pictures and colors, then rebuild:
 
 ```bash
 pip install -r requirements.txt
-python3 tools/check_images.py   # validates images and routines
-python3 tools/build.py          # writes output/<language>-<name>.html
+python3 tools/check_images.py   # checks images and routines
+python3 tools/build.py          # writes output/<lang>-<name>.html
 ```
 
-Images live in [`images/`](images/) with one metadata file each. How to make new ones: [docs/PROMPTS.md](docs/PROMPTS.md).
+Images are in [`images/`](images/), each with its own metadata file. How to make new ones: [docs/PROMPTS.md](docs/PROMPTS.md).
 
-## Make your own with an AI agent
+### Your own routine with an agent
 
-An AI coding agent (Claude Code, Codex, Gemini CLI or Antigravity) can make the routine for you. It loads the repository's instructions in [AGENTS.md](AGENTS.md) on its own.
+An AI coding agent (Claude Code, Codex, Gemini CLI or Antigravity) can build the routine for you. It loads the repository's instructions in [AGENTS.md](AGENTS.md) by itself.
 
-1. Get the repository onto your computer (`git clone https://github.com/stutek/child-routines.git`, or the ZIP above) and start the agent in its folder.
+1. Get the repository onto your computer (`git clone https://github.com/stutek/child-routines.git` or the ZIP above) and start the agent in its folder.
 2. Describe the routine in your own words, for example:
 
    ```text
-   Make an English routine for my 4-year-old in routines/en/daily.json: morning (wake up, toilet, wash hands, teeth, get dressed, kindergarten) and bedtime (bath, pajamas, teeth, story, sleep). Use the existing images where they fit, rebuild, and print it to PDF so I can check it.
+   In routines/en/ours.json, make a routine for my four-year-old: morning (wake up, toilet, wash hands, teeth, get dressed, preschool) and evening (bath, pajamas, teeth, story, sleep). Use the existing pictures where they fit, rebuild, and print it to PDF for me to check.
    ```
 
-3. Check the result yourself in Chrome's print preview: every label is whole, the order is right, each picture matches its step.
+3. Check the result yourself in Chrome's print preview: every label is whole, the order is right, every picture matches its step.
 
-Recommendations:
+Tips:
 
-- **Keep personal details at home.** Your child's name on your own sheet is fine on your computer; do not commit it to a public fork or a pull request.
-- **Reuse images first.** Many coding agents cannot make images; new ones need an image model (the images here were made with Google Gemini through Antigravity), following [docs/PROMPTS.md](docs/PROMPTS.md) and the [copyright check](.agents/skills/copyright-check/SKILL.md). Look at every new image yourself before you print or share it: models make mistakes, such as hands without a body.
+- **Personal details stay at home.** Your child's name on your own sheet is fine on your computer; do not commit it to a public fork or a pull request.
+- **Use the existing pictures first.** Many coding agents cannot make images; new ones need an image model (the ones here were made with Google Gemini through Antigravity), following [docs/PROMPTS.md](docs/PROMPTS.md) and the [copyright check](.agents/skills/copyright-check/SKILL.md). Look at every new picture yourself before you print or share it.
 - **Do not let the agent publish.** Review the changes before you push or open a pull request.
 
-## Contribute
+### Contributing
 
-Parents are welcome to add routines, translations and images: see [CONTRIBUTING.md](CONTRIBUTING.md). Every new image passes an automatic copyright gate before it can be merged.
-
-## Magnets and safety
-
-Small magnets are dangerous if a child swallows several. Use magnets larger than 32 mm in every direction (the circles are 35 mm), set in plastic, not small neodymium magnets, and supervise young children.
+Parents can add routines, translations and pictures: see [CONTRIBUTING.md](CONTRIBUTING.md). Every new picture must pass the automatic copyright gate before it is merged.
 
 ## License
 
-Everything in this repository (code, images, routine texts, documentation) is dedicated to the public domain under [CC0 1.0](LICENSE). You may copy, change and use it for any purpose, without asking and without attribution. The images were made with an image model; such images are most likely not protected by copyright, and CC0 states that plainly instead of claiming rights that may not exist.
+All content (code, pictures, routine texts, documentation) is dedicated to the public domain under [CC0 1.0](LICENSE): you may copy, change and use it for any purpose, without asking and without credit. The pictures were made with an image model; such pictures are most likely not protected by copyright, and CC0 says so plainly. CC0 does not cover any rights third parties may have.
 
-For AI agents: [AGENTS.md](AGENTS.md).
+For agents: [AGENTS.md](AGENTS.md).

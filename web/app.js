@@ -22,8 +22,7 @@ const PALETTES = [
 const T = {
   sl: {
     heading: "Otrokove rutine", aboutTitle: "O aplikaciji", howTitle: "Hitri začetek",
-    lead: "Tu v nekaj minutah narediš in natisneš list s sličicami otrokove rutine, na katerem otrok opravljen korak sam označi z magnetkom ali kljukico.",
-    about: "Jutro in večer sta polna korakov in pogosto jih naštevaš ti, vsak dan znova. Otrok tako vidi, kaj pride, list pa lahko gre z njim tudi k starim staršem, teti ali stricu, kjer mu znano zaporedje lahko da občutek varnosti. Brezplačno in brez prijave; kar vpišeš, ostane v tvojem brskalniku.",
+    about: "Jutro in večer sta polna korakov in pogosto jih naštevaš ti, vsak dan znova. Tu v nekaj minutah narediš in natisneš list s sličicami otrokove rutine, na katerem otrok opravljen korak sam označi z magnetkom ali kljukico. Tako vidi, kaj pride, list pa lahko gre z njim tudi k starim staršem, teti ali stricu, kjer mu znano zaporedje lahko da občutek varnosti. Brezplačno in brez prijave; kar vpišeš, ostane v tvojem brskalniku.",
     how: ["Najlažje gre na računalniku. Izberi »Tip rutine« in vpiši 3–4 korake. Prve dni jih opravi skupaj z otrokom. Ko otrok rutino zna, dodaj nove (največ 8).", "Stran sama izbere sličico za vsak korak. Klikni sličico, da jo zamenjaš. Otroku pokaži dve ali tri in naj izbere.", "Naslov in korake lahko spremeniš. Prazne vrstice se ne natisnejo.", "Uro vpiši ali izklopi »Ura na listu«. Vrstico premakneš tako, da jo povlečeš za pike.", "Klikni »Natisni«: A4, robovi »Brez«, merilo 100 %. Za babico izberi »Shrani kot PDF«. List lahko pritrdiš na hladilnik ali tablo.", "Najprej – potem: za težek prehod naredi list z dvema korakoma. Obesi ga ob mestu prehoda.", "Ko otrok rutino zna ali se rutina spremeni, zamenjaj korak ali sličico in natisni znova. Sličico lahko izbere otrok.", "Povezava shrani list: klikni »Deli povezavo«, shrani jo ali jo pošlji babici."],
     example: "Naloži primer", replaced: "Primer je zamenjal tvoj list.", stepRemoved: "Korak je odstranjen.", skip: "Preskoči na obrazec", previewName: "Predogled lista", linkReplaced: "Povezava je zamenjala tvoj list.", copy: "Deli povezavo", copied: "Povezava je kopirana.", linkHint: "Kdor ima povezavo, vidi list.", undo: "Razveljavi", undone: "Tvoj list je vrnjen.", print: "Natisni",
     type: "Tip rutine", sheetTitle: "Naslov lista", skies: { dawn: "jutro", afternoon: "dan", night: "večer" },
@@ -36,8 +35,7 @@ const T = {
   },
   en: {
     heading: "Child routines", aboutTitle: "About", howTitle: "Quick start",
-    lead: "Here you can make and print a picture sheet of your child's routine in a few minutes; your child marks each finished step with a magnet or a tick.",
-    about: "Mornings and evenings are full of steps, and often you're the one listing them, every day. Your child can see what comes next, and the sheet can travel to grandparents, an aunt or an uncle, where the familiar order can give a sense of security. Free, with no sign-up; what you type stays in your browser.",
+    about: "Mornings and evenings are full of steps, and often you're the one listing them, every day. Here you can make and print a picture sheet of your child's routine in a few minutes; your child marks each finished step with a magnet or a tick. They can see what comes next, and the sheet can travel to grandparents, an aunt or an uncle, where the familiar order can give a sense of security. Free, with no sign-up; what you type stays in your browser.",
     how: ["It is easiest on a computer. Pick the “Routine type” and type 3–4 steps. Do them with your child for the first few days. When your child knows the routine, add more (up to 8).", "The page picks a picture for each step. Click a picture to change it. Show your child two or three and let them choose.", "You can change the title and steps. Empty rows are not printed.", "Type a time, or turn off “Time on the sheet”. Drag a row by its dots to move it.", "Click “Print”: A4, margins “None”, scale 100%. For a grandparent, choose “Save as PDF”. You can put the sheet on the fridge or a board.", "First – then: for a hard transition, make a sheet with two steps. Hang it where the transition happens.", "When your child knows the routine or it changes, swap a step or a picture and print again. Your child can choose the picture.", "The link keeps the sheet: click “Share link”, save it or send it to a grandparent."],
     example: "Load example", replaced: "The example replaced your sheet.", stepRemoved: "Step removed.", skip: "Skip to the form", previewName: "Sheet preview", linkReplaced: "The link replaced your sheet.", copy: "Share link", copied: "Link copied.", linkHint: "Anyone with the link can see the sheet.", undo: "Undo", undone: "Your sheet is back.", print: "Print",
     type: "Routine type", sheetTitle: "Sheet title", skies: { dawn: "morning", afternoon: "day", night: "evening" },
@@ -203,7 +201,6 @@ function sheetHtml(sheet, lang = "sl") {
 
 // ---------- state: one sheet, always MAX_STEPS rows; empty rows are left off the sheet ----------
 
-const detailsOpen = { how: false };   // Quick start starts closed
 const newStep = () => ({ label: "", time: "", image: "auto" });
 const EXAMPLE_FOR = { dawn: 0, afternoon: 1, night: 2 };   // sheet of the example routine per type
 // titles are plain text; older stored titles and the example may start with an icon, which is dropped
@@ -405,11 +402,13 @@ function renderEditor() {
       // each language in its own name, labelled with a globe (W3C: language selection), no flags
       el("label", { class: "lang" }, [el("span", { class: "globe", "aria-hidden": "true" }, "🌐"),
         langSelect(L.language)])]),
-    // one sentence about the app and the warning stay above the form; the rest is below the rows (A1)
-    el("p", { class: "about" }, L.lead),
-    // what to watch for stays in view above the form, with the danger sign (maintainer's decision: children's safety first)
+    // the maintainer's order: About, what to watch for (always visible, with the danger sign), the links, Quick start, then the form
+    el("h2", {}, L.aboutTitle), el("p", { class: "about" }, L.about),
     el("div", { class: "warn" }, [el("span", { class: "danger", "aria-hidden": "true" }, "⚠"), el("div", {}, [el("strong", {}, L.watchTitle),
       el("ul", {}, L.watch.map(([what, text]) => el("li", {}, [el("strong", {}, `${what}: `), text])))])]),
+    el("p", { class: "about" }, [el("a", { href: GUIDE[state.lang] || GUIDE.en, target: "_blank", rel: "noopener" }, L.guide), " · ",
+      el("a", { href: PROJECT, target: "_blank", rel: "noopener" }, L.project)]),
+    el("h2", {}, L.howTitle), el("ol", { class: "how" }, L.how.map(s => el("li", {}, s))),
     // every field has a visible label (WCAG 2.2, 3.3.2); a placeholder disappears once the parent types
     el("div", { class: "row-top fields" }, [
       field(L.type, select(L.type, sheet.sky, L.skies, setType)),
@@ -475,18 +474,7 @@ function renderEditor() {
     box.append(row, step._hint, gallery);
     step._thumb = thumb;
   });
-  // what to watch for (open on a computer) and Quick start (closed), then the links and the rest of the About text
-  const details = (id, title, body) => {
-    const d = el("details", { id }, [el("summary", {}, title), body]);
-    d.open = detailsOpen[id];
-    d.addEventListener("toggle", () => { detailsOpen[id] = d.open; });
-    return d;
-  };
   root.append(box, el("span", { id: "move-desc", class: "sr-only" }, L.moveDesc), el("div", { id: "warnings", role: "status" }),
-    details("how", L.howTitle, el("ol", { class: "how" }, L.how.map(s => el("li", {}, s)))),
-    el("p", { class: "about" }, [el("a", { href: GUIDE[state.lang] || GUIDE.en, target: "_blank", rel: "noopener" }, L.guide), " · ",
-      el("a", { href: PROJECT, target: "_blank", rel: "noopener" }, L.project)]),
-    el("h2", {}, L.aboutTitle), el("p", { class: "about" }, L.about),
     // Share link and Print stay in view at the bottom of the form (sticky), the sheet keeps the whole preview height
     el("div", { class: "actionbar", id: "actionbar" }, [
       el("button", { class: "copy", "aria-describedby": "link-hint", onclick: copyLink }, [el("img", { class: "icon", src: "share.svg", alt: "" }), L.copy]),

@@ -23,24 +23,24 @@
       border-radius: 16px;
       border-radius: 20px;
       box-shadow: 0 10px 30px rgba(15, 118, 110, 0.12);
-      padding: 20px 24px;
+      padding: 14px 20px;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 10px;
       font-size: 15px;
     }
     .maker h1 { font-size: 24px; color: #115E59; }   /* teal of the icon (icon.svg): gender-neutral, calm */
     .maker h1 .logo { width: 1.25em; height: 1.25em; vertical-align: -0.25em; margin-right: 8px; }
-    .maker h2 { font-size: 16px; color: #115E59; margin-bottom: -10px; }
-    .maker .about { line-height: 1.5; }
+    .maker h2 { font-size: 16px; color: #115E59; margin-bottom: -6px; }
+    .maker .about { line-height: 1.4; }
     .maker .lang { display: flex; align-items: center; gap: 6px; }
     .maker .globe { font-family: 'Noto Emoji', sans-serif; font-weight: 600; font-size: 20px; color: #115E59; }
     .maker p { color: #475569; line-height: 1.4; }
     .maker input, .maker select, .maker button { font: inherit; font-size: 15px; }
     .maker input, .maker select { border: 1px solid #cbd5e1; border-radius: 8px; padding: 6px 8px; background: #fff; min-width: 0; }
-    .maker button { border: none; border-radius: 10px; padding: 8px 14px; font-weight: 700; cursor: pointer; background: #e2e8f0; color: #0f172a; }
+    .maker button { border: none; border-radius: 10px; padding: 5px 12px; font-weight: 700; cursor: pointer; background: #e2e8f0; color: #0f172a; }
     /* the action buttons share one shape; Print has its own fill (.preview-label .print) */
-    .maker button.secondary { border-radius: 12px; padding: 10px 20px; font-size: 16px; }
+    .maker button.secondary { border-radius: 12px; padding: 6px 16px; font-size: 16px; }
     .maker button:not(.del):not(.thumb):not(.grip) { background: #DDF3EE; color: #115E59; }
     .maker .hint { font-size: 13px; color: #475569; }
     .maker .linkbox { flex: 1 1 260px; }
@@ -49,12 +49,12 @@
     .maker button:disabled { opacity: 0.45; cursor: not-allowed; }
     .maker :focus-visible { outline: 3px solid #0F766E; outline-offset: 2px; }
     .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-    .maker .safety { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: #44403C; line-height: 1.5; }
-    .maker .safety ul { margin: 4px 0 0 18px; }
-    .maker .safety li { margin-top: 2px; }
+    .maker .safety { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: #44403C; line-height: 1.4; }
+    .maker .safety ul { margin: 2px 0 0 18px; }
+    .maker .safety li { margin-top: 0; }
     .maker .safety .danger { font-family: 'Noto Emoji', sans-serif; font-weight: 600; font-size: 22px; line-height: 1.1; color: #B45309; }
     .maker .about a { color: #115E59; font-weight: 700; }
-    .row-top { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+    .row-top { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; }
     .row-top .grow { flex: 1 1 200px; }
     .row-top.fields { align-items: flex-end; }
     /* the label sits on the top edge of its field's outline, visible while typing */
@@ -63,14 +63,14 @@
     .field-label, .step-head span { font-size: 12.5px; font-weight: 700; color: #115E59; }
     .field select, .field input { padding-top: 9px; }
     .step-head span:nth-child(-n+2) { visibility: hidden; }
-    .how { margin-left: 20px; color: #475569; line-height: 1.5; }
-    .sheet-box { border: 1px solid #E7E0D3; border-radius: 16px; padding: 12px; display: flex; flex-direction: column; gap: 8px; }
-    .step { display: grid; grid-template-columns: 22px 24px minmax(0, 1fr) 110px 52px 32px; gap: 6px; align-items: center; }
+    .how { margin-left: 20px; color: #475569; line-height: 1.4; }
+    .sheet-box { border: 1px solid #E7E0D3; border-radius: 16px; padding: 8px 10px; display: flex; flex-direction: column; gap: 3px; }
+    .step { display: grid; grid-template-columns: 22px 24px minmax(0, 1fr) 110px 40px 32px; gap: 6px; align-items: center; }
     .step .n { font-weight: 800; color: #64748b; text-align: right; }
-    .no-times .step { grid-template-columns: 22px 24px minmax(0, 1fr) 52px 32px; }
+    .no-times .step { grid-template-columns: 22px 24px minmax(0, 1fr) 40px 32px; }
     .no-times .step input[type=time], .no-times .col-time { display: none; }
     /* the grip: six dots next to the fixed step number; drag it, tap it, or use the arrow keys */
-    .maker button.grip { display: flex; align-items: center; justify-content: center; padding: 10px 0; background: transparent;
+    .maker button.grip { display: flex; align-items: center; justify-content: center; padding: 6px 0; background: transparent;
                          color: #64748b; cursor: grab; touch-action: none; border-radius: 8px; }
     .maker button.grip:active { cursor: grabbing; }
     .grip .dots { width: 9px; height: 15px; background: radial-gradient(circle, currentColor 1.4px, transparent 1.8px) 0 0 / 4.5px 5px; }
@@ -84,11 +84,11 @@
     @media (prefers-reduced-motion: reduce) { .step > * { transition: none; } }
     /* the checkbox in the page's teal, its label like the field labels */
     .maker input[type=checkbox] { accent-color: #0F766E; width: 18px; height: 18px; vertical-align: -3px; margin: 0 4px 0 0; }
-    .maker .check { font-weight: 700; color: #115E59; padding-bottom: 10px; }
+    .maker .check { font-weight: 700; color: #115E59; padding-bottom: 6px; }
     .maker button.del { padding: 4px 0; background: transparent; color: #dc2626; line-height: 1; }
     .maker button.del .broom { font-family: 'Noto Emoji', sans-serif; font-size: 22px; }
     .maker button.del:hover { color: #991b1b; }
-    .maker button.thumb { width: 52px; height: 52px; padding: 0; border-radius: 10px; overflow: hidden; background: #f1f5f9;
+    .maker button.thumb { width: 40px; height: 40px; padding: 0; border-radius: 10px; overflow: hidden; background: #f1f5f9;
                           border: 2px solid #e2e8f0; font-size: 22px; color: #94a3b8; }
     .maker button.thumb.missing { border-color: #f59e0b; background: #fffbeb; color: #b45309; }
     .maker button.thumb.empty { background: #f8fafc; border-style: dashed; }
@@ -105,11 +105,11 @@
     .warnings.ok { background: #f0fdf4; border-color: #bbf7d0; color: #166534; }
     @media (max-width: 640px) {
       body { padding: 8px !important; gap: 16px !important; }
-      .maker { padding: 14px; }
+      .maker { padding: 12px; }
       .step input[type=time] { font-size: 13px; padding: 6px 2px; }
-      .maker button.thumb { width: 44px; height: 44px; }
+      .maker button.thumb { width: 38px; height: 38px; }
       /* phone: the time goes under the label, so a 17-character label shows whole; grip and broom at least 24 px (WCAG 2.2, 2.5.8) */
-      .step, .no-times .step { grid-template-columns: 14px 24px minmax(0, 1fr) 44px 24px; gap: 4px; }
+      .step, .no-times .step { grid-template-columns: 14px 24px minmax(0, 1fr) 38px 24px; gap: 4px; }
       .step input[type=time] { grid-row: 2; grid-column: 3; justify-self: start; width: 110px; }
       .step-head .col-time { display: none; }
       .gallery { grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); padding-left: 0; }

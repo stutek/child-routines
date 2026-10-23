@@ -195,7 +195,7 @@ function sheetHtml(sheet, lang = "sl") {
     <div class="rt-grid">
       <div class="rt-header"><div class="rt-title">${esc(sheet.title)}</div></div>${rows}
     </div>
-    <div class="rt-footer${sheet.sky === "night" ? " on-dark" : ""}"><span class="rt-license"><img class="rt-under3" src="under3.jpg" alt="${esc(D.under3[lang] || D.under3.en)}"><span class="rt-legal"><span class="rt-safety">${esc(D.safety[lang] || D.safety.en)}</span>${notes}${esc(D.license[lang] || D.license.en)}</span></span><span class="rt-site">${esc(D.site)}</span>${D.qr}</div>
+    <div class="rt-footer${sheet.sky === "night" ? " on-dark" : ""}"><span class="rt-license"><img class="rt-under3" src="under3.jpg" alt="${esc(D.under3[lang] || D.under3.en)}"><span class="rt-legal"><span class="rt-safety">${esc(D.safety[lang] || D.safety.en)}</span>${notes}</span></span><span class="rt-source"><span class="rt-site">${esc(D.site)}</span><span class="rt-lic">${esc(D.license[lang] || D.license.en)}</span></span>${D.qr}</div>
   </div>`;
 }
 

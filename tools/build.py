@@ -235,7 +235,7 @@ def sheet_html(sheet, lang="sl"):
     <div class="rt-grid">
       <div class="rt-header"><div class="rt-title">{escape(sheet['title'])}</div></div>{''.join(rows)}
     </div>
-    <div class="rt-footer{' on-dark' if sheet['sky'] == 'night' else ''}"><span class="rt-license"><img class="rt-under3" src="../web/under3.jpg" alt="{escape(UNDER3.get(lang, UNDER3["en"]))}"><span class="rt-legal"><span class="rt-safety">{escape(SAFETY.get(lang, SAFETY["en"]))}</span>{notes}{escape(LICENSE.get(lang, LICENSE["en"]))}</span></span><span class="rt-site">{SITE}</span>{QR}</div>
+    <div class="rt-footer{' on-dark' if sheet['sky'] == 'night' else ''}"><span class="rt-license"><img class="rt-under3" src="../web/under3.jpg" alt="{escape(UNDER3.get(lang, UNDER3["en"]))}"><span class="rt-legal"><span class="rt-safety">{escape(SAFETY.get(lang, SAFETY["en"]))}</span>{notes}</span></span><span class="rt-source"><span class="rt-site">{SITE}</span><span class="rt-lic">{escape(LICENSE.get(lang, LICENSE["en"]))}</span></span>{QR}</div>
   </div>
 """
 
@@ -323,15 +323,19 @@ CSS = """
     /* the title sits beside picture 1, right-aligned; --title-x (generator) keeps it clear of picture 1 and the magnet circle */
     .rt-header { position: absolute; top: 0; left: var(--title-x, 0); right: 0; height: __TITLE__mm; display: flex; align-items: flex-start; justify-content: flex-end; }
 
-    /* Footer: licence left, address and QR right; only the QR has a white ground (it needs it to scan),
-       the text turns light on the night sky */
+    /* Footer: the warnings left, set tight and centred on the 0–3 sign they belong to; the address with the
+       licence under it and the QR right. Only the QR has a white ground (it needs it to scan); the text turns
+       light on the night sky */
     .rt-footer {
       position: relative; flex: none; height: __FOOTER__mm; margin-top: 1mm;
       display: flex; align-items: flex-end; gap: 2mm; padding: 0 1mm 0.5mm;   /* texts sit on the bottom line of the QR code */
       font-size: 8.5pt; font-weight: 600; color: #475569;
     }
-    .rt-license { margin-right: auto; display: flex; align-items: flex-end; gap: 2mm; }
-    .rt-legal { display: flex; flex-direction: column; gap: 0.6mm; }
+    .rt-license { margin-right: auto; display: flex; align-items: center; gap: 2mm; align-self: flex-end; }
+    .rt-legal { display: flex; flex-direction: column; gap: 0; line-height: 1.15; }
+    .rt-legal > span { text-wrap: balance; }   /* a wrapped warning breaks into even lines, no lone last word */
+    .rt-source { display: flex; flex-direction: column; align-items: flex-end; text-align: right; line-height: 1.15; flex: none; }
+    .rt-lic { font-size: 7.5pt; white-space: nowrap; }
     .rt-safety, .rt-notes { font-weight: 800; }
     .rt-notes { display: block; }
     .rt-under3 { width: 10mm; height: 10mm; flex: none; background: #ffffff; border-radius: 1mm; padding: 0.5mm; }

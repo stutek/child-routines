@@ -60,6 +60,9 @@
     .maker summary::-webkit-details-marker { display: none; }
     .maker summary::before { content: "▸"; font-size: 14px; color: #115E59; }
     .maker details[open] > summary::before { content: "▾"; }
+    .maker summary::after { content: attr(data-hide); margin-left: auto; font-size: 13px; font-weight: 700; color: #475569; }   /* 7.6 : 1 */
+    .maker details:not([open]) > summary::after { content: attr(data-show); }
+    .maker details .more { margin: 6px 0 0; }
     .maker details ul, .maker details ol { margin: 2px 0 0 18px; padding: 0; }
     .maker .warn .danger { font-family: 'Noto Emoji', sans-serif; font-weight: 600; font-size: 22px; line-height: 1.1; color: #B45309; }
     .maker .about a { color: #115E59; font-weight: 700; }

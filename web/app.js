@@ -31,7 +31,7 @@ const T = {
     warnNoMatch: (s, l) => `${s}: za »${l}« ni sličice. Klikni »?« in izberi sličico ali »Brez sličice«.`,
     warnMismatch: (s, l) => `${s}: sličica se morda ne ujema z napisom »${l}«.`,
     warnLong: (s, l) => `${s}: napis »${l}« je predolg za okvir; skrajšaj ga.`, tooLong: "Napis je predolg za okvir.",
-    printHint: "Pri tiskanju: A4, robovi »Brez«, merilo 100 %.", step: "Korak", ok: "✓ Vse sličice so najdene in vsi napisi se prilegajo.", suggest: "Manjka sličica? Predlagaj jo", warnTitle: "Opozorila", watchTitle: "Na kaj paziti", watch: [["Starost", "list je za otroke od 3 let naprej."], ["Magnetki", "uporabi le magnetke, varne za otroke in kemično neškodljive. Če otrok pogoltne magnetek, takoj pojdi k zdravniku."], ["Pisala", "za kljukice uporabi le pisala, varna za otroke in kemično neškodljiva."], ["Zdravila", "daje in hrani jih odrasel. Niso sladkarija."], ["Kopanje", "otroka nikoli ne pusti samega v kadi."], ["Zobki", "sledi navodilom svojega zobozdravnika."], ["Nagrade", "magnetek pomeni »narejeno«. Ne obljubljaj daril za magnetke: nagrada lahko otroku vzame veselje do opravila."], ["Brez pritiska", "ure na listu so za odrasle, ne za priganjanje. Če korak izpade ali se vrstni red pomeša, ohrani mir in poskusi znova naslednjič."]], guide: "Uporaba in varnost", project: "Projekt na GitHubu",
+    printHint: "Pri tiskanju: A4, robovi »Brez«, merilo 100 %.", step: "Korak", ok: "✓ Vse sličice so najdene in vsi napisi se prilegajo.", suggest: "Manjka sličica? Predlagaj jo", warnTitle: "Opozorila", watchTitle: "Na kaj paziti", watch: [["Starost", "list je za otroke od 3 let naprej."], ["Magnetki", "uporabi le magnetke, varne za otroke in kemično neškodljive. Če otrok pogoltne magnetek, takoj pojdi k zdravniku."], ["Pisala", "za kljukice uporabi le pisala, varna za otroke in kemično neškodljiva."], ["Zdravila", "daje in hrani jih odrasel. Niso sladkarija."], ["Kopanje", "otroka nikoli ne pusti samega v kadi."], ["Zobki", "sledi navodilom svojega zobozdravnika."], ["Nagrade", "magnetek pomeni »narejeno«. Ne obljubljaj daril za magnetke: nagrada lahko otroku vzame veselje do opravila."], ["Brez pritiska", "ure na listu so za odrasle, ne za priganjanje. Če korak izpade ali se vrstni red pomeša, ohrani mir in poskusi znova naslednjič."]], guide: "Več o uporabi in varnosti", project: "Projekt na GitHubu", hide: "Skrij", show: "Pokaži",
   },
   en: {
     heading: "Child routines", aboutTitle: "About", howTitle: "Quick start",
@@ -44,7 +44,7 @@ const T = {
     warnNoMatch: (s, l) => `${s}: no picture for “${l}”. Click “?” and pick a picture or “No picture”.`,
     warnMismatch: (s, l) => `${s}: the picture may not match the label “${l}”.`,
     warnLong: (s, l) => `${s}: “${l}” is too long for the frame; shorten it.`, tooLong: "The label is too long for the frame.",
-    printHint: "When printing: A4, margins “None”, scale 100%.", step: "Step", ok: "✓ All pictures found and all labels fit.", suggest: "Missing a picture? Suggest one", warnTitle: "Warnings", watchTitle: "What to watch for", watch: [["Age", "the sheet is for children aged 3 and up."], ["Magnets", "use only magnets that are safe for children and chemically harmless. If a child swallows a magnet, see a doctor at once."], ["Pens", "for ticks, use only pens that are safe for children and chemically harmless."], ["Medicine", "an adult gives and keeps it. It is not a sweet."], ["Bath", "never leave a child alone in the bath."], ["Teeth", "follow your dentist's advice."], ["Rewards", "a magnet means “done”. Don't promise gifts for magnets: a reward can take away the joy of the task."], ["No pressure", "the times on the sheet are for adults, not for hurrying. If a step is skipped or the order gets mixed up, stay calm and try again next time."]], guide: "How to use it and safety", project: "Project on GitHub",
+    printHint: "When printing: A4, margins “None”, scale 100%.", step: "Step", ok: "✓ All pictures found and all labels fit.", suggest: "Missing a picture? Suggest one", warnTitle: "Warnings", watchTitle: "What to watch for", watch: [["Age", "the sheet is for children aged 3 and up."], ["Magnets", "use only magnets that are safe for children and chemically harmless. If a child swallows a magnet, see a doctor at once."], ["Pens", "for ticks, use only pens that are safe for children and chemically harmless."], ["Medicine", "an adult gives and keeps it. It is not a sweet."], ["Bath", "never leave a child alone in the bath."], ["Teeth", "follow your dentist's advice."], ["Rewards", "a magnet means “done”. Don't promise gifts for magnets: a reward can take away the joy of the task."], ["No pressure", "the times on the sheet are for adults, not for hurrying. If a step is skipped or the order gets mixed up, stay calm and try again next time."]], guide: "More about use and safety", project: "Project on GitHub", hide: "Hide", show: "Show",
   },
 };
 
@@ -385,7 +385,8 @@ function copyLink() {
 // What to watch for and Quick start fold, open at first (the maintainer's decision); a parent's choice lasts while the page is open
 const detailsOpen = { watch: true, how: true };
 const details = (id, title, body) => {
-  const d = el("details", { id, class: id === "watch" ? "warn" : "how-box" }, [el("summary", {}, title), body]);
+  // the summary also says what a click does (Skrij / Pokaži): a triangle alone is not clear to every parent
+  const d = el("details", { id, class: id === "watch" ? "warn" : "how-box" }, [el("summary", { "data-hide": t().hide, "data-show": t().show }, title), body]);
   d.open = detailsOpen[id];
   d.addEventListener("toggle", () => { detailsOpen[id] = d.open; });
   return d;
@@ -411,12 +412,12 @@ function renderEditor() {
       // each language in its own name, labelled with a globe (W3C: language selection), no flags
       el("label", { class: "lang" }, [el("span", { class: "globe", "aria-hidden": "true" }, "🌐"),
         langSelect(L.language)])]),
-    // the maintainer's order: About, what to watch for (always visible, with the danger sign), the links, Quick start, then the form
-    el("h2", {}, L.aboutTitle), el("p", { class: "about" }, L.about),
-    details("watch", [el("span", { class: "danger", "aria-hidden": "true" }, "⚠"), L.watchTitle],
-      el("ul", {}, L.watch.map(([what, text]) => el("li", {}, [el("strong", {}, `${what}: `), text])))),
-    el("p", { class: "about" }, [el("a", { href: GUIDE[state.lang] || GUIDE.en, target: "_blank", rel: "noopener" }, L.guide), " · ",
-      el("a", { href: PROJECT, target: "_blank", rel: "noopener" }, L.project)]),
+    // the maintainer's order: About (the project link at its end), what to watch for (with the danger sign, the guide link at its end),
+    // Quick start, then the form
+    el("h2", {}, L.aboutTitle), el("p", { class: "about" }, [L.about, " ", el("a", { href: PROJECT, target: "_blank", rel: "noopener" }, L.project)]),
+    details("watch", [el("span", { class: "danger", "aria-hidden": "true" }, "⚠"), L.watchTitle], el("div", {}, [
+      el("ul", {}, L.watch.map(([what, text]) => el("li", {}, [el("strong", {}, `${what}: `), text]))),
+      el("p", { class: "more" }, el("a", { href: GUIDE[state.lang] || GUIDE.en, target: "_blank", rel: "noopener" }, L.guide))])),
     details("how", L.howTitle, el("ol", { class: "how" }, L.how.map(s => el("li", {}, s)))),
     // every field has a visible label (WCAG 2.2, 3.3.2); a placeholder disappears once the parent types
     el("div", { class: "row-top fields" }, [

@@ -424,12 +424,18 @@ function fitPreview() {
   const a4w = 794, a4h = 1123, preview = document.getElementById("preview");
   const label = document.getElementById("preview-label");
   let zoom = (preview.clientWidth - 8) / a4w;
-  if (matchMedia("(min-width: 1100px)").matches) zoom = Math.min(zoom, (innerHeight - 32 - label.offsetHeight - 16) / a4h);
-  document.getElementById("sheets").style.zoom = zoom < 1 ? zoom.toFixed(3) : "";
+  // side by side the sheet fits the column's height too: measured label and its margin, 2 px spare,
+  // rounded down so it never overflows by a pixel (the scroll bar stays only as a fallback)
+  if (matchMedia("(min-width: 1100px)").matches) {
+    const room = preview.clientHeight - label.offsetHeight - parseFloat(getComputedStyle(label).marginBottom) - 2;
+    zoom = Math.min(zoom, room / a4h);
+  }
+  zoom = Math.floor(zoom * 1000) / 1000;
+  document.getElementById("sheets").style.zoom = zoom < 1 ? zoom : "";
 }
 window.addEventListener("resize", fitPreview);
 
 document.head.append(el("style", {}, D.css));
 update(true);
 fitPreview();
-document.fonts && document.fonts.ready.then(() => renderPreview());   // re-measure labels once the font is in
+document.fonts && document.fonts.ready.then(() => { renderPreview(); fitPreview(); });   // re-measure labels once the font is in

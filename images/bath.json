@@ -25,13 +25,14 @@
     "images/bath.jpg (commit 5c4e9ba, the same picture with a single row of tiles on the left wall; recreated with matching tiles)"
   ],
   "edits": [
-    "contrast raised once with the values of tools/enhance.py"
+    "contrast raised once with the values of tools/enhance.py",
+    "cropped to the tub (a square of 82 % around it, the bottom edge kept) and scaled back to 1024 x 1024, so the tub is larger"
   ],
   "contributor": "maintainer",
   "license": "CC0-1.0",
   "copyright_check": {
     "date": "2026-10-23",
-    "method": "Google Lens, Exact matches tab, raw and final file",
-    "result": "no exact matches"
+    "method": "Google Lens, Exact and Visual matches tabs, final file",
+    "result": "no exact matches; visual matches show other clawfoot tubs with a rubber duck (common motif), none with the same composition"
   }
 }

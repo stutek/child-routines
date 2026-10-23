@@ -39,10 +39,9 @@
     .maker input, .maker select, .maker button { font: inherit; font-size: 15px; }
     .maker input, .maker select { border: 1px solid #cbd5e1; border-radius: 8px; padding: 6px 8px; background: #fff; min-width: 0; }
     .maker button { border: none; border-radius: 10px; padding: 5px 12px; font-weight: 700; cursor: pointer; background: #e2e8f0; color: #0f172a; }
-    /* the action buttons share one shape; Print has its own fill (.preview-label .print) */
+    /* the action buttons share one shape; Print and Copy link are in the sticky .actionbar with their own fills */
     .maker button.secondary { border-radius: 12px; padding: 6px 16px; font-size: 16px; }
-    .maker button:not(.del):not(.thumb):not(.grip) { background: #DDF3EE; color: #115E59; }
-    .preview-label .linkbox { flex: 1 1 100%; order: 4; font: inherit; font-size: 13px; border: 1px solid #cbd5e1; border-radius: 8px; padding: 4px 8px; min-width: 0; }
+    .maker button:not(.del):not(.thumb):not(.grip):not(.print):not(.copy) { background: #DDF3EE; color: #115E59; }
     .maker .undo { font-size: 14px; color: #115E59; }
     .maker .undo button { padding: 4px 10px; margin-left: 4px; }
     .maker button:disabled { opacity: 0.45; cursor: not-allowed; }
@@ -130,32 +129,31 @@
     /* the preview takes the column's width, so fitPreview() scales the sheet to it, not to itself */
     #preview { width: 100%; max-width: 840px; }
     #sheets { display: flex; flex-direction: column; gap: 24px; }
-    .preview-label { font-weight: 800; font-size: 15px; color: #334155; background: #ffffff; border-radius: 10px; padding: 8px 8px 8px 14px; margin-bottom: 10px; display: inline-flex; align-items: center; gap: 14px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); }
-    .preview-label .print { font: inherit; font-size: 16px; font-weight: 700; border: none; border-radius: 12px; padding: 8px 20px; cursor: pointer; background: #0F766E; color: #ffffff; }
-    .preview-label { flex-wrap: wrap; }
-    .print-hint { flex-basis: 100%; order: 3; margin: 0; font-size: 13px; font-weight: 600; color: #475569; }   /* 7.6 : 1 on white */
-    .preview-label .copy { font: inherit; font-size: 16px; font-weight: 700; border: none; border-radius: 12px; padding: 8px 16px; cursor: pointer; background: #DDF3EE; color: #115E59; }
-    .preview-label .copy:focus-visible { outline: 3px solid #0F766E; outline-offset: 2px; }
-    .preview-label .print:hover { background: #115E59; }
-    .preview-label .print:focus-visible { outline: 3px solid #0F766E; outline-offset: 2px; }
+    /* Print and Copy link: sticky bar at the bottom of the form, on a phone at the bottom of the screen while the form is in view */
+    html { scroll-padding-bottom: 110px; }
+    .maker { scroll-padding-bottom: 110px; }
+    .actionbar { position: sticky; bottom: 0; z-index: 5; margin: 0 -20px -14px; padding: 8px 20px; background: #ffffff; border-top: 1px solid #E7E0D3;
+      border-radius: 0 0 20px 20px; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
+    .actionbar button { font: inherit; font-size: 15px; font-weight: 700; border: none; border-radius: 10px; padding: 6px 16px; min-height: 32px; cursor: pointer; }
+    .actionbar .print { background: #0F766E; color: #ffffff; }
+    .actionbar .print:hover { background: #115E59; }
+    .actionbar .copy { background: #DDF3EE; color: #115E59; }
+    .actionbar button:focus-visible { outline: 3px solid #0F766E; outline-offset: 2px; }
+    .actionbar .hints { flex: 1 1 200px; min-width: 0; }
+    .actionbar .hints p { margin: 0; font-size: 12px; line-height: 1.3; font-weight: 600; color: #475569; }   /* 7.6 : 1 on white */
+    .actionbar .linkbox { flex: 1 1 100%; font: inherit; font-size: 13px; border: 1px solid #cbd5e1; border-radius: 8px; padding: 4px 8px; min-width: 0; }
     /* Wide screen: form on the left, the sheets on the right, staying in view while you edit */
     @media screen and (min-width: 1100px) {
       body { display: block !important; padding: 16px !important; }
       .layout { display: grid; grid-template-columns: minmax(440px, 1fr) minmax(0, 1fr); align-items: start; gap: 16px; }
       .maker { max-width: none; }
       #preview { position: sticky; top: 16px; max-height: calc(100vh - 32px); overflow: auto; }   /* square: the sheet prints with square corners */
-      /* the label and Print float small in the top right corner, over the sheet's empty sky, so the sheet gets the full height */
-      .preview-label { position: absolute; top: 6px; right: 6px; z-index: 5; margin: 0; padding: 4px 4px 4px 10px; gap: 2px 8px; font-size: 12px; max-width: 270px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18); }
-      .preview-label .print, .preview-label .copy { font-size: 14px; padding: 5px 12px; border-radius: 9px; }
-      .print-hint { font-size: 12px; }
-      .preview-label.in-flow { position: static; margin: 0 0 8px; max-width: none; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); }
-      .preview-label.in-flow .print-hint { flex: 0 1 auto; }   /* when it would cover the title */
       /* the form scrolls in its own column, next to what it scrolls; the page itself does not */
       html, body { height: 100%; overflow: hidden; }
       .maker { max-height: calc(100vh - 32px); overflow-y: auto; }
     }
     @media print {
-      .maker, .preview-label { display: none !important; }
+      .maker { display: none !important; }
       html, body { height: auto !important; overflow: visible !important; }
       .layout { display: block !important; }
       #preview { position: static !important; max-height: none !important; overflow: visible !important; }
@@ -169,7 +167,7 @@
   <a href="#" class="skip" id="skip"></a>
   <main class="layout">
     <div class="maker" id="maker"></div>
-    <section id="preview"><div class="preview-label" id="preview-label"></div><div id="sheets"></div></section>
+    <section id="preview"><div id="sheets"></div></section>
   </main>
   <script src="app.js"></script>
 </body>

@@ -164,12 +164,12 @@ def main():
             got = cdp.call("Runtime.evaluate", returnByValue=True, expression="""(() => {
               const warn = document.querySelector('#maker .warn'), field = document.querySelector('#maker .row-top.fields');
               const d = [...document.querySelectorAll('#maker details')], box = document.querySelector('#maker .sheet-box');
-              const btn = document.querySelector('#preview-label .print'), hint = document.getElementById('print-hint');
-              const copy = document.querySelector('#preview-label .copy'), lh = document.getElementById('link-hint'), undo = document.getElementById('undo');
+              const btn = document.querySelector('#actionbar .print'), hint = document.getElementById('print-hint');
+              const copy = document.querySelector('#actionbar .copy'), lh = document.getElementById('link-hint'), undo = document.getElementById('undo');
               const row = undo.parentElement, sel = row.querySelector('select');
               return JSON.stringify({
-                copyInLabel: !!copy && copy.getAttribute('aria-describedby') === 'link-hint' && !!lh && lh.textContent.length > 10 && !!document.querySelector('#preview-label #linkbox'),
-                noActionsRow: !document.querySelector('#maker .actions') && !document.querySelector('#maker .copy') && ![...document.querySelectorAll('#maker button')].some(b => b.textContent === copy.textContent),
+                copyInBar: !!copy && copy.getAttribute('aria-describedby') === 'link-hint' && !!lh && lh.textContent.length > 10 && !!document.querySelector('#actionbar #linkbox') && !document.getElementById('preview-label') && getComputedStyle(document.getElementById('actionbar')).position === 'sticky' && document.getElementById('maker').lastElementChild === document.getElementById('actionbar') && !!document.getElementById('preview').getAttribute('aria-label'),
+                noActionsRow: !document.querySelector('#maker .actions') && document.querySelectorAll('#maker .copy').length === 1 && !row.querySelector('.copy'),
                 exampleWithBackground: !!sel && !!row.querySelector('input[type=checkbox]') && [...row.querySelectorAll('button.secondary')].length === 1,
                 warnAbove: !!warn && !!(warn.compareDocumentPosition(field) & Node.DOCUMENT_POSITION_FOLLOWING) && warn.textContent.includes('3'),
                 iconHidden: warn.querySelector('.danger').getAttribute('aria-hidden') === 'true',

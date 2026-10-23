@@ -30,7 +30,7 @@ const T = {
     label: "Korak", labelHint: "npr. UMIJ ZOBKE", language: "Jezik", moved: n => `Premaknjeno na mesto ${n}`, picture: "Sličica", time: "Ura", auto: "Samodejno", none: "Brez sličice", pick: "Zamenjaj sličico", removeStep: "Izprazni vrstico", move: "Premakni korak", moveHint: "Povleci ali tapni tu, nato tapni novo mesto. S tipkovnico: puščici gor in dol.",
     warnNoMatch: (s, l) => `${s}: za »${l}« ni sličice. Klikni »?« in izberi sličico ali »Brez sličice«.`,
     warnLong: (s, l) => `${s}: napis »${l}« je predolg za okvir; skrajšaj ga.`,
-    preview: "👁 Predogled: tako bo natisnjeno (A4)", step: "Korak", ok: "✓ Vse sličice so najdene in vsi napisi se prilegajo.", suggest: "Manjka sličica? Predlagaj jo", warnTitle: "Opozorila", watchTitle: "Na kaj paziti", watch: [["Starost", "list je za otroke od 3 let naprej."], ["Magnetki", "uporabi le magnetke, varne za otroke in kemično neškodljive. Če otrok pogoltne magnetek, takoj pojdi k zdravniku."], ["Pisala", "za kljukice uporabi le pisala, varna za otroke in kemično neškodljiva."], ["Zdravila", "daje in hrani jih odrasel. Niso sladkarija."], ["Kopanje", "otroka nikoli ne pusti samega v kadi."], ["Nagrade", "magnetek pomeni »narejeno«. Ne obljubljaj daril za magnetke: nagrada lahko otroku vzame veselje do opravila."], ["Brez pritiska", "ure na listu so za odrasle, ne za priganjanje. Če korak izpade ali se vrstni red pomeša, ohrani mir in poskusi znova naslednjič."]], guide: "Uporaba in varnost", project: "Projekt na GitHubu",
+    preview: "Predogled (A4)", step: "Korak", ok: "✓ Vse sličice so najdene in vsi napisi se prilegajo.", suggest: "Manjka sličica? Predlagaj jo", warnTitle: "Opozorila", watchTitle: "Na kaj paziti", watch: [["Starost", "list je za otroke od 3 let naprej."], ["Magnetki", "uporabi le magnetke, varne za otroke in kemično neškodljive. Če otrok pogoltne magnetek, takoj pojdi k zdravniku."], ["Pisala", "za kljukice uporabi le pisala, varna za otroke in kemično neškodljiva."], ["Zdravila", "daje in hrani jih odrasel. Niso sladkarija."], ["Kopanje", "otroka nikoli ne pusti samega v kadi."], ["Nagrade", "magnetek pomeni »narejeno«. Ne obljubljaj daril za magnetke: nagrada lahko otroku vzame veselje do opravila."], ["Brez pritiska", "ure na listu so za odrasle, ne za priganjanje. Če korak izpade ali se vrstni red pomeša, ohrani mir in poskusi znova naslednjič."]], guide: "Uporaba in varnost", project: "Projekt na GitHubu",
   },
   en: {
     heading: "Child routines", aboutTitle: "About", howTitle: "Quick start",
@@ -42,7 +42,7 @@ const T = {
     label: "Step", labelHint: "e.g. BRUSH TEETH", language: "Language", moved: n => `Moved to place ${n}`, picture: "Picture", time: "Time", auto: "Automatic", none: "No picture", pick: "Change picture", removeStep: "Clear row", move: "Move step", moveHint: "Drag, or tap here and then tap the new place. Keyboard: up and down arrows.",
     warnNoMatch: (s, l) => `${s}: no picture for “${l}”. Click “?” and pick a picture or “No picture”.`,
     warnLong: (s, l) => `${s}: “${l}” is too long for the frame; shorten it.`,
-    preview: "👁 Preview: this is what prints (A4)", step: "Step", ok: "✓ All pictures found and all labels fit.", suggest: "Missing a picture? Suggest one", warnTitle: "Warnings", watchTitle: "What to watch for", watch: [["Age", "the sheet is for children aged 3 and up."], ["Magnets", "use only magnets that are safe for children and chemically harmless. If a child swallows a magnet, see a doctor at once."], ["Pens", "for ticks, use only pens that are safe for children and chemically harmless."], ["Medicine", "an adult gives and keeps it. It is not a sweet."], ["Bath", "never leave a child alone in the bath."], ["Rewards", "a magnet means “done”. Don't promise gifts for magnets: a reward can take away the joy of the task."], ["No pressure", "the times on the sheet are for adults, not for hurrying. If a step is skipped or the order gets mixed up, stay calm and try again next time."]], guide: "How to use it and safety", project: "Project on GitHub",
+    preview: "Preview (A4)", step: "Step", ok: "✓ All pictures found and all labels fit.", suggest: "Missing a picture? Suggest one", warnTitle: "Warnings", watchTitle: "What to watch for", watch: [["Age", "the sheet is for children aged 3 and up."], ["Magnets", "use only magnets that are safe for children and chemically harmless. If a child swallows a magnet, see a doctor at once."], ["Pens", "for ticks, use only pens that are safe for children and chemically harmless."], ["Medicine", "an adult gives and keeps it. It is not a sweet."], ["Bath", "never leave a child alone in the bath."], ["Rewards", "a magnet means “done”. Don't promise gifts for magnets: a reward can take away the joy of the task."], ["No pressure", "the times on the sheet are for adults, not for hurrying. If a step is skipped or the order gets mixed up, stay calm and try again next time."]], guide: "How to use it and safety", project: "Project on GitHub",
   },
 };
 
@@ -422,13 +422,22 @@ function update(structure = false) {
 // so the whole sheet is in view without scrolling; printing uses @media print (zoom 1)
 function fitPreview() {
   const a4w = 794, a4h = 1123, preview = document.getElementById("preview");
-  const label = document.getElementById("preview-label");
+  const label = document.getElementById("preview-label"), sheets = document.getElementById("sheets");
   let zoom = (preview.clientWidth - 8) / a4w;
-  // side by side the sheet fits the column's height too: measured label and its margin, 2 px spare,
+  // side by side the sheet fits the column's height too, 2 px spare,
   // rounded down so it never overflows by a pixel (the scroll bar stays only as a fallback)
   if (matchMedia("(min-width: 1100px)").matches) {
-    const room = preview.clientHeight - label.offsetHeight - parseFloat(getComputedStyle(label).marginBottom) - 2;
-    zoom = Math.min(zoom, room / a4h);
+    // the label floats over the sheet's sky (index.html) and takes no height; if it would cover the title,
+    // it goes into its own row above the sheet (there is height to spare when the width is what binds)
+    label.classList.remove("in-flow");
+    const fit = room => Math.floor(Math.min(zoom, room / a4h) * 1000) / 1000;
+    sheets.style.zoom = fit(preview.clientHeight - 2);
+    const title = sheets.querySelector(".rt-title"), L = label.getBoundingClientRect(), R = title && title.getBoundingClientRect();
+    if (R && !(R.right < L.left || R.left > L.right || R.bottom < L.top || R.top > L.bottom)) {
+      label.classList.add("in-flow");
+      return void (sheets.style.zoom = fit(preview.clientHeight - label.offsetHeight - 8 - 2));
+    }
+    return;
   }
   zoom = Math.floor(zoom * 1000) / 1000;
   document.getElementById("sheets").style.zoom = zoom < 1 ? zoom : "";

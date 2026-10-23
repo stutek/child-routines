@@ -132,9 +132,17 @@
       .layout { display: grid; grid-template-columns: minmax(440px, 1fr) minmax(0, 1fr); align-items: start; gap: 16px; }
       .maker { max-width: none; }
       #preview { position: sticky; top: 16px; max-height: calc(100vh - 32px); overflow: auto; }   /* square: the sheet prints with square corners */
+      /* the label and Print float small in the top right corner, over the sheet's empty sky, so the sheet gets the full height */
+      .preview-label { position: absolute; top: 6px; right: 6px; z-index: 5; margin: 0; padding: 4px 4px 4px 10px; gap: 8px; font-size: 12px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18); }
+      .preview-label .print { font-size: 14px; padding: 5px 14px; border-radius: 9px; }
+      .preview-label.in-flow { position: static; margin: 0 0 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); }   /* when it would cover the title */
+      /* the form scrolls in its own column, next to what it scrolls; the page itself does not */
+      html, body { height: 100%; overflow: hidden; }
+      .maker { max-height: calc(100vh - 32px); overflow-y: auto; }
     }
     @media print {
       .maker, .preview-label { display: none !important; }
+      html, body { height: auto !important; overflow: visible !important; }
       .layout { display: block !important; }
       #preview { position: static !important; max-height: none !important; overflow: visible !important; }
       #sheets { zoom: 1 !important; gap: 0 !important; }

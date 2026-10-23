@@ -13,6 +13,11 @@
           "color": "#D97706"
         },
         {
+          "label": "MAKE THE BED",
+          "image": "make-bed",
+          "color": "#0284C7"
+        },
+        {
           "label": "USE THE TOILET",
           "image": "toilet",
           "color": "#EA580C"
@@ -36,11 +41,6 @@
           "label": "BRUSH TEETH",
           "image": "brush-teeth",
           "color": "#0D9488"
-        },
-        {
-          "label": "MAKE THE BED",
-          "image": "make-bed",
-          "color": "#0284C7"
         },
         {
           "label": "OFF TO SCHOOL",

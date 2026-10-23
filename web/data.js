@@ -482,6 +482,11 @@ window.SHEET_DATA = {
        "color": "#D97706"
       },
       {
+       "label": "MAKE THE BED",
+       "image": "make-bed",
+       "color": "#0284C7"
+      },
+      {
        "label": "USE THE TOILET",
        "image": "toilet",
        "color": "#EA580C"
@@ -505,11 +510,6 @@ window.SHEET_DATA = {
        "label": "BRUSH TEETH",
        "image": "brush-teeth",
        "color": "#0D9488"
-      },
-      {
-       "label": "MAKE THE BED",
-       "image": "make-bed",
-       "color": "#0284C7"
       },
       {
        "label": "OFF TO SCHOOL",
@@ -619,6 +619,11 @@ window.SHEET_DATA = {
        "color": "#D97706"
       },
       {
+       "label": "POSTELJI POSTELJO",
+       "image": "make-bed",
+       "color": "#0D9488"
+      },
+      {
        "label": "NA STRANIŠČE",
        "image": "toilet",
        "color": "#EA580C"
@@ -637,11 +642,6 @@ window.SHEET_DATA = {
        "label": "UMIJ ZOBKE",
        "image": "brush-teeth",
        "color": "#16A34A"
-      },
-      {
-       "label": "POSTELJI POSTELJO",
-       "image": "make-bed",
-       "color": "#0D9488"
       },
       {
        "label": "V VRTEC",

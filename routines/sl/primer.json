@@ -13,6 +13,11 @@
           "color": "#D97706"
         },
         {
+          "label": "POSTELJI POSTELJO",
+          "image": "make-bed",
+          "color": "#0D9488"
+        },
+        {
           "label": "NA STRANIŠČE",
           "image": "toilet",
           "color": "#EA580C"
@@ -31,11 +36,6 @@
           "label": "UMIJ ZOBKE",
           "image": "brush-teeth",
           "color": "#16A34A"
-        },
-        {
-          "label": "POSTELJI POSTELJO",
-          "image": "make-bed",
-          "color": "#0D9488"
         },
         {
           "label": "V VRTEC",

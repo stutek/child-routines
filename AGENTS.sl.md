@@ -59,5 +59,6 @@ Dotik v izdelovalniku (CDP `Input.dispatchTouchEvent`) preizkusi v brezglavem Ch
 - Ko starš sestavlja rutino za svojega otroka, otrokovega imena in drugih osebnih podatkov ne daj v commit ali zahtevo za združitev.
 - Primera (`routines/sl/primer.json`, `routines/en/example.json`; izdelovalnik ju naloži) kažeta dobre navade, npr. zaslon vsaj uro pred spanjem (KidsHealth), umite roke pred obrokom, zobje po zadnjem obroku; večer vključuje zdravila in nego, v podporo družinam, ki jih potrebujejo. Slovensko jutro nima zajtrka, ker ga dajo slovenski vrtci; angleško ga ohrani. `routines/sl/vsakdan.json` je družinska rutina vzdrževalca; pusti jo, kot je.
 - `README`, `CONTRIBUTING` in `AGENTS` drži usklajene v angleščini in slovenščini (`*.sl.md`).
+- Razprava strokovnjakov o rutinah ali listih povabi vsaj vzgojitelja Montessori in strokovnjaka za razvoj otrok, poleg starša in investitorja.
 - Barve so otroške in spolno nevtralne: rumena, oranžna, rdeča, zelena, turkizna in modra kot v igralnici, brez roza in vijoličaste, na listih in v izdelovalniku. Barve korakov ohranijo belo številko pri kontrastu vsaj 3 : 1.
 - Magnetki: priporoči 35 mm ali več, vdelane v plastiko; ameriški valj za majhne dele meri 31,7 mm (CPSC 16 CFR 1501). Več pogoltnjenih magnetov se privlači skozi črevesje.

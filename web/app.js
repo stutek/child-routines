@@ -230,6 +230,8 @@ function save() {
 let state = load();
 const t = () => T[state.lang] || T.sl;
 const filled = () => state.sheet.steps.filter(st => st.label.trim());
+// a row's number on the sheet: empty rows are left off, so they have none and do not count
+const place = k => state.sheet.steps[k].label.trim() ? state.sheet.steps.slice(0, k + 1).filter(st => st.label.trim()).length : "";
 
 // resolved step for drawing: uppercase label, chosen or matched image, palette color by type and position
 function resolve(step, k) {
@@ -375,13 +377,13 @@ function renderEditor() {
         if (to !== k && to >= 0 && to < MAX_STEPS) { e.preventDefault(); moveStep(k, to); }
       } }, el("span", { class: "dots", "aria-hidden": "true" }));
     const row = el("div", { class: picked === k ? "step picked" : "step" }, [
-      el("span", { class: "n", id: `n-${k}` }, `${k + 1}`), grip,
+      el("span", { class: "n", id: `n-${k}` }, `${place(k)}`), grip,
       el("input", { value: step.label, placeholder: k === 0 ? L.labelHint : "", maxlength: "24", "aria-labelledby": `col-label n-${k}`, autocapitalize: "characters",
         oninput: e => { step.label = e.target.value; update(); } }),
       el("input", { type: "time", value: step.time, "aria-labelledby": `col-time n-${k}`, oninput: e => { step.time = e.target.value; update(); } }),
       thumb,
       el("button", { class: "del", title: L.removeStep, "aria-label": L.removeStep,
-        onclick: () => { sheet.steps[k] = newStep(); update(true); } }, broom())]);
+        onclick: () => { sheet.steps.splice(k, 1); sheet.steps.push(newStep()); update(true); } }, broom())]);
     rows.push(row);
     box.append(row, gallery);
     step._thumb = thumb;
@@ -393,6 +395,8 @@ function renderEditor() {
 function refreshSteps() {
   state.sheet.steps.forEach((step, k) => {
     if (!step._thumb) return;
+    const n = document.getElementById(`n-${k}`);
+    if (n) n.textContent = place(k);
     const empty = !step.label.trim(), r = resolve(step, k);
     step._thumb.classList.toggle("missing", !empty && !r.image && step.image !== "none");
     step._thumb.classList.toggle("empty", empty);

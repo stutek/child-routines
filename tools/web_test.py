@@ -2,7 +2,8 @@
 
     python3 tools/web_test.py
 
-Checks: no horizontal overflow at 390 and 320 px device width, no console errors or exceptions,
+Checks: no horizontal overflow at 390 and 320 px device width, form numbers match the sheet after
+removing and clearing rows, no console errors or exceptions,
 and printing gives exactly 1 page. Needs google-chrome and `pip install websockets`. Every call has a timeout.
 """
 import base64
@@ -74,6 +75,23 @@ def main():
                 print(f"width {width}: scrollWidth {scroll}")
                 if scroll > width:
                     errors.append(f"horizontal overflow at {width}: scrollWidth {scroll}")
+            # numbers in the form match the sheet after the broom removes a row and a label is cleared by hand
+            numbers = """(async () => {
+              const rows = () => [...document.querySelectorAll('.step')].filter(r => r.querySelector('.n'));
+              const tick = () => new Promise(r => setTimeout(r, 300));
+              rows()[1].querySelector('.del').click(); await tick();
+              const input = rows()[4].querySelector('input');
+              input.value = ''; input.dispatchEvent(new Event('input')); await tick();
+              const form = rows().filter(r => r.querySelector('.n').textContent)
+                .map(r => r.querySelector('.n').textContent + ' ' + r.querySelector('input').value.trim());
+              const sheet = [...document.querySelectorAll('#sheets .rt-num')].map(n => n.textContent + ' ' +
+                n.closest('.rt-pic').nextElementSibling.querySelector('.rt-label').textContent.trim());
+              return JSON.stringify(form) === JSON.stringify(sheet) && form.length === 6 ? 'ok' : JSON.stringify({form, sheet});
+            })()"""
+            got = cdp.call("Runtime.evaluate", expression=numbers, awaitPromise=True, returnByValue=True)["result"]["value"]
+            print(f"numbers after broom and a cleared label: {got}")
+            if got != "ok":
+                errors.append(f"form numbers differ from the sheet: {got}")
             for e in cdp.events:
                 if e["method"] == "Runtime.exceptionThrown":
                     errors.append("exception: " + e["params"]["exceptionDetails"].get("text", "?"))

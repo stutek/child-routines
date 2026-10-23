@@ -55,12 +55,12 @@
     .maker details { font-size: 14px; color: #44403C; line-height: 1.4; }
     .maker summary { font-weight: 800; color: #115E59; font-size: 15px; cursor: pointer; padding-block: 4px; display: flex; align-items: center; gap: 8px; }   /* ≥ 24 px (WCAG 2.5.8) */
     .maker details[open] summary { margin-bottom: 4px; }
-    /* one control at the right says what a click does: ▾ Skrij when open, ▸ Pokaži when closed (a triangle alone is not clear to every parent) */
+    /* one control at the right says what a click does: ▴ Skrij folds up, ▾ Pokaži opens down (a triangle alone is not clear to every parent) */
     .maker summary { list-style: none; }
     .maker summary::-webkit-details-marker { display: none; }
-    .maker summary::after { content: "▾ " attr(data-hide); margin-left: auto; font-size: 13px; font-weight: 700; color: #115E59;
+    .maker summary::after { content: "▴ " attr(data-hide); margin-left: auto; font-size: 13px; font-weight: 700; color: #115E59;
       background: #DDF3EE; border-radius: 999px; padding: 2px 12px; white-space: nowrap; }
-    .maker details:not([open]) > summary::after { content: "▸ " attr(data-show); }
+    .maker details:not([open]) > summary::after { content: "▾ " attr(data-show); }
     /* the frame holds the title and the content: folded, the framed title stays */
     .maker details { border: 1px solid #E7E0D3; border-radius: 12px; padding: 6px 12px; }
     .maker .fold-body { padding: 2px 0 4px; }

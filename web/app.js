@@ -22,8 +22,10 @@ const PALETTES = [
 const T = {
   sl: {
     heading: "Otrokove rutine", aboutTitle: "O aplikaciji", howTitle: "Hitri začetek",
-    about: "Jutro in večer sta polna korakov in pogosto jih naštevaš ti, vsak dan znova. Tu v nekaj minutah narediš in natisneš list s sličicami otrokove rutine, na katerem otrok opravljen korak sam označi z magnetkom ali kljukico. Tako vidi, kaj pride, list pa lahko gre z njim tudi k starim staršem, teti ali stricu, kjer mu znano zaporedje lahko da občutek varnosti. Brezplačno in brez prijave; kar vpišeš, ostane v tvojem brskalniku.",
-    how: ["Najlažje gre na računalniku. Izberi »Tip rutine« in vpiši 3–4 korake. Prve dni jih opravi skupaj z otrokom. Ko otrok rutino zna, dodaj nove (največ 8).", "Stran sama izbere sličico za vsak korak. Klikni sličico, da jo zamenjaš. Otroku pokaži dve ali tri in naj izbere.", "Naslov in korake lahko spremeniš. Prazne vrstice se ne natisnejo.", "Uro vpiši ali izklopi »Ura na listu«. Vrstico premakneš tako, da jo povlečeš za pike.", "Klikni »Natisni«: A4, robovi »Brez«, merilo 100 %. Za babico izberi »Shrani kot PDF«. List lahko pritrdiš na hladilnik ali tablo.", "Povezava shrani list: klikni »Kopiraj povezavo«, shrani jo ali jo pošlji babici."],
+    lead: "Tu v nekaj minutah narediš in natisneš list s sličicami otrokove rutine, na katerem otrok opravljen korak sam označi z magnetkom ali kljukico.",
+    warn: "Opozorilo: za otroke od 3 let. Magnetki in pisala naj bodo varni za otroke in kemično neškodljivi. Namesto magnetka lahko narišeš kljukico. Če otrok pogoltne magnetek, takoj k zdravniku.",
+    about: "Jutro in večer sta polna korakov in pogosto jih naštevaš ti, vsak dan znova. Otrok tako vidi, kaj pride, list pa lahko gre z njim tudi k starim staršem, teti ali stricu, kjer mu znano zaporedje lahko da občutek varnosti. Brezplačno in brez prijave; kar vpišeš, ostane v tvojem brskalniku.",
+    how: ["Najlažje gre na računalniku. Izberi »Tip rutine« in vpiši 3–4 korake. Prve dni jih opravi skupaj z otrokom. Ko otrok rutino zna, dodaj nove (največ 8).", "Stran sama izbere sličico za vsak korak. Klikni sličico, da jo zamenjaš. Otroku pokaži dve ali tri in naj izbere.", "Naslov in korake lahko spremeniš. Prazne vrstice se ne natisnejo.", "Uro vpiši ali izklopi »Ura na listu«. Vrstico premakneš tako, da jo povlečeš za pike.", "Klikni »Natisni«: A4, robovi »Brez«, merilo 100 %. Za babico izberi »Shrani kot PDF«. List lahko pritrdiš na hladilnik ali tablo.", "Najprej – potem: za težek prehod naredi list z dvema korakoma. Obesi ga ob mestu prehoda.", "Ko otrok rutino zna ali se rutina spremeni, zamenjaj korak ali sličico in natisni znova. Sličico lahko izbere otrok.", "Povezava shrani list: klikni »Kopiraj povezavo«, shrani jo ali jo pošlji babici."],
     example: "Naloži primer", replaced: "Primer je zamenjal tvoj list.", stepRemoved: "Korak je odstranjen.", skip: "Preskoči na obrazec", previewName: "Predogled lista", linkReplaced: "Povezava je zamenjala tvoj list.", copy: "Kopiraj povezavo", copied: "Povezava je kopirana.", linkHint: "Kdor ima povezavo, vidi list.", undo: "Razveljavi", undone: "Tvoj list je vrnjen.", print: "Natisni",
     type: "Tip rutine", sheetTitle: "Naslov lista", skies: { dawn: "jutro", afternoon: "dan", night: "večer" },
     times: "Ura na listu", background: "Ozadje", backgrounds: { gradient: "barvno", white: "belo", none: "brez (manj črnila)" },
@@ -31,12 +33,14 @@ const T = {
     warnNoMatch: (s, l) => `${s}: za »${l}« ni sličice. Klikni »?« in izberi sličico ali »Brez sličice«.`,
     warnMismatch: (s, l) => `${s}: sličica se morda ne ujema z napisom »${l}«.`,
     warnLong: (s, l) => `${s}: napis »${l}« je predolg za okvir; skrajšaj ga.`, tooLong: "Napis je predolg za okvir.",
-    preview: "Predogled (A4)", step: "Korak", ok: "✓ Vse sličice so najdene in vsi napisi se prilegajo.", suggest: "Manjka sličica? Predlagaj jo", warnTitle: "Opozorila", watchTitle: "Na kaj paziti", watch: [["Starost", "list je za otroke od 3 let naprej."], ["Magnetki", "uporabi le magnetke, varne za otroke in kemično neškodljive. Če otrok pogoltne magnetek, takoj pojdi k zdravniku."], ["Pisala", "za kljukice uporabi le pisala, varna za otroke in kemično neškodljiva."], ["Zdravila", "daje in hrani jih odrasel. Niso sladkarija."], ["Kopanje", "otroka nikoli ne pusti samega v kadi."], ["Zobki", "sledi navodilom svojega zobozdravnika."], ["Nagrade", "magnetek pomeni »narejeno«. Ne obljubljaj daril za magnetke: nagrada lahko otroku vzame veselje do opravila."], ["Brez pritiska", "ure na listu so za odrasle, ne za priganjanje. Če korak izpade ali se vrstni red pomeša, ohrani mir in poskusi znova naslednjič."]], guide: "Uporaba in varnost", project: "Projekt na GitHubu",
+    printHint: "Pri tiskanju: A4, robovi »Brez«, merilo 100 %.", preview: "Predogled (A4)", step: "Korak", ok: "✓ Vse sličice so najdene in vsi napisi se prilegajo.", suggest: "Manjka sličica? Predlagaj jo", warnTitle: "Opozorila", watchTitle: "Na kaj paziti", watch: [["Starost", "list je za otroke od 3 let naprej."], ["Magnetki", "uporabi le magnetke, varne za otroke in kemično neškodljive. Če otrok pogoltne magnetek, takoj pojdi k zdravniku."], ["Pisala", "za kljukice uporabi le pisala, varna za otroke in kemično neškodljiva."], ["Zdravila", "daje in hrani jih odrasel. Niso sladkarija."], ["Kopanje", "otroka nikoli ne pusti samega v kadi."], ["Zobki", "sledi navodilom svojega zobozdravnika."], ["Nagrade", "magnetek pomeni »narejeno«. Ne obljubljaj daril za magnetke: nagrada lahko otroku vzame veselje do opravila."], ["Brez pritiska", "ure na listu so za odrasle, ne za priganjanje. Če korak izpade ali se vrstni red pomeša, ohrani mir in poskusi znova naslednjič."]], guide: "Uporaba in varnost", project: "Projekt na GitHubu",
   },
   en: {
     heading: "Child routines", aboutTitle: "About", howTitle: "Quick start",
-    about: "Mornings and evenings are full of steps, and often you're the one listing them, every day. Here you can make and print a picture sheet of your child's routine in a few minutes; your child marks each finished step with a magnet or a tick. They can see what comes next, and the sheet can travel to grandparents, an aunt or an uncle, where the familiar order can give a sense of security. Free, with no sign-up; what you type stays in your browser.",
-    how: ["It is easiest on a computer. Pick the “Routine type” and type 3–4 steps. Do them with your child for the first few days. When your child knows the routine, add more (up to 8).", "The page picks a picture for each step. Click a picture to change it. Show your child two or three and let them choose.", "You can change the title and steps. Empty rows are not printed.", "Type a time, or turn off “Time on the sheet”. Drag a row by its dots to move it.", "Click “Print”: A4, margins “None”, scale 100%. For a grandparent, choose “Save as PDF”. You can put the sheet on the fridge or a board.", "The link keeps the sheet: click “Copy link”, save it or send it to a grandparent."],
+    lead: "Here you can make and print a picture sheet of your child's routine in a few minutes; your child marks each finished step with a magnet or a tick.",
+    warn: "Warning: for children aged 3 and up. Magnets and pens must be child-safe and chemically harmless. You can draw a tick instead of using a magnet. If a child swallows a magnet, see a doctor at once.",
+    about: "Mornings and evenings are full of steps, and often you're the one listing them, every day. Your child can see what comes next, and the sheet can travel to grandparents, an aunt or an uncle, where the familiar order can give a sense of security. Free, with no sign-up; what you type stays in your browser.",
+    how: ["It is easiest on a computer. Pick the “Routine type” and type 3–4 steps. Do them with your child for the first few days. When your child knows the routine, add more (up to 8).", "The page picks a picture for each step. Click a picture to change it. Show your child two or three and let them choose.", "You can change the title and steps. Empty rows are not printed.", "Type a time, or turn off “Time on the sheet”. Drag a row by its dots to move it.", "Click “Print”: A4, margins “None”, scale 100%. For a grandparent, choose “Save as PDF”. You can put the sheet on the fridge or a board.", "First – then: for a hard transition, make a sheet with two steps. Hang it where the transition happens.", "When your child knows the routine or it changes, swap a step or a picture and print again. Your child can choose the picture.", "The link keeps the sheet: click “Copy link”, save it or send it to a grandparent."],
     example: "Load example", replaced: "The example replaced your sheet.", stepRemoved: "Step removed.", skip: "Skip to the form", previewName: "Sheet preview", linkReplaced: "The link replaced your sheet.", copy: "Copy link", copied: "Link copied.", linkHint: "Anyone with the link can see the sheet.", undo: "Undo", undone: "Your sheet is back.", print: "Print",
     type: "Routine type", sheetTitle: "Sheet title", skies: { dawn: "morning", afternoon: "day", night: "evening" },
     times: "Time on the sheet", background: "Background", backgrounds: { gradient: "color", white: "white", none: "none (less ink)" },
@@ -44,7 +48,7 @@ const T = {
     warnNoMatch: (s, l) => `${s}: no picture for “${l}”. Click “?” and pick a picture or “No picture”.`,
     warnMismatch: (s, l) => `${s}: the picture may not match the label “${l}”.`,
     warnLong: (s, l) => `${s}: “${l}” is too long for the frame; shorten it.`, tooLong: "The label is too long for the frame.",
-    preview: "Preview (A4)", step: "Step", ok: "✓ All pictures found and all labels fit.", suggest: "Missing a picture? Suggest one", warnTitle: "Warnings", watchTitle: "What to watch for", watch: [["Age", "the sheet is for children aged 3 and up."], ["Magnets", "use only magnets that are safe for children and chemically harmless. If a child swallows a magnet, see a doctor at once."], ["Pens", "for ticks, use only pens that are safe for children and chemically harmless."], ["Medicine", "an adult gives and keeps it. It is not a sweet."], ["Bath", "never leave a child alone in the bath."], ["Teeth", "follow your dentist's advice."], ["Rewards", "a magnet means “done”. Don't promise gifts for magnets: a reward can take away the joy of the task."], ["No pressure", "the times on the sheet are for adults, not for hurrying. If a step is skipped or the order gets mixed up, stay calm and try again next time."]], guide: "How to use it and safety", project: "Project on GitHub",
+    printHint: "When printing: A4, margins “None”, scale 100%.", preview: "Preview (A4)", step: "Step", ok: "✓ All pictures found and all labels fit.", suggest: "Missing a picture? Suggest one", warnTitle: "Warnings", watchTitle: "What to watch for", watch: [["Age", "the sheet is for children aged 3 and up."], ["Magnets", "use only magnets that are safe for children and chemically harmless. If a child swallows a magnet, see a doctor at once."], ["Pens", "for ticks, use only pens that are safe for children and chemically harmless."], ["Medicine", "an adult gives and keeps it. It is not a sweet."], ["Bath", "never leave a child alone in the bath."], ["Teeth", "follow your dentist's advice."], ["Rewards", "a magnet means “done”. Don't promise gifts for magnets: a reward can take away the joy of the task."], ["No pressure", "the times on the sheet are for adults, not for hurrying. If a step is skipped or the order gets mixed up, stay calm and try again next time."]], guide: "How to use it and safety", project: "Project on GitHub",
   },
 };
 
@@ -191,6 +195,7 @@ function sheetHtml(sheet, lang = "sl") {
 
 // ---------- state: one sheet, always MAX_STEPS rows; empty rows are left off the sheet ----------
 
+const detailsOpen = { watch: matchMedia("(min-width: 1100px)").matches, how: false };   // both closed on a phone
 const newStep = () => ({ label: "", time: "", image: "auto" });
 const EXAMPLE_FOR = { dawn: 0, afternoon: 1, night: 2 };   // sheet of the example routine per type
 // titles are plain text; older stored titles and the example may start with an icon, which is dropped
@@ -372,7 +377,9 @@ function renderEditor() {
   document.documentElement.lang = state.lang;
   document.title = L.heading;
   // Print sits with the preview: on a computer it stays in view next to the sheet
-  document.getElementById("preview-label").replaceChildren(el("span", {}, L.preview), el("button", { class: "print", onclick: () => window.print() }, L.print));
+  document.getElementById("preview-label").replaceChildren(el("span", {}, L.preview),
+    el("button", { class: "print", "aria-describedby": "print-hint", onclick: () => window.print() }, L.print),
+    el("p", { id: "print-hint", class: "print-hint" }, L.printHint));
   root.classList.toggle("no-times", !state.times);
   document.getElementById("skip").textContent = L.skip;
   document.getElementById("preview").setAttribute("aria-label", L.previewName);
@@ -389,14 +396,9 @@ function renderEditor() {
       // each language in its own name, labelled with a globe (W3C: language selection), no flags
       el("label", { class: "lang" }, [el("span", { class: "globe", "aria-hidden": "true" }, "🌐"),
         langSelect(L.language)])]),
-    // About, then what to watch for, read before the parent makes the sheet and buys magnets (expert review), then the links
-    el("h2", {}, L.aboutTitle), el("p", { class: "about" }, L.about),
-    // what may happen, wanted or not, and what to do about it (expert review)
-    el("div", { class: "safety" }, [el("span", { class: "danger", "aria-hidden": "true" }, "⚠"), el("div", {}, [el("strong", {}, L.watchTitle),
-      el("ul", {}, L.watch.map(([what, text]) => el("li", {}, [el("strong", {}, `${what}: `), text])))])]),
-    el("p", { class: "about" }, [el("a", { href: GUIDE[state.lang] || GUIDE.en, target: "_blank", rel: "noopener" }, L.guide), " · ",
-      el("a", { href: PROJECT, target: "_blank", rel: "noopener" }, L.project)]),
-    el("h2", {}, L.howTitle), el("ol", { class: "how" }, L.how.map(s => el("li", {}, s))),
+    // one sentence about the app and the warning stay above the form; the rest is below the rows (A1)
+    el("p", { class: "about" }, L.lead),
+    el("p", { class: "warn" }, [el("span", { class: "danger", "aria-hidden": "true" }, "⚠"), L.warn]),
     // every field has a visible label (WCAG 2.2, 3.3.2); a placeholder disappears once the parent types
     el("div", { class: "row-top fields" }, [
       field(L.type, select(L.type, sheet.sky, L.skies, setType)),
@@ -465,7 +467,19 @@ function renderEditor() {
     box.append(row, step._hint, gallery);
     step._thumb = thumb;
   });
-  root.append(box, el("span", { id: "move-desc", class: "sr-only" }, L.moveDesc), el("div", { id: "warnings", role: "status" }));
+  // what to watch for (open on a computer) and Quick start (closed), then the links and the rest of the About text
+  const details = (id, title, body) => {
+    const d = el("details", { id }, [el("summary", {}, title), body]);
+    d.open = detailsOpen[id];
+    d.addEventListener("toggle", () => { detailsOpen[id] = d.open; });
+    return d;
+  };
+  root.append(box, el("span", { id: "move-desc", class: "sr-only" }, L.moveDesc), el("div", { id: "warnings", role: "status" }),
+    details("watch", L.watchTitle, el("ul", {}, L.watch.map(([what, text]) => el("li", {}, [el("strong", {}, `${what}: `), text])))),
+    details("how", L.howTitle, el("ol", { class: "how" }, L.how.map(s => el("li", {}, s)))),
+    el("p", { class: "about" }, [el("a", { href: GUIDE[state.lang] || GUIDE.en, target: "_blank", rel: "noopener" }, L.guide), " · ",
+      el("a", { href: PROJECT, target: "_blank", rel: "noopener" }, L.project)]),
+    el("h2", {}, L.aboutTitle), el("p", { class: "about" }, L.about));
 }
 
 const rowInput = k => document.querySelectorAll("#maker .sheet-box .step:not(.step-head)")[k].querySelector("input:not([type=time])");

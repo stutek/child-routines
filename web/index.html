@@ -52,10 +52,13 @@
     .skip:focus { top: 8px; outline: 3px solid #0F172A; outline-offset: 2px; }
     .maker :focus-visible { outline: 3px solid #0F766E; outline-offset: 2px; }
     .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-    .maker .safety { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: #44403C; line-height: 1.4; }
-    .maker .safety ul { margin: 2px 0 0 18px; }
-    .maker .safety li { margin-top: 0; }
-    .maker .safety .danger { font-family: 'Noto Emoji', sans-serif; font-weight: 600; font-size: 22px; line-height: 1.1; color: #B45309; }
+    /* always visible, plain text; the symbol is decoration */
+    .maker .warn { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: #44403C; line-height: 1.4; }
+    .maker details { font-size: 14px; color: #44403C; line-height: 1.4; border: 1px solid #E7E0D3; border-radius: 12px; padding: 8px 12px; }
+    .maker summary { font-weight: 800; color: #115E59; font-size: 15px; cursor: pointer; }
+    .maker details[open] summary { margin-bottom: 6px; }
+    .maker details ul { margin: 2px 0 0 18px; }
+    .maker .warn .danger { font-family: 'Noto Emoji', sans-serif; font-weight: 600; font-size: 22px; line-height: 1.1; color: #B45309; }
     .maker .about a { color: #115E59; font-weight: 700; }
     .row-top { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; }
     .row-top .grow { flex: 1 1 200px; }
@@ -130,6 +133,8 @@
     #sheets { display: flex; flex-direction: column; gap: 24px; }
     .preview-label { font-weight: 800; font-size: 15px; color: #334155; background: #ffffff; border-radius: 10px; padding: 8px 8px 8px 14px; margin-bottom: 10px; display: inline-flex; align-items: center; gap: 14px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); }
     .preview-label .print { font: inherit; font-size: 16px; font-weight: 700; border: none; border-radius: 12px; padding: 8px 20px; cursor: pointer; background: #0F766E; color: #ffffff; }
+    .preview-label { flex-wrap: wrap; }
+    .print-hint { flex-basis: 100%; order: 3; margin: 0; font-size: 13px; font-weight: 600; color: #475569; }   /* 7.6 : 1 on white */
     .preview-label .print:hover { background: #115E59; }
     .preview-label .print:focus-visible { outline: 3px solid #0F766E; outline-offset: 2px; }
     /* Wide screen: form on the left, the sheets on the right, staying in view while you edit */
@@ -139,8 +144,9 @@
       .maker { max-width: none; }
       #preview { position: sticky; top: 16px; max-height: calc(100vh - 32px); overflow: auto; }   /* square: the sheet prints with square corners */
       /* the label and Print float small in the top right corner, over the sheet's empty sky, so the sheet gets the full height */
-      .preview-label { position: absolute; top: 6px; right: 6px; z-index: 5; margin: 0; padding: 4px 4px 4px 10px; gap: 8px; font-size: 12px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18); }
+      .preview-label { position: absolute; top: 6px; right: 6px; z-index: 5; margin: 0; padding: 4px 4px 4px 10px; gap: 2px 8px; font-size: 12px; max-width: 270px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18); }
       .preview-label .print { font-size: 14px; padding: 5px 14px; border-radius: 9px; }
+      .print-hint { font-size: 12px; }
       .preview-label.in-flow { position: static; margin: 0 0 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); }   /* when it would cover the title */
       /* the form scrolls in its own column, next to what it scrolls; the page itself does not */
       html, body { height: 100%; overflow: hidden; }

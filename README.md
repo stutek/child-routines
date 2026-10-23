@@ -14,7 +14,10 @@ Free, no sign-up and no ads. What you type stays in your browser.
 
 1. Open the [sheet maker](https://stutek.github.io/child-routines/). It is easiest on a computer. It opens with an example evening routine.
 2. Pick the routine type and type 3–4 steps (up to 8). Click a picture to change it. Drag a row by its dots to move it. Type a time, or turn off *Time on the sheet*.
-3. Click **Print**: A4, margins *None*, scale 100%. For a grandparent or a print shop, choose *Save as PDF*. You can put the sheet on the fridge or a board. The link keeps the sheet: click *Copy link*, save it or send it to a grandparent.
+3. Click **Print**: A4, margins *None*, scale 100%. For a grandparent or a print shop, choose *Save as PDF*. You can put the sheet on the fridge or a board.
+4. First – then: for a hard transition, make a sheet with two steps. Hang it where the transition happens.
+5. When your child knows the routine or it changes, swap a step or a picture and print again. Your child can choose the picture.
+6. The link keeps the sheet: click *Copy link*, save it or send it to a grandparent.
 
 ## How to use it
 

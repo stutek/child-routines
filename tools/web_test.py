@@ -160,6 +160,23 @@ def main():
             bad = [k for k, v in json.loads(got).items() if not v]
             if bad:
                 errors.append(f"grip keyboard checks failed: {bad}")
+            # A1: warning line above the first field, Quick start closed, watch list below the rows, print hint on the button
+            got = cdp.call("Runtime.evaluate", returnByValue=True, expression="""(() => {
+              const warn = document.querySelector('#maker .warn'), field = document.querySelector('#maker .row-top.fields');
+              const d = [...document.querySelectorAll('#maker details')], box = document.querySelector('#maker .sheet-box');
+              const btn = document.querySelector('#preview-label .print'), hint = document.getElementById('print-hint');
+              return JSON.stringify({
+                warnAbove: !!warn && !!(warn.compareDocumentPosition(field) & Node.DOCUMENT_POSITION_FOLLOWING) && warn.textContent.includes('3'),
+                iconHidden: warn.querySelector('.danger').getAttribute('aria-hidden') === 'true',
+                detailsBelow: d.length === 2 && d.every(x => box.compareDocumentPosition(x) & Node.DOCUMENT_POSITION_FOLLOWING),
+                phoneClosed: d.every(x => !x.open),
+                howHas: d[1].querySelectorAll('li').length === 8,
+                hint: btn.getAttribute('aria-describedby') === 'print-hint' && !!hint && hint.textContent.length > 10 });
+            })()""")["result"]["value"]
+            print(f"warning, details, print hint (390 px): {got}")
+            bad = [k for k, v in json.loads(got).items() if not v]
+            if bad:
+                errors.append(f"A1 layout checks failed: {bad}")
             # share link: title and labels (with č š ž) survive a fresh navigation; a broken fragment is ignored
             cdp.call("Runtime.evaluate", expression="""(() => {
               const t = document.querySelector('input.title'); t.value = 'Čšž večer'; t.dispatchEvent(new Event('input'));

@@ -30,7 +30,7 @@ Example sheets, ready to print, are [here](https://stutek.github.io/child-routin
 
 - **Age:** 3 and up.
 - **Magnets:** a child must not swallow a magnet or a piece of one. Mind younger siblings. If it happens, see a doctor at once.
-- **Pens:** for ticks, use non-toxic pens made for children.
+- **Pens:** for ticks, use pens made for children, safe to use and chemically safe.
 - **Medicine:** an adult gives and keeps it; it is not a sweet.
 - **Bath:** never leave a child alone in the bath.
 

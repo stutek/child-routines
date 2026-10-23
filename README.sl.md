@@ -30,7 +30,7 @@ Vzorčni listi so [tu](https://stutek.github.io/child-routines/output/sl-primer.
 
 - **Starost:** od 3 let naprej.
 - **Magnetki:** otrok ne sme pogoltniti magnetka ali delčka. Pazite na mlajše sorojence. Če se zgodi, takoj k zdravniku.
-- **Pisala:** za kljukice uporabite nestrupena, otroška pisala.
+- **Pisala:** za kljukice uporabite otroška pisala, varna za uporabo in kemično varna.
 - **Zdravila:** daje in hrani jih odrasel; niso sladkarija.
 - **Kopanje:** otroka nikoli ne pustite samega v kadi.
 

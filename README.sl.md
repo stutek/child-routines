@@ -14,7 +14,7 @@ Brezplačno, brez prijave in brez oglasov. Kar vpišete, ostane v vašem brskaln
 
 1. Odprite [stran za izdelavo lista](https://stutek.github.io/child-routines/). Najlažje gre na računalniku. Stran se odpre s primerom večerne rutine.
 2. Izberite tip rutine in vpišite 3–4 korake (največ 8). Sličico zamenjate s klikom nanjo. Vrstico premaknete tako, da jo povlečete za pike. Uro vpišite ali izklopite *Ura na listu*.
-3. Kliknite **Natisni**: A4, robovi *Brez*, merilo 100 %. Za babico ali tiskarno izberite *Shrani kot PDF*. List lahko pritrdite na hladilnik ali tablo.
+3. Kliknite **Natisni**: A4, robovi *Brez*, merilo 100 %. Za babico ali tiskarno izberite *Shrani kot PDF*. List lahko pritrdite na hladilnik ali tablo. Povezava shrani list: kliknite *Kopiraj povezavo*, shranite jo ali jo pošljite babici.
 
 ## Kako ga uporabljamo
 

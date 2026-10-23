@@ -4,6 +4,7 @@
 
 Checks: no horizontal overflow at 390 and 320 px device width, form numbers match the sheet after
 removing and clearing rows, no console errors or exceptions,
+a share link round-trips (title, labels with č š ž) and a broken one is ignored,
 and printing gives exactly 1 page. Needs google-chrome and `pip install websockets`. Every call has a timeout.
 """
 import base64
@@ -92,6 +93,47 @@ def main():
             print(f"numbers after broom and a cleared label: {got}")
             if got != "ok":
                 errors.append(f"form numbers differ from the sheet: {got}")
+            # share link: title and labels (with č š ž) survive a fresh navigation; a broken fragment is ignored
+            cdp.call("Runtime.evaluate", expression="""(() => {
+              const t = document.querySelector('input.title'); t.value = 'Čšž večer'; t.dispatchEvent(new Event('input'));
+              const i = document.querySelector('.step input'); i.value = 'Umij zobe čšž'; i.dispatchEvent(new Event('input'));
+            })()""")
+            link = cdp.call("Runtime.evaluate", expression="location.href", returnByValue=True)["result"]["value"]
+            read = """JSON.stringify([document.querySelector('input.title').value, document.querySelector('.step input').value,
+              [...document.querySelectorAll('#sheets .rt-label')].map(l => l.textContent.trim())[0], document.querySelector('#sheets .rt-title').textContent.trim()])"""
+            cdp.call("Page.navigate", url="about:blank")
+            cdp.wait(0.5)
+            cdp.call("Page.navigate", url=link)
+            cdp.wait(2)
+            got = json.loads(cdp.call("Runtime.evaluate", expression=read, returnByValue=True)["result"]["value"])
+            print(f"link {len(link.split('#')[1])} characters, read back: {got}")
+            if got != ["Čšž večer", "Umij zobe čšž", "UMIJ ZOBE ČŠŽ", "ČŠŽ VEČER"]:
+                errors.append(f"share link does not round-trip: {got}")
+            # a link to a picture that was removed later: the id falls back to "auto" (keyword match, else "?")
+            for label, want in (("UMIJ ZOBKE", "brush-teeth"), ("XYZ", None)):
+                raw = json.dumps({"l": "sl", "b": "gradient", "t": 1, "s": "night", "h": "TEST", "r": [[label, "", "removed-picture"]]})
+                frag = base64.urlsafe_b64encode(raw.encode()).decode().rstrip("=")
+                cdp.call("Page.navigate", url="about:blank")
+                cdp.wait(0.5)
+                cdp.call("Page.navigate", url=PAGE + "#" + frag)
+                cdp.wait(2)
+                res = json.loads(cdp.call("Runtime.evaluate", returnByValue=True, expression="""JSON.stringify({
+                  img: (document.querySelector('#sheets .rt-pic img') || {src: ''}).src.split('/').pop(),
+                  missing: !!document.querySelector('#sheets .rt-missing'),
+                  warn: document.getElementById('warnings').className })""")["result"]["value"])
+                print(f"removed picture, label {label}: {res}")
+                if want and res["img"] != want + ".jpg":
+                    errors.append(f"removed picture with label {label}: expected {want}.jpg, got {res}")
+                if not want and not (res["missing"] and res["warn"] == "warnings"):
+                    errors.append(f"removed picture with label {label}: expected ? placeholder and a warning, got {res}")
+            cdp.call("Page.navigate", url="about:blank")
+            cdp.wait(0.5)
+            cdp.call("Page.navigate", url=PAGE + "#abc")
+            cdp.wait(2)
+            ok = cdp.call("Runtime.evaluate", expression="document.querySelectorAll('#sheets .rt-label').length > 0", returnByValue=True)["result"]["value"]
+            print(f"broken fragment ignored, sheet shown: {ok}")
+            if not ok:
+                errors.append("a broken fragment left no sheet")
             for e in cdp.events:
                 if e["method"] == "Runtime.exceptionThrown":
                     errors.append("exception: " + e["params"]["exceptionDetails"].get("text", "?"))

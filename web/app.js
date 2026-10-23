@@ -23,8 +23,8 @@ const T = {
   sl: {
     heading: "Otrokove rutine", aboutTitle: "O aplikaciji", howTitle: "Hitri začetek",
     about: "Jutro in večer sta polna korakov in pogosto jih naštevaš ti, vsak dan znova. Tu v nekaj minutah narediš in natisneš list s sličicami otrokove rutine, na katerem otrok opravljen korak sam označi z magnetkom ali kljukico. Tako vidi, kaj pride, list pa lahko gre z njim tudi k starim staršem, teti ali stricu, kjer mu znano zaporedje lahko da občutek varnosti. Brezplačno in brez prijave; kar vpišeš, ostane v tvojem brskalniku.",
-    how: ["Najlažje gre na računalniku. Izberi »Tip rutine« in vpiši 3–4 korake. Prve dni jih opravi skupaj z otrokom. Ko otrok rutino zna, dodaj nove (največ 8).", "Stran sama izbere sličico za vsak korak. Klikni sličico, da jo zamenjaš. Otroku pokaži dve ali tri in naj izbere.", "Naslov in korake lahko spremeniš. Prazne vrstice se ne natisnejo.", "Uro vpiši ali izklopi »Ura na listu«. Vrstico premakneš tako, da jo povlečeš za pike.", "Klikni »Natisni«: A4, robovi »Brez«, merilo 100 %. Za babico izberi »Shrani kot PDF«. List lahko pritrdiš na hladilnik ali tablo."],
-    example: "Naloži primer", replaced: "Primer je zamenjal tvoj list.", undo: "Razveljavi", undone: "Tvoj list je vrnjen.", print: "Natisni",
+    how: ["Najlažje gre na računalniku. Izberi »Tip rutine« in vpiši 3–4 korake. Prve dni jih opravi skupaj z otrokom. Ko otrok rutino zna, dodaj nove (največ 8).", "Stran sama izbere sličico za vsak korak. Klikni sličico, da jo zamenjaš. Otroku pokaži dve ali tri in naj izbere.", "Naslov in korake lahko spremeniš. Prazne vrstice se ne natisnejo.", "Uro vpiši ali izklopi »Ura na listu«. Vrstico premakneš tako, da jo povlečeš za pike.", "Klikni »Natisni«: A4, robovi »Brez«, merilo 100 %. Za babico izberi »Shrani kot PDF«. List lahko pritrdiš na hladilnik ali tablo.", "Povezava shrani list: klikni »Kopiraj povezavo«, shrani jo ali jo pošlji babici."],
+    example: "Naloži primer", replaced: "Primer je zamenjal tvoj list.", linkReplaced: "Povezava je zamenjala tvoj list.", copy: "Kopiraj povezavo", copied: "Povezava je kopirana.", linkHint: "Kdor ima povezavo, vidi list.", undo: "Razveljavi", undone: "Tvoj list je vrnjen.", print: "Natisni",
     type: "Tip rutine", sheetTitle: "Naslov lista", skies: { dawn: "jutro", afternoon: "večerja", night: "večer" },
     times: "Ura na listu", background: "Ozadje", backgrounds: { gradient: "barvno", white: "belo", none: "brez (manj črnila)" },
     label: "Korak", labelHint: "npr. UMIJ ZOBKE", language: "Jezik", moved: n => `Premaknjeno na mesto ${n}`, picture: "Sličica", time: "Ura", auto: "Samodejno", none: "Brez sličice", pick: "Zamenjaj sličico", removeStep: "Izprazni vrstico", move: "Premakni korak", moveHint: "Povleci ali tapni tu, nato tapni novo mesto. S tipkovnico: puščici gor in dol.",
@@ -36,8 +36,8 @@ const T = {
   en: {
     heading: "Child routines", aboutTitle: "About", howTitle: "Quick start",
     about: "Mornings and evenings are full of steps, and often you're the one listing them, every day. Here you can make and print a picture sheet of your child's routine in a few minutes; your child marks each finished step with a magnet or a tick. They can see what comes next, and the sheet can travel to grandparents, an aunt or an uncle, where the familiar order can give a sense of security. Free, with no sign-up; what you type stays in your browser.",
-    how: ["It is easiest on a computer. Pick the “Routine type” and type 3–4 steps. Do them with your child for the first few days. When your child knows the routine, add more (up to 8).", "The page picks a picture for each step. Click a picture to change it. Show your child two or three and let them choose.", "You can change the title and steps. Empty rows are not printed.", "Type a time, or turn off “Time on the sheet”. Drag a row by its dots to move it.", "Click “Print”: A4, margins “None”, scale 100%. For a grandparent, choose “Save as PDF”. You can put the sheet on the fridge or a board."],
-    example: "Load example", replaced: "The example replaced your sheet.", undo: "Undo", undone: "Your sheet is back.", print: "Print",
+    how: ["It is easiest on a computer. Pick the “Routine type” and type 3–4 steps. Do them with your child for the first few days. When your child knows the routine, add more (up to 8).", "The page picks a picture for each step. Click a picture to change it. Show your child two or three and let them choose.", "You can change the title and steps. Empty rows are not printed.", "Type a time, or turn off “Time on the sheet”. Drag a row by its dots to move it.", "Click “Print”: A4, margins “None”, scale 100%. For a grandparent, choose “Save as PDF”. You can put the sheet on the fridge or a board.", "The link keeps the sheet: click “Copy link”, save it or send it to a grandparent."],
+    example: "Load example", replaced: "The example replaced your sheet.", linkReplaced: "The link replaced your sheet.", copy: "Copy link", copied: "Link copied.", linkHint: "Anyone with the link can see the sheet.", undo: "Undo", undone: "Your sheet is back.", print: "Print",
     type: "Routine type", sheetTitle: "Sheet title", skies: { dawn: "morning", afternoon: "dinner", night: "evening" },
     times: "Time on the sheet", background: "Background", backgrounds: { gradient: "color", white: "white", none: "none (less ink)" },
     label: "Step", labelHint: "e.g. BRUSH TEETH", language: "Language", moved: n => `Moved to place ${n}`, picture: "Picture", time: "Time", auto: "Automatic", none: "No picture", pick: "Change picture", removeStep: "Clear row", move: "Move step", moveHint: "Drag, or tap here and then tap the new place. Keyboard: up and down arrows.",
@@ -189,10 +189,10 @@ const EXAMPLE_ROWS = new Set(Object.values(EXAMPLE_IN).flatMap(name => D.example
 // after an example replaced typed rows, "Undo" brings them back until the next edit or 10 s
 let undoTimer;
 function hideUndo() { clearTimeout(undoTimer); const u = document.getElementById("undo"); if (u) u.replaceChildren(); }
-function showUndo(prev) {
+function showUndo(prev, message = t().replaced) {
   const L = t(), u = document.getElementById("undo");
-  u.replaceChildren(L.replaced + " ", el("button", { onclick: () => { state = prev; update(true); document.getElementById("announce").textContent = L.undone; } }, L.undo));
-  document.getElementById("announce").textContent = `${L.replaced} ${L.undo}?`;
+  u.replaceChildren(message + " ", el("button", { onclick: () => { state = prev; update(true); document.getElementById("announce").textContent = L.undone; } }, L.undo));
+  document.getElementById("announce").textContent = `${message} ${L.undo}?`;
   undoTimer = setTimeout(hideUndo, 10000);
 }
 const typed = sheet => sheet.steps.some(s => s.label.trim() || s.time || s.image !== "auto") && !EXAMPLE_ROWS.has(rowsKey(sheet.steps));
@@ -219,15 +219,40 @@ function browserLang() {
   for (const l of langs) { const code = l.toLowerCase().slice(0, 2); if (T[code]) return code; }
   return "en";
 }
+// ---------- share link: the sheet in the URL fragment (never sent to a server), base64url of compact JSON ----------
+// {l: language, b: background, t: 0 when the time is off, s: sky, h: title, r: [[label, time, image], ...]};
+// trailing empty rows and image "auto" are left out. Base64 is not encryption.
+function encodeSheet(st) {
+  const r = st.sheet.steps.map(x => [x.label, x.time, x.image === "auto" ? "" : x.image]);
+  while (r.length && !r[r.length - 1][0] && !r[r.length - 1][1] && !r[r.length - 1][2]) r.pop();
+  const json = JSON.stringify({ l: st.lang, b: st.background, t: st.times ? 1 : 0, s: st.sheet.sky, h: st.sheet.title, r });
+  let bin = ""; for (const b of new TextEncoder().encode(json)) bin += String.fromCharCode(b);
+  return btoa(bin).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+}
+// the same checks as stored state (clean()); anything broken gives null
+function decodeSheet(data) {
+  try {
+    if (!/^[A-Za-z0-9_-]+$/.test(data)) return null;
+    const bin = atob(data.replace(/-/g, "+").replace(/_/g, "/"));
+    const j = JSON.parse(new TextDecoder("utf-8", { fatal: true }).decode(Uint8Array.from(bin, c => c.charCodeAt(0))));
+    if (!j || typeof j !== "object" || !Array.isArray(j.r)) return null;
+    return clean({ lang: j.l, background: j.b, times: j.t !== 0,
+      sheet: { title: j.h, sky: j.s, steps: j.r.slice(0, MAX_STEPS).map(x => Array.isArray(x) ? { label: x[0], time: x[1], image: x[2] || "auto" } : {}) } });
+  } catch (e) { return null; }
+}
+const linkData = () => decodeSheet(location.hash.slice(1));
+const shareUrl = () => `${location.href.split("#")[0]}#${encodeSheet(state)}`;
 function load() {
   try { const s = clean(JSON.parse(localStorage.getItem(STORE))); if (s) return s; } catch (e) { /* no or bad storage */ }
   return fromExample(browserLang());
 }
 function save() {
   try { localStorage.setItem(STORE, JSON.stringify(state, (k, v) => (k.startsWith("_") ? undefined : v))); } catch (e) { /* no storage */ }
+  try { history.replaceState(null, "", shareUrl()); } catch (e) { /* no history */ }   // the address bar is the link to this sheet
 }
 
-let state = load();
+let state = linkData() || load();   // a valid link wins over the saved sheet; a broken one is ignored
+const fromLink = !!linkData();
 const t = () => T[state.lang] || T.sl;
 const filled = () => state.sheet.steps.filter(st => st.label.trim());
 // a row's number on the sheet: empty rows are left off, so they have none and do not count
@@ -308,6 +333,13 @@ function dragRow(e, k, rows) {
   grip.addEventListener("pointercancel", end, { signal: ac.signal });
 }
 
+// copy the link; where the clipboard is not allowed, show it in a field, selected
+function copyLink() {
+  const url = shareUrl(), L = t(), say = () => { document.getElementById("announce").textContent = L.copied; };
+  const show = () => { const b = document.getElementById("linkbox"); b.hidden = false; b.value = url; b.focus(); b.select(); };
+  if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(say, show); else show();
+}
+
 function renderEditor() {
   const L = t(), root = document.getElementById("maker"), sheet = state.sheet;
   document.documentElement.lang = state.lang;
@@ -349,6 +381,9 @@ function renderEditor() {
         state = fromExample(state.lang, sheet.sky, state); update(true);
         if (prev) showUndo(prev);
       } }, `${L.example}: ${L.skies[sheet.sky]}`),
+      el("button", { class: "secondary", onclick: copyLink }, L.copy),
+      el("span", { class: "hint" }, L.linkHint),
+      el("input", { id: "linkbox", class: "linkbox", readonly: "", hidden: "", "aria-label": L.copy }),
       el("span", { id: "undo", class: "undo" })]));
 
   // column headings label the rows: a screen reader reads a field as "Step 3"
@@ -472,6 +507,14 @@ function fitPreview() {
 window.addEventListener("resize", fitPreview);
 
 document.head.append(el("style", {}, D.css));
-update(true);
+{
+  const prev = fromLink ? load() : null;   // what was saved, to bring back with Undo if the link replaces typed rows
+  update(true);
+  if (prev && typed(prev.sheet) && rowsKey(prev.sheet.steps) !== rowsKey(state.sheet.steps)) showUndo(prev, t().linkReplaced);
+}
+window.addEventListener("hashchange", () => {   // a link pasted into this tab
+  const s = linkData();
+  if (s && encodeSheet(s) !== encodeSheet(state)) { const prev = typed(state.sheet) && state; state = s; update(true); if (prev) showUndo(prev, t().linkReplaced); }
+});
 fitPreview();
 document.fonts && document.fonts.ready.then(() => { renderPreview(); fitPreview(); });   // re-measure labels once the font is in

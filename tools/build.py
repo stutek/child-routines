@@ -20,7 +20,9 @@ ROOT = Path(__file__).resolve().parent.parent
 SKIES = {
     "dawn": "#D6ECFF 0%, #FFF1C1 30%, #FFDDB0 55%, #FFF4D6 78%, #DDF3E4 100%",
     "afternoon": "#FFF6CC 0%, #FFE7B3 30%, #DDF3E4 65%, #CDEBFA 100%",
-    "night": "#CFE3F7 0%, #93B5E6 25%, #3F5FA8 65%, #1B2A5C 100%",
+    # night: light blue behind the pictures (less ink, the last picture stands out), dark only under
+    # the last picture, so the light footer text keeps its contrast
+    "night": "#CFE3F7 0%, #A8C4EE 30%, #86A6E0 70%, #6F8FD3 86%, #22336B 93%, #1B2A5C 100%",
 }
 
 # The footer of every sheet: licence, address and a QR code (web/qr.svg, from tools/qr.py), so a

@@ -313,7 +313,9 @@ function renderEditor() {
       // each language in its own name, labelled with a globe (W3C: language selection), no flags
       el("label", { class: "lang" }, [el("span", { class: "globe", "aria-hidden": "true" }, "🌐"),
         langSelect(L.language)])]),
-    el("h2", {}, L.aboutTitle), el("p", { class: "about" }, L.about),
+    el("h2", {}, L.aboutTitle), el("p", { class: "about" }, [L.about, " ",
+      el("a", { href: GUIDE[state.lang] || GUIDE.en, target: "_blank", rel: "noopener" }, L.guide), " · ",
+      el("a", { href: PROJECT, target: "_blank", rel: "noopener" }, L.project)]),
     el("h2", {}, L.howTitle), el("ol", { class: "how" }, L.how.map(s => el("li", {}, s))),
     // every field has a visible label (WCAG 2.2, 3.3.2); a placeholder disappears once the parent types
     el("div", { class: "row-top fields" }, [
@@ -365,9 +367,7 @@ function renderEditor() {
   // print comes last, after the parent has filled in the rows and read the warnings
   root.append(box, el("div", { id: "warnings", role: "status" }),
     el("div", { class: "row-top" }, el("button", { class: "primary", onclick: () => window.print() }, L.print)),
-    el("p", { class: "safety" }, L.safety),   // at the point of printing, where parents decide about magnets (expert review)
-    el("p", { class: "links" }, [el("a", { href: GUIDE[state.lang] || GUIDE.en, target: "_blank", rel: "noopener" }, L.guide), " · ",
-      el("a", { href: PROJECT, target: "_blank", rel: "noopener" }, L.project)]));
+    el("p", { class: "safety" }, L.safety));   // at the point of printing, where parents decide about magnets (expert review)
 }
 
 // refresh each row's picture in place, so typing keeps focus; an empty row shows no picture

@@ -174,7 +174,7 @@ def main():
                 warnAbove: !!warn && !!(warn.compareDocumentPosition(field) & Node.DOCUMENT_POSITION_FOLLOWING) && warn.tagName === 'DETAILS' && warn.querySelectorAll('li').length >= 7 && !!warn.querySelector('summary .danger'),
                 iconHidden: warn.querySelector('.danger').getAttribute('aria-hidden') === 'true',
                 orderAbove: d.length === 2 && d.every(x => x.open) && !!(document.querySelector('#maker ol.how').compareDocumentPosition(field) & Node.DOCUMENT_POSITION_FOLLOWING) && !!(warn.compareDocumentPosition(document.querySelector('#maker ol.how')) & Node.DOCUMENT_POSITION_FOLLOWING),
-                howHas: document.querySelectorAll('#maker ol.how li').length === 9,
+                howHas: document.querySelectorAll('#maker ol.how li').length === 8,
                 hint: btn.getAttribute('aria-describedby') === 'print-hint' && !!hint && hint.textContent.length > 10 });
             })()""")["result"]["value"]
             print(f"warning, details, print hint, link button (390 px): {got}")

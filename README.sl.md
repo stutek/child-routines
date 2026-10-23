@@ -21,7 +21,7 @@ Brezplačno, brez prijave in brez oglasov. Kar vpišete, ostane v vašem brskaln
 - **List sestavite skupaj z otrokom**, prve dni pa korake opravite skupaj. Sličice naj izbere otrok, vrstni red vi.
 - **Začnite z eno rutino**, pri triletniku s 3–4 koraki.
 - **Magnetek pomeni »narejeno«.** Kot nagrada lahko otroku vzame veselje.
-- **Ura je za odrasle.** Preskočen korak ni drama.
+- **Ura je za odrasle.** Če korak izpade ali se vrstni red pomeša, ostanite mirni in poskusite znova naslednjič.
 - **Ko otrok prespi pri sorodnikih,** naj gre list z njim.
 
 Vzorčni listi so [tu](https://stutek.github.io/child-routines/output/sl-primer.html), pripravljeni za tisk.

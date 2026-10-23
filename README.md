@@ -21,7 +21,7 @@ Free, no sign-up and no ads. What you type stays in your browser.
 - **Make the sheet together with your child**, and do the steps together for the first few days. Your child picks the pictures, you set the order.
 - **Start with one routine**, for a three-year-old with 3–4 steps.
 - **A magnet means "done".** As a reward it can take the joy away.
-- **The time is for adults.** A skipped step is no drama.
+- **The time is for adults.** If a step is skipped or the order gets mixed up, stay calm and try again next time.
 - **When your child sleeps over at relatives',** send the sheet along.
 
 Example sheets, ready to print, are [here](https://stutek.github.io/child-routines/output/en-example.html).

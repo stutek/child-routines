@@ -172,13 +172,15 @@ function sheetHtml(sheet, lang = "sl") {
   const background = plain || `linear-gradient(180deg, ${D.skies[sheet.sky] || D.skies.dawn})`;
   const starry = sheet.sky === "night"
     ? `<svg class="rt-sky" viewBox="0 0 210 297" preserveAspectRatio="none" aria-hidden="true"><g fill="#FFF8DC">${stars()}</g></svg>` : "";
+  const noteIds = [...new Set(sheet.steps.map(st => st.image))].filter(i => D.stepNotes[i]);
+  const notes = noteIds.length ? `<span class="rt-notes">${esc(noteIds.map(i => D.stepNotes[i][lang] || D.stepNotes[i].en).join(" "))}</span>` : "";
   const { img, wide } = layout(n), size = img !== D.geometry.img ? ` --img: ${img}mm;` : "";
   return `
   <div class="page-a4 rt-page${wide ? " rt-wide" : ""}" style="background: ${background};${size}">${starry}
     <div class="rt-grid">
       <div class="rt-header"><div class="rt-title">${esc(sheet.title)}</div></div>${rows}
     </div>
-    <div class="rt-footer${sheet.sky === "night" ? " on-dark" : ""}"><span class="rt-license"><img class="rt-under3" src="under3.jpg" alt="${esc(D.under3[lang] || D.under3.en)}"><span class="rt-legal"><span class="rt-safety">${esc(D.safety[lang] || D.safety.en)}</span>${esc(D.license[lang] || D.license.en)}</span></span><span class="rt-site">${esc(D.site)}</span>${D.qr}</div>
+    <div class="rt-footer${sheet.sky === "night" ? " on-dark" : ""}"><span class="rt-license"><img class="rt-under3" src="under3.jpg" alt="${esc(D.under3[lang] || D.under3.en)}"><span class="rt-legal"><span class="rt-safety">${esc(D.safety[lang] || D.safety.en)}</span>${notes}${esc(D.license[lang] || D.license.en)}</span></span><span class="rt-site">${esc(D.site)}</span>${D.qr}</div>
   </div>`;
 }
 

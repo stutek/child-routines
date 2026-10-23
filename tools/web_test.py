@@ -165,7 +165,12 @@ def main():
               const warn = document.querySelector('#maker .warn'), field = document.querySelector('#maker .row-top.fields');
               const d = [...document.querySelectorAll('#maker details')], box = document.querySelector('#maker .sheet-box');
               const btn = document.querySelector('#preview-label .print'), hint = document.getElementById('print-hint');
+              const copy = document.querySelector('#preview-label .copy'), lh = document.getElementById('link-hint'), undo = document.getElementById('undo');
+              const row = undo.parentElement, sel = row.querySelector('select');
               return JSON.stringify({
+                copyInLabel: !!copy && copy.getAttribute('aria-describedby') === 'link-hint' && !!lh && lh.textContent.length > 10 && !!document.querySelector('#preview-label #linkbox'),
+                noActionsRow: !document.querySelector('#maker .actions') && !document.querySelector('#maker .copy') && ![...document.querySelectorAll('#maker button')].some(b => b.textContent === copy.textContent),
+                exampleWithBackground: !!sel && !!row.querySelector('input[type=checkbox]') && [...row.querySelectorAll('button.secondary')].length === 1,
                 warnAbove: !!warn && !!(warn.compareDocumentPosition(field) & Node.DOCUMENT_POSITION_FOLLOWING) && warn.textContent.includes('3'),
                 iconHidden: warn.querySelector('.danger').getAttribute('aria-hidden') === 'true',
                 detailsBelow: d.length === 2 && d.every(x => box.compareDocumentPosition(x) & Node.DOCUMENT_POSITION_FOLLOWING),
@@ -173,7 +178,7 @@ def main():
                 howHas: d[1].querySelectorAll('li').length === 8,
                 hint: btn.getAttribute('aria-describedby') === 'print-hint' && !!hint && hint.textContent.length > 10 });
             })()""")["result"]["value"]
-            print(f"warning, details, print hint (390 px): {got}")
+            print(f"warning, details, print hint, link button (390 px): {got}")
             bad = [k for k, v in json.loads(got).items() if not v]
             if bad:
                 errors.append(f"A1 layout checks failed: {bad}")

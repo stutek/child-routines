@@ -379,7 +379,10 @@ function renderEditor() {
   // Print sits with the preview: on a computer it stays in view next to the sheet
   document.getElementById("preview-label").replaceChildren(el("span", {}, L.preview),
     el("button", { class: "print", "aria-describedby": "print-hint", onclick: () => window.print() }, L.print),
-    el("p", { id: "print-hint", class: "print-hint" }, L.printHint));
+    el("button", { class: "copy", "aria-describedby": "link-hint", onclick: copyLink }, L.copy),
+    el("p", { id: "print-hint", class: "print-hint" }, L.printHint),
+    el("p", { id: "link-hint", class: "print-hint" }, L.linkHint),
+    el("input", { id: "linkbox", class: "linkbox", readonly: "", hidden: "", "aria-label": L.copy }));
   root.classList.toggle("no-times", !state.times);
   document.getElementById("skip").textContent = L.skip;
   document.getElementById("preview").setAttribute("aria-label", L.previewName);
@@ -406,16 +409,12 @@ function renderEditor() {
         oninput: e => { sheet.title = e.target.value; update(); } }), "grow")]),
     el("div", { class: "row-top fields" }, [
       field(L.background, select(L.background, state.background, L.backgrounds, v => { state.background = v; update(true); })),
-      el("label", { class: "grow check" }, [times, L.times])]),
-    el("div", { class: "row-top fields actions" }, [
+      el("label", { class: "grow check" }, [times, L.times]),
       el("button", { class: "secondary", onclick: () => {
         const prev = typed(sheet) && JSON.parse(JSON.stringify(state, (k, v) => (k.startsWith("_") ? undefined : v)));
         state = fromExample(state.lang, sheet.sky, state); update(true);
         if (prev) showUndo(prev);
       } }, `${L.example}: ${L.skies[sheet.sky]}`),
-      el("button", { class: "secondary", onclick: copyLink }, L.copy),
-      el("span", { class: "hint" }, L.linkHint),
-      el("input", { id: "linkbox", class: "linkbox", readonly: "", hidden: "", "aria-label": L.copy }),
       el("span", { id: "undo", class: "undo" })]));
 
   // column headings label the rows: a screen reader reads a field as "Step 3"

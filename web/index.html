@@ -42,8 +42,7 @@
     /* the action buttons share one shape; Print has its own fill (.preview-label .print) */
     .maker button.secondary { border-radius: 12px; padding: 6px 16px; font-size: 16px; }
     .maker button:not(.del):not(.thumb):not(.grip) { background: #DDF3EE; color: #115E59; }
-    .maker .hint { font-size: 13px; color: #475569; }
-    .maker .linkbox { flex: 1 1 260px; }
+    .preview-label .linkbox { flex: 1 1 100%; order: 4; font: inherit; font-size: 13px; border: 1px solid #cbd5e1; border-radius: 8px; padding: 4px 8px; min-width: 0; }
     .maker .undo { font-size: 14px; color: #115E59; }
     .maker .undo button { padding: 4px 10px; margin-left: 4px; }
     .maker button:disabled { opacity: 0.45; cursor: not-allowed; }
@@ -135,6 +134,8 @@
     .preview-label .print { font: inherit; font-size: 16px; font-weight: 700; border: none; border-radius: 12px; padding: 8px 20px; cursor: pointer; background: #0F766E; color: #ffffff; }
     .preview-label { flex-wrap: wrap; }
     .print-hint { flex-basis: 100%; order: 3; margin: 0; font-size: 13px; font-weight: 600; color: #475569; }   /* 7.6 : 1 on white */
+    .preview-label .copy { font: inherit; font-size: 16px; font-weight: 700; border: none; border-radius: 12px; padding: 8px 16px; cursor: pointer; background: #DDF3EE; color: #115E59; }
+    .preview-label .copy:focus-visible { outline: 3px solid #0F766E; outline-offset: 2px; }
     .preview-label .print:hover { background: #115E59; }
     .preview-label .print:focus-visible { outline: 3px solid #0F766E; outline-offset: 2px; }
     /* Wide screen: form on the left, the sheets on the right, staying in view while you edit */
@@ -145,9 +146,10 @@
       #preview { position: sticky; top: 16px; max-height: calc(100vh - 32px); overflow: auto; }   /* square: the sheet prints with square corners */
       /* the label and Print float small in the top right corner, over the sheet's empty sky, so the sheet gets the full height */
       .preview-label { position: absolute; top: 6px; right: 6px; z-index: 5; margin: 0; padding: 4px 4px 4px 10px; gap: 2px 8px; font-size: 12px; max-width: 270px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18); }
-      .preview-label .print { font-size: 14px; padding: 5px 14px; border-radius: 9px; }
+      .preview-label .print, .preview-label .copy { font-size: 14px; padding: 5px 12px; border-radius: 9px; }
       .print-hint { font-size: 12px; }
-      .preview-label.in-flow { position: static; margin: 0 0 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); }   /* when it would cover the title */
+      .preview-label.in-flow { position: static; margin: 0 0 8px; max-width: none; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); }
+      .preview-label.in-flow .print-hint { flex: 0 1 auto; }   /* when it would cover the title */
       /* the form scrolls in its own column, next to what it scrolls; the page itself does not */
       html, body { height: 100%; overflow: hidden; }
       .maker { max-height: calc(100vh - 32px); overflow-y: auto; }

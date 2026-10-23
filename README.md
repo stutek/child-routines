@@ -20,6 +20,7 @@ Free, no sign-up and no ads. What you type stays in your browser.
 
 - **Make the sheet together with your child** and go through it together for the first few days. Let your child pick the pictures; you set the order.
 - **A magnet on the circle means "done".** It is not a reward: do not take it away as a punishment and do not tie sweets or cartoons to it.
+- **Start with one routine**, for a three-year-old with 3–4 steps, and add to it bit by bit. If your child skips a step, no drama: the sheet shows the order, it is not a test.
 - **The time is for adults.** A young child follows the order of the pictures, not the clock.
 - **When your child sleeps over at grandparents' or relatives',** send the sheet along: they see what comes next and when, too.
 
@@ -27,7 +28,7 @@ Example sheets, ready to print, are [here](https://stutek.github.io/child-routin
 
 ## Safety
 
-- **Magnets:** use magnets set in plastic, with no small parts that could come off. Throw away a cracked one. If a child swallows one magnet or more, see a doctor at once: several magnets can attract each other inside the gut.
+- **Magnets:** use magnets set in plastic, with no small parts that could come off. Throw away a cracked one. Keep the magnets out of reach when the sheet is not in use. If a child swallows one magnet or more, see a doctor at once: several magnets can attract each other inside the gut.
 - **Medicine and care:** an adult gives medicine and keeps it out of the child's reach. The step on the sheet only reminds the child that it is time for it.
 - **Bath:** never leave a child alone in the bath.
 

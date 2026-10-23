@@ -20,6 +20,7 @@ Brezplačno, brez prijave in brez oglasov. Kar vpišete, ostane v vašem brskaln
 
 - **List sestavite skupaj z otrokom** in ga prve dni skupaj prehodite. Naj izbere sličice; vrstni red določite vi.
 - **Magnetek na krogu pomeni »narejeno«.** Ni nagrada: ne jemljite ga za kazen in ne vežite nanj sladkarij ali risank.
+- **Začnite z eno rutino**, pri triletniku s 3–4 koraki, in jo dopolnjujte postopoma. Če otrok kak korak preskoči, ni drame: list kaže vrstni red, ni test.
 - **Ura je za odrasle.** Majhen otrok se ravna po vrstnem redu sličic, ne po uri.
 - **Ko otrok prespi pri starih starših ali sorodnikih,** naj gre list z njim: tudi oni vidijo, kaj sledi in kdaj.
 
@@ -27,7 +28,7 @@ Vzorčni listi so [tu](https://stutek.github.io/child-routines/output/sl-primer.
 
 ## Varnost
 
-- **Magnetki:** uporabite magnetke, vdelane v plastiko, brez majhnih delov, ki bi se lahko odlepili. Počenega zavrzite. Če otrok pogoltne magnet ali več njih, takoj k zdravniku: več magnetov se lahko v črevesju privlači.
+- **Magnetki:** uporabite magnetke, vdelane v plastiko, brez majhnih delov, ki bi se lahko odlepili. Počenega zavrzite. Ko list ni v uporabi, magnetke hranite zunaj dosega. Če otrok pogoltne magnet ali več njih, takoj k zdravniku: več magnetov se lahko v črevesju privlači.
 - **Zdravila in nega:** zdravila daje odrasel in jih hrani zunaj otrokovega dosega. Korak na listu otroka le spomni, da je čas zanje.
 - **Kopanje:** otroka nikoli ne pustite samega v kadi.
 

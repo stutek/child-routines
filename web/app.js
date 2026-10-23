@@ -488,11 +488,11 @@ function renderEditor() {
     el("p", { class: "about" }, [el("a", { href: GUIDE[state.lang] || GUIDE.en, target: "_blank", rel: "noopener" }, L.guide), " · ",
       el("a", { href: PROJECT, target: "_blank", rel: "noopener" }, L.project)]),
     el("h2", {}, L.aboutTitle), el("p", { class: "about" }, L.about),
-    // Print and Copy link stay in view at the bottom of the form (sticky), the sheet keeps the whole preview height
+    // Share link and Print stay in view at the bottom of the form (sticky), the sheet keeps the whole preview height
     el("div", { class: "actionbar", id: "actionbar" }, [
+      el("button", { class: "copy", "aria-describedby": "link-hint", onclick: copyLink }, [el("img", { class: "icon", src: "share.svg", alt: "" }), L.copy]),
       el("button", { class: "print", "aria-describedby": "print-hint", onclick: () => window.print() }, L.print),
-      el("button", { class: "copy", "aria-describedby": "link-hint", onclick: copyLink }, L.copy),
-      el("div", { class: "hints" }, [el("p", { id: "print-hint" }, L.printHint), el("p", { id: "link-hint" }, L.linkHint)]),
+      el("div", { class: "hints" }, [el("p", { id: "link-hint" }, L.linkHint), el("p", { id: "print-hint" }, L.printHint)]),
       el("input", { id: "linkbox", class: "linkbox", readonly: "", hidden: "", "aria-label": L.copy })]));
 }
 

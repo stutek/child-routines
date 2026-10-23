@@ -434,7 +434,8 @@ CSS = """
     .rt-check { position: relative; width: 35mm; height: 35mm; min-width: 35mm; }
     .rt-check::before, .rt-check::after { content: ""; position: absolute; border-radius: 50%; }
     .rt-check::before { inset: 0; z-index: 0; background: var(--step); }
-    .rt-check::after { inset: 0.9mm; z-index: 1; background: var(--bg); }
+    /* a thin dashed ring inside, in a lighter mix of the step colour: an invitation to place the magnet */
+    .rt-check::after { inset: 0.9mm; z-index: 1; background: var(--bg); outline: 0.4mm dashed color-mix(in srgb, var(--step) 60%, var(--bg)); outline-offset: -3.2mm; }
 
     @media print {
       body { background: transparent; padding: 0; gap: 0; }

@@ -19,18 +19,18 @@
     ]
   },
   "model": "Google Gemini image generation (via Antigravity CLI)",
-  "prompt": "Soft watercolor and gouache children's picture-book illustration, delicate colored-pencil outlines, warm cream paper texture, gentle pastel palette. Brushing teeth: set in the exact same cozy bathroom as the reference image, with mint-green square wall tiles, wooden shelf, and a small potted plant. An ORIGINAL cute, smiling, friendly white tooth character with little eyes and rosy cheeks. The tooth character is standing on the wooden edge of the bathroom sink counter, holding a small colorful toothbrush in front of its body (brushing its front), with a few foamy toothpaste bubbles around. Strictly NO toothbrush held above its head, NO foam on top of its head, and NO dental floss. Next to the tooth character sits a small ceramic cup with toothbrushes. The white tooth stands out clearly and crisply against the mint-green tiled background. Clear contrast and rich, saturated colors with defined darker outlines and soft watercolor shadows, not pale or washed out. No clouds, nothing floating. Cute, playful, and friendly for a 4-year-old child. Everything painted in the watercolor children's book style matching the reference image. Square 1:1 composition, tooth character large and centered, readable at 4 cm size.",
+  "prompt": "Recreate this exact children's picture-book illustration in the same soft watercolor and gouache style, same cozy mint bathroom, same composition, camera angle, colors, and warm lighting. In the center, the same friendly anthropomorphic white tooth character with cute black eyes, smiling mouth, rosy pink cheeks, and little arms, brushing with a toothbrush surrounded by fluffy white toothpaste foam bubbles. On the right, the wooden vanity counter with a white sink basin, a ceramic patterned cup with toothbrushes, and above on the right wall, a small wooden shelf with a potted succulent and hanging blue towel. On the left, the window with white sheer curtain, the framed botanical picture on the wall, the patterned rug on the floor, and a small potted plant/vase near the floor. The only change: the wall on the left has the same tiling as the wall on the right—several rows of the same square light-mint tiles extending from the floor/baseboard up to the exact same wainscot height, rather than a single row of tiles. Consistent square mint tile grid on both walls up to the wainscot line. No floating objects. No people. No text, no letters, no logos. Square 1:1.",
   "reference_images": [
-    "vecer_1_lulanje.jpg (by name: local copy of the toilet image of this set, see toilet.json)"
+    "images/brush-teeth.jpg (commit 65555ab, the same picture with a single row of tiles on the left wall; recreated with matching tiles)"
   ],
   "edits": [
-    "contrast raised with tools/enhance.py"
+    "contrast raised once with the values of tools/enhance.py"
   ],
   "contributor": "maintainer",
   "license": "CC0-1.0",
   "copyright_check": {
-    "date": "2026-10-21",
-    "method": "Google Lens, Exact matches tab (manual), raw and final file",
-    "result": "no exact matches"
+    "date": "2026-10-23",
+    "method": "Google Lens, Exact and Visual matches tabs, raw and final file",
+    "result": "no exact matches; visual matches show many other tooth characters with a toothbrush (common motif), none with the same composition"
   }
 }

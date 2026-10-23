@@ -747,7 +747,7 @@ window.SHEET_DATA = {
 window.SHEET_EDGES = {
   "bath": ["#B3F4EE", "#98E3CD"],
   "breakfast": ["#FFCE86", "#FFD68A"],
-  "brush-teeth": ["#CEF3E7", "#AFE5D2"],
+  "brush-teeth": ["#CAF5EA", "#C6ECDA"],
   "care": ["#9EE3CA", "#BAE9D2"],
   "cartoon": ["#FAD9C2", "#FFFAC2"],
   "clear-table": ["#DAE0D1", "#EBD2B5"],

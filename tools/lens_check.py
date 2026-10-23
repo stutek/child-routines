@@ -1,7 +1,10 @@
 """Manual second check: upload one image to Google Lens in a debugging Chrome and print
 the "Exact matches" tab (identical or near-identical images on the web).
 
-    python3 tools/lens_check.py <absolute image path> [wait seconds]
+    python3 tools/lens_check.py <absolute image path> [wait seconds] [--visual]
+
+--visual also opens the "Visual matches" tab and saves a screenshot of its first rows (path printed)
+for a person or agent to look at: near-identical compositions that are no pixel copies show up only there.
 
 Needs Chrome started with --remote-debugging-port (default 9224, override with CDP_PORT) and a
 separate profile, e.g.:
@@ -11,15 +14,19 @@ Needs `pip install websockets` (not in requirements.txt; CI does not run this sc
 Do not bypass bot checks or login walls on matched sites.
 """
 import asyncio
+import base64
 import os
 import json
 import sys
+import tempfile
 import urllib.request
 
 import websockets
 
 PORT = int(os.environ.get("CDP_PORT", "9224"))
-img, wait = sys.argv[1], float(sys.argv[2]) if len(sys.argv) > 2 else 8
+VISUAL = "--visual" in sys.argv
+args = [a for a in sys.argv[1:] if a != "--visual"]
+img, wait = args[0], float(args[1]) if len(args) > 1 else 8
 
 
 async def main():
@@ -70,6 +77,16 @@ async def main():
             links = await js("""[...document.querySelectorAll('a[href^="http"]')].map(a=>a.href).filter(h=>!/google\\./.test(new URL(h).hostname)).slice(0,15).join('\\n')""")
             print("--- external links ---")
             print(links)
+            if VISUAL:
+                # 'Visual matches' tab (udm=44): similar pictures; look at the first rows yourself
+                await js(f"location.href = {json.dumps(url.replace('udm=26', 'udm=44'))}")
+                await asyncio.sleep(wait)
+                await cmd("Emulation.setDeviceMetricsOverride", width=1280, height=1600, deviceScaleFactor=1, mobile=False)
+                shot = await cmd("Page.captureScreenshot", format="png")
+                path = os.path.join(tempfile.mkdtemp(prefix="lens-"), os.path.basename(img) + "-visual.png")
+                open(path, "wb").write(base64.b64decode(shot["data"]))
+                print("--- visual matches screenshot ---")
+                print(path)
     finally:
         if not os.environ.get("LENS_KEEP_TAB"):
             urllib.request.urlopen(f"http://127.0.0.1:{PORT}/json/close/{tab['id']}")

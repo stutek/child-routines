@@ -19,7 +19,7 @@ Slika sme v `images/` le, če na spletu ni njene kopije ali kopije njenega dela.
 ## Kako
 
 1. **Samodejno (vrata in lokalno):** `VISION_API_KEY=... python3 tools/copyright_check.py <slike...>`. Google Cloud Vision Web Detection; slika pade ob vsakem zadetku `fullMatchingImages`, `partialMatchingImages` ali `pagesWithMatchingImages` zunaj tega repozitorija. Pade tudi, če ključa ni ali API vrne napako.
-2. **Ročna druga preverba (lokalno, neobvezno):** `python3 tools/lens_check.py <absolutna pot>` z razhroščevalnim Chromom (glej glavo skripta). Preberi zavihek *Exact matches*. Lens je prebarvanega zobka našel, zato je odporen na spremembo barv. Nato izreži vsak izrazit motiv (obraz ali lik, potisk na oblačilu, luno, rastlino, kos pohištva) na približno 512 px in Lens poženi na vsakem izrezu: preverba cele slike je spregledala nasmejano sonce na majici, katerega obraz se je ujemal z drugo sliko.
+2. **Ročna druga preverba (lokalno, neobvezno):** `python3 tools/lens_check.py <absolutna pot>` z razhroščevalnim Chromom (glej glavo skripta). Preberi zavihek *Exact matches*. Lens je prebarvanega zobka našel, zato je odporen na spremembo barv. Nato poženi z `--visual` na končni sliki: shrani posnetek zaslona zavihka *Visual matches* (pot se izpiše); poglej ga. Isti motiv (zobna ščetka, postelja) je v redu; ista kompozicija (enaka razporeditev predmetov, poza, kader) ni: zapiši jo v `docs/copyright-investigations/` in zavrni. Nato izreži vsak izrazit motiv (obraz ali lik, potisk na oblačilu, luno, rastlino, kos pohištva) na približno 512 px in Lens poženi na vsakem izrezu (tudi z `--visual`): preverba cele slike je spregledala nasmejano sonce na majici, katerega obraz se je ujemal z drugo sliko.
 
 ## Odločitev
 

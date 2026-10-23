@@ -24,25 +24,27 @@ const T = {
     heading: "Otrokove rutine", aboutTitle: "O aplikaciji", howTitle: "Hitri začetek",
     about: "Jutro in večer sta polna korakov in pogosto jih naštevaš ti, vsak dan znova. Tu v nekaj minutah narediš in natisneš list s sličicami otrokove rutine, na katerem otrok opravljen korak sam označi z magnetkom ali kljukico. Tako vidi, kaj pride, list pa lahko gre z njim tudi k starim staršem, teti ali stricu, kjer mu znano zaporedje lahko da občutek varnosti. Brezplačno in brez prijave; kar vpišeš, ostane v tvojem brskalniku.",
     how: ["Najlažje gre na računalniku. Izberi »Tip rutine« in vpiši 3–4 korake. Prve dni jih opravi skupaj z otrokom. Ko otrok rutino zna, dodaj nove (največ 8).", "Stran sama izbere sličico za vsak korak. Klikni sličico, da jo zamenjaš. Otroku pokaži dve ali tri in naj izbere.", "Naslov in korake lahko spremeniš. Prazne vrstice se ne natisnejo.", "Uro vpiši ali izklopi »Ura na listu«. Vrstico premakneš tako, da jo povlečeš za pike.", "Klikni »Natisni«: A4, robovi »Brez«, merilo 100 %. Za babico izberi »Shrani kot PDF«. List lahko pritrdiš na hladilnik ali tablo."],
-    example: "Naloži primer", replaceSheet: "Primer zamenja tvoj list. Vpisano se izgubi. Želiš nadaljevati?", print: "Natisni",
+    example: "Naloži primer", replaced: "Primer je zamenjal tvoj list.", undo: "Razveljavi", undone: "Tvoj list je vrnjen.", print: "Natisni",
     type: "Tip rutine", sheetTitle: "Naslov lista", skies: { dawn: "jutro", afternoon: "večerja", night: "večer" },
     times: "Ura na listu", background: "Ozadje", backgrounds: { gradient: "barvno", white: "belo", none: "brez (manj črnila)" },
     label: "Korak", labelHint: "npr. UMIJ ZOBKE", language: "Jezik", moved: n => `Premaknjeno na mesto ${n}`, picture: "Sličica", time: "Ura", auto: "Samodejno", none: "Brez sličice", pick: "Zamenjaj sličico", removeStep: "Izprazni vrstico", move: "Premakni korak", moveHint: "Povleci ali tapni tu, nato tapni novo mesto. S tipkovnico: puščici gor in dol.",
     warnNoMatch: (s, l) => `${s}: za »${l}« ni sličice. Klikni »?« in izberi sličico ali »Brez sličice«.`,
+    warnMismatch: (s, l) => `${s}: sličica se morda ne ujema z napisom »${l}«.`,
     warnLong: (s, l) => `${s}: napis »${l}« je predolg za okvir; skrajšaj ga.`,
-    preview: "Predogled (A4)", step: "Korak", ok: "✓ Vse sličice so najdene in vsi napisi se prilegajo.", suggest: "Manjka sličica? Predlagaj jo", warnTitle: "Opozorila", watchTitle: "Na kaj paziti", watch: [["Starost", "list je za otroke od 3 let naprej."], ["Magnetki", "uporabi le magnetke, varne za otroke in kemično neškodljive. Če otrok pogoltne magnetek, takoj pojdi k zdravniku."], ["Pisala", "za kljukice uporabi le pisala, varna za otroke in kemično neškodljiva."], ["Zdravila", "daje in hrani jih odrasel. Niso sladkarija."], ["Kopanje", "otroka nikoli ne pusti samega v kadi."], ["Nagrade", "magnetek pomeni »narejeno«. Ne obljubljaj daril za magnetke: nagrada lahko otroku vzame veselje do opravila."], ["Brez pritiska", "ure na listu so za odrasle, ne za priganjanje. Če korak izpade ali se vrstni red pomeša, ohrani mir in poskusi znova naslednjič."]], guide: "Uporaba in varnost", project: "Projekt na GitHubu",
+    preview: "Predogled (A4)", step: "Korak", ok: "✓ Vse sličice so najdene in vsi napisi se prilegajo.", suggest: "Manjka sličica? Predlagaj jo", warnTitle: "Opozorila", watchTitle: "Na kaj paziti", watch: [["Starost", "list je za otroke od 3 let naprej."], ["Magnetki", "uporabi le magnetke, varne za otroke in kemično neškodljive. Če otrok pogoltne magnetek, takoj pojdi k zdravniku."], ["Pisala", "za kljukice uporabi le pisala, varna za otroke in kemično neškodljiva."], ["Zdravila", "daje in hrani jih odrasel. Niso sladkarija."], ["Kopanje", "otroka nikoli ne pusti samega v kadi."], ["Zobki", "sledi navodilom svojega zobozdravnika."], ["Nagrade", "magnetek pomeni »narejeno«. Ne obljubljaj daril za magnetke: nagrada lahko otroku vzame veselje do opravila."], ["Brez pritiska", "ure na listu so za odrasle, ne za priganjanje. Če korak izpade ali se vrstni red pomeša, ohrani mir in poskusi znova naslednjič."]], guide: "Uporaba in varnost", project: "Projekt na GitHubu",
   },
   en: {
     heading: "Child routines", aboutTitle: "About", howTitle: "Quick start",
     about: "Mornings and evenings are full of steps, and often you're the one listing them, every day. Here you can make and print a picture sheet of your child's routine in a few minutes; your child marks each finished step with a magnet or a tick. They can see what comes next, and the sheet can travel to grandparents, an aunt or an uncle, where the familiar order can give a sense of security. Free, with no sign-up; what you type stays in your browser.",
     how: ["It is easiest on a computer. Pick the “Routine type” and type 3–4 steps. Do them with your child for the first few days. When your child knows the routine, add more (up to 8).", "The page picks a picture for each step. Click a picture to change it. Show your child two or three and let them choose.", "You can change the title and steps. Empty rows are not printed.", "Type a time, or turn off “Time on the sheet”. Drag a row by its dots to move it.", "Click “Print”: A4, margins “None”, scale 100%. For a grandparent, choose “Save as PDF”. You can put the sheet on the fridge or a board."],
-    example: "Load example", replaceSheet: "The example replaces your sheet. What you typed is lost. Continue?", print: "Print",
+    example: "Load example", replaced: "The example replaced your sheet.", undo: "Undo", undone: "Your sheet is back.", print: "Print",
     type: "Routine type", sheetTitle: "Sheet title", skies: { dawn: "morning", afternoon: "dinner", night: "evening" },
     times: "Time on the sheet", background: "Background", backgrounds: { gradient: "color", white: "white", none: "none (less ink)" },
     label: "Step", labelHint: "e.g. BRUSH TEETH", language: "Language", moved: n => `Moved to place ${n}`, picture: "Picture", time: "Time", auto: "Automatic", none: "No picture", pick: "Change picture", removeStep: "Clear row", move: "Move step", moveHint: "Drag, or tap here and then tap the new place. Keyboard: up and down arrows.",
     warnNoMatch: (s, l) => `${s}: no picture for “${l}”. Click “?” and pick a picture or “No picture”.`,
+    warnMismatch: (s, l) => `${s}: the picture may not match the label “${l}”.`,
     warnLong: (s, l) => `${s}: “${l}” is too long for the frame; shorten it.`,
-    preview: "Preview (A4)", step: "Step", ok: "✓ All pictures found and all labels fit.", suggest: "Missing a picture? Suggest one", warnTitle: "Warnings", watchTitle: "What to watch for", watch: [["Age", "the sheet is for children aged 3 and up."], ["Magnets", "use only magnets that are safe for children and chemically harmless. If a child swallows a magnet, see a doctor at once."], ["Pens", "for ticks, use only pens that are safe for children and chemically harmless."], ["Medicine", "an adult gives and keeps it. It is not a sweet."], ["Bath", "never leave a child alone in the bath."], ["Rewards", "a magnet means “done”. Don't promise gifts for magnets: a reward can take away the joy of the task."], ["No pressure", "the times on the sheet are for adults, not for hurrying. If a step is skipped or the order gets mixed up, stay calm and try again next time."]], guide: "How to use it and safety", project: "Project on GitHub",
+    preview: "Preview (A4)", step: "Step", ok: "✓ All pictures found and all labels fit.", suggest: "Missing a picture? Suggest one", warnTitle: "Warnings", watchTitle: "What to watch for", watch: [["Age", "the sheet is for children aged 3 and up."], ["Magnets", "use only magnets that are safe for children and chemically harmless. If a child swallows a magnet, see a doctor at once."], ["Pens", "for ticks, use only pens that are safe for children and chemically harmless."], ["Medicine", "an adult gives and keeps it. It is not a sweet."], ["Bath", "never leave a child alone in the bath."], ["Teeth", "follow your dentist's advice."], ["Rewards", "a magnet means “done”. Don't promise gifts for magnets: a reward can take away the joy of the task."], ["No pressure", "the times on the sheet are for adults, not for hurrying. If a step is skipped or the order gets mixed up, stay calm and try again next time."]], guide: "How to use it and safety", project: "Project on GitHub",
   },
 };
 
@@ -54,10 +56,11 @@ function norm(s) {
 
 // "zob*" matches the start of a word (zobki, umij zobe); "wc" or "go to bed" must match whole words.
 // The longest matching keyword wins, so "v posteljo" (sleep) beats "postelj*" (make the bed).
-function match(label) {
+function match(label, only) {
   const text = ` ${norm(label)} `;
   let best = null;
   for (const [id, img] of Object.entries(D.images)) {
+    if (only && id !== only) continue;
     for (const words of Object.values(img.keywords || {})) {
       for (const k of words) {
         const prefix = k.endsWith("*");
@@ -183,6 +186,15 @@ function fromExample(lang, sky = "night", base = {}) {   // the evening routine 
 // loading an example would lose what the parent typed: rows with content that are not just an example (any language or type)
 const rowsKey = steps => JSON.stringify(steps.map(s => [s.label.trim(), s.time, s.image]));
 const EXAMPLE_ROWS = new Set(Object.values(EXAMPLE_IN).flatMap(name => D.examples[name].sheets.map(ex => rowsKey(exampleSteps(ex)))));
+// after an example replaced typed rows, "Undo" brings them back until the next edit or 10 s
+let undoTimer;
+function hideUndo() { clearTimeout(undoTimer); const u = document.getElementById("undo"); if (u) u.replaceChildren(); }
+function showUndo(prev) {
+  const L = t(), u = document.getElementById("undo");
+  u.replaceChildren(L.replaced + " ", el("button", { onclick: () => { state = prev; update(true); document.getElementById("announce").textContent = L.undone; } }, L.undo));
+  document.getElementById("announce").textContent = `${L.replaced} ${L.undo}?`;
+  undoTimer = setTimeout(hideUndo, 10000);
+}
 const typed = sheet => sheet.steps.some(s => s.label.trim() || s.time || s.image !== "auto") && !EXAMPLE_ROWS.has(rowsKey(sheet.steps));
 // Stored state is untrusted: every page on stutek.github.io shares this origin and its storage.
 // Keep only known values, so nothing from storage reaches the markup unchecked.
@@ -330,7 +342,12 @@ function renderEditor() {
     el("div", { class: "row-top fields" }, [
       field(L.background, select(L.background, state.background, L.backgrounds, v => { state.background = v; update(true); })),
       el("label", { class: "grow check" }, [times, L.times]),
-      el("button", { class: "secondary", onclick: () => { if (typed(sheet) && !confirm(L.replaceSheet)) return; state = fromExample(state.lang, sheet.sky, state); update(true); } }, `${L.example}: ${L.skies[sheet.sky]}`)]));
+      el("button", { class: "secondary", onclick: () => {
+        const prev = typed(sheet) && JSON.parse(JSON.stringify(state, (k, v) => (k.startsWith("_") ? undefined : v)));
+        state = fromExample(state.lang, sheet.sky, state); update(true);
+        if (prev) showUndo(prev);
+      } }, `${L.example}: ${L.skies[sheet.sky]}`),
+      el("span", { id: "undo", class: "undo" })]));
 
   // column headings label the rows: a screen reader reads a field as "Step 3"
   const box = el("div", { class: "sheet-box" }, el("div", { class: "step step-head", "aria-hidden": "true" }, [
@@ -398,7 +415,12 @@ function renderPreview() {
   document.getElementById("sheets").innerHTML = sheetHtml({ title: s.title.toLocaleUpperCase(state.lang), sky, times: state.times, steps: steps.map(resolve) }, state.lang);
 
   const warnings = [];
-  steps.forEach((st, k) => { if (st.image === "auto" && !match(st.label)) warnings.push(L.warnNoMatch(`${L.step} ${k + 1}`, st.label)); });
+  steps.forEach((st, k) => {
+    if (st.image === "auto" && !match(st.label)) warnings.push(L.warnNoMatch(`${L.step} ${k + 1}`, st.label));
+    // a hand-picked picture whose own keywords miss the label (pictures without keywords are not judged)
+    const kw = D.images[st.image] && Object.values(D.images[st.image].keywords || {}).flat();
+    if (kw && kw.length && !match(st.label, st.image)) warnings.push(L.warnMismatch(`${L.step} ${k + 1}`, st.label));
+  });
   // labels do not wrap: compare each with the frame width left beside the magnet circle (AGENTS.md)
   document.querySelectorAll("#sheets .rt-label").forEach((lab, k) => {
     if (lab.scrollWidth > labelRoom(lab)) warnings.push(L.warnLong(`${L.step} ${k + 1}`, lab.textContent));
@@ -412,6 +434,7 @@ function renderPreview() {
 }
 
 function update(structure = false) {
+  hideUndo();
   if (structure) renderEditor();
   refreshSteps();
   renderPreview();

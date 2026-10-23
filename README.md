@@ -34,6 +34,7 @@ Example sheets, ready to print, are [here](https://stutek.github.io/child-routin
 - **Pens:** for ticks, use only pens that are safe for children and chemically harmless.
 - **Medicine:** an adult gives and keeps it. It is not a sweet.
 - **Bath:** never leave a child alone in the bath.
+- **Teeth:** follow your dentist's advice.
 
 ## Did it help?
 

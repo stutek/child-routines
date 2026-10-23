@@ -34,6 +34,7 @@ Vzorčni listi so [tu](https://stutek.github.io/child-routines/output/sl-primer.
 - **Pisala:** za kljukice uporabite le pisala, varna za otroke in kemično neškodljiva.
 - **Zdravila:** daje in hrani jih odrasel. Niso sladkarija.
 - **Kopanje:** otroka nikoli ne pustite samega v kadi.
+- **Zobki:** sledite navodilom vašega zobozdravnika.
 
 ## Vam je pomagalo?
 

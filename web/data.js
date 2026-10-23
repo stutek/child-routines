@@ -11,16 +11,6 @@ window.SHEET_DATA = {
   "none": "none"
  },
  "missingBg": "#FFFFFF",
- "toolbar": {
-  "sl": [
-   "Natisni",
-   "Za tisk: A4, robovi »Brez«, merilo 100 %."
-  ],
-  "en": [
-   "Print",
-   "To print: A4, margins “None”, scale 100%."
-  ]
- },
  "geometry": {
   "page_h": 297,
   "margin": 5,

@@ -23,7 +23,6 @@ const T = {
   sl: {
     heading: "Otrokove rutine", aboutTitle: "O aplikaciji", howTitle: "Hitri začetek",
     lead: "Tu v nekaj minutah narediš in natisneš list s sličicami otrokove rutine, na katerem otrok opravljen korak sam označi z magnetkom ali kljukico.",
-    warn: "Opozorilo: za otroke od 3 let. Magnetki in pisala naj bodo varni za otroke in kemično neškodljivi. Namesto magnetka lahko narišeš kljukico. Če otrok pogoltne magnetek, takoj k zdravniku.",
     about: "Jutro in večer sta polna korakov in pogosto jih naštevaš ti, vsak dan znova. Otrok tako vidi, kaj pride, list pa lahko gre z njim tudi k starim staršem, teti ali stricu, kjer mu znano zaporedje lahko da občutek varnosti. Brezplačno in brez prijave; kar vpišeš, ostane v tvojem brskalniku.",
     how: ["Najlažje gre na računalniku. Izberi »Tip rutine« in vpiši 3–4 korake. Prve dni jih opravi skupaj z otrokom. Ko otrok rutino zna, dodaj nove (največ 8).", "Stran sama izbere sličico za vsak korak. Klikni sličico, da jo zamenjaš. Otroku pokaži dve ali tri in naj izbere.", "Naslov in korake lahko spremeniš. Prazne vrstice se ne natisnejo.", "Uro vpiši ali izklopi »Ura na listu«. Vrstico premakneš tako, da jo povlečeš za pike.", "Klikni »Natisni«: A4, robovi »Brez«, merilo 100 %. Za babico izberi »Shrani kot PDF«. List lahko pritrdiš na hladilnik ali tablo.", "Najprej – potem: za težek prehod naredi list z dvema korakoma. Obesi ga ob mestu prehoda.", "Ko otrok rutino zna ali se rutina spremeni, zamenjaj korak ali sličico in natisni znova. Sličico lahko izbere otrok.", "Povezava shrani list: klikni »Deli povezavo«, shrani jo ali jo pošlji babici."],
     example: "Naloži primer", replaced: "Primer je zamenjal tvoj list.", stepRemoved: "Korak je odstranjen.", skip: "Preskoči na obrazec", previewName: "Predogled lista", linkReplaced: "Povezava je zamenjala tvoj list.", copy: "Deli povezavo", copied: "Povezava je kopirana.", linkHint: "Kdor ima povezavo, vidi list.", undo: "Razveljavi", undone: "Tvoj list je vrnjen.", print: "Natisni",
@@ -38,7 +37,6 @@ const T = {
   en: {
     heading: "Child routines", aboutTitle: "About", howTitle: "Quick start",
     lead: "Here you can make and print a picture sheet of your child's routine in a few minutes; your child marks each finished step with a magnet or a tick.",
-    warn: "Warning: for children aged 3 and up. Magnets and pens must be child-safe and chemically harmless. You can draw a tick instead of using a magnet. If a child swallows a magnet, see a doctor at once.",
     about: "Mornings and evenings are full of steps, and often you're the one listing them, every day. Your child can see what comes next, and the sheet can travel to grandparents, an aunt or an uncle, where the familiar order can give a sense of security. Free, with no sign-up; what you type stays in your browser.",
     how: ["It is easiest on a computer. Pick the “Routine type” and type 3–4 steps. Do them with your child for the first few days. When your child knows the routine, add more (up to 8).", "The page picks a picture for each step. Click a picture to change it. Show your child two or three and let them choose.", "You can change the title and steps. Empty rows are not printed.", "Type a time, or turn off “Time on the sheet”. Drag a row by its dots to move it.", "Click “Print”: A4, margins “None”, scale 100%. For a grandparent, choose “Save as PDF”. You can put the sheet on the fridge or a board.", "First – then: for a hard transition, make a sheet with two steps. Hang it where the transition happens.", "When your child knows the routine or it changes, swap a step or a picture and print again. Your child can choose the picture.", "The link keeps the sheet: click “Share link”, save it or send it to a grandparent."],
     example: "Load example", replaced: "The example replaced your sheet.", stepRemoved: "Step removed.", skip: "Skip to the form", previewName: "Sheet preview", linkReplaced: "The link replaced your sheet.", copy: "Share link", copied: "Link copied.", linkHint: "Anyone with the link can see the sheet.", undo: "Undo", undone: "Your sheet is back.", print: "Print",
@@ -205,7 +203,7 @@ function sheetHtml(sheet, lang = "sl") {
 
 // ---------- state: one sheet, always MAX_STEPS rows; empty rows are left off the sheet ----------
 
-const detailsOpen = { watch: matchMedia("(min-width: 1100px)").matches, how: false };   // both closed on a phone
+const detailsOpen = { how: false };   // Quick start starts closed
 const newStep = () => ({ label: "", time: "", image: "auto" });
 const EXAMPLE_FOR = { dawn: 0, afternoon: 1, night: 2 };   // sheet of the example routine per type
 // titles are plain text; older stored titles and the example may start with an icon, which is dropped
@@ -409,7 +407,9 @@ function renderEditor() {
         langSelect(L.language)])]),
     // one sentence about the app and the warning stay above the form; the rest is below the rows (A1)
     el("p", { class: "about" }, L.lead),
-    el("p", { class: "warn" }, [el("span", { class: "danger", "aria-hidden": "true" }, "⚠"), L.warn]),
+    // what to watch for stays in view above the form, with the danger sign (maintainer's decision: children's safety first)
+    el("div", { class: "warn" }, [el("span", { class: "danger", "aria-hidden": "true" }, "⚠"), el("div", {}, [el("strong", {}, L.watchTitle),
+      el("ul", {}, L.watch.map(([what, text]) => el("li", {}, [el("strong", {}, `${what}: `), text])))])]),
     // every field has a visible label (WCAG 2.2, 3.3.2); a placeholder disappears once the parent types
     el("div", { class: "row-top fields" }, [
       field(L.type, select(L.type, sheet.sky, L.skies, setType)),
@@ -483,7 +483,6 @@ function renderEditor() {
     return d;
   };
   root.append(box, el("span", { id: "move-desc", class: "sr-only" }, L.moveDesc), el("div", { id: "warnings", role: "status" }),
-    details("watch", L.watchTitle, el("ul", {}, L.watch.map(([what, text]) => el("li", {}, [el("strong", {}, `${what}: `), text])))),
     details("how", L.howTitle, el("ol", { class: "how" }, L.how.map(s => el("li", {}, s)))),
     el("p", { class: "about" }, [el("a", { href: GUIDE[state.lang] || GUIDE.en, target: "_blank", rel: "noopener" }, L.guide), " · ",
       el("a", { href: PROJECT, target: "_blank", rel: "noopener" }, L.project)]),
@@ -492,7 +491,7 @@ function renderEditor() {
     el("div", { class: "actionbar", id: "actionbar" }, [
       el("button", { class: "copy", "aria-describedby": "link-hint", onclick: copyLink }, [el("img", { class: "icon", src: "share.svg", alt: "" }), L.copy]),
       el("button", { class: "print", "aria-describedby": "print-hint", onclick: () => window.print() }, L.print),
-      el("div", { class: "hints" }, [el("p", { id: "link-hint" }, L.linkHint), el("p", { id: "print-hint" }, L.printHint)]),
+      el("div", { class: "hints" }, [el("p", { id: "print-hint" }, L.printHint), el("p", { id: "link-hint" }, L.linkHint)]),
       el("input", { id: "linkbox", class: "linkbox", readonly: "", hidden: "", "aria-label": L.copy })]));
 }
 

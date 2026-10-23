@@ -408,7 +408,7 @@ window.SHEET_DATA = {
    }
   },
   "toilet": {
-   "title": "Friendly toilet in a cozy bathroom",
+   "title": "Plain toilet with a wooden seat in a cozy bathroom",
    "label": {
     "sl": "NA STRANIŠČE",
     "en": "USE THE TOILET"
@@ -884,6 +884,6 @@ window.SHEET_EDGES = {
   "sleep": ["#D5CDCA", "#DFDFE9"],
   "story": ["#D5CDCA", "#F5F1F3"],
   "tidy-toys": ["#F3DBC1", "#F9E8C3"],
-  "toilet": ["#D4EFE3", "#C4E8D5"],
+  "toilet": ["#D0F1E6", "#BCE9D5"],
   "wash-hands": ["#C8DDD2", "#FADFD7"],
 };

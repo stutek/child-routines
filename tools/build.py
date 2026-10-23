@@ -56,13 +56,13 @@ MIN_FRAME_LUMINANCE = 0.6  # WCAG relative luminance; keeps frames pastel
 
 
 def edge_color(image_id, side):
-    """Median of the image strip that fades into the frame (the inner 20 %, as the CSS mask; image
+    """Median of the image strip that fades into the frame (the inner 12 %, at the frame's height, as the CSS mask; image
     on the left -> right edge), without its darkest quarter (outlines, furniture, floor). The
     lighter half alone picked near-white paper specks and lost the background's hue."""
     im = Image.open(ROOT / "images" / f"{image_id}.jpg").convert("RGB")
     w, h = im.size
-    x0, x1 = (int(w * 0.8), w) if side == "left" else (0, int(w * 0.2))
-    px = sorted(im.crop((x0, int(h * 0.3), x1, int(h * 0.7))).get_flattened_data(),
+    x0, x1 = (int(w * 0.88), w) if side == "left" else (0, int(w * 0.12))
+    px = sorted(im.crop((x0, int(h * 0.35), x1, int(h * 0.65))).get_flattened_data(),
                 key=lambda p: 0.299 * p[0] + 0.587 * p[1] + 0.114 * p[2])
     light = px[len(px) // 4:]
     c = [statistics.median(p[k] for p in light) for k in range(3)]
@@ -306,15 +306,21 @@ CSS = """
     .pic-left { grid-column: 1; }
     .pic-right { grid-column: 3; }
 
-    /* The inner image edge fades into the frame background (--bg). The fade ends at 97 %, not 100 %:
-       at 100 % the last pixels keep a trace of the dark image grain next to the flat frame (a thin line). */
+    /* The inner image edge fades into the frame background (--bg), only where the frame (18 mm) joins
+       it; the corners above and below stay sharp. The second layer keeps the image whole outside that
+       band (mask layers add up). The fade ends at 97 %, not 100 %: at 100 % the last pixels keep a
+       trace of the dark image grain next to the flat frame (a thin line). */
+    .pic-left img, .pic-right img {
+      --band: linear-gradient(to bottom, #000 calc(50% - 13mm), transparent calc(50% - 7mm),
+                              transparent calc(50% + 7mm), #000 calc(50% + 13mm));
+    }
     .pic-left img {
-      -webkit-mask-image: linear-gradient(to right, #000 80%, transparent 97%);
-      mask-image: linear-gradient(to right, #000 80%, transparent 97%);
+      -webkit-mask-image: linear-gradient(to right, #000 88%, transparent 97%), var(--band);
+      mask-image: linear-gradient(to right, #000 88%, transparent 97%), var(--band);
     }
     .pic-right img {
-      -webkit-mask-image: linear-gradient(to left, #000 80%, transparent 97%);
-      mask-image: linear-gradient(to left, #000 80%, transparent 97%);
+      -webkit-mask-image: linear-gradient(to left, #000 88%, transparent 97%), var(--band);
+      mask-image: linear-gradient(to left, #000 88%, transparent 97%), var(--band);
     }
 
     .rt-card {
@@ -333,14 +339,15 @@ CSS = """
     /* Frame, circle and image share one outline: both outlines in the step color at the bottom (0),
        both fills in the background color on top, inset by the border width (1), text on top (2).
        The border stays even where circle and frame meet. The frame covers the image border at
-       the seam, so it has no border on that side. */
+       the seam, so it has no border on that side; its fill reaches 0.3 mm past the seam, or the
+       anti-aliased edge lets the outline below show as a thin grey line. */
     .rt-card::before, .rt-card::after { content: ""; position: absolute; border-radius: inherit; }
     .rt-card::before { inset: 0; z-index: 0; background: var(--step); }
     .rt-card::after { inset: 0.9mm; z-index: 1; background: var(--bg); border-radius: 0; }
     .card-left { justify-self: start; margin-left: -0.9mm; border-radius: 0 6mm 6mm 0; flex-direction: row-reverse; padding: 0 2.4mm 0 0; }
-    .card-left::after { left: 0; border-radius: 0 5.1mm 5.1mm 0; }
+    .card-left::after { left: -0.3mm; border-radius: 0 5.1mm 5.1mm 0; }
     .card-right { justify-self: end; margin-right: -0.9mm; border-radius: 6mm 0 0 6mm; padding: 0 0 0 2.4mm; }
-    .card-right::after { right: 0; border-radius: 5.1mm 0 0 5.1mm; }
+    .card-right::after { right: -0.3mm; border-radius: 5.1mm 0 0 5.1mm; }
 
     .rt-text { position: relative; z-index: 2; flex-grow: 1; display: flex; flex-direction: column; align-items: center; gap: 0.8mm; }
 

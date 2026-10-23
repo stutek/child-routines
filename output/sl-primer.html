@@ -148,15 +148,21 @@
     .pic-left { grid-column: 1; }
     .pic-right { grid-column: 3; }
 
-    /* The inner image edge fades into the frame background (--bg). The fade ends at 97 %, not 100 %:
-       at 100 % the last pixels keep a trace of the dark image grain next to the flat frame (a thin line). */
+    /* The inner image edge fades into the frame background (--bg), only where the frame (18 mm) joins
+       it; the corners above and below stay sharp. The second layer keeps the image whole outside that
+       band (mask layers add up). The fade ends at 97 %, not 100 %: at 100 % the last pixels keep a
+       trace of the dark image grain next to the flat frame (a thin line). */
+    .pic-left img, .pic-right img {
+      --band: linear-gradient(to bottom, #000 calc(50% - 13mm), transparent calc(50% - 7mm),
+                              transparent calc(50% + 7mm), #000 calc(50% + 13mm));
+    }
     .pic-left img {
-      -webkit-mask-image: linear-gradient(to right, #000 80%, transparent 97%);
-      mask-image: linear-gradient(to right, #000 80%, transparent 97%);
+      -webkit-mask-image: linear-gradient(to right, #000 88%, transparent 97%), var(--band);
+      mask-image: linear-gradient(to right, #000 88%, transparent 97%), var(--band);
     }
     .pic-right img {
-      -webkit-mask-image: linear-gradient(to left, #000 80%, transparent 97%);
-      mask-image: linear-gradient(to left, #000 80%, transparent 97%);
+      -webkit-mask-image: linear-gradient(to left, #000 88%, transparent 97%), var(--band);
+      mask-image: linear-gradient(to left, #000 88%, transparent 97%), var(--band);
     }
 
     .rt-card {
@@ -175,14 +181,15 @@
     /* Frame, circle and image share one outline: both outlines in the step color at the bottom (0),
        both fills in the background color on top, inset by the border width (1), text on top (2).
        The border stays even where circle and frame meet. The frame covers the image border at
-       the seam, so it has no border on that side. */
+       the seam, so it has no border on that side; its fill reaches 0.3 mm past the seam, or the
+       anti-aliased edge lets the outline below show as a thin grey line. */
     .rt-card::before, .rt-card::after { content: ""; position: absolute; border-radius: inherit; }
     .rt-card::before { inset: 0; z-index: 0; background: var(--step); }
     .rt-card::after { inset: 0.9mm; z-index: 1; background: var(--bg); border-radius: 0; }
     .card-left { justify-self: start; margin-left: -0.9mm; border-radius: 0 6mm 6mm 0; flex-direction: row-reverse; padding: 0 2.4mm 0 0; }
-    .card-left::after { left: 0; border-radius: 0 5.1mm 5.1mm 0; }
+    .card-left::after { left: -0.3mm; border-radius: 0 5.1mm 5.1mm 0; }
     .card-right { justify-self: end; margin-right: -0.9mm; border-radius: 6mm 0 0 6mm; padding: 0 0 0 2.4mm; }
-    .card-right::after { right: 0; border-radius: 5.1mm 0 0 5.1mm; }
+    .card-right::after { right: -0.3mm; border-radius: 5.1mm 0 0 5.1mm; }
 
     .rt-text { position: relative; z-index: 2; flex-grow: 1; display: flex; flex-direction: column; align-items: center; gap: 0.8mm; }
 
@@ -251,77 +258,77 @@
   <div class="page-a4 rt-page" style="background: linear-gradient(180deg, #D6ECFF 0%, #FFF1C1 30%, #FFDDB0 55%, #FFF4D6 78%, #DDF3E4 100%);">
     <div class="rt-grid" style="grid-template-rows: 14mm repeat(16, minmax(0, 1fr));">
       <div class="rt-header"><div class="rt-title">JUTRANJA RUTINA</div></div>
-      <div class="rt-pic pic-left" style="--step: #D97706; --bg: #E3D4C1; --ink: #854E25; grid-row: 2 / span 4;">
+      <div class="rt-pic pic-left" style="--step: #D97706; --bg: #E7DCCE; --ink: #854E25; grid-row: 2 / span 4;">
         <img src="../images/good-morning.jpg" alt="Dobro jutro" />
         <div class="rt-num">1</div>
       </div>
-      <div class="rt-card card-left" style="--step: #D97706; --bg: #E3D4C1; --ink: #854E25; grid-row: 3 / span 2;">
+      <div class="rt-card card-left" style="--step: #D97706; --bg: #E7DCCE; --ink: #854E25; grid-row: 3 / span 2;">
         <div class="rt-text">
           <div class="rt-label">DOBRO JUTRO</div>
           <div class="rt-time"><span class="blank"></span>:<span class="blank"></span></div>
         </div>
         <div class="rt-check"></div>
       </div>
-      <div class="rt-pic pic-right" style="--step: #EA580C; --bg: #BCE9D5; --ink: #8E3D28; grid-row: 4 / span 4;">
+      <div class="rt-pic pic-right" style="--step: #EA580C; --bg: #B1E6D3; --ink: #8E3D28; grid-row: 4 / span 4;">
         <img src="../images/toilet.jpg" alt="Na stranišče" />
         <div class="rt-num">2</div>
       </div>
-      <div class="rt-card card-right" style="--step: #EA580C; --bg: #BCE9D5; --ink: #8E3D28; grid-row: 5 / span 2;">
+      <div class="rt-card card-right" style="--step: #EA580C; --bg: #B1E6D3; --ink: #8E3D28; grid-row: 5 / span 2;">
         <div class="rt-text">
           <div class="rt-label">NA STRANIŠČE</div>
           <div class="rt-time"><span class="blank"></span>:<span class="blank"></span></div>
         </div>
         <div class="rt-check"></div>
       </div>
-      <div class="rt-pic pic-left" style="--step: #DC2626; --bg: #C9E0D2; --ink: #862137; grid-row: 6 / span 4;">
+      <div class="rt-pic pic-left" style="--step: #DC2626; --bg: #E1E4CE; --ink: #862137; grid-row: 6 / span 4;">
         <img src="../images/wash-hands.jpg" alt="Umij roke" />
         <div class="rt-num">3</div>
       </div>
-      <div class="rt-card card-left" style="--step: #DC2626; --bg: #C9E0D2; --ink: #862137; grid-row: 7 / span 2;">
+      <div class="rt-card card-left" style="--step: #DC2626; --bg: #E1E4CE; --ink: #862137; grid-row: 7 / span 2;">
         <div class="rt-text">
           <div class="rt-label">UMIJ ROKE</div>
           <div class="rt-time"><span class="blank"></span>:<span class="blank"></span></div>
         </div>
         <div class="rt-check"></div>
       </div>
-      <div class="rt-pic pic-right" style="--step: #65A30D; --bg: #FDFCF0; --ink: #456629; grid-row: 8 / span 4;">
+      <div class="rt-pic pic-right" style="--step: #65A30D; --bg: #FAF1DA; --ink: #456629; grid-row: 8 / span 4;">
         <img src="../images/getting-dressed.jpg" alt="Obleci se" />
         <div class="rt-num">4</div>
       </div>
-      <div class="rt-card card-right" style="--step: #65A30D; --bg: #FDFCF0; --ink: #456629; grid-row: 9 / span 2;">
+      <div class="rt-card card-right" style="--step: #65A30D; --bg: #FAF1DA; --ink: #456629; grid-row: 9 / span 2;">
         <div class="rt-text">
           <div class="rt-label">OBLECI SE</div>
           <div class="rt-time"><span class="blank"></span>:<span class="blank"></span></div>
         </div>
         <div class="rt-check"></div>
       </div>
-      <div class="rt-pic pic-left" style="--step: #16A34A; --bg: #CFF2E5; --ink: #1A664A; grid-row: 10 / span 4;">
+      <div class="rt-pic pic-left" style="--step: #16A34A; --bg: #CEF3E7; --ink: #1A664A; grid-row: 10 / span 4;">
         <img src="../images/brush-teeth.jpg" alt="Umij zobke" />
         <div class="rt-num">5</div>
       </div>
-      <div class="rt-card card-left" style="--step: #16A34A; --bg: #CFF2E5; --ink: #1A664A; grid-row: 11 / span 2;">
+      <div class="rt-card card-left" style="--step: #16A34A; --bg: #CEF3E7; --ink: #1A664A; grid-row: 11 / span 2;">
         <div class="rt-text">
           <div class="rt-label">UMIJ ZOBKE</div>
           <div class="rt-time"><span class="blank"></span>:<span class="blank"></span></div>
         </div>
         <div class="rt-check"></div>
       </div>
-      <div class="rt-pic pic-right" style="--step: #0D9488; --bg: #FAF4DF; --ink: #155E6D; grid-row: 12 / span 4;">
+      <div class="rt-pic pic-right" style="--step: #0D9488; --bg: #FAF6E4; --ink: #155E6D; grid-row: 12 / span 4;">
         <img src="../images/make-bed.jpg" alt="Postelji posteljo" />
         <div class="rt-num">6</div>
       </div>
-      <div class="rt-card card-right" style="--step: #0D9488; --bg: #FAF4DF; --ink: #155E6D; grid-row: 13 / span 2;">
+      <div class="rt-card card-right" style="--step: #0D9488; --bg: #FAF6E4; --ink: #155E6D; grid-row: 13 / span 2;">
         <div class="rt-text">
           <div class="rt-label">POSTELJI POSTELJO</div>
           <div class="rt-time"><span class="blank"></span>:<span class="blank"></span></div>
         </div>
         <div class="rt-check"></div>
       </div>
-      <div class="rt-pic pic-left" style="--step: #0284C7; --bg: #E1C7B2; --ink: #0F558F; grid-row: 14 / span 4;">
+      <div class="rt-pic pic-left" style="--step: #0284C7; --bg: #E4C8A8; --ink: #0F558F; grid-row: 14 / span 4;">
         <img src="../images/kindergarten.jpg" alt="V vrtec" />
         <div class="rt-num">7</div>
       </div>
-      <div class="rt-card card-left" style="--step: #0284C7; --bg: #E1C7B2; --ink: #0F558F; grid-row: 15 / span 2;">
+      <div class="rt-card card-left" style="--step: #0284C7; --bg: #E4C8A8; --ink: #0F558F; grid-row: 15 / span 2;">
         <div class="rt-text">
           <div class="rt-label">V VRTEC</div>
           <div class="rt-time"><span class="blank"></span>:<span class="blank"></span></div>
@@ -335,66 +342,66 @@
   <div class="page-a4 rt-page" style="background: linear-gradient(180deg, #FFF6CC 0%, #FFE7B3 30%, #DDF3E4 65%, #CDEBFA 100%);">
     <div class="rt-grid" style="grid-template-rows: 14mm repeat(14, minmax(0, 1fr));">
       <div class="rt-header"><div class="rt-title">VEČERJA</div></div>
-      <div class="rt-pic pic-left" style="--step: #16A34A; --bg: #D0F1E6; --ink: #1A664A; grid-row: 2 / span 4;">
+      <div class="rt-pic pic-left" style="--step: #16A34A; --bg: #C8F0E5; --ink: #1A664A; grid-row: 2 / span 4;">
         <img src="../images/toilet.jpg" alt="Na stranišče" />
         <div class="rt-num">1</div>
       </div>
-      <div class="rt-card card-left" style="--step: #16A34A; --bg: #D0F1E6; --ink: #1A664A; grid-row: 3 / span 2;">
+      <div class="rt-card card-left" style="--step: #16A34A; --bg: #C8F0E5; --ink: #1A664A; grid-row: 3 / span 2;">
         <div class="rt-text">
           <div class="rt-label">NA STRANIŠČE</div>
           <div class="rt-time"><span class="blank"></span>:<span class="blank"></span></div>
         </div>
         <div class="rt-check"></div>
       </div>
-      <div class="rt-pic pic-right" style="--step: #0D9488; --bg: #FBE4D9; --ink: #155E6D; grid-row: 4 / span 4;">
+      <div class="rt-pic pic-right" style="--step: #0D9488; --bg: #FDDBCE; --ink: #155E6D; grid-row: 4 / span 4;">
         <img src="../images/wash-hands.jpg" alt="Umij roke" />
         <div class="rt-num">2</div>
       </div>
-      <div class="rt-card card-right" style="--step: #0D9488; --bg: #FBE4D9; --ink: #155E6D; grid-row: 5 / span 2;">
+      <div class="rt-card card-right" style="--step: #0D9488; --bg: #FDDBCE; --ink: #155E6D; grid-row: 5 / span 2;">
         <div class="rt-text">
           <div class="rt-label">UMIJ ROKE</div>
           <div class="rt-time"><span class="blank"></span>:<span class="blank"></span></div>
         </div>
         <div class="rt-check"></div>
       </div>
-      <div class="rt-pic pic-left" style="--step: #0284C7; --bg: #FBD5BD; --ink: #0F558F; grid-row: 6 / span 4;">
+      <div class="rt-pic pic-left" style="--step: #0284C7; --bg: #FBDFCD; --ink: #0F558F; grid-row: 6 / span 4;">
         <img src="../images/set-table.jpg" alt="Pripravi mizo" />
         <div class="rt-num">3</div>
       </div>
-      <div class="rt-card card-left" style="--step: #0284C7; --bg: #FBD5BD; --ink: #0F558F; grid-row: 7 / span 2;">
+      <div class="rt-card card-left" style="--step: #0284C7; --bg: #FBDFCD; --ink: #0F558F; grid-row: 7 / span 2;">
         <div class="rt-text">
           <div class="rt-label">PRIPRAVI MIZO</div>
           <div class="rt-time"><span class="blank"></span>:<span class="blank"></span></div>
         </div>
         <div class="rt-check"></div>
       </div>
-      <div class="rt-pic pic-right" style="--step: #2563EB; --bg: #E3CCB3; --ink: #2243A3; grid-row: 8 / span 4;">
+      <div class="rt-pic pic-right" style="--step: #2563EB; --bg: #E3C6B4; --ink: #2243A3; grid-row: 8 / span 4;">
         <img src="../images/dinner.jpg" alt="Večerja" />
         <div class="rt-num">4</div>
       </div>
-      <div class="rt-card card-right" style="--step: #2563EB; --bg: #E3CCB3; --ink: #2243A3; grid-row: 9 / span 2;">
+      <div class="rt-card card-right" style="--step: #2563EB; --bg: #E3C6B4; --ink: #2243A3; grid-row: 9 / span 2;">
         <div class="rt-text">
           <div class="rt-label">VEČERJA</div>
           <div class="rt-time"><span class="blank"></span>:<span class="blank"></span></div>
         </div>
         <div class="rt-check"></div>
       </div>
-      <div class="rt-pic pic-left" style="--step: #D97706; --bg: #DEDDCB; --ink: #854E25; grid-row: 10 / span 4;">
+      <div class="rt-pic pic-left" style="--step: #D97706; --bg: #DAE0D1; --ink: #854E25; grid-row: 10 / span 4;">
         <img src="../images/clear-table.jpg" alt="Pospravi mizo" />
         <div class="rt-num">5</div>
       </div>
-      <div class="rt-card card-left" style="--step: #D97706; --bg: #DEDDCB; --ink: #854E25; grid-row: 11 / span 2;">
+      <div class="rt-card card-left" style="--step: #D97706; --bg: #DAE0D1; --ink: #854E25; grid-row: 11 / span 2;">
         <div class="rt-text">
           <div class="rt-label">POSPRAVI MIZO</div>
           <div class="rt-time"><span class="blank"></span>:<span class="blank"></span></div>
         </div>
         <div class="rt-check"></div>
       </div>
-      <div class="rt-pic pic-right" style="--step: #EA580C; --bg: #F9E8C3; --ink: #8E3D28; grid-row: 12 / span 4;">
+      <div class="rt-pic pic-right" style="--step: #EA580C; --bg: #FCF1D0; --ink: #8E3D28; grid-row: 12 / span 4;">
         <img src="../images/tidy-toys.jpg" alt="Pospravi igrače" />
         <div class="rt-num">6</div>
       </div>
-      <div class="rt-card card-right" style="--step: #EA580C; --bg: #F9E8C3; --ink: #8E3D28; grid-row: 13 / span 2;">
+      <div class="rt-card card-right" style="--step: #EA580C; --bg: #FCF1D0; --ink: #8E3D28; grid-row: 13 / span 2;">
         <div class="rt-text">
           <div class="rt-label">POSPRAVI IGRAČE</div>
           <div class="rt-time"><span class="blank"></span>:<span class="blank"></span></div>
@@ -409,88 +416,88 @@
     <svg class="rt-sky" viewBox="0 0 210 297" preserveAspectRatio="none" aria-hidden="true"><g fill="#FFF8DC"><circle cx="69.1" cy="137.9" r="0.35" opacity="0.49"/><circle cx="112.3" cy="177.7" r="0.35" opacity="0.90"/><circle cx="46.8" cy="125.9" r="0.9" opacity="0.48"/><circle cx="21.5" cy="188.5" r="0.35" opacity="0.92"/><circle cx="131.6" cy="217.9" r="0.35" opacity="0.74"/><circle cx="83.9" cy="290.6" r="0.35" opacity="0.73"/><circle cx="30.2" cy="187.5" r="0.35" opacity="0.74"/><circle cx="117.3" cy="236.2" r="0.35" opacity="0.74"/><circle cx="133.3" cy="178.9" r="0.35" opacity="0.73"/><circle cx="129.3" cy="201.8" r="0.9" opacity="0.84"/><circle cx="165.1" cy="239.3" r="0.5" opacity="0.49"/><circle cx="64.3" cy="201.6" r="0.7" opacity="0.81"/><circle cx="61.7" cy="291.3" r="0.35" opacity="0.71"/><circle cx="36.7" cy="173.3" r="0.9" opacity="0.66"/><circle cx="199.3" cy="124.4" r="0.7" opacity="0.62"/><circle cx="74.4" cy="201.9" r="0.9" opacity="0.48"/><circle cx="22.1" cy="159.9" r="0.35" opacity="0.48"/><circle cx="146.1" cy="229.7" r="0.9" opacity="0.59"/><circle cx="81.7" cy="233.7" r="0.35" opacity="0.92"/><circle cx="75.5" cy="223.0" r="0.9" opacity="0.48"/><circle cx="159.7" cy="133.9" r="0.5" opacity="0.65"/><circle cx="190.0" cy="201.9" r="0.5" opacity="0.67"/><circle cx="59.8" cy="186.8" r="0.7" opacity="0.79"/><circle cx="80.6" cy="152.7" r="0.35" opacity="0.54"/><circle cx="50.3" cy="153.2" r="0.9" opacity="0.87"/><circle cx="40.2" cy="162.2" r="0.5" opacity="0.66"/><circle cx="78.3" cy="214.8" r="0.5" opacity="0.80"/><circle cx="108.2" cy="224.3" r="0.35" opacity="0.68"/><circle cx="180.7" cy="286.1" r="0.9" opacity="0.65"/><circle cx="83.4" cy="199.1" r="0.9" opacity="0.48"/><circle cx="16.7" cy="148.6" r="0.5" opacity="0.50"/><circle cx="125.5" cy="128.9" r="0.5" opacity="0.72"/><circle cx="196.6" cy="223.5" r="0.35" opacity="0.89"/><circle cx="128.3" cy="137.5" r="0.7" opacity="0.93"/><circle cx="125.9" cy="197.7" r="0.35" opacity="0.87"/><circle cx="205.6" cy="196.2" r="0.9" opacity="0.61"/><circle cx="32.4" cy="248.7" r="0.7" opacity="0.69"/><circle cx="144.2" cy="205.5" r="0.5" opacity="0.93"/><circle cx="110.8" cy="137.1" r="0.35" opacity="0.83"/><circle cx="63.8" cy="228.9" r="0.35" opacity="0.80"/><circle cx="56.3" cy="177.8" r="0.5" opacity="0.63"/><circle cx="48.4" cy="210.2" r="0.7" opacity="0.77"/><circle cx="128.1" cy="255.9" r="0.5" opacity="0.85"/><circle cx="169.9" cy="246.9" r="0.5" opacity="0.55"/><circle cx="103.5" cy="245.2" r="0.35" opacity="0.85"/><circle cx="99.3" cy="145.8" r="0.7" opacity="0.67"/></g></svg>
     <div class="rt-grid" style="grid-template-rows: 14mm repeat(18, minmax(0, 1fr));">
       <div class="rt-header"><div class="rt-title">VEČERNA RUTINA</div></div>
-      <div class="rt-pic pic-left" style="--step: #0284C7; --bg: #F8C1CE; --ink: #0F558F; grid-row: 2 / span 4;">
+      <div class="rt-pic pic-left" style="--step: #0284C7; --bg: #FAC2CC; --ink: #0F558F; grid-row: 2 / span 4;">
         <img src="../images/cartoon.jpg" alt="Risanka" />
         <div class="rt-num">1</div>
       </div>
-      <div class="rt-card card-left" style="--step: #0284C7; --bg: #F8C1CE; --ink: #0F558F; grid-row: 3 / span 2;">
+      <div class="rt-card card-left" style="--step: #0284C7; --bg: #FAC2CC; --ink: #0F558F; grid-row: 3 / span 2;">
         <div class="rt-text">
           <div class="rt-label">RISANKA</div>
           <div class="rt-time"><span class="blank"></span>:<span class="blank"></span></div>
         </div>
         <div class="rt-check"></div>
       </div>
-      <div class="rt-pic pic-right" style="--step: #0D9488; --bg: #B0EDD4; --ink: #155E6D; grid-row: 4 / span 4;">
+      <div class="rt-pic pic-right" style="--step: #0D9488; --bg: #98E3CD; --ink: #155E6D; grid-row: 4 / span 4;">
         <img src="../images/bath.jpg" alt="Okopaj se" />
         <div class="rt-num">2</div>
       </div>
-      <div class="rt-card card-right" style="--step: #0D9488; --bg: #B0EDD4; --ink: #155E6D; grid-row: 5 / span 2;">
+      <div class="rt-card card-right" style="--step: #0D9488; --bg: #98E3CD; --ink: #155E6D; grid-row: 5 / span 2;">
         <div class="rt-text">
           <div class="rt-label">OKOPAJ SE</div>
           <div class="rt-time"><span class="blank"></span>:<span class="blank"></span></div>
         </div>
         <div class="rt-check"></div>
       </div>
-      <div class="rt-pic pic-left" style="--step: #2563EB; --bg: #A0DEC3; --ink: #2243A3; grid-row: 6 / span 4;">
+      <div class="rt-pic pic-left" style="--step: #2563EB; --bg: #9EE3CA; --ink: #2243A3; grid-row: 6 / span 4;">
         <img src="../images/care.jpg" alt="Zdravila in nega" />
         <div class="rt-num">3</div>
       </div>
-      <div class="rt-card card-left" style="--step: #2563EB; --bg: #A0DEC3; --ink: #2243A3; grid-row: 7 / span 2;">
+      <div class="rt-card card-left" style="--step: #2563EB; --bg: #9EE3CA; --ink: #2243A3; grid-row: 7 / span 2;">
         <div class="rt-text">
           <div class="rt-label">ZDRAVILA IN NEGA</div>
           <div class="rt-time"><span class="blank"></span>:<span class="blank"></span></div>
         </div>
         <div class="rt-check"></div>
       </div>
-      <div class="rt-pic pic-right" style="--step: #16A34A; --bg: #F8C6AA; --ink: #1A584B; grid-row: 8 / span 4;">
+      <div class="rt-pic pic-right" style="--step: #16A34A; --bg: #FACCAF; --ink: #1A664A; grid-row: 8 / span 4;">
         <img src="../images/pajamas.jpg" alt="Obleci pižamo" />
         <div class="rt-num">4</div>
       </div>
-      <div class="rt-card card-right" style="--step: #16A34A; --bg: #F8C6AA; --ink: #1A584B; grid-row: 9 / span 2;">
+      <div class="rt-card card-right" style="--step: #16A34A; --bg: #FACCAF; --ink: #1A664A; grid-row: 9 / span 2;">
         <div class="rt-text">
           <div class="rt-label">OBLECI PIŽAMO</div>
           <div class="rt-time"><span class="blank"></span>:<span class="blank"></span></div>
         </div>
         <div class="rt-check"></div>
       </div>
-      <div class="rt-pic pic-left" style="--step: #0369A1; --bg: #CFF2E5; --ink: #0F467A; grid-row: 10 / span 4;">
+      <div class="rt-pic pic-left" style="--step: #0369A1; --bg: #CEF3E7; --ink: #0F467A; grid-row: 10 / span 4;">
         <img src="../images/brush-teeth.jpg" alt="Umij zobke" />
         <div class="rt-num">5</div>
       </div>
-      <div class="rt-card card-left" style="--step: #0369A1; --bg: #CFF2E5; --ink: #0F467A; grid-row: 11 / span 2;">
+      <div class="rt-card card-left" style="--step: #0369A1; --bg: #CEF3E7; --ink: #0F467A; grid-row: 11 / span 2;">
         <div class="rt-text">
           <div class="rt-label">UMIJ ZOBKE</div>
           <div class="rt-time"><span class="blank"></span>:<span class="blank"></span></div>
         </div>
         <div class="rt-check"></div>
       </div>
-      <div class="rt-pic pic-right" style="--step: #1D4ED8; --bg: #BCE9D5; --ink: #1D3799; grid-row: 12 / span 4;">
+      <div class="rt-pic pic-right" style="--step: #1D4ED8; --bg: #B1E6D3; --ink: #1D3799; grid-row: 12 / span 4;">
         <img src="../images/toilet.jpg" alt="Na stranišče" />
         <div class="rt-num">6</div>
       </div>
-      <div class="rt-card card-right" style="--step: #1D4ED8; --bg: #BCE9D5; --ink: #1D3799; grid-row: 13 / span 2;">
+      <div class="rt-card card-right" style="--step: #1D4ED8; --bg: #B1E6D3; --ink: #1D3799; grid-row: 13 / span 2;">
         <div class="rt-text">
           <div class="rt-label">NA STRANIŠČE</div>
           <div class="rt-time"><span class="blank"></span>:<span class="blank"></span></div>
         </div>
         <div class="rt-check"></div>
       </div>
-      <div class="rt-pic pic-left" style="--step: #115E59; --bg: #D5CDCA; --ink: #174053; grid-row: 14 / span 4;">
+      <div class="rt-pic pic-left" style="--step: #115E59; --bg: #CECBD6; --ink: #174053; grid-row: 14 / span 4;">
         <img src="../images/story.jpg" alt="Pravljica" />
         <div class="rt-num">7</div>
       </div>
-      <div class="rt-card card-left" style="--step: #115E59; --bg: #D5CDCA; --ink: #174053; grid-row: 15 / span 2;">
+      <div class="rt-card card-left" style="--step: #115E59; --bg: #CECBD6; --ink: #174053; grid-row: 15 / span 2;">
         <div class="rt-text">
           <div class="rt-label">PRAVLJICA</div>
           <div class="rt-time"><span class="blank"></span>:<span class="blank"></span></div>
         </div>
         <div class="rt-check"></div>
       </div>
-      <div class="rt-pic pic-right" style="--step: #1E40AF; --bg: #E5E9F0; --ink: #1E2F82; grid-row: 16 / span 4;">
+      <div class="rt-pic pic-right" style="--step: #1E40AF; --bg: #F3F8F8; --ink: #1E2F82; grid-row: 16 / span 4;">
         <img src="../images/sleep.jpg" alt="Lahko noč" />
         <div class="rt-num">8</div>
       </div>
-      <div class="rt-card card-right" style="--step: #1E40AF; --bg: #E5E9F0; --ink: #1E2F82; grid-row: 17 / span 2;">
+      <div class="rt-card card-right" style="--step: #1E40AF; --bg: #F3F8F8; --ink: #1E2F82; grid-row: 17 / span 2;">
         <div class="rt-text">
           <div class="rt-label">LAHKO NOČ</div>
           <div class="rt-time"><span class="blank"></span>:<span class="blank"></span></div>

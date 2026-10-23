@@ -13,7 +13,7 @@ Brezplačno, brez prijave in brez oglasov. Kar vpišete, ostane v vašem brskaln
 ## Hitri začetek
 
 1. Odprite [stran za izdelavo lista](https://stutek.github.io/child-routines/). Najlažje gre na računalniku. Stran se odpre s primerom večerne rutine.
-2. Izberite tip rutine in vpišite korake: priporočamo 3 do 8, za začetek 3–4. Sličico zamenjate s klikom nanjo. Naslov in korake spremenite tako, da vpišete svoje besedilo; prazne vrstice so na listu nevidne. Uro vpišite ali izklopite stikalo *Ura na listu*. Vrstni red spremenite tako, da vrstico povlečete za pike.
+2. Izberite tip rutine in vpišite korake: priporočamo 3 do 8. Sličico zamenjate s klikom nanjo. Naslov in korake spremenite tako, da vpišete svoje besedilo; prazne vrstice so na listu nevidne. Uro vpišite ali izklopite stikalo *Ura na listu*. Vrstni red spremenite tako, da vrstico povlečete za pike.
 3. Kliknite **Natisni**: A4, robovi *Brez*, merilo 100 %. Za datoteko PDF, ki jo lahko delite, v oknu za tiskanje izberite *Shrani kot PDF*.
 4. Ko rutino spremenite ali prilagodite, natisnite nov list.
 5. Za deljenje trenutnega pogleda aplikacije s sorodniki in prijatelji uporabite gumb *Deli povezavo*.
@@ -22,7 +22,6 @@ Brezplačno, brez prijave in brez oglasov. Kar vpišete, ostane v vašem brskaln
 
 - **List sestavite skupaj z otrokom.** Vi vpišete korake, otrok izbere sličice.
 - **Prve dni korake opravite skupaj.**
-- **Začnite s 3–4 koraki.** Ko otrok rutino zna, dodajte nove.
 - **Magnetek pomeni »narejeno«.** Ne obljubljajte daril za magnetke: nagrada lahko otroku vzame veselje do opravila.
 - **Ure na listu so za odrasle,** ne za priganjanje. Če korak izpade ali se vrstni red pomeša, ohranite mir in poskusite znova naslednjič.
 - **Ko otrok prespi pri starih starših, teti ali stricu,** naj gre list z njim. Znano zaporedje mu lahko da občutek varnosti.

@@ -13,7 +13,7 @@ Free, no sign-up and no ads. What you type stays in your browser.
 ## Quick start
 
 1. Open the [sheet maker](https://stutek.github.io/child-routines/). It is easiest on a computer. It opens with an example evening routine.
-2. Pick the routine type and type the steps: we recommend 3 to 8, 3–4 to start with. Click a picture to change it. Type your own text to change the title and the steps; empty rows do not show on the sheet. Type a time, or turn off the *Time on the sheet* switch. Drag a row by its dots to change the order.
+2. Pick the routine type and type the steps: we recommend 3 to 8. Click a picture to change it. Type your own text to change the title and the steps; empty rows do not show on the sheet. Type a time, or turn off the *Time on the sheet* switch. Drag a row by its dots to change the order.
 3. Click **Print**: A4, margins *None*, scale 100%. For a PDF file you can share, choose *Save as PDF* in the print window.
 4. When you change or adjust the routine, print a new sheet.
 5. To share the current view of the app with family and friends, use the *Share link* button.
@@ -22,7 +22,6 @@ Free, no sign-up and no ads. What you type stays in your browser.
 
 - **Make the sheet together with your child.** You type the steps, your child picks the pictures.
 - **Do the steps together for the first few days.**
-- **Start with 3–4 steps.** When your child knows the routine, add more.
 - **A magnet means “done”.** Don't promise gifts for magnets: a reward can take away the joy of the task.
 - **The times on the sheet are for adults,** not for hurrying. If a step is skipped or the order gets mixed up, stay calm and try again next time.
 - **When your child sleeps over at grandparents', an aunt's or an uncle's,** send the sheet along. A familiar order can give a child a sense of security.

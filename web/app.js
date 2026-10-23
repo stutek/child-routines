@@ -502,7 +502,9 @@ function renderEditor() {
     box.append(row, step._hint, gallery);
     step._thumb = thumb;
   });
-  root.append(box, el("span", { id: "move-desc", class: "sr-only" }, L.moveDesc), el("div", { id: "warnings", role: "status" }),
+  // warnings sit above the steps, where the parent looks; the green "all fine" stays below them
+  root.append(el("div", { id: "warnings", class: "warnings", role: "status", hidden: true }), box,
+    el("span", { id: "move-desc", class: "sr-only" }, L.moveDesc), el("div", { id: "all-fine", class: "warnings ok", role: "status", hidden: true }),
     // Share link and Print stay in view at the bottom of the form (sticky), the sheet keeps the whole preview height
     el("div", { class: "actionbar", id: "actionbar" }, [
       el("button", { class: "copy", "aria-describedby": "link-hint", onclick: copyLink }, [el("img", { class: "icon", src: "share.svg", alt: "" }), L.copy]),
@@ -560,13 +562,14 @@ function renderPreview() {
     const st = steps[k];
     if (st && st._input) { st._input.setAttribute("aria-invalid", "true"); st._input.setAttribute("aria-describedby", st._hint.id); st._hint.hidden = false; }
   });
-  const box = document.getElementById("warnings");
-  box.className = warnings.length ? "warnings" : "warnings ok";
+  const box = document.getElementById("warnings"), fine = document.getElementById("all-fine");
+  box.hidden = !warnings.length; fine.hidden = !!warnings.length;
   box.replaceChildren(...(warnings.length
     ? [el("strong", { "aria-hidden": longs.size === warnings.length ? "true" : null }, L.warnTitle),
        el("ul", {}, warnings.map((w, i) => el("li", { "aria-hidden": longs.has(i) ? "true" : null }, w))),
        el("a", { href: CONTRIBUTE, target: "_blank", rel: "noopener" }, L.suggest)]
-    : [L.ok]));
+    : []));
+  fine.replaceChildren(warnings.length ? "" : L.ok);
 }
 
 function update(structure = false) {

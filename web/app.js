@@ -24,7 +24,7 @@ const T = {
     heading: "Otrokove rutine", aboutTitle: "O aplikaciji", howTitle: "Hitri začetek",
     about: "Jutro in večer sta polna korakov in pogosto jih naštevaš ti, vsak dan znova. Tu v nekaj minutah narediš in natisneš list s sličicami otrokove rutine, na katerem otrok opravljen korak sam označi z magnetkom ali kljukico. Tako vidi, kaj pride, list pa lahko gre z njim tudi k starim staršem, teti ali stricu, kjer mu znano zaporedje lahko da občutek varnosti. Brezplačno in brez prijave; kar vpišeš, ostane v tvojem brskalniku.",
     how: ["Najlažje gre na računalniku. Izberi »Tip rutine« in vpiši 3–4 korake. Prve dni jih opravi skupaj z otrokom. Ko otrok rutino zna, dodaj nove (največ 8).", "Stran sama izbere sličico za vsak korak. Klikni sličico, da jo zamenjaš. Otroku pokaži dve ali tri in naj izbere.", "Naslov in korake lahko spremeniš. Prazne vrstice se ne natisnejo.", "Uro vpiši ali izklopi »Ura na listu«. Vrstico premakneš tako, da jo povlečeš za pike.", "Klikni »Natisni«: A4, robovi »Brez«, merilo 100 %. Za babico izberi »Shrani kot PDF«. List lahko pritrdiš na hladilnik ali tablo.", "Povezava shrani list: klikni »Kopiraj povezavo«, shrani jo ali jo pošlji babici."],
-    example: "Naloži primer", replaced: "Primer je zamenjal tvoj list.", stepRemoved: "Korak je odstranjen.", linkReplaced: "Povezava je zamenjala tvoj list.", copy: "Kopiraj povezavo", copied: "Povezava je kopirana.", linkHint: "Kdor ima povezavo, vidi list.", undo: "Razveljavi", undone: "Tvoj list je vrnjen.", print: "Natisni",
+    example: "Naloži primer", replaced: "Primer je zamenjal tvoj list.", stepRemoved: "Korak je odstranjen.", skip: "Preskoči na obrazec", previewName: "Predogled lista", linkReplaced: "Povezava je zamenjala tvoj list.", copy: "Kopiraj povezavo", copied: "Povezava je kopirana.", linkHint: "Kdor ima povezavo, vidi list.", undo: "Razveljavi", undone: "Tvoj list je vrnjen.", print: "Natisni",
     type: "Tip rutine", sheetTitle: "Naslov lista", skies: { dawn: "jutro", afternoon: "dan", night: "večer" },
     times: "Ura na listu", background: "Ozadje", backgrounds: { gradient: "barvno", white: "belo", none: "brez (manj črnila)" },
     label: "Korak", labelHint: "npr. UMIJ ZOBKE", language: "Jezik", moved: n => `Premaknjeno na mesto ${n}`, picture: "Sličica", time: "Ura", auto: "Samodejno", none: "Brez sličice", pick: "Zamenjaj sličico", removeStep: "Izprazni vrstico", move: "Premakni korak", moveHint: "Povleci ali tapni tu, nato tapni novo mesto. S tipkovnico: puščici gor in dol.",
@@ -37,7 +37,7 @@ const T = {
     heading: "Child routines", aboutTitle: "About", howTitle: "Quick start",
     about: "Mornings and evenings are full of steps, and often you're the one listing them, every day. Here you can make and print a picture sheet of your child's routine in a few minutes; your child marks each finished step with a magnet or a tick. They can see what comes next, and the sheet can travel to grandparents, an aunt or an uncle, where the familiar order can give a sense of security. Free, with no sign-up; what you type stays in your browser.",
     how: ["It is easiest on a computer. Pick the “Routine type” and type 3–4 steps. Do them with your child for the first few days. When your child knows the routine, add more (up to 8).", "The page picks a picture for each step. Click a picture to change it. Show your child two or three and let them choose.", "You can change the title and steps. Empty rows are not printed.", "Type a time, or turn off “Time on the sheet”. Drag a row by its dots to move it.", "Click “Print”: A4, margins “None”, scale 100%. For a grandparent, choose “Save as PDF”. You can put the sheet on the fridge or a board.", "The link keeps the sheet: click “Copy link”, save it or send it to a grandparent."],
-    example: "Load example", replaced: "The example replaced your sheet.", stepRemoved: "Step removed.", linkReplaced: "The link replaced your sheet.", copy: "Copy link", copied: "Link copied.", linkHint: "Anyone with the link can see the sheet.", undo: "Undo", undone: "Your sheet is back.", print: "Print",
+    example: "Load example", replaced: "The example replaced your sheet.", stepRemoved: "Step removed.", skip: "Skip to the form", previewName: "Sheet preview", linkReplaced: "The link replaced your sheet.", copy: "Copy link", copied: "Link copied.", linkHint: "Anyone with the link can see the sheet.", undo: "Undo", undone: "Your sheet is back.", print: "Print",
     type: "Routine type", sheetTitle: "Sheet title", skies: { dawn: "morning", afternoon: "day", night: "evening" },
     times: "Time on the sheet", background: "Background", backgrounds: { gradient: "color", white: "white", none: "none (less ink)" },
     label: "Step", labelHint: "e.g. BRUSH TEETH", language: "Language", moved: n => `Moved to place ${n}`, picture: "Picture", time: "Time", auto: "Automatic", none: "No picture", pick: "Change picture", removeStep: "Clear row", move: "Move step", moveHint: "Drag, or tap here and then tap the new place. Keyboard: up and down arrows.",
@@ -330,6 +330,7 @@ function dragRow(e, k, rows) {
   const grip = e.currentTarget, ac = new AbortController();
   grip.setPointerCapture(e.pointerId);
   document.querySelectorAll(".gallery").forEach(g => { g.hidden = true; });
+  document.querySelectorAll(".thumb").forEach(b => b.setAttribute("aria-expanded", "false"));
   const pitch = rows.length > 1 ? rows[1].getBoundingClientRect().top - rows[0].getBoundingClientRect().top : 1;
   const y0 = e.clientY;
   let to = k, moved = false;
@@ -366,6 +367,8 @@ function renderEditor() {
   // Print sits with the preview: on a computer it stays in view next to the sheet
   document.getElementById("preview-label").replaceChildren(el("span", {}, L.preview), el("button", { class: "print", onclick: () => window.print() }, L.print));
   root.classList.toggle("no-times", !state.times);
+  document.getElementById("skip").textContent = L.skip;
+  document.getElementById("preview").setAttribute("aria-label", L.previewName);
   const times = el("input", { type: "checkbox", autocomplete: "off", onchange: e => { state.times = e.target.checked; update(true); } });
   times.checked = state.times;
   // a title still equal to an example title follows the type; a title the parent typed stays
@@ -374,7 +377,7 @@ function renderEditor() {
     sheet.sky = v; if (auto) sheet.title = bare(example(v).title); update(true);
   };
   root.replaceChildren(
-    el("div", { class: "row-top" }, [
+    el("header", { class: "row-top" }, [
       el("h1", { class: "grow" }, [el("img", { class: "logo", src: "icon.svg", alt: "" }), L.heading]),
       // each language in its own name, labelled with a globe (W3C: language selection), no flags
       el("label", { class: "lang" }, [el("span", { class: "globe", "aria-hidden": "true" }, "🌐"),
@@ -412,17 +415,23 @@ function renderEditor() {
   const rows = [];
   sheet.steps.forEach((step, k) => {
     const gallery = el("div", { class: "gallery", hidden: true });
-    const thumb = el("button", { class: "thumb", title: L.pick, "aria-label": `${L.pick} ${k + 1}`, onclick: () => { gallery.hidden = !gallery.hidden; } });
+    const thumb = el("button", { class: "thumb", title: L.pick, "aria-label": `${L.pick} ${k + 1}`, "aria-expanded": "false" });
+    const openGallery = open => { gallery.hidden = !open; thumb.setAttribute("aria-expanded", String(open)); };
+    thumb.addEventListener("click", () => openGallery(gallery.hidden));
+    // Escape closes the gallery and gives focus back to the thumbnail (WCAG 2.1.1, 2.4.3)
+    const onEscape = e => { if (e.key === "Escape" && !gallery.hidden) { e.preventDefault(); openGallery(false); thumb.focus(); } };
+    gallery.addEventListener("keydown", onEscape); thumb.addEventListener("keydown", onEscape);
     // a picture chosen on an empty row brings its default label (images/<id>.json "label")
     const choose = v => {
-      step.image = v; gallery.hidden = true;
+      step.image = v; openGallery(false);
       const label = D.images[v] && D.images[v].label;
       if (!step.label.trim() && label) { step.label = label[state.lang] || label.sl || ""; update(true); } else update();
     };
     gallery.append(
       el("button", { onclick: () => choose("auto") }, `🔄 ${L.auto}`),
       ...Object.entries(D.images).map(([id, img]) =>
-        el("button", { title: img.title, onclick: () => choose(id) }, el("img", { src: `../images/${id}.jpg`, alt: img.title, loading: "lazy" }))),
+        el("button", { title: img.title, "aria-label": (img.label && (img.label[state.lang] || img.label.sl)) || img.title, onclick: () => choose(id) },
+          el("img", { src: `../images/${id}.jpg`, alt: "", loading: "lazy" }))),
       el("button", { onclick: () => choose("none") }, `∅ ${L.none}`));
     const grip = el("button", { class: "grip", title: L.moveHint, "aria-label": `${L.move} ${k + 1}`, "aria-pressed": picked === k ? "true" : "false",
       onpointerdown: e => dragRow(e, k, rows), onclick: e => e.preventDefault(),
@@ -452,6 +461,9 @@ function renderEditor() {
 
 const rowInput = k => document.querySelectorAll("#maker .sheet-box .step:not(.step-head)")[k].querySelector("input:not([type=time])");
 
+// skip link: focus the first form field; no hash, the fragment carries the sheet
+document.getElementById("skip").addEventListener("click", e => { e.preventDefault(); document.querySelector("#maker .row-top.fields select").focus(); });
+
 // refresh each row's picture in place, so typing keeps focus; an empty row shows no picture
 function refreshSteps() {
   state.sheet.steps.forEach((step, k) => {
@@ -461,7 +473,7 @@ function refreshSteps() {
     const empty = !step.label.trim(), r = resolve(step, k);
     step._thumb.classList.toggle("missing", !empty && !r.image && step.image !== "none");
     step._thumb.classList.toggle("empty", empty);
-    step._thumb.replaceChildren(!empty && r.image ? el("img", { src: `../images/${r.image}.jpg`, alt: D.images[r.image].title }) : empty ? "" : "?");
+    step._thumb.replaceChildren(!empty && r.image ? el("img", { src: `../images/${r.image}.jpg`, alt: "" }) : empty ? "+" : "?");
   });
 }
 

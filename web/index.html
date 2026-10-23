@@ -47,6 +47,9 @@
     .maker .undo { font-size: 14px; color: #115E59; }
     .maker .undo button { padding: 4px 10px; margin-left: 4px; }
     .maker button:disabled { opacity: 0.45; cursor: not-allowed; }
+    /* skip link: off screen until it has focus (WCAG 2.4.1); its click moves focus, it never changes the address (the sheet lives in the fragment) */
+    .skip { position: fixed; left: 8px; top: -100px; z-index: 20; padding: 8px 14px; border-radius: 10px; background: #0F766E; color: #fff; font-weight: 700; text-decoration: none; }
+    .skip:focus { top: 8px; outline: 3px solid #0F172A; outline-offset: 2px; }
     .maker :focus-visible { outline: 3px solid #0F766E; outline-offset: 2px; }
     .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
     .maker .safety { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: #44403C; line-height: 1.4; }
@@ -91,7 +94,8 @@
     .maker button.thumb { width: 40px; height: 40px; padding: 0; border-radius: 10px; overflow: hidden; background: #f1f5f9;
                           border: 2px solid #e2e8f0; font-size: 22px; color: #94a3b8; }
     .maker button.thumb.missing { border-color: #f59e0b; background: #fffbeb; color: #b45309; }
-    .maker button.thumb.empty { background: #f8fafc; border-style: dashed; }
+    /* border and icon at least 3 : 1 against the background (WCAG 1.4.11): #64748b is 4.8 : 1 on white, 4.5 : 1 on #f8fafc */
+    .maker button.thumb.empty { background: #f8fafc; border-style: dashed; border-color: #64748b; color: #64748b; }
     .maker input.title { font-weight: 700; }
     /* labels print in capitals, so the fields show them that way too */
     .maker input.title, .step input:not([type=time]) { text-transform: uppercase; }
@@ -151,10 +155,11 @@
 </head>
 <body>
   <div id="announce" class="sr-only" aria-live="polite"></div>
-  <div class="layout">
+  <a href="#" class="skip" id="skip"></a>
+  <main class="layout">
     <div class="maker" id="maker"></div>
-    <div id="preview"><div class="preview-label" id="preview-label"></div><div id="sheets"></div></div>
-  </div>
+    <section id="preview"><div class="preview-label" id="preview-label"></div><div id="sheets"></div></section>
+  </main>
   <script src="app.js"></script>
 </body>
 </html>

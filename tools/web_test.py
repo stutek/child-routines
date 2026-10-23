@@ -68,6 +68,7 @@ def main():
             cdp = Cdp(next(t for t in tabs if t["type"] == "page")["webSocketDebuggerUrl"])
             cdp.call("Runtime.enable")
             cdp.call("Log.enable")
+            cdp.call("Emulation.setFocusEmulationEnabled", enabled=True)   # a background page has no :focus otherwise
             for width in (390, 320):
                 cdp.call("Emulation.setDeviceMetricsOverride", width=width, height=800, deviceScaleFactor=1, mobile=True)
                 cdp.call("Page.navigate", url=PAGE)
@@ -109,6 +110,29 @@ def main():
             print(f"broom: {got}")
             if got != '{"shifted":true,"focused":true,"undo":true,"restored":true}':
                 errors.append(f"broom without Undo, focus or restore: {got}")
+            # gallery: names from the labels, decorative images, aria-expanded, Escape returns focus; landmarks and skip link
+            got = cdp.call("Runtime.evaluate", awaitPromise=True, returnByValue=True, expression="""(async () => {
+              const tick = () => new Promise(r => setTimeout(r, 200));
+              const thumb = document.querySelector('.step .thumb'), gal = thumb.parentElement.nextElementSibling;
+              const r = {closed: thumb.getAttribute('aria-expanded') === 'false'};
+              thumb.click(); await tick();
+              r.open = thumb.getAttribute('aria-expanded') === 'true' && !gal.hidden;
+              const pics = [...gal.querySelectorAll('button')].filter(b => b.querySelector('img'));
+              r.named = pics.length > 10 && pics.every(b => b.getAttribute('aria-label')) && pics.every(b => b.querySelector('img').getAttribute('alt') === '');
+              gal.querySelector('button').focus();
+              gal.dispatchEvent(new KeyboardEvent('keydown', {key: 'Escape', bubbles: true})); await tick();
+              r.escape = gal.hidden && thumb.getAttribute('aria-expanded') === 'false' && document.activeElement === thumb;
+              r.landmarks = !!document.querySelector('main header h1') && !!document.querySelector('main');
+              const skip = document.getElementById('skip'), before = location.hash;
+              skip.focus(); r.skipShown = skip.getBoundingClientRect().top >= 0;
+              skip.click(); await tick();
+              r.skipFocus = document.activeElement === document.querySelector('#maker .row-top.fields select') && location.hash === before;
+              return JSON.stringify(r);
+            })()""")["result"]["value"]
+            print(f"gallery and landmarks: {got}")
+            bad = [k for k, v in json.loads(got).items() if not v]
+            if bad:
+                errors.append(f"accessibility checks failed: {bad}")
             # share link: title and labels (with č š ž) survive a fresh navigation; a broken fragment is ignored
             cdp.call("Runtime.evaluate", expression="""(() => {
               const t = document.querySelector('input.title'); t.value = 'Čšž večer'; t.dispatchEvent(new Event('input'));

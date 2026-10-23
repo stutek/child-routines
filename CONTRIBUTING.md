@@ -2,7 +2,7 @@
 
 **English** · [Slovenščina](CONTRIBUTING.sl.md)
 
-Thank you for sharing your child's routine. You can add a **routine** (a new one or a translation), **images**, or both. Changes come as a pull request.
+How to build sheets from the data files on your computer, with or without an AI agent, and how to contribute. Thank you for sharing your child's routine: you can add a **routine** (a new one or a translation), **images**, or both. Changes come as a pull request.
 
 ## Ground rules
 
@@ -42,7 +42,14 @@ Thank you for sharing your child's routine. You can add a **routine** (a new one
    - `image`: an image id from `images/`, or `null` for an empty placeholder.
    - `time`: optional, e.g. `"07:30"`; printed instead of the empty time field.
    - `color`: the step color; labels are darkened automatically for readable contrast.
-3. Run `python3 tools/check_images.py` and `python3 tools/build.py`, open the new file in `output/` and check it in Chrome's print preview.
+3. Rebuild and check it in Chrome's print preview:
+
+   ```bash
+   pip install -r requirements.txt
+   python3 tools/check_images.py   # checks images and routines; must print 0 errors
+   python3 tools/build.py          # writes output/<lang>-<name>.html
+   ```
+
 4. Commit the routine and the rebuilt `output/` file.
 
 ## Add an image
@@ -79,7 +86,24 @@ Every pull request runs two automatic checks, and both must pass before merging:
 
 ## With an AI agent
 
-An agent can do the steps above for you: see [Make your own with an AI agent](README.md#make-your-own-with-an-ai-agent). The contribution stays yours: before you open the pull request, look at every image and check every item of the checklist yourself. The agent follows the same rules ([AGENTS.md](AGENTS.md)), and the copyright gate checks its work like anyone else's.
+An AI coding agent (Claude Code, Codex, Gemini CLI or Antigravity) can do the steps above for you. It loads the repository's instructions in [AGENTS.md](AGENTS.md) by itself.
+
+1. Get the repository onto your computer (`git clone https://github.com/stutek/child-routines.git` or **Code** → **Download ZIP**) and start the agent in its folder.
+2. Describe the routine in your own words, for example:
+
+   ```text
+   In routines/en/ours.json, make a routine for my four-year-old: morning (wake up, toilet, wash hands, teeth, get dressed, preschool) and evening (bath, pajamas, teeth, story, sleep). Use the existing pictures where they fit, rebuild, and print it to PDF for me to check.
+   ```
+
+3. Check the result yourself in Chrome's print preview: every label is whole, the order is right, every picture matches its step.
+
+Tips:
+
+- **Personal details stay at home.** Your child's name on your own sheet is fine on your computer; do not commit it to a public fork or a pull request.
+- **Use the existing pictures first.** Many coding agents cannot make images; new ones need an image model (the ones here were made with Google Gemini through Antigravity), following [docs/PROMPTS.md](docs/PROMPTS.md) and the [copyright check](.agents/skills/copyright-check/SKILL.md). Look at every new picture yourself before you print or share it.
+- **Do not let the agent publish.** Review the changes before you push or open a pull request.
+
+If you contribute the result, it stays yours: before you open the pull request, look at every image and check every item of the checklist yourself. The agent follows the same rules ([AGENTS.md](AGENTS.md)), and the copyright gate checks its work like anyone else's.
 
 ## Pull request
 
@@ -88,5 +112,5 @@ Fill in the checklist in the pull request template. Keep one routine or a few re
 ## Maintainers
 
 - Repository secret `VISION_API_KEY`: an API key of a Google Cloud project with the Cloud Vision API enabled (first 1,000 checks per month are free). Set it with `gh secret set VISION_API_KEY`.
-- Make `validate / check` and `copyright-gate / web-match` required status checks for `main` (repository settings, rules or branch protection).
+- Make `validate / check`, `copyright-gate / web-match` and `web-test / web` required status checks for `main` (repository settings, rules or branch protection).
 - The gate runs on `pull_request_target`, from the base branch. Never change it to check out or run code from the pull request.

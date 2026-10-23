@@ -2,7 +2,7 @@
 
 [English](CONTRIBUTING.md) · **Slovenščina**
 
-Hvala, ker delite rutino svojega otroka. Dodate lahko **rutino** (novo ali prevod), **slike** ali oboje. Spremembe pošljete kot zahtevo za združitev (pull request).
+Kako na svojem računalniku zgradite liste iz podatkovnih datotek, z agentom ali brez njega, in kako prispevate. Hvala, ker delite rutino svojega otroka: dodate lahko **rutino** (novo ali prevod), **slike** ali oboje. Spremembe pošljete kot zahtevo za združitev (pull request).
 
 ## Osnovna pravila
 
@@ -23,7 +23,14 @@ Hvala, ker delite rutino svojega otroka. Dodate lahko **rutino** (novo ali prevo
    - `image`: oznaka slike iz `images/` ali `null` za prazno polje.
    - `time`: neobvezno, na primer `"07:30"`; natisne se namesto praznega polja za uro.
    - `color`: barva koraka; napis se samodejno potemni za berljiv kontrast.
-3. Poženite `python3 tools/check_images.py` in `python3 tools/build.py`, odprite novo datoteko v `output/` in jo preverite v predogledu tiskanja v Chromu.
+3. Znova zgradite in preverite v predogledu tiskanja v Chromu:
+
+   ```bash
+   pip install -r requirements.txt
+   python3 tools/check_images.py   # preveri slike in rutine; izpiše 0 napak
+   python3 tools/build.py          # zapiše output/<jezik>-<ime>.html
+   ```
+
 4. Commitajte rutino in na novo zgrajeno datoteko v `output/`.
 
 ## Dodajanje slike
@@ -41,7 +48,24 @@ Vsaka zahteva za združitev sproži dve samodejni preverbi; obe morata uspeti:
 
 ## Z agentom
 
-Agent lahko zgornje korake opravi namesto vas: glejte [Lastna rutina z agentom](README.sl.md#lastna-rutina-z-agentom). Prispevek ostane vaš: preden odprete zahtevo za združitev, sami poglejte vsako sliko in preverite vsako točko kontrolnega seznama. Agent upošteva ista pravila ([AGENTS.sl.md](AGENTS.sl.md)), vrata za avtorske pravice pa njegovo delo preverijo kot vsako drugo.
+Agent z umetno inteligenco (Claude Code, Codex, Gemini CLI ali Antigravity) lahko zgornje korake opravi namesto vas. Navodila repozitorija v [AGENTS.sl.md](AGENTS.sl.md) naloži sam.
+
+1. Repozitorij prenesite na računalnik (`git clone https://github.com/stutek/child-routines.git` ali **Code** → **Download ZIP**) in agenta zaženite v njegovi mapi.
+2. Rutino opišite s svojimi besedami, na primer:
+
+   ```text
+   V routines/sl/nasa.json sestavi rutino za mojega štiriletnega otroka: jutro (bujenje, stranišče, umivanje rok, zobki, oblačenje, vrtec) in večer (kopanje, pižama, zobki, pravljica, spanje). Kjer se ujemajo, uporabi obstoječe slike, znova zgradi in natisni v PDF, da ga pregledam.
+   ```
+
+3. Izid preverite sami v predogledu tiskanja v Chromu: vsak napis je cel, vrstni red je pravi, vsaka slika se ujema s svojim korakom.
+
+Priporočila:
+
+- **Osebni podatki ostanejo doma.** Otrokovo ime na lastnem listu je na vašem računalniku v redu; ne commitajte ga v javno kopijo (fork) ali zahtevo za združitev.
+- **Najprej uporabite obstoječe slike.** Mnogi agenti za programiranje slik ne znajo ustvariti; za nove je potreben model za slike (te v repozitoriju so nastale z Google Gemini prek Antigravity), po [docs/PROMPTS.sl.md](docs/PROMPTS.sl.md) in [preverbi avtorstva](.agents/skills/copyright-check/SKILL.sl.md). Vsako novo sliko poglejte sami, preden jo natisnete ali delite.
+- **Agent naj ne objavlja.** Spremembe preglejte, preden jih pushate ali odprete zahtevo za združitev.
+
+Če izid prispevate, prispevek ostane vaš: preden odprete zahtevo za združitev, sami poglejte vsako sliko in preverite vsako točko kontrolnega seznama. Agent upošteva ista pravila ([AGENTS.sl.md](AGENTS.sl.md)), vrata za avtorske pravice pa njegovo delo preverijo kot vsako drugo.
 
 ## Zahteva za združitev
 
@@ -50,5 +74,5 @@ Izpolnite kontrolni seznam v predlogi zahteve. V eni zahtevi naj bo ena rutina a
 ## Vzdrževalci
 
 - Skrivnost repozitorija `VISION_API_KEY`: ključ API projekta Google Cloud z vklopljenim Cloud Vision API (prvih 1.000 preverb na mesec je brezplačnih). Nastavite jo z `gh secret set VISION_API_KEY`.
-- `validate / check` in `copyright-gate / web-match` nastavite kot obvezni preverbi za `main` (nastavitve repozitorija, pravila ali zaščita veje).
+- `validate / check`, `copyright-gate / web-match` in `web-test / web` nastavite kot obvezne preverbe za `main` (nastavitve repozitorija, pravila ali zaščita veje).
 - Vrata tečejo na `pull_request_target`, iz osnovne veje. Nikoli jih ne spremenite tako, da bi prevzela ali pognala kodo iz zahteve.

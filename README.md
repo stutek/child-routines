@@ -48,40 +48,9 @@ Send the link to other parents. If you have a GitHub account, also click **⭐ S
 2. In Chrome, open `web/index.html` for your own sheet or `output/en-example.html` for the example.
 3. Print as above.
 
-### Your own routine from files
+### Your own routine from files or with an AI agent, and contributing
 
-Routines are data files in [`routines/<lang>/`](routines/). Copy one, change the labels, pictures and colors, then rebuild:
-
-```bash
-pip install -r requirements.txt
-python3 tools/check_images.py   # checks images and routines
-python3 tools/build.py          # writes output/<lang>-<name>.html
-```
-
-Images are in [`images/`](images/), each with its own metadata file. How to make new ones: [docs/PROMPTS.md](docs/PROMPTS.md).
-
-### Your own routine with an agent
-
-An AI coding agent (Claude Code, Codex, Gemini CLI or Antigravity) can build the routine for you. It loads the repository's instructions in [AGENTS.md](AGENTS.md) by itself.
-
-1. Get the repository onto your computer (`git clone https://github.com/stutek/child-routines.git` or the ZIP above) and start the agent in its folder.
-2. Describe the routine in your own words, for example:
-
-   ```text
-   In routines/en/ours.json, make a routine for my four-year-old: morning (wake up, toilet, wash hands, teeth, get dressed, preschool) and evening (bath, pajamas, teeth, story, sleep). Use the existing pictures where they fit, rebuild, and print it to PDF for me to check.
-   ```
-
-3. Check the result yourself in Chrome's print preview: every label is whole, the order is right, every picture matches its step.
-
-Tips:
-
-- **Personal details stay at home.** Your child's name on your own sheet is fine on your computer; do not commit it to a public fork or a pull request.
-- **Use the existing pictures first.** Many coding agents cannot make images; new ones need an image model (the ones here were made with Google Gemini through Antigravity), following [docs/PROMPTS.md](docs/PROMPTS.md) and the [copyright check](.agents/skills/copyright-check/SKILL.md). Look at every new picture yourself before you print or share it.
-- **Do not let the agent publish.** Review the changes before you push or open a pull request.
-
-### Contributing
-
-Parents can add routines, translations and pictures: see [CONTRIBUTING.md](CONTRIBUTING.md). Every new picture must pass the automatic copyright gate before it is merged.
+Building sheets from data files, using an AI coding agent, and adding routines, translations and pictures: see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
 

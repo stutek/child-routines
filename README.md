@@ -12,7 +12,7 @@ Free, no sign-up and no ads. What you type stays in your browser.
 
 ## How to make your sheet
 
-1. Open the [sheet maker](https://stutek.github.io/child-routines/). It starts with an example evening routine.
+1. Open the [sheet maker](https://stutek.github.io/child-routines/), easiest on a computer, where the preview is next to the form. It starts with an example evening routine.
 2. Pick the routine type (morning, day, evening) and type up to 8 steps. You can change the sheet title and every label as you like. The page picks a picture for each step; click it to change it. To change the order, drag a row by the dots on its left. The time is optional: leave it empty and write it in by hand later, or hide the time fields with the *Time on the sheet* switch.
 3. Click **Print**. In the print window choose A4 paper, margins *None* and scale 100%. To send the sheet to a grandparent or a print shop, choose *Save as PDF* instead of a printer.
 

@@ -12,7 +12,7 @@ Brezplačno, brez prijave in brez oglasov. Kar vpišete, ostane v vašem brskaln
 
 ## Kako naredim svoj list
 
-1. Odprite [izdelovalnik](https://stutek.github.io/child-routines/). Začne s primerom večerne rutine.
+1. Odprite [izdelovalnik](https://stutek.github.io/child-routines/), najlaže na računalniku, kjer je predogled lista ob obrazcu. Začne s primerom večerne rutine.
 2. Izberite tip rutine (jutro, dan, večer) in vpišite do 8 korakov. Naslov lista in vse napise lahko poljubno spremenite. Sličico stran izbere sama; kliknite nanjo, če jo želite zamenjati. Vrstni red spremenite tako, da vrstico povlečete za pike na levi. Ura je neobvezna: prazno polje lahko izpolnite kasneje s pisalom, s stikalom *Ura na listu* pa polja za uro skrijete.
 3. Kliknite **Natisni**. V oknu za tiskanje izberite papir A4, robove *Brez* in merilo 100 %. Če želite list poslati babici ali tiskarni, namesto tiskalnika izberite *Shrani kot PDF*.
 

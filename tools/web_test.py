@@ -113,7 +113,7 @@ def main():
             # gallery: names from the labels, decorative images, aria-expanded, Escape returns focus; landmarks and skip link
             got = cdp.call("Runtime.evaluate", awaitPromise=True, returnByValue=True, expression="""(async () => {
               const tick = () => new Promise(r => setTimeout(r, 200));
-              const thumb = document.querySelector('.step .thumb'), gal = thumb.parentElement.nextElementSibling;
+              const thumb = document.querySelector('.step .thumb'), gal = thumb.parentElement.nextElementSibling.nextElementSibling;   // row, its hint, its gallery
               const r = {closed: thumb.getAttribute('aria-expanded') === 'false'};
               thumb.click(); await tick();
               r.open = thumb.getAttribute('aria-expanded') === 'true' && !gal.hidden;
@@ -193,6 +193,32 @@ def main():
                     errors.append(f"removed picture with label {label}: expected {want}.jpg, got {res}")
                 if not want and not (res["missing"] and res["warn"] == "warnings"):
                     errors.append(f"removed picture with label {label}: expected ? placeholder and a warning, got {res}")
+            # a label too long for its frame is marked at its own row (aria-invalid, hint, described by) and the
+            # warnings list does not read the same thing out again (aria-hidden); a short label is not marked
+            rows6 = [["UMIJ ZOBE", "", ""], ["WWWWWWWWWWWWWWWWWWWWWWWW", "", ""]] + [[f"KORAK {i}", "", ""] for i in range(4)]
+            raw = json.dumps({"l": "sl", "b": "gradient", "t": 1, "s": "dawn", "h": "TEST", "r": rows6})
+            frag = base64.urlsafe_b64encode(raw.encode()).decode().rstrip("=")
+            cdp.call("Page.navigate", url="about:blank")
+            cdp.wait(0.5)
+            cdp.call("Page.navigate", url=PAGE + "#" + frag)
+            cdp.wait(2)
+            got = cdp.call("Runtime.evaluate", returnByValue=True, expression="""(() => {
+              const inputs = [...document.querySelectorAll('.step input:not([type=time])')];
+              const hint = i => { const id = inputs[i].getAttribute('aria-describedby'); return id && document.getElementById(id); };
+              const r = {
+                marked: inputs[1].getAttribute('aria-invalid') === 'true' && !!hint(1) && !hint(1).hidden && hint(1).textContent.length > 10,
+                red: getComputedStyle(inputs[1]).borderColor === 'rgb(185, 28, 28)',
+                others: [0, 2, 3].every(i => !inputs[i].hasAttribute('aria-invalid') && !inputs[i].hasAttribute('aria-describedby')),
+                listOnce: [...document.querySelectorAll('#warnings li')].filter(li => li.textContent.includes('predolg')).every(li => li.getAttribute('aria-hidden') === 'true'),
+                listStays: document.querySelectorAll('#warnings li').length > 0 };
+              inputs[1].value = 'KRATEK'; inputs[1].dispatchEvent(new Event('input'));
+              r.cleared = !inputs[1].hasAttribute('aria-invalid') && !inputs[1].hasAttribute('aria-describedby') && [...document.querySelectorAll('.row-hint')].every(h => h.hidden);
+              return JSON.stringify(r);
+            })()""")["result"]["value"]
+            print(f"too long label: {got}")
+            bad = [k for k, v in json.loads(got).items() if not v]
+            if bad:
+                errors.append(f"too-long label checks failed: {bad}")
             # the form shows the state a link carries: type (sky), background, time checkbox; also after a reload
             raw = json.dumps({"l": "sl", "b": "white", "t": 0, "s": "dawn", "h": "JUTRO", "r": [["UMIJ ZOBE", "", ""]]})
             frag = base64.urlsafe_b64encode(raw.encode()).decode().rstrip("=")

@@ -30,7 +30,7 @@ const T = {
     label: "Korak", labelHint: "npr. UMIJ ZOBKE", language: "Jezik", moved: n => `Premaknjeno na mesto ${n}`, picture: "Sličica", time: "Ura", auto: "Samodejno", none: "Brez sličice", pick: "Zamenjaj sličico", removeStep: "Izprazni vrstico", move: "Premakni korak", moveHint: "Povleci ali tapni tu, nato tapni novo mesto. S tipkovnico: puščici gor in dol.", moveDesc: "Alt in puščica gor ali dol premakne korak. Dotik ročaja in nato ročaja druge vrstice zamenja mesti.",
     warnNoMatch: (s, l) => `${s}: za »${l}« ni sličice. Klikni »?« in izberi sličico ali »Brez sličice«.`,
     warnMismatch: (s, l) => `${s}: sličica se morda ne ujema z napisom »${l}«.`,
-    warnLong: (s, l) => `${s}: napis »${l}« je predolg za okvir; skrajšaj ga.`,
+    warnLong: (s, l) => `${s}: napis »${l}« je predolg za okvir; skrajšaj ga.`, tooLong: "Napis je predolg za okvir.",
     preview: "Predogled (A4)", step: "Korak", ok: "✓ Vse sličice so najdene in vsi napisi se prilegajo.", suggest: "Manjka sličica? Predlagaj jo", warnTitle: "Opozorila", watchTitle: "Na kaj paziti", watch: [["Starost", "list je za otroke od 3 let naprej."], ["Magnetki", "uporabi le magnetke, varne za otroke in kemično neškodljive. Če otrok pogoltne magnetek, takoj pojdi k zdravniku."], ["Pisala", "za kljukice uporabi le pisala, varna za otroke in kemično neškodljiva."], ["Zdravila", "daje in hrani jih odrasel. Niso sladkarija."], ["Kopanje", "otroka nikoli ne pusti samega v kadi."], ["Zobki", "sledi navodilom svojega zobozdravnika."], ["Nagrade", "magnetek pomeni »narejeno«. Ne obljubljaj daril za magnetke: nagrada lahko otroku vzame veselje do opravila."], ["Brez pritiska", "ure na listu so za odrasle, ne za priganjanje. Če korak izpade ali se vrstni red pomeša, ohrani mir in poskusi znova naslednjič."]], guide: "Uporaba in varnost", project: "Projekt na GitHubu",
   },
   en: {
@@ -43,7 +43,7 @@ const T = {
     label: "Step", labelHint: "e.g. BRUSH TEETH", language: "Language", moved: n => `Moved to place ${n}`, picture: "Picture", time: "Time", auto: "Automatic", none: "No picture", pick: "Change picture", removeStep: "Clear row", move: "Move step", moveHint: "Drag, or tap here and then tap the new place. Keyboard: up and down arrows.", moveDesc: "Alt and the up or down arrow move the step. Tap the handle, then another row's handle, to swap them.",
     warnNoMatch: (s, l) => `${s}: no picture for “${l}”. Click “?” and pick a picture or “No picture”.`,
     warnMismatch: (s, l) => `${s}: the picture may not match the label “${l}”.`,
-    warnLong: (s, l) => `${s}: “${l}” is too long for the frame; shorten it.`,
+    warnLong: (s, l) => `${s}: “${l}” is too long for the frame; shorten it.`, tooLong: "The label is too long for the frame.",
     preview: "Preview (A4)", step: "Step", ok: "✓ All pictures found and all labels fit.", suggest: "Missing a picture? Suggest one", warnTitle: "Warnings", watchTitle: "What to watch for", watch: [["Age", "the sheet is for children aged 3 and up."], ["Magnets", "use only magnets that are safe for children and chemically harmless. If a child swallows a magnet, see a doctor at once."], ["Pens", "for ticks, use only pens that are safe for children and chemically harmless."], ["Medicine", "an adult gives and keeps it. It is not a sweet."], ["Bath", "never leave a child alone in the bath."], ["Teeth", "follow your dentist's advice."], ["Rewards", "a magnet means “done”. Don't promise gifts for magnets: a reward can take away the joy of the task."], ["No pressure", "the times on the sheet are for adults, not for hurrying. If a step is skipped or the order gets mixed up, stay calm and try again next time."]], guide: "How to use it and safety", project: "Project on GitHub",
   },
 };
@@ -449,7 +449,7 @@ function renderEditor() {
       } }, el("span", { class: "dots", "aria-hidden": "true" }));
     const row = el("div", { class: picked === k ? "step picked" : "step" }, [
       el("span", { class: "n", id: `n-${k}` }, `${place(k)}`), grip,
-      el("input", { value: step.label, placeholder: k === 0 ? L.labelHint : "", maxlength: "24", "aria-labelledby": `col-label n-${k}`, autocapitalize: "characters",
+      step._input = el("input", { value: step.label, placeholder: k === 0 ? L.labelHint : "", maxlength: "24", "aria-labelledby": `col-label n-${k}`, autocapitalize: "characters",
         oninput: e => { step.label = e.target.value; update(); } }),
       el("input", { type: "time", value: step.time, "aria-labelledby": `col-time n-${k}`, oninput: e => { step.time = e.target.value; update(); } }),
       thumb,
@@ -461,7 +461,8 @@ function renderEditor() {
           rowInput(k).focus();   // the row now at this place (WCAG 2.4.3)
         } }, broom())]);
     rows.push(row);
-    box.append(row, gallery);
+    step._hint = el("div", { class: "row-hint", id: `hint-${k}`, hidden: true }, L.tooLong);
+    box.append(row, step._hint, gallery);
     step._thumb = thumb;
   });
   root.append(box, el("span", { id: "move-desc", class: "sr-only" }, L.moveDesc), el("div", { id: "warnings", role: "status" }));
@@ -507,13 +508,20 @@ function renderPreview() {
     if (kw && kw.length && !match(st.label, st.image)) warnings.push(L.warnMismatch(`${L.step} ${k + 1}`, st.label));
   });
   // labels do not wrap: compare each with the frame width left beside the magnet circle (AGENTS.md)
+  // the row itself is marked (aria-invalid, hint); the list repeats it for sighted users only, so it is not read out twice
+  const longs = new Set();
+  state.sheet.steps.forEach(st => { if (st._input) { st._input.removeAttribute("aria-invalid"); st._input.removeAttribute("aria-describedby"); st._hint.hidden = true; } });
   document.querySelectorAll("#sheets .rt-label").forEach((lab, k) => {
-    if (lab.scrollWidth > labelRoom(lab)) warnings.push(L.warnLong(`${L.step} ${k + 1}`, lab.textContent));
+    if (lab.scrollWidth <= labelRoom(lab)) return;
+    warnings.push(L.warnLong(`${L.step} ${k + 1}`, lab.textContent)); longs.add(warnings.length - 1);
+    const st = steps[k];
+    if (st && st._input) { st._input.setAttribute("aria-invalid", "true"); st._input.setAttribute("aria-describedby", st._hint.id); st._hint.hidden = false; }
   });
   const box = document.getElementById("warnings");
   box.className = warnings.length ? "warnings" : "warnings ok";
   box.replaceChildren(...(warnings.length
-    ? [el("strong", {}, L.warnTitle), el("ul", {}, warnings.map(w => el("li", {}, w))),
+    ? [el("strong", { "aria-hidden": longs.size === warnings.length ? "true" : null }, L.warnTitle),
+       el("ul", {}, warnings.map((w, i) => el("li", { "aria-hidden": longs.has(i) ? "true" : null }, w))),
        el("a", { href: CONTRIBUTE, target: "_blank", rel: "noopener" }, L.suggest)]
     : [L.ok]));
 }

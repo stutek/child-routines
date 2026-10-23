@@ -4,9 +4,9 @@
 
 **[Make your sheet →](https://stutek.github.io/child-routines/)**
 
-A4 sheets with a daily routine for children aged 3 and up: morning, dinner and evening. Your child follows the pictures. They mark each finished step with a magnet on its circle or a tick. Adults read the order and the time.
+A4 sheets with a daily routine for children aged 3 and up: morning, day and evening. Your child follows the pictures. They mark each finished step with a magnet on its circle or a tick. Adults read the order and the time.
 
-![Three example sheets: morning, dinner and evening](docs/preview.jpg)
+![Three example sheets: morning, day and evening](docs/preview.jpg)
 
 Free, no sign-up and no ads. What you type stays in your browser.
 

@@ -4,9 +4,9 @@
 
 **[Naredite svoj list →](https://stutek.github.io/child-routines/)**
 
-Listi A4 z dnevno rutino za otroke od 3 let: jutro, večerja in večer. Otrok sledi sličicam. Opravljen korak označi z magnetkom v krogu ali s kljukico. Odrasli preberejo vrstni red in uro.
+Listi A4 z dnevno rutino za otroke od 3 let: jutro, dan in večer. Otrok sledi sličicam. Opravljen korak označi z magnetkom v krogu ali s kljukico. Odrasli preberejo vrstni red in uro.
 
-![Trije vzorčni listi: jutro, večerja in večer](docs/preview.jpg)
+![Trije vzorčni listi: jutro, dan in večer](docs/preview.jpg)
 
 Brezplačno, brez prijave in brez oglasov. Kar vpišete, ostane v vašem brskalniku.
 

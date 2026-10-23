@@ -2,7 +2,7 @@
 
 [English](AGENTS.md) · **Slovenščina**
 
-Listi A4 za tisk z rutino majhnega otroka (jutro, večerja, spanje). Visijo na hladilniku; otrok sledi sličicam in na krog opravljenega koraka položi magnetek, odrasli preberejo vrstni red in predvideno uro. Javni repozitorij: brez imen in fotografij resničnih oseb.
+Listi A4 za tisk z rutino majhnega otroka (jutro, dan, večer). Visijo na hladilniku; otrok sledi sličicam in na krog opravljenega koraka položi magnetek, odrasli preberejo vrstni red in predvideno uro. Javni repozitorij: brez imen in fotografij resničnih oseb.
 
 ## Datoteke
 

@@ -2,7 +2,7 @@
 
 **English** · [Slovenščina](AGENTS.sl.md)
 
-Printable A4 routine sheets for young children (morning, dinner, bedtime). They hang on a fridge; the child follows the pictures and puts a magnet on each finished step's circle, adults read the order and the planned time. Public repository: no names or photos of real people.
+Printable A4 routine sheets for young children (morning, day, evening). They hang on a fridge; the child follows the pictures and puts a magnet on each finished step's circle, adults read the order and the planned time. Public repository: no names or photos of real people.
 
 ## Files
 

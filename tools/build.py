@@ -28,7 +28,7 @@ SKIES = {
 SITE = "stutek.github.io/child-routines"
 LICENSE = {"sl": "CC0 · prosto za uporabo, spreminjanje in deljenje", "en": "CC0 · free to use, change and share"}
 # the sheet travels without the maker (to grandparents), so the essential warning goes on the sheet itself
-SAFETY = {"sl": "Otrok ne sme pogoltniti magnetka. Pisala naj bodo otroška in kemično varna.", "en": "A child must not swallow a magnet. Use children's, chemically safe pens."}
+SAFETY = {"sl": "Pozor: otrok ne sme pogoltniti magnetka. Pisala naj bodo otroška in kemično varna.", "en": "Warning: a child must not swallow a magnet. Use children's chemically safe pens."}
 # the EU pictogram for "not suitable for children under 36 months" (web/under3.json: source and licence), with the hazard above
 UNDER3 = {"sl": "Ni primerno za otroke, mlajše od 3 let", "en": "Not suitable for children under 3 years"}
 QR = (ROOT / "web" / "qr.svg").read_text(encoding="utf-8").strip()
@@ -37,8 +37,8 @@ QR = (ROOT / "web" / "qr.svg").read_text(encoding="utf-8").strip()
 PLAIN = {"white": "#FFFFFF", "none": "none"}
 
 TOOLBAR = {
-    "sl": ("Natisni", "Listi A4 za hladilnik. Chrome natisne tudi ozadje."),
-    "en": ("Print", "A4 sheets for the fridge. Chrome prints the background too."),
+    "sl": ("Natisni", "Za tisk: A4, robovi »Brez«, merilo 100 %."),
+    "en": ("Print", "To print: A4, margins “None”, scale 100%."),
 }
 
 MISSING_BG = "#FFFFFF"

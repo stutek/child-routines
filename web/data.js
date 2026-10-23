@@ -14,11 +14,11 @@ window.SHEET_DATA = {
  "toolbar": {
   "sl": [
    "Natisni",
-   "Listi A4 za hladilnik. Chrome natisne tudi ozadje."
+   "Za tisk: A4, robovi »Brez«, merilo 100 %."
   ],
   "en": [
    "Print",
-   "A4 sheets for the fridge. Chrome prints the background too."
+   "To print: A4, margins “None”, scale 100%."
   ]
  },
  "geometry": {
@@ -36,8 +36,8 @@ window.SHEET_DATA = {
   "en": "CC0 · free to use, change and share"
  },
  "safety": {
-  "sl": "Otrok ne sme pogoltniti magnetka. Pisala naj bodo otroška in kemično varna.",
-  "en": "A child must not swallow a magnet. Use children's, chemically safe pens."
+  "sl": "Pozor: otrok ne sme pogoltniti magnetka. Pisala naj bodo otroška in kemično varna.",
+  "en": "Warning: a child must not swallow a magnet. Use children's chemically safe pens."
  },
  "under3": {
   "sl": "Ni primerno za otroke, mlajše od 3 let",

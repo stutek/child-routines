@@ -28,7 +28,7 @@ Vzorčni listi so [tu](https://stutek.github.io/child-routines/output/sl-primer.
 
 ## Varnost
 
-- **Magnetki:** uporabite magnetke, vdelane v plastiko, brez majhnih delov, ki bi se lahko odlepili. Počenega zavrzite. Ko list ni v uporabi, magnetke hranite zunaj dosega. Če otrok pogoltne magnet ali več njih, takoj k zdravniku: več magnetov se lahko v črevesju privlači.
+- **Magnetki:** otrok ne sme pogoltniti magnetka ali njegovega delčka. Pazite tudi na mlajše sorojence. Če se to zgodi, takoj k zdravniku.
 - **Zdravila in nega:** zdravila daje odrasel in jih hrani zunaj otrokovega dosega. Korak na listu otroka le spomni, da je čas zanje.
 - **Kopanje:** otroka nikoli ne pustite samega v kadi.
 

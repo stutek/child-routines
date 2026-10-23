@@ -28,7 +28,7 @@ Example sheets, ready to print, are [here](https://stutek.github.io/child-routin
 
 ## Safety
 
-- **Magnets:** use magnets set in plastic, with no small parts that could come off. Throw away a cracked one. Keep the magnets out of reach when the sheet is not in use. If a child swallows one magnet or more, see a doctor at once: several magnets can attract each other inside the gut.
+- **Magnets:** a child must not swallow a magnet or a piece of one. Mind younger siblings too. If it happens, see a doctor at once.
 - **Medicine and care:** an adult gives medicine and keeps it out of the child's reach. The step on the sheet only reminds the child that it is time for it.
 - **Bath:** never leave a child alone in the bath.
 

@@ -51,8 +51,16 @@
     .maker :focus-visible { outline: 3px solid #0F766E; outline-offset: 2px; }
     .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
     /* always visible, plain text; the symbol is decoration */
-    .maker .warn { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: #44403C; line-height: 1.4; }
-    .maker .warn ul { margin: 2px 0 0 18px; padding: 0; }
+    .maker .warn { font-size: 14px; color: #44403C; line-height: 1.4; }
+    .maker details { font-size: 14px; color: #44403C; line-height: 1.4; }
+    .maker summary { font-weight: 800; color: #115E59; font-size: 15px; cursor: pointer; padding-block: 4px; display: flex; align-items: center; gap: 8px; }   /* ≥ 24 px (WCAG 2.5.8) */
+    .maker details[open] summary { margin-bottom: 4px; }
+    /* a flex summary loses the browser's disclosure triangle: draw it, so the parent sees the section folds */
+    .maker summary { list-style: none; }
+    .maker summary::-webkit-details-marker { display: none; }
+    .maker summary::before { content: "▸"; font-size: 14px; color: #115E59; }
+    .maker details[open] > summary::before { content: "▾"; }
+    .maker details ul, .maker details ol { margin: 2px 0 0 18px; padding: 0; }
     .maker .warn .danger { font-family: 'Noto Emoji', sans-serif; font-weight: 600; font-size: 22px; line-height: 1.1; color: #B45309; }
     .maker .about a { color: #115E59; font-weight: 700; }
     .row-top { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; }
@@ -150,6 +158,8 @@
       /* the form scrolls in its own column, next to what it scrolls; the page itself does not */
       html, body { height: 100%; overflow: hidden; }
       .maker { max-height: calc(100vh - 32px); overflow-y: auto; }
+      /* the form scrolls in its own card: the bar sits on the card's bottom edge, over its 14 px padding, so nothing shows below it */
+      .actionbar { bottom: -14px; }
     }
     @media print {
       .maker { display: none !important; }

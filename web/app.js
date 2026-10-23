@@ -23,7 +23,7 @@ const T = {
   sl: {
     heading: "Otrokove rutine", aboutTitle: "O aplikaciji", howTitle: "Hitri začetek",
     about: "Jutro in večer sta polna korakov in pogosto jih naštevaš ti, vsak dan znova. Tu v nekaj minutah narediš in natisneš list s sličicami otrokove rutine, na katerem otrok opravljen korak sam označi z magnetkom ali kljukico. Tako vidi, kaj pride, list pa lahko gre z njim tudi k starim staršem, teti ali stricu, kjer mu znano zaporedje lahko da občutek varnosti. Brezplačno in brez prijave; kar vpišeš, ostane v tvojem brskalniku.",
-    how: ["Najlažje gre na računalniku. Izberi »Tip rutine« in vpiši 3–4 korake. Prve dni jih opravi skupaj z otrokom. Ko otrok rutino zna, dodaj nove (največ 8).", "Stran sama izbere sličico za vsak korak. Klikni sličico, da jo zamenjaš. Otroku pokaži dve ali tri in naj izbere.", "Naslov in korake lahko spremeniš. Prazne vrstice se ne natisnejo.", "Uro vpiši ali izklopi »Ura na listu«. Vrstico premakneš tako, da jo povlečeš za pike.", "Klikni »Natisni«: A4, robovi »Brez«, merilo 100 %. Za babico izberi »Shrani kot PDF«. List lahko pritrdiš na hladilnik ali tablo.", "Najprej – potem: za težek prehod naredi list z dvema korakoma. Obesi ga ob mestu prehoda.", "Ko otrok rutino zna ali se rutina spremeni, zamenjaj korak ali sličico in natisni znova. Sličico lahko izbere otrok.", "Povezava shrani list: klikni »Deli povezavo«, shrani jo ali jo pošlji babici."],
+    how: ["Najlažje gre na računalniku. Izberi »Tip rutine« in vpiši 3–4 korake. Prve dni jih opravi skupaj z otrokom. Ko otrok rutino zna, dodaj nove (največ 8).", "Stran sama izbere sličico za vsak korak. Klikni sličico, da jo zamenjaš.", "Naslov in korake lahko spremeniš tako, da vpišeš svoje besedilo. Prazne vrstice so na listu nevidne.", "Uro vpiši ali izklopi stikalo »Ura na listu«.", "Vrstni red spremeniš tako, da vrstico povlečeš za pike.", "Klikni »Natisni«: A4, robovi »Brez«, merilo 100 %. Za datoteko PDF, ki jo lahko deliš, v oknu za tiskanje izberi »Shrani kot PDF«.", "Za težek prehod (na primer iz igre v kopel) naredi list z dvema korakoma: kar je zdaj in kar pride potem. Obesi ga tam, kjer se prehod zgodi.", "Ko rutino spremeniš ali prilagodiš, natisni nov list.", "Za deljenje trenutnega pogleda aplikacije s sorodniki in prijatelji uporabi gumb »Deli povezavo«."],
     example: "Naloži primer", replaced: "Primer je zamenjal tvoj list.", stepRemoved: "Korak je odstranjen.", skip: "Preskoči na obrazec", previewName: "Predogled lista", linkReplaced: "Povezava je zamenjala tvoj list.", copy: "Deli povezavo", copied: "Povezava je kopirana.", linkHint: "Kdor ima povezavo, vidi list.", undo: "Razveljavi", undone: "Tvoj list je vrnjen.", print: "Natisni",
     type: "Tip rutine", sheetTitle: "Naslov lista", skies: { dawn: "jutro", afternoon: "dan", night: "večer" },
     times: "Ura na listu", background: "Ozadje", backgrounds: { gradient: "barvno", white: "belo", none: "brez (manj črnila)" },
@@ -36,7 +36,7 @@ const T = {
   en: {
     heading: "Child routines", aboutTitle: "About", howTitle: "Quick start",
     about: "Mornings and evenings are full of steps, and often you're the one listing them, every day. Here you can make and print a picture sheet of your child's routine in a few minutes; your child marks each finished step with a magnet or a tick. They can see what comes next, and the sheet can travel to grandparents, an aunt or an uncle, where the familiar order can give a sense of security. Free, with no sign-up; what you type stays in your browser.",
-    how: ["It is easiest on a computer. Pick the “Routine type” and type 3–4 steps. Do them with your child for the first few days. When your child knows the routine, add more (up to 8).", "The page picks a picture for each step. Click a picture to change it. Show your child two or three and let them choose.", "You can change the title and steps. Empty rows are not printed.", "Type a time, or turn off “Time on the sheet”. Drag a row by its dots to move it.", "Click “Print”: A4, margins “None”, scale 100%. For a grandparent, choose “Save as PDF”. You can put the sheet on the fridge or a board.", "First – then: for a hard transition, make a sheet with two steps. Hang it where the transition happens.", "When your child knows the routine or it changes, swap a step or a picture and print again. Your child can choose the picture.", "The link keeps the sheet: click “Share link”, save it or send it to a grandparent."],
+    how: ["It is easiest on a computer. Pick the “Routine type” and type 3–4 steps. Do them with your child for the first few days. When your child knows the routine, add more (up to 8).", "The page picks a picture for each step. Click a picture to change it.", "Type your own text to change the title and the steps. Empty rows do not show on the sheet.", "Type a time, or turn off the “Time on the sheet” switch.", "Drag a row by its dots to change the order.", "Click “Print”: A4, margins “None”, scale 100%. For a PDF file you can share, choose “Save as PDF” in the print window.", "For a hard transition (for example from play to the bath), make a sheet with two steps: what happens now and what comes next. Hang it where the transition happens.", "When you change or adjust the routine, print a new sheet.", "To share the current view of the app with family and friends, use the “Share link” button."],
     example: "Load example", replaced: "The example replaced your sheet.", stepRemoved: "Step removed.", skip: "Skip to the form", previewName: "Sheet preview", linkReplaced: "The link replaced your sheet.", copy: "Share link", copied: "Link copied.", linkHint: "Anyone with the link can see the sheet.", undo: "Undo", undone: "Your sheet is back.", print: "Print",
     type: "Routine type", sheetTitle: "Sheet title", skies: { dawn: "morning", afternoon: "day", night: "evening" },
     times: "Time on the sheet", background: "Background", backgrounds: { gradient: "color", white: "white", none: "none (less ink)" },
@@ -382,6 +382,15 @@ function copyLink() {
   else copy();
 }
 
+// What to watch for and Quick start fold, open at first (the maintainer's decision); a parent's choice lasts while the page is open
+const detailsOpen = { watch: true, how: true };
+const details = (id, title, body) => {
+  const d = el("details", { id, class: id === "watch" ? "warn" : "how-box" }, [el("summary", {}, title), body]);
+  d.open = detailsOpen[id];
+  d.addEventListener("toggle", () => { detailsOpen[id] = d.open; });
+  return d;
+};
+
 function renderEditor() {
   const L = t(), root = document.getElementById("maker"), sheet = state.sheet;
   document.documentElement.lang = state.lang;
@@ -404,11 +413,11 @@ function renderEditor() {
         langSelect(L.language)])]),
     // the maintainer's order: About, what to watch for (always visible, with the danger sign), the links, Quick start, then the form
     el("h2", {}, L.aboutTitle), el("p", { class: "about" }, L.about),
-    el("div", { class: "warn" }, [el("span", { class: "danger", "aria-hidden": "true" }, "⚠"), el("div", {}, [el("strong", {}, L.watchTitle),
-      el("ul", {}, L.watch.map(([what, text]) => el("li", {}, [el("strong", {}, `${what}: `), text])))])]),
+    details("watch", [el("span", { class: "danger", "aria-hidden": "true" }, "⚠"), L.watchTitle],
+      el("ul", {}, L.watch.map(([what, text]) => el("li", {}, [el("strong", {}, `${what}: `), text])))),
     el("p", { class: "about" }, [el("a", { href: GUIDE[state.lang] || GUIDE.en, target: "_blank", rel: "noopener" }, L.guide), " · ",
       el("a", { href: PROJECT, target: "_blank", rel: "noopener" }, L.project)]),
-    el("h2", {}, L.howTitle), el("ol", { class: "how" }, L.how.map(s => el("li", {}, s))),
+    details("how", L.howTitle, el("ol", { class: "how" }, L.how.map(s => el("li", {}, s)))),
     // every field has a visible label (WCAG 2.2, 3.3.2); a placeholder disappears once the parent types
     el("div", { class: "row-top fields" }, [
       field(L.type, select(L.type, sheet.sky, L.skies, setType)),

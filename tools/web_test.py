@@ -171,10 +171,10 @@ def main():
                 copyInBar: !!copy && copy.getAttribute('aria-describedby') === 'link-hint' && !!lh && lh.textContent.length > 10 && !!document.querySelector('#actionbar #linkbox') && !document.getElementById('preview-label') && getComputedStyle(document.getElementById('actionbar')).position === 'sticky' && document.getElementById('maker').lastElementChild === document.getElementById('actionbar') && !!document.getElementById('preview').getAttribute('aria-label'),
                 noActionsRow: !document.querySelector('#maker .actions') && document.querySelectorAll('#maker .copy').length === 1 && !row.querySelector('.copy'),
                 exampleWithBackground: !!sel && !!row.querySelector('input[type=checkbox]') && [...row.querySelectorAll('button.secondary')].length === 1,
-                warnAbove: !!warn && !!(warn.compareDocumentPosition(field) & Node.DOCUMENT_POSITION_FOLLOWING) && warn.querySelectorAll('li').length >= 7,
+                warnAbove: !!warn && !!(warn.compareDocumentPosition(field) & Node.DOCUMENT_POSITION_FOLLOWING) && warn.tagName === 'DETAILS' && warn.querySelectorAll('li').length >= 7 && !!warn.querySelector('summary .danger'),
                 iconHidden: warn.querySelector('.danger').getAttribute('aria-hidden') === 'true',
-                orderAbove: d.length === 0 && !!(document.querySelector('#maker ol.how').compareDocumentPosition(field) & Node.DOCUMENT_POSITION_FOLLOWING) && !!(warn.compareDocumentPosition(document.querySelector('#maker ol.how')) & Node.DOCUMENT_POSITION_FOLLOWING),
-                howHas: document.querySelectorAll('#maker ol.how li').length === 8,
+                orderAbove: d.length === 2 && d.every(x => x.open) && !!(document.querySelector('#maker ol.how').compareDocumentPosition(field) & Node.DOCUMENT_POSITION_FOLLOWING) && !!(warn.compareDocumentPosition(document.querySelector('#maker ol.how')) & Node.DOCUMENT_POSITION_FOLLOWING),
+                howHas: document.querySelectorAll('#maker ol.how li').length === 9,
                 hint: btn.getAttribute('aria-describedby') === 'print-hint' && !!hint && hint.textContent.length > 10 });
             })()""")["result"]["value"]
             print(f"warning, details, print hint, link button (390 px): {got}")

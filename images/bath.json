@@ -1,6 +1,6 @@
 {
   "id": "bath",
-  "title": "Toddler in a bubble bath in the same bathroom",
+  "title": "Bubble bath ready with a rubber duck and a towel in the same bathroom",
   "label": {
     "sl": "OKOPAJ SE",
     "en": "BATH TIME"
@@ -19,19 +19,19 @@
       "shower"
     ]
   },
-  "model": "Google Gemini image generation (via Antigravity CLI)",
-  "prompt": "Soft watercolor and gouache children's picture-book illustration, delicate colored-pencil outlines, warm cream paper texture, gentle pastel palette. Bath time: set in the exact same cozy bathroom as the reference image, with mint-green square wall tiles, wooden trim, and a small potted plant on a shelf. A cheerful, happy small toddler is sitting safely in a classic white clawfoot bathtub filled with warm water and fluffy white bubbles, playing with a small yellow rubber duck. The bathtub stands firmly on the bathroom floor. Strictly NO clouds, nothing floating in the air. A soft fluffy towel hangs nearby. Gender-neutral toddler child with a joyful smile. Clear contrast and rich, saturated colors with defined darker outlines and soft watercolor shadows, not pale or washed out. Cute, playful, and friendly for a 4-year-old child. Everything painted in the exact same watercolor style matching the reference image. Square 1:1 composition, bathtub and child large and centered, readable at 4 cm size.",
+  "model": "Google Gemini image generation (via Antigravity CLI, image-generator subagent)",
+  "prompt": "Recreate this exact children's picture-book illustration in the same soft watercolor and gouache style, same cozy mint-tiled bathroom, same composition, camera angle, colors, light, bathtub, plant, shelf and details. The only change: there is NO child and NO person anywhere: the bathtub is empty of people, filled with warm water and soft white bubbles, one small yellow rubber duck floats on the bubbles, and a folded towel lies ready on the side of the tub. The bath is clearly ready for a child. No text, no letters, no logos. Square 1:1.",
   "reference_images": [
-    "vecer_1_lulanje.jpg (by name: local copy of the toilet image of this set, see toilet.json)"
+    "images/bath.jpg (commit 65555ab, the same picture with a toddler in the tub; recreated without a child)"
   ],
   "edits": [
-    "contrast raised with tools/enhance.py"
+    "contrast raised once with the values of tools/enhance.py"
   ],
   "contributor": "maintainer",
   "license": "CC0-1.0",
   "copyright_check": {
-    "date": "2026-10-21",
-    "method": "Google Lens, Exact matches tab (manual), raw and final file",
+    "date": "2026-10-23",
+    "method": "Google Lens, Exact matches tab, raw and final file",
     "result": "no exact matches"
   }
 }

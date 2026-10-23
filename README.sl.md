@@ -4,7 +4,7 @@
 
 **[Odprite izdelovalnik listov →](https://stutek.github.io/child-routines/)**
 
-Natisljivi listi A4 z dnevno rutino za otroke od 3 let naprej: jutro, večerja in večer. Natisnjen list lahko pritrdite na hladilnik ali tablo. Otrok sledi sličicam in vsak opravljen korak označi tako, da na krog položi magnetek ali nariše kljukico (za kljukice list vsakič natisnite na novo). Odrasli na listu preberejo vrstni red in uro.
+Natisljivi listi A4 z dnevno rutino za otroke od 3 let naprej: jutro, večerja in večer. Natisnjen list lahko pritrdite na hladilnik ali tablo. Otrok sledi sličicam in vsak opravljen korak označi tako, da na krog položi magnetek ali nariše kljukico. Odrasli na listu preberejo vrstni red in uro.
 
 ![Trije vzorčni listi: jutro, večerja in večer](docs/preview.jpg)
 

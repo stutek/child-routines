@@ -4,7 +4,7 @@
 
 **[Open the sheet maker →](https://stutek.github.io/child-routines/)**
 
-Printable A4 sheets with a daily routine for children aged 3 and up: morning, dinner and evening. You can put the printed sheet on the fridge or a board. Your child follows the pictures and marks each finished step by putting a magnet on its circle or drawing a tick (for ticks, print a fresh sheet each time). Adults read the order and the time on the sheet.
+Printable A4 sheets with a daily routine for children aged 3 and up: morning, dinner and evening. You can put the printed sheet on the fridge or a board. Your child follows the pictures and marks each finished step by putting a magnet on its circle or drawing a tick. Adults read the order and the time on the sheet.
 
 ![Three example sheets: morning, dinner and evening](docs/preview.jpg)
 

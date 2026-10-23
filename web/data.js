@@ -105,7 +105,7 @@ window.SHEET_DATA = {
    }
   },
   "care": {
-   "title": "Medicine bottle with a green cross, syrup cup, cream jar and tube on a bathroom shelf",
+   "title": "Medicine bottle with a green cross, cream jar and tube evenly arranged on a bathroom shelf",
    "label": {
     "sl": "ZDRAVILA IN NEGA",
     "en": "MEDICINE & CREAM"
@@ -868,10 +868,10 @@ window.SHEET_DATA = {
  }
 };
 window.SHEET_EDGES = {
-  "bath": ["#C0F2EC", "#A1EBD7"],
+  "bath": ["#BBF4F0", "#B0EDD4"],
   "breakfast": ["#FECD89", "#FFDC9B"],
   "brush-teeth": ["#CFF2E5", "#BBE8D4"],
-  "care": ["#ADE2C5", "#BEE9D0"],
+  "care": ["#A0DEC3", "#B5E7D0"],
   "cartoon": ["#F3C4C1", "#FFF4C5"],
   "clear-table": ["#DEDDCB", "#F2D2AD"],
   "dinner": ["#FECE87", "#FFDC94"],

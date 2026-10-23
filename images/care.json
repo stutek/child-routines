@@ -1,6 +1,6 @@
 {
   "id": "care",
-  "title": "Medicine bottle with a green cross, syrup cup, cream jar and tube on a bathroom shelf",
+  "title": "Medicine bottle with a green cross, cream jar and tube evenly arranged on a bathroom shelf",
   "label": {
     "sl": "ZDRAVILA IN NEGA",
     "en": "MEDICINE & CREAM"
@@ -30,20 +30,19 @@
       "skin care"
     ]
   },
-  "model": "Google Gemini image generation (via Antigravity CLI)",
-  "prompt": "Soft watercolor and gouache children's picture-book illustration, delicate colored-pencil outlines, warm cream paper texture, gentle pastel palette. The scene is set in a real, cozy room of a family home with a floor, walls and a few homely details (plants, a small shelf), like a warm picture-book interior. Clear contrast and rich, saturated colors with defined darker outlines and shadows, not pale or washed out. No clouds, nothing floating. Cute and friendly, for a 4-year-old. Gender-neutral. Everything painted in one consistent watercolor style, no flat vector shapes, no text, no letters, no logos, no brands, no flags, no recognizable existing characters; every character is original. Square 1:1 composition, main subject large and centered, readable at 4 cm size. Only a simple wooden wall shelf in front of mint ceramic bathroom tiles, painted in the style of the references; nothing else in the room. On the shelf, LARGE in the picture, side by side: a small amber glass medicine bottle with its child-proof cap CLOSED and a plain white label with only a simple GREEN cross (the pharmacy sign, never a red cross) and no text; a small clear dosing cup with a little pink syrup; an open round jar of white skin cream with a soft swirl on top, its lid leaning beside it; and a small plain cream tube. No pills, nothing that looks like candy, no toilet, no sink, no tap, no plants, no towel, no hands, no characters, no letters.",
+  "model": "Google Gemini image generation (via Antigravity CLI, image-generator subagent)",
+  "prompt": "Recreate this exact children's picture-book illustration in the same soft watercolor and gouache style, same mint-tiled wall, same wooden shelf, same colors and light. The only change: arrange the three objects evenly across the middle of the shelf with equal gaps between them, and make them slightly larger so they fill the shelf: the closed medicine bottle with the green cross on the left, the open cream jar with its lid in the middle, the tube on the right. No cup, no glass, no liquid, nothing else added. No people. No text, no letters, no logos. Square 1:1.",
   "reference_images": [
-    "images/toilet.jpg (style reference)",
-    "images/wash-hands.jpg (style reference)"
+    "care-nocup-raw.jpg (made from images/care.jpg, commit 64a76e2, with this prompt: Recreate this exact children's picture-book illustration in the same soft watercolor and gouache style, same mint-tiled wall, same wooden shelf, same composition, camera angle, colors and light. The only change: remove the small cup with pink liquid completely; there is no cup, no glass and no liquid anywhere. The closed medicine bottle with the green cross, the cream jar and the tube stay exactly as they are. Nothing else is added. No people. No text, no letters, no logos. Square 1:1.)"
   ],
   "edits": [
-    "contrast raised with tools/enhance.py"
+    "contrast raised once with the values of tools/enhance.py"
   ],
   "contributor": "maintainer",
   "license": "CC0-1.0",
   "copyright_check": {
-    "date": "2026-10-22",
-    "method": "Google Lens, Exact matches tab, raw and final file",
+    "date": "2026-10-23",
+    "method": "Google Lens, Exact matches tab, raw and final file (also the intermediate without the cup)",
     "result": "no exact matches"
   }
 }

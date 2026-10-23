@@ -114,10 +114,10 @@ function stars() {
   return out;
 }
 
-// same as layout() and centres() in tools/build.py
+// same as layout(), centres(), title_space() and title_size() in tools/build.py
 function layout(n) {
   const g = D.geometry, w = g.page_w - 2 * g.margin;
-  const area = g.page_h - g.margin - g.margin_bottom - g.title - g.footer + g.footer_gap, span = area - 2 * g.edge, top = Math.floor((w - g.gap) / 2 * 2) / 2;
+  const area = g.page_h - g.margin - g.margin_bottom - g.footer + g.footer_gap, span = area - g.edge, top = Math.floor((w - g.gap) / 2 * 2) / 2;
   const half = x => Math.floor(x * 2) / 2;
   let narrow, wide;
   if (n === 1) { narrow = g.img; wide = top; }
@@ -132,9 +132,18 @@ function layout(n) {
   return { img, wide: wide > narrow, p: n > 1 ? (span - img) / (n - 1) : 0, area };
 }
 
+function titleSpace(n) {
+  const g = D.geometry, { img } = layout(n);
+  let x = img + g.gap;
+  if (img / 2 - g.circle / 2 - g.gap < g.title_h) x = img - 0.9 + g.circle + g.gap;
+  return { x, w: g.page_w - 2 * g.margin - x };
+}
+const TITLE_EM = 0.7;   // widest share of the font size per title character
+const titleSize = (title, width) => Math.min(21, (width - 15.8) / 25.4 * 72 / (TITLE_EM * Math.max(title.length, 1)));
+
 function centres(n) {
   const g = D.geometry, { img, p, area } = layout(n);
-  return Array.from({ length: n }, (_, k) => n === 1 ? g.title + area / 2 : Math.round((g.title + g.edge + img / 2 + k * p) * 1000) / 1000);
+  return Array.from({ length: n }, (_, k) => n === 1 ? area / 2 : Math.round((img / 2 + k * p) * 1000) / 1000);
 }
 
 // the reader's locale when it matches the page language (en-GB: 19:30, en-US: 7:30 PM, sl: 19:30),
@@ -179,7 +188,8 @@ function sheetHtml(sheet, lang = "sl") {
   const noteIds = [...new Set(sheet.steps.map(st => st.image))].filter(i => D.stepNotes[i]);
   const notes = noteIds.length ? `<span class="rt-notes">${esc(noteIds.map(i => D.stepNotes[i][lang] || D.stepNotes[i].en).join(" "))}</span>` : "";
   const { img, wide } = layout(n);
-  let size = img !== D.geometry.img ? ` --img: ${img}mm;` : "";
+  const ts = titleSpace(n);
+  let size = ` --img: ${img}mm; --title-x: ${ts.x}mm; --title-size: ${titleSize(sheet.title, ts.w).toFixed(2)}pt;`;
   if (wide) {   // label and time grow with the picture (+30 % at the largest), as in tools/build.py
     const k = 1 + 0.3 * (img - D.geometry.img) / (D.geometry.wide_max - D.geometry.img);
     size += ` --label: ${(13 * k).toFixed(1)}pt; --time: ${(15 * k).toFixed(1)}pt;`;

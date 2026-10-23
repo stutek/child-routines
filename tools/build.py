@@ -51,9 +51,10 @@ TOOLBAR = {
 
 MISSING_BG = "#FFFFFF"
 
-# Sheet geometry in mm (A4). The first picture sits `edge` under the title row and the last `edge` above the
-# footer; the step centres are evenly spaced in between. "img" is the largest picture, "gap" the clearance between objects.
-GEOMETRY = {"page_h": 297, "page_w": 210, "margin": 5, "margin_bottom": 14, "title": 12, "footer": 14, "img": 58,
+# Sheet geometry in mm (A4). The first picture sits at the top margin (the title is beside it, to its right) and the
+# last `edge` above the footer; the step centres are evenly spaced in between. "img" is the largest picture, "gap" the
+# clearance between objects, "title_h" the height the title pill is built for (21 pt, one line).
+GEOMETRY = {"page_h": 297, "page_w": 210, "margin": 5, "margin_bottom": 14, "title_h": 11, "footer": 14, "img": 58,
             "gap": 3, "edge": 1.5, "frame_h": 18, "circle": 35, "footer_gap": 1, "wide_max": 98.5}
 
 
@@ -66,11 +67,12 @@ def layout(n):
     Narrow frames (width - 2 pictures, 84 mm at 58 mm): pictures on the same side keep `gap` (2p >= img + gap).
     Wide frames (from the own picture to the far edge): the frame of a step passes the opposite column, so the next
     picture must clear it (p >= img/2 + frame_h/2 + gap); a picture wider than half the free width minus the circle
-    also has to clear the neighbour's circle (p >= img/2 + circle/2 + gap). The larger picture wins; at most two columns apart."""
+    also has to clear the neighbour's circle (p >= img/2 + circle/2 + gap). The larger picture wins; at most two columns apart.
+    The steps area reaches from the top margin to the footer: picture 1 starts at the top margin and the title sits to its right."""
     g = GEOMETRY
     w = g["page_w"] - 2 * g["margin"]
-    # steps area: from under the title row to the footer; the footer's own gap above it counts as space for the last picture
-    span = g["page_h"] - g["margin"] - g["margin_bottom"] - g["title"] - g["footer"] + g["footer_gap"] - 2 * g["edge"]
+    # steps area: from the top margin to the footer; the footer's own gap above it counts as space for the last picture
+    span = g["page_h"] - g["margin"] - g["margin_bottom"] - g["footer"] + g["footer_gap"] - g["edge"]
     top = floor_half((w - g["gap"]) / 2)   # pictures in the two columns keep `gap` between them
     if n == 1:
         narrow, wide = g["img"], top
@@ -87,12 +89,34 @@ def layout(n):
 
 
 def centres(n):
-    """Step centres in mm from the top of the steps area (title row included)."""
+    """Step centres in mm from the top of the steps area (the top margin)."""
     g = GEOMETRY
     img, wide, p = layout(n)
     if n == 1:
-        return [g["title"] + (g["page_h"] - g["margin"] - g["margin_bottom"] - g["title"] - g["footer"] + g["footer_gap"]) / 2]
-    return [round(g["title"] + g["edge"] + img / 2 + k * p, 3) for k in range(n)]
+        return [(g["page_h"] - g["margin"] - g["margin_bottom"] - g["footer"] + g["footer_gap"]) / 2]
+    return [round(img / 2 + k * p, 3) for k in range(n)]
+
+
+def title_space(n):
+    """Left edge and width of the title zone in mm (from the left edge of the steps area), right-aligned at the right
+    edge. It starts `gap` right of picture 1. Step 1's magnet circle sits next to picture 1 and reaches up to
+    img/2 - circle/2 from the top: if the title pill (title_h) does not fit above it with `gap` to spare, the zone
+    starts `gap` right of the circle instead. The frame (top at img/2 - frame_h/2) and picture 2 are lower still."""
+    g = GEOMETRY
+    img = layout(n)[0]
+    x = img + g["gap"]
+    if img / 2 - g["circle"] / 2 - g["gap"] < g["title_h"]:
+        x = img - 0.9 + g["circle"] + g["gap"]
+    return x, g["page_w"] - 2 * g["margin"] - x
+
+
+TITLE_EM = 0.7   # widest share of the font size per title character (Baloo 2 ExtraBold capitals, letter-spacing included), measured
+
+
+def title_size(title, width):
+    """Title font size in pt: 21 pt, smaller for a long title so that it fits `width` mm (pill padding 14 mm + border 1.8 mm)."""
+    room = (width - 15.8) / 25.4 * 72
+    return min(21.0, room / (TITLE_EM * max(len(title), 1)))
 
 
 MIN_FRAME_LUMINANCE = 0.6  # WCAG relative luminance; keeps frames pastel
@@ -199,9 +223,10 @@ def sheet_html(sheet, lang="sl"):
     starry = (f'\n    <svg class="rt-sky" viewBox="0 0 210 297" preserveAspectRatio="none" aria-hidden="true">'
               f'<g fill="#FFF8DC">{stars()}</g></svg>') if sheet.get("stars") and not plain else ""
     img, wide, _ = layout(n)
+    tx, tw = title_space(n)
     notes = " ".join(STEP_NOTES[i][lang if lang in STEP_NOTES[i] else "en"] for i in dict.fromkeys(st.get("image") for st in sheet["steps"]) if i in STEP_NOTES)
     notes = f'<span class="rt-notes">{escape(notes)}</span>' if notes else ""
-    size = f" --img: {img:g}mm;" if img != GEOMETRY["img"] else ""
+    size = f" --img: {img:g}mm; --title-x: {tx:g}mm; --title-size: {title_size(sheet['title'], tw):.2f}pt;"
     if wide:   # label and time grow with the picture (+30 % at the largest picture), every label still fits (AGENTS.md)
         k = 1 + 0.3 * (img - GEOMETRY["img"]) / (GEOMETRY["wide_max"] - GEOMETRY["img"])
         size += f" --label: {13 * k:.1f}pt; --time: {15 * k:.1f}pt;"
@@ -295,7 +320,8 @@ CSS = """
        reaches into the height of the opposite image. Wide frames (.rt-wide): image + frame = 200 mm. */
     .rt-grid { position: relative; flex-grow: 1; min-height: 0; }
 
-    .rt-header { position: absolute; top: 0; left: 0; right: 0; height: __TITLE__mm; display: flex; align-items: center; justify-content: center; }
+    /* the title sits beside picture 1, right-aligned; --title-x (generator) keeps it clear of picture 1 and the magnet circle */
+    .rt-header { position: absolute; top: 0; left: var(--title-x, 0); right: 0; height: __TITLE__mm; display: flex; align-items: flex-start; justify-content: flex-end; }
 
     /* Footer: licence left, address and QR right; only the QR has a white ground (it needs it to scan),
        the text turns light on the night sky */
@@ -315,9 +341,12 @@ CSS = """
     .rt-footer svg { width: 13mm; height: 13mm; flex: none; background: #ffffff; border-radius: 1mm; padding: 1.3mm; }
     .rt-title {
       display: inline-block;
-      font-size: 21pt;
+      font-size: var(--title-size, 21pt);
       font-weight: 800;
       line-height: 1.1;
+      max-width: 100%;
+      overflow-wrap: anywhere;
+      text-align: center;
       letter-spacing: 1px;
       color: #115E59;
       background: rgba(255, 255, 255, 0.85);
@@ -451,7 +480,7 @@ CSS = """
 """
 
 
-CSS = CSS.replace("__IMG__", str(GEOMETRY["img"])).replace("__TITLE__", str(GEOMETRY["title"])).replace("__FOOTER__", str(GEOMETRY["footer"] - 1))
+CSS = CSS.replace("__IMG__", str(GEOMETRY["img"])).replace("__TITLE__", str(GEOMETRY["title_h"])).replace("__FOOTER__", str(GEOMETRY["footer"] - 1))
 
 
 def page_html(routine):

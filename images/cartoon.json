@@ -1,6 +1,6 @@
 {
   "id": "cartoon",
-  "title": "Wooden TV with a waving bunny cartoon, lamp, flowering plant and window",
+  "title": "Wooden TV showing hills, a river and a sailboat, with lamp, flowering plant and window",
   "label": {
     "sl": "RISANKA",
     "en": "CARTOON TIME"
@@ -21,20 +21,19 @@
       "show"
     ]
   },
-  "model": "Google Gemini image generation (via Antigravity CLI)",
-  "prompt": "Soft watercolor and gouache children's picture-book illustration, delicate colored-pencil outlines, warm cream paper texture, gentle pastel palette. The scene is set in a real, cozy room of a family home with a floor, walls and a few homely details (plants, a small shelf), like a warm picture-book interior. Clear contrast and rich, saturated colors with defined darker outlines and shadows, not pale or washed out. No clouds, nothing floating. Cute and friendly, for a 4-year-old. Gender-neutral. Everything painted in one consistent watercolor style, no flat vector shapes, no text, no letters, no logos, no brands, no flags, no recognizable existing characters; every character is original. Square 1:1 composition, main subject large and centered, readable at 4 cm size. A calm, cozy family living room in the evening, painted exactly in the style of the references: soft watercolor washes with visible paper texture, delicate colored-pencil outlines, warm softly painted wall color, gentle shadows. A rounded wooden TV stands on a low wooden TV cabinet, LARGE and in the middle of the picture. On the TV screen, large and clear, an original friendly cartoon bunny waves (not any known character). Beside it only: a cozy floor lamp with a fabric shade glowing warmly, a potted flowering plant, and a window with a soft dusky evening sky. Wooden floorboards. NOTHING else: no bookshelf, no pictures on the walls, no toys, no cushion, no blanket, no rug, no characters. No letters or numbers anywhere.",
+  "model": "Google Gemini image generation (via Antigravity CLI, image-generator subagent)",
+  "prompt": "Recreate this exact children's picture-book illustration in the same soft watercolor and gouache style, the same wooden TV on the same cabinet, the same floor lamp, plant, window, room, colors, light and composition. The only change: the TV screen shows a simple cheerful cartoon landscape instead of the bunny: rolling green hills, a little river with a small sailboat and a few soft clouds in a blue sky. No characters, no animals, no faces anywhere (a sun, if any, has no face). Nothing else changes. No text, no letters, no logos. Square 1:1.",
   "reference_images": [
-    "images/toilet.jpg (style reference)",
-    "night-run cartoon of 2026-10-22 with the bear, not in this repository (style reference)"
+    "images/cartoon.jpg (commit 250ae6d, the bunny on the TV matched clipart in Lens)"
   ],
   "edits": [
-    "contrast raised with tools/enhance.py"
+    "contrast raised once with the values of tools/enhance.py"
   ],
   "contributor": "maintainer",
   "license": "CC0-1.0",
   "copyright_check": {
-    "date": "2026-10-22",
-    "method": "Google Lens, Exact matches tab, raw and final file",
+    "date": "2026-10-23",
+    "method": "Google Lens, Exact matches tab, raw and final file and crops of distinct motifs",
     "result": "no exact matches"
   }
 }

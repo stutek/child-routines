@@ -21,19 +21,20 @@
       "soap"
     ]
   },
-  "model": "Google Gemini image generation (via Antigravity)",
-  "prompt": "Children's picture book illustration in watercolor and gouache style. Two cute little child hands washing under clear flowing water from a friendly modern sink faucet. Lots of fluffy, iridescent white soap bubbles on the hands and floating softly in the air. A cheerful pastel bar of soap rests nearby in a little soap dish. Light pastel sky blue background, bright, warm, cozy, gender-neutral, clean and encouraging for a 4-year-old child. Soft outlines, textured watercolor wash.",
-  "reference_images": [],
+  "model": "Google Gemini image generation (via Antigravity CLI, image-generator subagent)",
+  "prompt": "Recreate the first reference image exactly: the same children's picture-book watercolor and gouache style, the same child's hands seen from the child's own view washing under the same tap, the same soap, foam, sink, towel, plant and composition. The only change: the hands have the same light, warm, natural skin tone as the child's hands in the second reference image, not orange or red. Nothing else changes. No text, no letters, no logos. Square 1:1.",
+  "reference_images": [
+    "images/wash-hands.jpg (commit 4037990, hands too orange-red)",
+    "images/set-table.jpg (skin tone of the child's hands only)"
+  ],
   "edits": [
-    "contrast raised: autocontrast(cutoff 0.5/0.3), contrast 1.1, color 1.12, unsharp mask",
-    "text removed from the soap bar (retouch)",
-    "midtones darkened (gamma 1.15) and contrast x1.3, to match the other images (contrast std 48.7 -> 58.2)"
+    "contrast raised once with the values of tools/enhance.py"
   ],
   "contributor": "maintainer",
   "license": "CC0-1.0",
   "copyright_check": {
-    "date": "2026-10-22",
-    "method": "Google Lens, Exact matches tab, final file after the contrast edit",
+    "date": "2026-10-23",
+    "method": "Google Lens, Exact matches tab, raw and final file and crops of distinct motifs",
     "result": "no exact matches"
   }
 }

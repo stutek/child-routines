@@ -1,6 +1,6 @@
 {
   "id": "getting-dressed",
-  "title": "T-shirt with a sun, trousers and socks",
+  "title": "Rainbow T-shirt, jeans and a pair of striped socks laid out on a child's bed",
   "label": {
     "sl": "OBLECI SE",
     "en": "GET DRESSED"
@@ -20,19 +20,23 @@
       "clothes"
     ]
   },
-  "model": "Google Gemini image generation (via Antigravity)",
-  "prompt": "A whimsical, adorable children's picture book illustration in soft watercolor and gouache style, matching the artistic style of the reference image. Cute children's clothes neatly and playfully arranged: a sweet colorful toddler t-shirt with a cheerful smiling sun print on the front, paired with charming little blue jeans and tiny colorful socks. Soft light pastel green watercolor textured background with subtle delicate sparkles and paper grain. Centered square composition, warm and cozy for a 4-year-old child.",
+  "model": "Google Gemini image generation (via Antigravity CLI, image-generator subagent)",
+  "prompt": "Recreate this exact children's picture-book illustration in the same soft watercolor and gouache style, same bed, same blue jeans, same matching pair of rainbow-striped socks, same composition, colors and light, edge to edge with no border. The only change: the T-shirt has no picture and no print at all, only its soft rainbow watercolor colors. Nothing else changes. Nothing floats. No people, no hands. No text, no letters, no logos. Square 1:1.",
   "reference_images": [
-    "dobro_jutro_png_1792594163103.jpg (by name: earlier good-morning image, not in this repository)"
+    "step 1: images/getting-dressed.jpg (commit 28a58fe) with this prompt: Soft watercolor and gouache children's picture-book illustration, delicate colored-pencil outlines, same style and the same clothes as the reference: the T-shirt with the smiling sun print, the little blue jeans and the colorful socks. The clothes are laid out flat and neatly on a child's bed with a plain light blanket, T-shirt above the jeans, socks beside them, seen from slightly above, and they fill most of the picture so they are clearly recognisable at 4 cm. A hint of a real cozy child's room around the bed (wooden bed frame, a bit of wall). Full-bleed illustration from edge to edge: no border, no frame, no white or cream margin. Nothing floats: no sparkles, no birds, no trees. No people, no hands. No text, no letters, no logos. Square 1:1.",
+    "step 2: the result cropped (top 955 px, centred, bed footboard removed) and scaled to 1024 px",
+    "step 3: that crop with this prompt: Recreate this exact children's picture-book illustration in the same soft watercolor and gouache style, same bed, same T-shirt with the smiling sun print, same blue jeans, same composition, colors and light, edge to edge with no border. The only change: the two socks are an identical matching pair, both with the same rainbow stripes, lying side by side next to the jeans. Nothing else changes. Nothing floats. No people, no hands. No text, no letters, no logos. Square 1:1.",
+    "step 4: that result with the prompt above (no print on the T-shirt)"
   ],
   "edits": [
-    "contrast raised: autocontrast(cutoff 0.5/0.3), contrast 1.1, color 1.12, unsharp mask"
+    "crop between steps 1 and 3 (bed footboard removed)",
+    "contrast raised once with the values of tools/enhance.py"
   ],
   "contributor": "maintainer",
   "license": "CC0-1.0",
   "copyright_check": {
-    "date": "2026-10-21",
-    "method": "Google Lens, Exact matches tab (manual)",
+    "date": "2026-10-23",
+    "method": "Google Lens, Exact matches tab, raw and final file and crops of distinct motifs",
     "result": "no exact matches"
   }
 }

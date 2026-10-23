@@ -23,19 +23,19 @@
       "nap"
     ]
   },
-  "model": "Google Gemini image generation (via Antigravity CLI)",
-  "prompt": "Soft watercolor and gouache children's picture-book illustration, delicate colored-pencil outlines, warm cream paper texture, clear contrast and rich colors with defined darker outlines, not pale. A cute brown teddy bear wearing a blue-and-white striped nightcap is LYING DOWN fully horizontal and asleep in a small wooden bed with a heart on the footboard, seen from the side: its head rests on a white pillow at the LEFT end of the bed, its body is stretched out under a patchwork quilt toward the RIGHT end, only the head and one paw above the quilt, eyes closed, peaceful. The bear is NOT sitting, NOT leaning, NOT propped up. Dreamy night setting: deep blue starry night sky with a crescent moon and a few soft clouds around the bed. NO moonbeam, no sunbeam, no light rays or glow streaks. No text, no letters, no logos. Square 1:1 composition, bed large and centered, readable at 4 cm size.",
+  "model": "Google Gemini image generation (via Antigravity CLI, image-generator subagent)",
+  "prompt": "Recreate this exact children's picture-book illustration in the same soft watercolor and gouache style, the same teddy bear asleep in the same bed, the same room, window, night sky, stars, colors, light and composition. The only change: the moon in the window is a plain, simple crescent moon with no face: no eyes, no nose, no mouth, no cheeks. Nothing else changes. No text, no letters, no logos. Square 1:1.",
   "edits": [
-    "contrast raised with tools/enhance.py",
-    "softened to match the other images: gamma 0.8, contrast x0.9",
-    "cropped to remove the painted paper border (158, 152, 874, 868) and resized to 1024 x 1024",
-    "brightened and desaturated after the crop, to match the other images: gamma 0.7, color x0.88"
+    "contrast raised once with the values of tools/enhance.py"
   ],
   "contributor": "maintainer",
   "license": "CC0-1.0",
   "copyright_check": {
-    "date": "2026-10-22",
-    "method": "Google Lens, Exact matches tab, final file after the last edit",
+    "date": "2026-10-23",
+    "method": "Google Lens, Exact matches tab, raw and final file and crops of distinct motifs",
     "result": "no exact matches"
-  }
+  },
+  "reference_images": [
+    "images/sleep.jpg (commit 43785f7, the moon had a face that matched a drawing tutorial in Lens)"
+  ]
 }

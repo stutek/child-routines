@@ -145,7 +145,7 @@ window.SHEET_DATA = {
    }
   },
   "cartoon": {
-   "title": "Wooden TV with a waving bunny cartoon, lamp, flowering plant and window",
+   "title": "Wooden TV showing hills, a river and a sailboat, with lamp, flowering plant and window",
    "label": {
     "sl": "RISANKA",
     "en": "CARTOON TIME"
@@ -212,7 +212,7 @@ window.SHEET_DATA = {
    }
   },
   "getting-dressed": {
-   "title": "T-shirt with a sun, trousers and socks",
+   "title": "Rainbow T-shirt, jeans and a pair of striped socks laid out on a child's bed",
    "label": {
     "sl": "OBLECI SE",
     "en": "GET DRESSED"
@@ -880,18 +880,18 @@ window.SHEET_EDGES = {
   "breakfast": ["#FECD89", "#FFDC9B"],
   "brush-teeth": ["#CFF2E5", "#BBE8D4"],
   "care": ["#A0DEC3", "#B5E7D0"],
-  "cartoon": ["#F3C4C1", "#FFF4C5"],
+  "cartoon": ["#F8C1CE", "#FFF9C0"],
   "clear-table": ["#DEDDCB", "#F2D2AD"],
-  "dinner": ["#FECE87", "#FFDC94"],
-  "getting-dressed": ["#DBF4DF", "#D9F3DD"],
+  "dinner": ["#DFCABA", "#E3CCB3"],
+  "getting-dressed": ["#FAF0D8", "#FDFCF0"],
   "good-morning": ["#E3D4C1", "#E9E8EE"],
   "kindergarten": ["#E1C7B2", "#E6D59E"],
   "make-bed": ["#E6CFB3", "#FAF4DF"],
   "pajamas": ["#FACFBC", "#F8C6AA"],
   "set-table": ["#FBD5BD", "#FFDC9F"],
-  "sleep": ["#D5CDCA", "#DFDFE9"],
+  "sleep": ["#D5CBCF", "#E5E9F0"],
   "story": ["#D5CDCA", "#F5F1F3"],
   "tidy-toys": ["#F3DBC1", "#F9E8C3"],
   "toilet": ["#D0F1E6", "#BCE9D5"],
-  "wash-hands": ["#C8DDD2", "#FADFD7"],
+  "wash-hands": ["#C9E0D2", "#FBE4D9"],
 };

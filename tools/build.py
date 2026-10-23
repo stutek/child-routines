@@ -28,7 +28,7 @@ SKIES = {
 SITE = "stutek.github.io/child-routines"
 LICENSE = {"sl": "CC0 · prosto za uporabo, spreminjanje in deljenje", "en": "CC0 · free to use, change and share"}
 # the sheet travels without the maker (to grandparents), so the essential warning goes on the sheet itself
-SAFETY = {"sl": "Otrok ne sme pogoltniti magnetka.", "en": "A child must not swallow a magnet."}
+SAFETY = {"sl": "Otrok ne sme pogoltniti magnetka. Pisala naj bodo nestrupena.", "en": "A child must not swallow a magnet. Use non-toxic pens."}
 # the EU pictogram for "not suitable for children under 36 months" (web/under3.json: source and licence), with the hazard above
 UNDER3 = {"sl": "Ni primerno za otroke, mlajše od 3 let", "en": "Not suitable for children under 3 years"}
 QR = (ROOT / "web" / "qr.svg").read_text(encoding="utf-8").strip()

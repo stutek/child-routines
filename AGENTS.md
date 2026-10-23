@@ -32,7 +32,7 @@ python3 tools/preview.py        # then refresh docs/preview.jpg (README); needs 
 
 Check a change visually: print the output file to PDF with headless Chrome and look at it (`google-chrome --headless=new --print-to-pdf=out.pdf file://$PWD/output/<file>.html`).
 
-Test touch in the sheet maker (CDP `Input.dispatchTouchEvent`) in a headless Chrome and with the target scrolled into view: a Chrome window in the background draws no frames, so the call never returns.
+Test touch in the sheet maker (CDP `Input.dispatchTouchEvent`) in a headless Chrome and with the target scrolled into view: a Chrome window in the background draws no frames, so the call never returns. Check horizontal overflow against the emulated device width (390, 320), not `innerWidth`: with mobile emulation the viewport grows with the content.
 
 ## Layout and its limits
 

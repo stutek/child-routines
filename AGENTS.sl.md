@@ -32,7 +32,7 @@ python3 tools/preview.py        # nato osveži docs/preview.jpg (README); potreb
 
 Spremembo preveri vizualno: datoteko iz `output/` z brezglavim Chromom natisni v PDF in jo poglej (`google-chrome --headless=new --print-to-pdf=out.pdf file://$PWD/output/<datoteka>.html`).
 
-Dotik v izdelovalniku (CDP `Input.dispatchTouchEvent`) preizkusi v brezglavem Chromu in s ciljem, pomaknjenim v vidno polje: okno Chroma v ozadju ne izrisuje slik, zato se klic nikoli ne vrne.
+Dotik v izdelovalniku (CDP `Input.dispatchTouchEvent`) preizkusi v brezglavem Chromu in s ciljem, pomaknjenim v vidno polje: okno Chroma v ozadju ne izrisuje slik, zato se klic nikoli ne vrne. Vodoravno prelivanje preveri proti širini emulirane naprave (390, 320), ne proti `innerWidth`: pri emulaciji telefona se okno razširi z vsebino.
 
 ## Postavitev in njene meje
 

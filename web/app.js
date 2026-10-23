@@ -174,7 +174,12 @@ function sheetHtml(sheet, lang = "sl") {
     ? `<svg class="rt-sky" viewBox="0 0 210 297" preserveAspectRatio="none" aria-hidden="true"><g fill="#FFF8DC">${stars()}</g></svg>` : "";
   const noteIds = [...new Set(sheet.steps.map(st => st.image))].filter(i => D.stepNotes[i]);
   const notes = noteIds.length ? `<span class="rt-notes">${esc(noteIds.map(i => D.stepNotes[i][lang] || D.stepNotes[i].en).join(" "))}</span>` : "";
-  const { img, wide } = layout(n), size = img !== D.geometry.img ? ` --img: ${img}mm;` : "";
+  const { img, wide } = layout(n);
+  let size = img !== D.geometry.img ? ` --img: ${img}mm;` : "";
+  if (wide) {   // label and time grow with the picture (+30 % at the largest), as in tools/build.py
+    const k = 1 + 0.3 * (img - D.geometry.img) / (D.geometry.wide_max - D.geometry.img);
+    size += ` --label: ${(13 * k).toFixed(1)}pt; --time: ${(15 * k).toFixed(1)}pt;`;
+  }
   return `
   <div class="page-a4 rt-page${wide ? " rt-wide" : ""}" style="background: ${background};${size}">${starry}
     <div class="rt-grid">

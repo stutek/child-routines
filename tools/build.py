@@ -53,7 +53,7 @@ MISSING_BG = "#FFFFFF"
 # Sheet geometry in mm (A4). The first picture sits `edge` under the title row and the last `edge` above the
 # footer; the step centres are evenly spaced in between. "img" is the largest picture, "gap" the clearance between objects.
 GEOMETRY = {"page_h": 297, "page_w": 210, "margin": 5, "margin_bottom": 14, "title": 12, "footer": 14, "img": 58,
-            "gap": 3, "edge": 1.5, "frame_h": 18, "circle": 35, "footer_gap": 1}
+            "gap": 3, "edge": 1.5, "frame_h": 18, "circle": 35, "footer_gap": 1, "wide_max": 98.5}
 
 
 def floor_half(x):
@@ -197,6 +197,9 @@ def sheet_html(sheet, lang="sl"):
     notes = " ".join(STEP_NOTES[i][lang if lang in STEP_NOTES[i] else "en"] for i in dict.fromkeys(st.get("image") for st in sheet["steps"]) if i in STEP_NOTES)
     notes = f'<span class="rt-notes">{escape(notes)}</span>' if notes else ""
     size = f" --img: {img:g}mm;" if img != GEOMETRY["img"] else ""
+    if wide:   # label and time grow with the picture (+30 % at the largest picture), every label still fits (AGENTS.md)
+        k = 1 + 0.3 * (img - GEOMETRY["img"]) / (GEOMETRY["wide_max"] - GEOMETRY["img"])
+        size += f" --label: {13 * k:.1f}pt; --time: {15 * k:.1f}pt;"
     return f"""
   <div class="page-a4 rt-page{' rt-wide' if wide else ''}" style="background: {background};{size}">{starry}
     <div class="rt-grid">
@@ -424,7 +427,7 @@ CSS = """
       padding-top: 0.8mm;
     }
 
-    .rt-time { display: flex; align-items: flex-end; gap: 1.2mm; font-size: 15pt; font-weight: 800; line-height: 1; color: var(--ink); }
+    .rt-time { display: flex; align-items: flex-end; gap: 1.2mm; font-size: var(--time, 15pt); font-weight: 800; line-height: 1; color: var(--ink); }
     .rt-time .blank { display: inline-block; width: 12mm; height: 6.5mm; border-bottom: 0.6mm solid var(--ink); }
 
     /* Magnet spot: a circle larger than the frame (like the image), merged with it */

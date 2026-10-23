@@ -31,7 +31,7 @@ window.SHEET_DATA = {
   "en": "CC0 · free to use, change and share"
  },
  "safety": {
-  "sl": "Pozor: otrok ne sme pogoltniti magnetka. Pisala naj bodo otroška in kemično varna.",
+  "sl": "Opozorilo: otrok ne sme pogoltniti magnetka. Pisala naj bodo otroška in kemično varna.",
   "en": "Warning: a child must not swallow a magnet. Use children's chemically safe pens."
  },
  "under3": {

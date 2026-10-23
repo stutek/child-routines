@@ -17,7 +17,7 @@ Brezplačno, brez prijave in brez oglasov. Kar vpišete, ostane v vašem brskaln
 3. Kliknite **Natisni**: A4, robovi *Brez*, merilo 100 %. Za babico ali tiskarno izberite *Shrani kot PDF*. List lahko pritrdite na hladilnik ali tablo.
 4. Najprej – potem: za težek prehod naredite list z dvema korakoma. Obesite ga ob mestu prehoda.
 5. Ko otrok rutino zna ali se rutina spremeni, zamenjajte korak ali sličico in natisnite znova. Sličico lahko izbere otrok.
-6. Povezava shrani list: kliknite *Kopiraj povezavo*, shranite jo ali jo pošljite babici.
+6. Povezava shrani list: kliknite *Deli povezavo*, shranite jo ali jo pošljite babici.
 
 ## Kako ga uporabljamo
 

@@ -10,7 +10,7 @@ A4 sheets with a daily routine for children aged 3 and up: morning, dinner and e
 
 Free, no sign-up and no ads. What you type stays in your browser.
 
-## How to make your sheet
+## Quick start
 
 1. Open the [sheet maker](https://stutek.github.io/child-routines/). It is easiest on a computer. It opens with an example evening routine.
 2. Pick the routine type and type 3–4 steps (up to 8). Click a picture to change it. Drag a row by its dots to move it. Type a time, or turn off *Time on the sheet*.

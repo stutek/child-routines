@@ -21,7 +21,7 @@ const PALETTES = [
 
 const T = {
   sl: {
-    heading: "Otrokove rutine", aboutTitle: "O aplikaciji", howTitle: "Kako narediš list",
+    heading: "Otrokove rutine", aboutTitle: "O aplikaciji", howTitle: "Hitri začetek",
     about: "Naredi list s sličicami za jutro, večerjo ali večer in ga natisni. Brezplačno in brez prijave. Otrok na njem vidi, kaj pride na vrsto. Opravljen korak otrok označi z magnetkom v krogu ali s kljukico. List sestavi z otrokom, prve dni pa korake opravita skupaj. Vzemi ga tudi s seboj k starim staršem, tetam in stricem: znano zaporedje otroku lahko da občutek varnosti.",
     how: ["Najlažje gre na računalniku. Izberi »Tip rutine« in vpiši 3–4 korake. Ko otrok rutino zna, dodaj nove (največ 8).", "Stran sama izbere sličico za vsak korak. Klikni sličico, da jo zamenjaš. Otroku pokaži dve ali tri in naj izbere.", "Naslov in korake lahko spremeniš. Prazne vrstice se ne natisnejo.", "Uro vpiši ali izklopi »Ura na listu«. Vrstico premakneš tako, da jo povlečeš za pike.", "Klikni »Natisni«: A4, robovi »Brez«, merilo 100 %. Za babico izberi »Shrani kot PDF«. List lahko pritrdiš na hladilnik ali tablo."],
     example: "Naloži primer", replaceSheet: "Primer zamenja tvoj list. Vpisano se izgubi. Želiš nadaljevati?", print: "Natisni",
@@ -33,7 +33,7 @@ const T = {
     preview: "👁 Predogled: tako bo natisnjeno (A4)", step: "Korak", ok: "✓ Vse sličice so najdene in vsi napisi se prilegajo.", suggest: "Manjka sličica? Predlagaj jo", warnTitle: "Opozorila", watchTitle: "Na kaj paziti", watch: [["Starost", "list je za otroke od 3 let naprej."], ["Magnetki", "izberi velike v plastiki in jih shrani zunaj dosega mlajših otrok. Če otrok pogoltne magnetek, takoj pojdi k zdravniku."], ["Pisala", "za kljukice uporabi otroška, kemično varna pisala."], ["Zdravila", "daje in hrani jih odrasel. Niso sladkarija."], ["Kopanje", "otroka nikoli ne pusti samega v kadi."], ["Nagrade", "magnetek pomeni »narejeno«. Ne obljubljaj daril za magnetke: nagrada lahko otroku vzame veselje do opravila."], ["Brez pritiska", "ure na listu so za odrasle, ne za priganjanje. Če korak izpade ali se vrstni red pomeša, ohrani mir in poskusi znova naslednjič."]], guide: "Uporaba in varnost", project: "Projekt na GitHubu",
   },
   en: {
-    heading: "Child routines", aboutTitle: "About", howTitle: "How to make your sheet",
+    heading: "Child routines", aboutTitle: "About", howTitle: "Quick start",
     about: "Make a picture sheet for the morning, dinner or evening, and print it. Free, no sign-up. On it, your child sees what comes next. The child marks each finished step with a magnet on its circle or a tick. Make the sheet with your child, and do the steps together for the first few days. Take it along to grandparents, aunts and uncles too: a familiar order can give a child a sense of security.",
     how: ["It is easiest on a computer. Pick the “Routine type” and type 3–4 steps. When your child knows the routine, add more (up to 8).", "The page picks a picture for each step. Click a picture to change it. Show your child two or three and let them choose.", "You can change the title and steps. Empty rows are not printed.", "Type a time, or turn off “Time on the sheet”. Drag a row by its dots to move it.", "Click “Print”: A4, margins “None”, scale 100%. For a grandparent, choose “Save as PDF”. You can put the sheet on the fridge or a board."],
     example: "Load example", replaceSheet: "The example replaces your sheet. What you typed is lost. Continue?", print: "Print",

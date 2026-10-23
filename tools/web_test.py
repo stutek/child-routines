@@ -181,6 +181,17 @@ def main():
             bad = [k for k, v in json.loads(got).items() if not v]
             if bad:
                 errors.append(f"A1 layout checks failed: {bad}")
+            # a click on a section's summary folds it (after the slide), a second click opens it again
+            got = cdp.call("Runtime.evaluate", awaitPromise=True, returnByValue=True, expression="""(async () => {
+              const d = document.getElementById('watch'), s = d.querySelector('summary'), wait = () => new Promise(r => setTimeout(r, 400));
+              s.click(); await wait(); const closed = !d.open;
+              s.click(); await wait();
+              return JSON.stringify({ closed, reopened: d.open, framed: getComputedStyle(d.querySelector('.fold-body')).borderTopStyle === 'solid' });
+            })()""")["result"]["value"]
+            print(f"fold and unfold: {got}")
+            bad = [k for k, v in json.loads(got).items() if not v]
+            if bad:
+                errors.append(f"fold checks failed: {bad}")
             # share link: title and labels (with č š ž) survive a fresh navigation; a broken fragment is ignored
             cdp.call("Runtime.evaluate", expression="""(() => {
               const t = document.querySelector('input.title'); t.value = 'Čšž večer'; t.dispatchEvent(new Event('input'));

@@ -55,13 +55,13 @@
     .maker details { font-size: 14px; color: #44403C; line-height: 1.4; }
     .maker summary { font-weight: 800; color: #115E59; font-size: 15px; cursor: pointer; padding-block: 4px; display: flex; align-items: center; gap: 8px; }   /* ≥ 24 px (WCAG 2.5.8) */
     .maker details[open] summary { margin-bottom: 4px; }
-    /* a flex summary loses the browser's disclosure triangle: draw it, so the parent sees the section folds */
+    /* one control at the right says what a click does: ▾ Skrij when open, ▸ Pokaži when closed (a triangle alone is not clear to every parent) */
     .maker summary { list-style: none; }
     .maker summary::-webkit-details-marker { display: none; }
-    .maker summary::before { content: "▸"; font-size: 14px; color: #115E59; }
-    .maker details[open] > summary::before { content: "▾"; }
-    .maker summary::after { content: attr(data-hide); margin-left: auto; font-size: 13px; font-weight: 700; color: #475569; }   /* 7.6 : 1 */
-    .maker details:not([open]) > summary::after { content: attr(data-show); }
+    .maker summary::after { content: "▾ " attr(data-hide); margin-left: auto; font-size: 13px; font-weight: 700; color: #115E59;
+      background: #DDF3EE; border-radius: 999px; padding: 2px 12px; white-space: nowrap; }
+    .maker details:not([open]) > summary::after { content: "▸ " attr(data-show); }
+    .maker .fold-body { border: 1px solid #E7E0D3; border-radius: 12px; padding: 8px 12px; }
     .maker details .more { margin: 6px 0 0; }
     .maker details ul, .maker details ol { margin: 2px 0 0 18px; padding: 0; }
     .maker .warn .danger { font-family: 'Noto Emoji', sans-serif; font-weight: 600; font-size: 22px; line-height: 1.1; color: #B45309; }

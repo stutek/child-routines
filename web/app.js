@@ -385,10 +385,23 @@ function copyLink() {
 // What to watch for and Quick start fold, open at first (the maintainer's decision); a parent's choice lasts while the page is open
 const detailsOpen = { watch: true, how: true };
 const details = (id, title, body) => {
-  // the summary also says what a click does (Skrij / Pokaži): a triangle alone is not clear to every parent
-  const d = el("details", { id, class: id === "watch" ? "warn" : "how-box" }, [el("summary", { "data-hide": t().hide, "data-show": t().show }, title), body]);
+  // the content sits in a framed box; opening and closing slide (none when the parent asks for less motion)
+  const inner = el("div", { class: "fold-body" }, body);
+  const summary = el("summary", { "data-hide": t().hide, "data-show": t().show }, title);
+  const d = el("details", { id, class: id === "watch" ? "warn" : "how-box" }, [summary, inner]);
   d.open = detailsOpen[id];
-  d.addEventListener("toggle", () => { detailsOpen[id] = d.open; });
+  summary.addEventListener("click", e => {
+    e.preventDefault();
+    const open = !d.open;
+    detailsOpen[id] = open;
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) { d.open = open; return; }
+    d.open = true;
+    const h = inner.scrollHeight + "px";
+    inner.style.overflow = "hidden";
+    const anim = inner.animate(open ? [{ height: "0px", opacity: 0 }, { height: h, opacity: 1 }] : [{ height: h, opacity: 1 }, { height: "0px", opacity: 0 }],
+      { duration: 220, easing: "ease-in-out" });
+    anim.onfinish = () => { inner.style.overflow = ""; d.open = open; };
+  });
   return d;
 };
 

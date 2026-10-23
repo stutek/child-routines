@@ -19,7 +19,7 @@ An image may enter `images/` only if no copy of it, or of a part of it, exists o
 ## How
 
 1. **Automatic (gate and local):** `VISION_API_KEY=... python3 tools/copyright_check.py <images...>`. Google Cloud Vision Web Detection; the image fails on any `fullMatchingImages`, `partialMatchingImages` or `pagesWithMatchingImages` outside this repository. A missing key or an API error also fails.
-2. **Manual second check (local, optional):** `python3 tools/lens_check.py <absolute path>` with a debugging Chrome (see the script header). Read the *Exact matches* tab. Lens matched the recolored tooth, so it tolerates color changes.
+2. **Manual second check (local, optional):** `python3 tools/lens_check.py <absolute path>` with a debugging Chrome (see the script header). Read the *Exact matches* tab. Lens matched the recolored tooth, so it tolerates color changes. Then crop each distinct motif (a face or character, a print on clothes, the moon, a plant, a piece of furniture) to about 512 px and run Lens on each crop: a whole-picture check missed a smiling sun on a T-shirt whose face matched another picture.
 
 ## Decide
 

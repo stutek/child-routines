@@ -406,7 +406,8 @@ function renderEditor() {
         oninput: e => { sheet.title = e.target.value; update(); } }), "grow")]),
     el("div", { class: "row-top fields" }, [
       field(L.background, select(L.background, state.background, L.backgrounds, v => { state.background = v; update(true); })),
-      el("label", { class: "grow check" }, [times, L.times]),
+      el("label", { class: "grow check" }, [times, L.times])]),
+    el("div", { class: "row-top fields actions" }, [
       el("button", { class: "secondary", onclick: () => {
         const prev = typed(sheet) && JSON.parse(JSON.stringify(state, (k, v) => (k.startsWith("_") ? undefined : v)));
         state = fromExample(state.lang, sheet.sky, state); update(true);

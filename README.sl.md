@@ -18,7 +18,7 @@ Brezplačno, brez prijave in brez oglasov. Kar vpišete, ostane v vašem brskaln
 
 ## Kako ga uporabljamo
 
-- **List sestavite skupaj z otrokom** in ga prve dni skupaj prehodite. Naj izbere sličice; vrstni red določite vi.
+- **List sestavite skupaj z otrokom** in prve dni ob njem skupaj opravite vsak korak. Naj izbere sličice; vrstni red določite vi.
 - **Magnetek na krogu pomeni »narejeno«.** Ni nagrada: ne jemljite ga za kazen in ne vežite nanj sladkarij ali risank.
 - **Začnite z eno rutino**, pri triletniku s 3–4 koraki, in jo dopolnjujte postopoma. Če otrok kak korak preskoči, ni drame: list kaže vrstni red, ni test.
 - **Ura je za odrasle.** Majhen otrok se ravna po vrstnem redu sličic, ne po uri.

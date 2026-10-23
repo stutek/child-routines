@@ -18,7 +18,7 @@ Free, no sign-up and no ads. What you type stays in your browser.
 
 ## How to use it
 
-- **Make the sheet together with your child** and go through it together for the first few days. Let your child pick the pictures; you set the order.
+- **Make the sheet together with your child** and, for the first few days, do each step together with the sheet. Let your child pick the pictures; you set the order.
 - **A magnet on the circle means "done".** It is not a reward: do not take it away as a punishment and do not tie sweets or cartoons to it.
 - **Start with one routine**, for a three-year-old with 3–4 steps, and add to it bit by bit. If your child skips a step, no drama: the sheet shows the order, it is not a test.
 - **The time is for adults.** A young child follows the order of the pictures, not the clock.

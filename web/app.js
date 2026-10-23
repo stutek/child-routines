@@ -205,6 +205,10 @@ const newStep = () => ({ label: "", time: "", image: "auto" });
 const EXAMPLE_FOR = { dawn: 0, afternoon: 1, night: 2 };   // sheet of the example routine per type
 // titles are plain text; older stored titles and the example may start with an icon, which is dropped
 const bare = s => s.replace(/^[^\p{L}\p{N}]+/u, "").trim();
+// titles and labels keep only letters of any alphabet (with č š ž), digits and the space (maintainer's decision):
+// no punctuation, control, invisible or direction-changing characters, no symbols; the same in a link, in storage and while typing
+const tidy = s => s.replace(/[^\p{L}\p{M}\p{N} ]/gu, "");
+const typedText = e => { const v = tidy(e.target.value); if (v !== e.target.value) e.target.value = v; return v; };
 // examples follow good habits (routines/sl/primer.json, routines/en/example.json), in the page language
 const EXAMPLE_IN = { sl: "sl-primer", en: "en-example" };
 const example = (sky, lang = (typeof state !== "undefined" && state.lang) || "sl") => D.examples[EXAMPLE_IN[lang] || "sl-primer"].sheets[EXAMPLE_FOR[sky] || 0];
@@ -237,13 +241,13 @@ function clean(s) {
   if (!s || typeof s !== "object") return null;
   const str = (v, max) => (typeof v === "string" ? v : "").slice(0, max);
   const step = st => ({
-    label: str(st && st.label, 40),
+    label: tidy(str(st && st.label, 40)),
     time: /^([01]\d|2[0-3]):[0-5]\d$/.test(st && st.time) ? st.time : "",
     image: st && (st.image === "none" || own(D.images, st.image)) ? st.image : "auto",
   });
   const sh = s.sheet || (Array.isArray(s.sheets) && s.sheets[0]);   // older versions kept several sheets
   if (!sh) return null;
-  const sheet = { title: bare(str(sh.title, 60)), sky: own(D.skies, sh.sky) ? sh.sky : "night",
+  const sheet = { title: bare(tidy(str(sh.title, 60))), sky: own(D.skies, sh.sky) ? sh.sky : "night",
                   steps: pad((Array.isArray(sh.steps) ? sh.steps : []).slice(0, MAX_STEPS).map(step)) };
   return { lang: own(T, s.lang) ? s.lang : "sl", background: ["gradient", "white", "none"].includes(s.background) ? s.background : "gradient",
            times: s.times !== false, sheet };
@@ -442,7 +446,7 @@ function renderEditor() {
     el("div", { class: "row-top fields" }, [
       field(L.type, select(L.type, sheet.sky, L.skies, setType)),
       field(L.sheetTitle, el("input", { class: "title", value: sheet.title, autocapitalize: "characters",
-        oninput: e => { sheet.title = e.target.value; update(); } }), "grow")]),
+        oninput: e => { sheet.title = typedText(e); update(); } }), "grow")]),
     el("div", { class: "row-top fields" }, [
       field(L.background, select(L.background, state.background, L.backgrounds, v => { state.background = v; update(true); })),
       el("label", { class: "grow check" }, [times, L.times]),
@@ -489,7 +493,7 @@ function renderEditor() {
     const row = el("div", { class: picked === k ? "step picked" : "step" }, [
       el("span", { class: "n", id: `n-${k}` }, `${place(k)}`), grip,
       step._input = el("input", { value: step.label, placeholder: k === 0 ? L.labelHint : "", maxlength: "24", "aria-labelledby": `col-label n-${k}`, autocapitalize: "characters",
-        oninput: e => { step.label = e.target.value; update(); } }),
+        oninput: e => { step.label = typedText(e); update(); } }),
       el("input", { type: "time", value: step.time, "aria-labelledby": `col-time n-${k}`, oninput: e => { step.time = e.target.value; update(); } }),
       thumb,
       el("button", { class: "del", title: L.removeStep, "aria-label": L.removeStep,

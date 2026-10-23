@@ -184,6 +184,16 @@ def main():
                 errors.append(f"A1 layout checks failed: {bad}")
             # hostile links: keys every object has ("constructor", "__proto__", "toString") and an oversized link are
             # ignored or replaced by defaults; the page still renders, throws nothing and stores nothing broken
+            # only letters, digits and the space stay in a title or label
+            tricky = {"l": "sl", "s": "night", "h": "Večer\u202e\u200bČŠŽ 🙂", "r": [["Pij vodo\u0000 (1/2)", "", ""], ["Mamin \u2066čaj\u2069’s", "", ""]]}
+            cdp.call("Page.navigate", url="about:blank"); cdp.wait(0.3)
+            cdp.call("Page.navigate", url=PAGE + "#" + base64.urlsafe_b64encode(json.dumps(tricky).encode()).decode().rstrip("=")); cdp.wait(1.5)
+            got = json.loads(cdp.call("Runtime.evaluate", returnByValue=True, expression="""JSON.stringify({
+              title: document.querySelector('input.title').value,
+              labels: [...document.querySelectorAll('.step')].filter(r => r.querySelector('.n')).slice(0, 2).map(r => r.querySelector('input').value) })""")["result"]["value"])
+            print(f"tidy text: {got}")
+            if got != {"title": "VečerČŠŽ", "labels": ["Pij vodo 12", "Mamin čajs"]}:
+                errors.append(f"title and labels not tidied: {got}")
             hostile = [{"l": "constructor", "b": "gradient", "t": 1, "s": "__proto__", "h": "<img src=x onerror=alert(1)>", "r": [["<b>X</b>", "25:99", "toString"]]},
                        {"l": "__proto__", "s": "constructor", "r": [["A", "", "constructor"]]}]
             for case in [base64.urlsafe_b64encode(json.dumps(h).encode()).decode().rstrip("=") for h in hostile] + ["A" * 5000]:

@@ -122,7 +122,7 @@ window.SHEET_DATA = {
    "title": "Medicine bottle with a green cross, cream jar and tube evenly arranged on a bathroom shelf",
    "label": {
     "sl": "ZDRAVILA IN NEGA",
-    "en": "MEDICINE & CREAM"
+    "en": "MEDICINE AND CARE"
    },
    "keywords": {
     "sl": [
@@ -577,7 +577,7 @@ window.SHEET_DATA = {
        "color": "#0D9488"
       },
       {
-       "label": "MEDICINE & CREAM",
+       "label": "MEDICINE AND CARE",
        "image": "care",
        "color": "#2563EB"
       },

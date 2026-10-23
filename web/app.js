@@ -8,6 +8,8 @@ const EDGES = window.SHEET_EDGES;
 const MAX_STEPS = 8;     // layout limit (AGENTS.md); the form always shows this many rows
 const STORE = "child-routines-maker";
 const CONTRIBUTE = "https://github.com/stutek/child-routines/blob/main/CONTRIBUTING.md#add-an-image";
+const PROJECT = "https://github.com/stutek/child-routines";
+const GUIDE = { sl: `${PROJECT}/blob/main/README.sl.md`, en: `${PROJECT}/blob/main/README.md` };   // how to use the sheet and safety, for parents
 
 // Step colors per sheet, the same as the example routines: gender-neutral playroom colours (no pink or
 // purple), each dark enough for a white step number at 3 : 1 (WCAG 2.2, large text)
@@ -28,7 +30,7 @@ const T = {
     label: "Opravilo", labelHint: "npr. UMIJ ZOBKE", language: "Jezik", moved: n => `Premaknjeno na mesto ${n}`, picture: "Sličica", time: "Ura", auto: "Samodejno", none: "Brez sličice", pick: "Zamenjaj sličico", removeStep: "Izprazni vrstico", move: "Premakni korak", moveHint: "Povleci za premik ali tapni tu in nato na novem mestu; s tipkovnico puščici gor in dol",
     warnNoMatch: (s, l) => `${s}: za »${l}« nimamo sličice. Izberi drugo ali pusti prazno.`,
     warnLong: (s, l) => `${s}: napis »${l}« je predolg za okvir; skrajšaj ga.`,
-    preview: "👁 Predogled: tako bo natisnjeno (A4)", step: "Korak", ok: "✓ Vse sličice so najdene in vsi napisi se prilegajo.", suggest: "Manjka sličica? Predlagaj jo", warnTitle: "Opozorila",
+    preview: "👁 Predogled: tako bo natisnjeno (A4)", step: "Korak", ok: "✓ Vse sličice so najdene in vsi napisi se prilegajo.", suggest: "Manjka sličica? Predlagaj jo", warnTitle: "Opozorila", guide: "Navodila in varnost", project: "Projekt na GitHubu",
   },
   en: {
     heading: "Child routines", aboutTitle: "About", howTitle: "How to",
@@ -40,7 +42,7 @@ const T = {
     label: "Step", labelHint: "e.g. BRUSH TEETH", language: "Language", moved: n => `Moved to place ${n}`, picture: "Picture", time: "Time", auto: "Automatic", none: "No picture", pick: "Change picture", removeStep: "Clear row", move: "Move step", moveHint: "Drag to move, or tap here and then at the new place; with the keyboard, the up and down arrows",
     warnNoMatch: (s, l) => `${s}: no picture for "${l}". Pick another or leave it empty.`,
     warnLong: (s, l) => `${s}: "${l}" is too long for the frame; shorten it.`,
-    preview: "👁 Preview: this is what prints (A4)", step: "Step", ok: "✓ All pictures found and all labels fit.", suggest: "Missing a picture? Suggest one", warnTitle: "Warnings",
+    preview: "👁 Preview: this is what prints (A4)", step: "Step", ok: "✓ All pictures found and all labels fit.", suggest: "Missing a picture? Suggest one", warnTitle: "Warnings", guide: "How to use it and safety", project: "Project on GitHub",
   },
 };
 
@@ -362,7 +364,9 @@ function renderEditor() {
   });
   // print comes last, after the parent has filled in the rows and read the warnings
   root.append(box, el("div", { id: "warnings", role: "status" }),
-    el("div", { class: "row-top" }, el("button", { class: "primary", onclick: () => window.print() }, L.print)));
+    el("div", { class: "row-top" }, el("button", { class: "primary", onclick: () => window.print() }, L.print)),
+    el("p", { class: "links" }, [el("a", { href: GUIDE[state.lang] || GUIDE.en, target: "_blank", rel: "noopener" }, L.guide), " · ",
+      el("a", { href: PROJECT, target: "_blank", rel: "noopener" }, L.project)]));
 }
 
 // refresh each row's picture in place, so typing keeps focus; an empty row shows no picture

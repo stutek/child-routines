@@ -30,8 +30,8 @@ Vzorčni listi so [tu](https://stutek.github.io/child-routines/output/sl-primer.
 ## Varnost
 
 - **Starost:** list je za otroke od 3 let naprej.
-- **Magnetki:** izberite velike v plastiki in jih shranite zunaj dosega mlajših otrok. Če otrok pogoltne magnetek, takoj pojdite k zdravniku.
-- **Pisala:** za kljukice uporabite otroška, kemično varna pisala.
+- **Magnetki:** uporabite le magnetke, varne za otroke in kemično neškodljive. Če otrok pogoltne magnetek, takoj pojdite k zdravniku.
+- **Pisala:** za kljukice uporabite le pisala, varna za otroke in kemično neškodljiva.
 - **Zdravila:** daje in hrani jih odrasel. Niso sladkarija.
 - **Kopanje:** otroka nikoli ne pustite samega v kadi.
 

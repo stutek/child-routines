@@ -30,8 +30,8 @@ Example sheets, ready to print, are [here](https://stutek.github.io/child-routin
 ## Safety
 
 - **Age:** the sheet is for children aged 3 and up.
-- **Magnets:** choose large ones in plastic and keep them out of reach of younger children. If a child swallows a magnet, see a doctor at once.
-- **Pens:** for ticks, use children's chemically safe pens.
+- **Magnets:** use only magnets that are safe for children and chemically harmless. If a child swallows a magnet, see a doctor at once.
+- **Pens:** for ticks, use only pens that are safe for children and chemically harmless.
 - **Medicine:** an adult gives and keeps it. It is not a sweet.
 - **Bath:** never leave a child alone in the bath.
 

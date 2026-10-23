@@ -133,6 +133,33 @@ def main():
             bad = [k for k, v in json.loads(got).items() if not v]
             if bad:
                 errors.append(f"accessibility checks failed: {bad}")
+            # step grip: Alt+ArrowDown / Alt+ArrowUp (and plain arrows) move the step, focus stays on its grip;
+            # shortcuts and description are announced; aria-pressed is not set for keyboard use
+            got = cdp.call("Runtime.evaluate", awaitPromise=True, returnByValue=True, expression="""(async () => {
+              const tick = () => new Promise(r => setTimeout(r, 200));
+              const rows = () => [...document.querySelectorAll('#maker .step')].filter(r => r.querySelector('.n'));
+              const labels = () => rows().map(r => r.querySelector('input').value);
+              const grips = () => [...document.querySelectorAll('.grip')];
+              const key = (g, k, alt) => g.dispatchEvent(new KeyboardEvent('keydown', {key: k, altKey: alt, bubbles: true, cancelable: true}));
+              const r = {}, a = labels();
+              const g = grips()[0];
+              r.attrs = g.getAttribute('aria-keyshortcuts') === 'Alt+ArrowUp Alt+ArrowDown' && !g.hasAttribute('aria-pressed')
+                && document.getElementById(g.getAttribute('aria-describedby')).textContent.startsWith('Alt ');
+              g.focus(); key(g, 'ArrowDown', true); await tick();
+              const b = labels();
+              r.down = b[1] === a[0] && b[0] === a[1] && document.activeElement === grips()[1];
+              key(grips()[1], 'ArrowUp', true); await tick();
+              r.up = JSON.stringify(labels()) === JSON.stringify(a) && document.activeElement === grips()[0];
+              key(grips()[0], 'ArrowDown', false); await tick();
+              r.plain = labels()[1] === a[0] && document.activeElement === grips()[1];
+              key(grips()[1], 'ArrowUp', false); await tick();
+              r.noPressed = grips().every(x => !x.hasAttribute('aria-pressed'));
+              return JSON.stringify(r);
+            })()""")["result"]["value"]
+            print(f"grip keyboard: {got}")
+            bad = [k for k, v in json.loads(got).items() if not v]
+            if bad:
+                errors.append(f"grip keyboard checks failed: {bad}")
             # share link: title and labels (with č š ž) survive a fresh navigation; a broken fragment is ignored
             cdp.call("Runtime.evaluate", expression="""(() => {
               const t = document.querySelector('input.title'); t.value = 'Čšž večer'; t.dispatchEvent(new Event('input'));

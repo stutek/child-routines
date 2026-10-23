@@ -27,7 +27,7 @@ const T = {
     example: "Naloži primer", replaced: "Primer je zamenjal tvoj list.", stepRemoved: "Korak je odstranjen.", skip: "Preskoči na obrazec", previewName: "Predogled lista", linkReplaced: "Povezava je zamenjala tvoj list.", copy: "Kopiraj povezavo", copied: "Povezava je kopirana.", linkHint: "Kdor ima povezavo, vidi list.", undo: "Razveljavi", undone: "Tvoj list je vrnjen.", print: "Natisni",
     type: "Tip rutine", sheetTitle: "Naslov lista", skies: { dawn: "jutro", afternoon: "dan", night: "večer" },
     times: "Ura na listu", background: "Ozadje", backgrounds: { gradient: "barvno", white: "belo", none: "brez (manj črnila)" },
-    label: "Korak", labelHint: "npr. UMIJ ZOBKE", language: "Jezik", moved: n => `Premaknjeno na mesto ${n}`, picture: "Sličica", time: "Ura", auto: "Samodejno", none: "Brez sličice", pick: "Zamenjaj sličico", removeStep: "Izprazni vrstico", move: "Premakni korak", moveHint: "Povleci ali tapni tu, nato tapni novo mesto. S tipkovnico: puščici gor in dol.",
+    label: "Korak", labelHint: "npr. UMIJ ZOBKE", language: "Jezik", moved: n => `Premaknjeno na mesto ${n}`, picture: "Sličica", time: "Ura", auto: "Samodejno", none: "Brez sličice", pick: "Zamenjaj sličico", removeStep: "Izprazni vrstico", move: "Premakni korak", moveHint: "Povleci ali tapni tu, nato tapni novo mesto. S tipkovnico: puščici gor in dol.", moveDesc: "Alt in puščica gor ali dol premakne korak. Dotik ročaja in nato ročaja druge vrstice zamenja mesti.",
     warnNoMatch: (s, l) => `${s}: za »${l}« ni sličice. Klikni »?« in izberi sličico ali »Brez sličice«.`,
     warnMismatch: (s, l) => `${s}: sličica se morda ne ujema z napisom »${l}«.`,
     warnLong: (s, l) => `${s}: napis »${l}« je predolg za okvir; skrajšaj ga.`,
@@ -40,7 +40,7 @@ const T = {
     example: "Load example", replaced: "The example replaced your sheet.", stepRemoved: "Step removed.", skip: "Skip to the form", previewName: "Sheet preview", linkReplaced: "The link replaced your sheet.", copy: "Copy link", copied: "Link copied.", linkHint: "Anyone with the link can see the sheet.", undo: "Undo", undone: "Your sheet is back.", print: "Print",
     type: "Routine type", sheetTitle: "Sheet title", skies: { dawn: "morning", afternoon: "day", night: "evening" },
     times: "Time on the sheet", background: "Background", backgrounds: { gradient: "color", white: "white", none: "none (less ink)" },
-    label: "Step", labelHint: "e.g. BRUSH TEETH", language: "Language", moved: n => `Moved to place ${n}`, picture: "Picture", time: "Time", auto: "Automatic", none: "No picture", pick: "Change picture", removeStep: "Clear row", move: "Move step", moveHint: "Drag, or tap here and then tap the new place. Keyboard: up and down arrows.",
+    label: "Step", labelHint: "e.g. BRUSH TEETH", language: "Language", moved: n => `Moved to place ${n}`, picture: "Picture", time: "Time", auto: "Automatic", none: "No picture", pick: "Change picture", removeStep: "Clear row", move: "Move step", moveHint: "Drag, or tap here and then tap the new place. Keyboard: up and down arrows.", moveDesc: "Alt and the up or down arrow move the step. Tap the handle, then another row's handle, to swap them.",
     warnNoMatch: (s, l) => `${s}: no picture for “${l}”. Click “?” and pick a picture or “No picture”.`,
     warnMismatch: (s, l) => `${s}: the picture may not match the label “${l}”.`,
     warnLong: (s, l) => `${s}: “${l}” is too long for the frame; shorten it.`,
@@ -346,7 +346,7 @@ function dragRow(e, k, rows) {
     rows.forEach(r => { shift(r, 0); r.classList.remove("dragging"); });
     if (moved) { if (to !== k) moveStep(k, to); return; }
     if (picked === null) { picked = k; rows[k].classList.add("picked"); grip.setAttribute("aria-pressed", "true"); }
-    else if (picked === k) { picked = null; rows[k].classList.remove("picked"); grip.setAttribute("aria-pressed", "false"); }
+    else if (picked === k) { picked = null; rows[k].classList.remove("picked"); grip.removeAttribute("aria-pressed"); }
     else moveStep(picked, k);
   };
   grip.addEventListener("pointerup", end, { signal: ac.signal });
@@ -433,7 +433,8 @@ function renderEditor() {
         el("button", { title: img.title, "aria-label": (img.label && (img.label[state.lang] || img.label.sl)) || img.title, onclick: () => choose(id) },
           el("img", { src: `../images/${id}.jpg`, alt: "", loading: "lazy" }))),
       el("button", { onclick: () => choose("none") }, `∅ ${L.none}`));
-    const grip = el("button", { class: "grip", title: L.moveHint, "aria-label": `${L.move} ${k + 1}`, "aria-pressed": picked === k ? "true" : "false",
+    const grip = el("button", { class: "grip", title: L.moveHint, "aria-label": `${L.move} ${k + 1}`, "aria-describedby": "move-desc", "aria-keyshortcuts": "Alt+ArrowUp Alt+ArrowDown",
+      "aria-pressed": picked === k ? "true" : null,   // only in the tap-tap mode; a keyboard user never sees a toggle
       onpointerdown: e => dragRow(e, k, rows), onclick: e => e.preventDefault(),
       onkeydown: e => {
         const to = k + (e.key === "ArrowUp" ? -1 : e.key === "ArrowDown" ? 1 : 0);
@@ -456,7 +457,7 @@ function renderEditor() {
     box.append(row, gallery);
     step._thumb = thumb;
   });
-  root.append(box, el("div", { id: "warnings", role: "status" }));
+  root.append(box, el("span", { id: "move-desc", class: "sr-only" }, L.moveDesc), el("div", { id: "warnings", role: "status" }));
 }
 
 const rowInput = k => document.querySelectorAll("#maker .sheet-box .step:not(.step-head)")[k].querySelector("input:not([type=time])");

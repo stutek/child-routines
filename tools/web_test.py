@@ -93,6 +93,22 @@ def main():
             print(f"numbers after broom and a cleared label: {got}")
             if got != "ok":
                 errors.append(f"form numbers differ from the sheet: {got}")
+            # the broom on a row with a label offers Undo and puts focus on the input now at that place
+            got = cdp.call("Runtime.evaluate", awaitPromise=True, returnByValue=True, expression="""(async () => {
+              const rows = () => [...document.querySelectorAll('#maker .step')].filter(r => r.querySelector('.n'));
+              const tick = () => new Promise(r => setTimeout(r, 300));
+              const before = rows().map(r => r.querySelector('input').value);
+              rows()[0].querySelector('.del').click(); await tick();
+              const after = rows().map(r => r.querySelector('input').value);
+              const focused = document.activeElement === rows()[0].querySelector('input');
+              const btn = document.querySelector('#undo button');
+              if (btn) { btn.click(); await tick(); }
+              const back = rows().map(r => r.querySelector('input').value);
+              return JSON.stringify({shifted: after[0] === before[1], focused, undo: !!btn, restored: JSON.stringify(back) === JSON.stringify(before)});
+            })()""")["result"]["value"]
+            print(f"broom: {got}")
+            if got != '{"shifted":true,"focused":true,"undo":true,"restored":true}':
+                errors.append(f"broom without Undo, focus or restore: {got}")
             # share link: title and labels (with č š ž) survive a fresh navigation; a broken fragment is ignored
             cdp.call("Runtime.evaluate", expression="""(() => {
               const t = document.querySelector('input.title'); t.value = 'Čšž večer'; t.dispatchEvent(new Event('input'));
@@ -126,6 +142,22 @@ def main():
                     errors.append(f"removed picture with label {label}: expected {want}.jpg, got {res}")
                 if not want and not (res["missing"] and res["warn"] == "warnings"):
                     errors.append(f"removed picture with label {label}: expected ? placeholder and a warning, got {res}")
+            # the form shows the state a link carries: type (sky), background, time checkbox; also after a reload
+            raw = json.dumps({"l": "sl", "b": "white", "t": 0, "s": "dawn", "h": "JUTRO", "r": [["UMIJ ZOBE", "", ""]]})
+            frag = base64.urlsafe_b64encode(raw.encode()).decode().rstrip("=")
+            cdp.call("Page.navigate", url="about:blank")
+            cdp.wait(0.5)
+            cdp.call("Page.navigate", url=PAGE + "#" + frag)
+            cdp.wait(2)
+            form_state = """JSON.stringify([...document.querySelectorAll('#maker select')].map(s => s.value).concat([document.querySelector('#maker input[type=checkbox]').checked]))"""
+            for how in ("link", "reload"):
+                if how == "reload":
+                    cdp.call("Page.reload")
+                    cdp.wait(2)
+                got = json.loads(cdp.call("Runtime.evaluate", expression=form_state, returnByValue=True)["result"]["value"])
+                print(f"form after {how}: {got}")
+                if got != ["sl", "dawn", "white", False]:
+                    errors.append(f"form after {how} does not show the sheet (language, type, background, time): {got}")
             cdp.call("Page.navigate", url="about:blank")
             cdp.wait(0.5)
             cdp.call("Page.navigate", url=PAGE + "#abc")

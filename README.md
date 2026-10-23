@@ -38,6 +38,13 @@ Example sheets, ready to print, are [here](https://stutek.github.io/child-routin
 - **Bath:** never leave a child alone in the bath.
 - **Teeth:** follow your dentist's advice.
 
+## Privacy
+
+- The page uses no cookies, ads or visitor counters.
+- What you type stays in your browser and is not sent to a server.
+- A share link carries the sheet after the `#` sign. The browser does not send that part to the server ([RFC 3986, 3.5](https://www.rfc-editor.org/rfc/rfc3986#section-3.5)). Anyone with the link can see the sheet.
+- The page is hosted on GitHub Pages, which logs the visitor's IP address for security ([GitHub Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection), [GitHub Privacy Statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement)).
+
 ## Did it help?
 
 Send the link to other parents. If you have a GitHub account, also click **⭐ Star** on the [project page](https://github.com/stutek/child-routines).

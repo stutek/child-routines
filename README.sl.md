@@ -38,6 +38,13 @@ Vzorčni listi so [tu](https://stutek.github.io/child-routines/output/sl-primer.
 - **Kopanje:** otroka nikoli ne pustite samega v kadi.
 - **Zobki:** sledite navodilom vašega zobozdravnika.
 
+## Zasebnost
+
+- Stran ne uporablja piškotkov, oglasov ali števcev obiskov.
+- Kar vpišete, ostane v vašem brskalniku in ne gre na strežnik.
+- Povezava za deljenje nosi list za znakom `#`. Tega dela brskalnik ne pošlje strežniku ([RFC 3986, 3.5](https://www.rfc-editor.org/rfc/rfc3986#section-3.5)). Kdor ima povezavo, list vidi.
+- Stran gosti GitHub Pages, ki ob obisku za varnost zabeleži naslov IP ([GitHub Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection), [izjava o zasebnosti GitHub](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement)).
+
 ## Vam je pomagalo?
 
 Pošljite povezavo drugim staršem. Če imate račun na GitHubu, kliknite še **⭐ Star** na [strani projekta](https://github.com/stutek/child-routines).

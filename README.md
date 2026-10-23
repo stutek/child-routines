@@ -4,7 +4,7 @@
 
 **[Open the sheet maker →](https://stutek.github.io/child-routines/)**
 
-Printable A4 sheets with a daily routine for children aged 2 to 6: morning, dinner and evening. Hang the sheet on the fridge. Your child follows the pictures and puts a magnet on the circle next to each finished step. Adults read the order and the time on the sheet.
+Printable A4 sheets with a daily routine for children, recommended from age 3: morning, dinner and evening. Put the printed sheet on the fridge. Your child follows the pictures and marks each finished step with a magnet on its circle. Adults read the order and the time on the sheet.
 
 ![Three example sheets: morning, dinner and evening](docs/preview.jpg)
 
@@ -13,7 +13,7 @@ Free, no sign-up and no ads. What you type stays in your browser.
 ## How to make your sheet
 
 1. Open the [sheet maker](https://stutek.github.io/child-routines/). It starts with an example evening routine.
-2. Pick the routine type (morning, day, evening) and type up to 8 steps. The page picks a picture for each step; click it to change it. To change the order, drag a row by the dots on its left. The time is optional: leave it empty and write it in by hand later.
+2. Pick the routine type (morning, day, evening) and type up to 8 steps. You can change the sheet title and every label as you like. The page picks a picture for each step; click it to change it. To change the order, drag a row by the dots on its left. The time is optional: leave it empty and write it in by hand later, or hide the time fields with the *Time on the sheet* switch.
 3. Click **Print**. In the print window choose A4 paper, margins *None* and scale 100%. To send the sheet to a grandparent or a print shop, choose *Save as PDF* instead of a printer.
 
 ## How to use it
@@ -27,7 +27,7 @@ Example sheets, ready to print, are [here](https://stutek.github.io/child-routin
 
 ## Safety
 
-- **Magnets:** use magnets larger than 3.5 cm, set in plastic, with no small parts that could come off. Throw away a cracked one. If a child swallows more than one magnet, they can attract each other inside the gut: see a doctor at once.
+- **Magnets:** use magnets set in plastic, with no small parts that could come off. Throw away a cracked one. If a child swallows one magnet or more, see a doctor at once: several magnets can attract each other inside the gut.
 - **Medicine and care:** an adult gives medicine and keeps it out of the child's reach. The step on the sheet only reminds the child that it is time for it.
 - **Bath:** never leave a child alone in the bath.
 

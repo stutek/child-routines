@@ -8,7 +8,7 @@ Listi A4 z dnevno rutino za otroke od 3 let: jutro, dan in večer. Otrok sledi s
 
 ![Trije vzorčni listi: jutro, dan in večer](docs/preview.jpg)
 
-Brezplačno, brez prijave in brez oglasov. Kar vpišete, ostane v vašem brskalniku.
+Brezplačno, brez prijave in brez oglasov. Vaši vnosi in podatki ostanejo zgolj v vašem brskalniku.
 
 ## Hitri začetek
 

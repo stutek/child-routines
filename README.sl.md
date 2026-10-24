@@ -46,7 +46,11 @@ Vzorčni listi so [tu](https://stutek.github.io/child-routines/output/sl-primer.
 
 ## Vam je pomagalo?
 
-Pošljite povezavo drugim staršem. Če imate račun na GitHubu, kliknite še **⭐ Star** na [strani projekta](https://github.com/stutek/child-routines).
+Zelo bomo hvaležni povratne informacije o uporabi aplikacije.
+Če opazite napake v delovanju ali si želite dodatnih funkcionalnosti, ste vljudno vabljeni, da odprete GitHub issue z opisom.
+
+Prosim delite povezavo drugim staršem, ki jim takšen izpis lahko pomaga. 
+Če imate račun na GitHubu, vljudno prosim, da kliknite še **⭐ Star** na [strani projekta](https://github.com/stutek/child-routines).
 
 ## Za napredne
 

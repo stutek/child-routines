@@ -2,7 +2,7 @@
   "id": "under3",
   "title": "Warning pictogram: not suitable for children under 36 months",
   "source": "Directive 2009/48/EC on the safety of toys, Annex V, Part B, point 1 (OJ L 170, 30.6.2009), https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32009L0048",
-  "use": "The directive's own graphic, taken unchanged from the EUR-Lex page; the directive requires it to be accompanied by a brief indication of the specific hazard (on the sheet: a child must not swallow a magnet).",
+  "use": "The directive's own graphic, taken from the EUR-Lex page, unchanged except that the table border of the page (a line along the bottom and right edge) is cropped away; the directive requires it to be accompanied by a brief indication of the specific hazard (on the sheet: a child must not swallow a magnet).",
   "license": "EU legal document: re-use authorised under Commission Decision 2011/833/EU (EUR-Lex copyright notice: 'you can re-use the legal documents published in EUR-Lex for commercial or non-commercial purposes'). Source: © European Union, EUR-Lex.",
   "checked": "2026-10-23"
 }

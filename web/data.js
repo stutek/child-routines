@@ -98,6 +98,29 @@ window.SHEET_DATA = {
     ]
    }
   },
+  "brush-hair": {
+   "title": "Teddy bear on a stool brushing the fur on its head with a wooden brush, in front of a round mirror",
+   "label": {
+    "sl": "POČEŠI SE",
+    "en": "BRUSH YOUR HAIR"
+   },
+   "keywords": {
+    "sl": [
+     "poces*",
+     "cesanj*",
+     "cesi se",
+     "lase",
+     "lasje",
+     "glavnik*"
+    ],
+    "en": [
+     "brush hair",
+     "brush your hair",
+     "comb*",
+     "hair*"
+    ]
+   }
+  },
   "brush-teeth": {
    "title": "Tooth character brushing at the bathroom sink",
    "label": {
@@ -228,7 +251,6 @@ window.SHEET_DATA = {
      "oblac*",
      "obleci",
      "obleka",
-     "obuj*",
      "oblec*"
     ],
     "en": [
@@ -262,6 +284,24 @@ window.SHEET_DATA = {
      "waking up",
      "get up",
      "morning"
+    ]
+   }
+  },
+  "hug": {
+   "title": "Big brown and small honey-colored teddy bear hugging on a rug beside a glowing lamp in the evening",
+   "label": {
+    "sl": "OBJEM",
+    "en": "HUG"
+   },
+   "keywords": {
+    "sl": [
+     "objem*",
+     "objam*",
+     "crklj*"
+    ],
+    "en": [
+     "hug*",
+     "cuddle*"
     ]
    }
   },
@@ -329,6 +369,29 @@ window.SHEET_DATA = {
      "pyjama*",
      "pjs",
      "nightwear"
+    ]
+   }
+  },
+  "put-on-shoes": {
+   "title": "Teddy bear on a bench in an autumn hall, pulling on a red rain boot, the other boot on the floor",
+   "label": {
+    "sl": "OBUJ SE",
+    "en": "PUT ON SHOES"
+   },
+   "keywords": {
+    "sl": [
+     "obuj*",
+     "obuv*",
+     "cevlj*",
+     "skorenj*",
+     "skornj*"
+    ],
+    "en": [
+     "put on shoes",
+     "put on your shoes",
+     "shoes",
+     "shoe*",
+     "boots"
     ]
    }
   },
@@ -445,6 +508,25 @@ window.SHEET_DATA = {
      "wee",
      "bathroom",
      "loo"
+    ]
+   }
+  },
+  "wash-face": {
+   "title": "Teddy bear on a step stool at the bathroom sink, wiping its face with a blue washcloth",
+   "label": {
+    "sl": "UMIJ OBRAZ",
+    "en": "WASH YOUR FACE"
+   },
+   "keywords": {
+    "sl": [
+     "obraz*",
+     "umij obraz",
+     "umivanje obraza"
+    ],
+    "en": [
+     "wash face",
+     "wash your face",
+     "face"
     ]
    }
   },
@@ -747,6 +829,7 @@ window.SHEET_DATA = {
 window.SHEET_EDGES = {
   "bath": ["#87DCD9", "#A0EFD9"],
   "breakfast": ["#FFCE86", "#FFD68A"],
+  "brush-hair": ["#F9D7BE", "#FDF3DC"],
   "brush-teeth": ["#CAF5EA", "#C6ECDA"],
   "care": ["#9EE3CA", "#BAE9D2"],
   "cartoon": ["#FAD9C2", "#FFFAC2"],
@@ -754,13 +837,16 @@ window.SHEET_EDGES = {
   "dinner": ["#E3C7B1", "#E3C6B4"],
   "getting-dressed": ["#F4E0C3", "#FAF1DA"],
   "good-morning": ["#E7DCCE", "#F2F3F5"],
+  "hug": ["#DACCCA", "#C2CFE5"],
   "kindergarten": ["#E4C8A8", "#D2D3B1"],
   "make-bed": ["#EBD5BB", "#F8EED1"],
   "pajamas": ["#FCD1BB", "#FACCAF"],
+  "put-on-shoes": ["#FFFAE5", "#E9CAAD"],
   "set-table": ["#FBDFCD", "#FFD692"],
   "sleep": ["#D1CDCA", "#F3F8F8"],
   "story": ["#CECBD6", "#D8DFEE"],
   "tidy-toys": ["#F5DBBB", "#FCF1D0"],
   "toilet": ["#C3F2E8", "#B4E6D2"],
+  "wash-face": ["#CBEEEC", "#B1E5D2"],
   "wash-hands": ["#E1E4CE", "#FDDBCE"],
 };

@@ -1,0 +1,41 @@
+{
+  "id": "brush-hair",
+  "title": "Teddy bear on a stool brushing the fur on its head with a wooden brush, in front of a round mirror",
+  "label": {
+    "sl": "POČEŠI SE",
+    "en": "BRUSH YOUR HAIR"
+  },
+  "keywords": {
+    "sl": [
+      "poces*",
+      "cesanj*",
+      "cesi se",
+      "lase",
+      "lasje",
+      "glavnik*"
+    ],
+    "en": [
+      "brush hair",
+      "brush your hair",
+      "comb*",
+      "hair*"
+    ]
+  },
+  "model": "Google Gemini image generation (via Antigravity CLI, image-generator subagent)",
+  "prompt": "Soft watercolor and gouache children's picture-book illustration, delicate colored-pencil outlines, warm cream paper texture, gentle pastel palette. The scene is set in a real, cozy room of a family home with a floor, walls and a few homely details (plants, a small shelf), like a warm picture-book interior. Clear contrast and rich, saturated colors with defined darker outlines and shadows, not pale or washed out. No clouds, nothing floating. Cute and friendly, for a 4-year-old. Gender-neutral. Everything painted in one consistent watercolor style, no flat vector shapes, no text, no letters, no logos, no brands, no flags, no recognizable existing characters; every character is original. Square 1:1 composition, main subject large and centered, readable at 4 cm size. The same cute brown teddy bear as the BEAR reference, WITHOUT a nightcap, with its eyes open and smiling, sits on a small wooden stool in front of a low wooden dresser with a round wooden-framed mirror, and with one paw brushes the fur on top of its head with a wooden hairbrush. The mirror shows the bear's friendly face and the brush. On the dresser: a small potted plant and a small wooden comb. A cozy child's bedroom in the morning: warm sunshine through a window with a curtain, a small rug on wooden floorboards. The brush and the mirror are the clear main subject. No people, no hands, no toothbrush, no sink.",
+  "reference_images": [
+    "images/make-bed.jpg (commit 078700e)",
+    "images/toilet.jpg (commit 078700e)",
+    "images/wash-hands.jpg (commit 2824e41)"
+  ],
+  "edits": [
+    "contrast raised once with tools/enhance.py"
+  ],
+  "contributor": "maintainer",
+  "license": "CC0-1.0",
+  "copyright_check": {
+    "date": "2026-10-29",
+    "method": "Google Lens, Exact matches on the raw and final file and on crops (bear with brush, mirror); Visual matches on the final file and the crops. Vision Web Detection not run: no key locally",
+    "result": "no exact matches; visual matches show other teddy bears, one with a mirror, no same composition"
+  }
+}

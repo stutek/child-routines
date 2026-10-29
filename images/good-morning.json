@@ -33,13 +33,14 @@
     "contrast raised with tools/enhance.py",
     "softened to match the other images: gamma 0.8, contrast x0.9",
     "cropped to remove the painted paper border (184, 172, 848, 836) and resized to 1024 x 1024",
-    "brightened and desaturated after the crop, like sleep: gamma 0.7, color x0.88"
+    "brightened and desaturated after the crop, like sleep: gamma 0.7, color x0.88",
+    "eyes corrected (2026-10-30): the final file above was regenerated once more by Google Gemini image generation (via Antigravity CLI), with the final file itself as the only reference image (images/good-morning.jpg, commit 43785f7), 1:1, prompt exactly: \"Keep this image EXACTLY the same (same composition, pose, bear, nightcap, bed, quilt, window, plant, shelf, colors, watercolor and gouache style, outlines, lighting), the painting fills the whole square canvas edge to edge with no paper border. Change ONLY the bear's eyes: both eyes identical in size and shape (match the larger left eye on the image), perfectly round, wide open, bright, with the pupils looking straight at the viewer, and add the missing eyebrow above the other eye, matching the existing eyebrow in shape and color. No text, no letters, no new objects.\". The result is used as it is, only saved as JPEG quality 92 (it is derived from the already processed file; enhancing again would overdo the colors)"
   ],
   "contributor": "maintainer",
   "license": "CC0-1.0",
   "copyright_check": {
-    "date": "2026-10-22",
-    "method": "Google Lens, Exact matches tab, final file after the last edit",
-    "result": "no exact matches"
+    "date": "2026-10-30",
+    "method": "Google Lens, Exact matches on the regenerated file and on crops (bear, window with plant, quilt); Visual matches on the file and the crops. Vision Web Detection not run: no key locally",
+    "result": "no exact matches; visual matches show other teddy bears in beds and common spider-plant drawings, none with the same composition"
   }
 }

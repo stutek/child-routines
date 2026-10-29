@@ -36,6 +36,8 @@ STEP_NOTES = {
     "care": {"sl": "Zdravila daje in hrani odrasel.", "en": "An adult gives and keeps medicine."},
     "bath": {"sl": "Otroka nikoli ne pusti samega v kadi.", "en": "Never leave a child alone in the bath."},
 }
+# no line for paper itself: a sheet is no small part (16 CFR 1501.3(b) exempts articles made of paper), and the
+# 0–3 sign already keeps away the toddlers who tear and mouth paper; another line would dilute the magnet warning
 SAFETY = {"sl": "Opozorilo: otrok ne sme pogoltniti magnetka. Pisala naj bodo otroška in kemično varna.", "en": "Warning: a child must not swallow a magnet. Use children's chemically safe pens."}
 # the EU pictogram for "not suitable for children under 36 months" (web/under3.json: source and licence), with the hazard above
 UNDER3 = {"sl": "Ni primerno za otroke, mlajše od 3 let", "en": "Not suitable for children under 3 years"}

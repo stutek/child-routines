@@ -20,12 +20,12 @@ Every routine image is a square 1:1 illustration generated with an image model. 
 - **Show the action, not the result.** "Set the table" is hands placing cutlery next to an empty plate, not a plate with food (that reads as "dinner").
 - **Rich but readable.** A real room with a few homely details, never bare; at 4 cm the main subject fills most of the picture and the background stays calm (at most 3 to 4 details). No letters or numbers anywhere, also not on toys or clocks.
 - **Keep steps distinct.** "Clear the table" must not show a sink with a tap, because "wash hands" already does. Only the sleep image has closed eyes; waking up has eyes wide open.
-- **Who does the action (provisional, until the beta feedback).** A step shows the action, done by one of three:
-  - the child's own hands, in a child's-eye view entering from the bottom edge, where a child sees its own action (wash hands, set and clear the table, pajamas, getting dressed, spoon to the mouth); never disembodied hands from elsewhere;
-  - the teddy bear, where the action cannot be seen through the child's eyes (waking up, brushing teeth, making the bed, tidying toys, shoes on at the door, sleep);
-  - only the room or the objects for private or adult steps (toilet, bath, medicine and care).
-- **Cloth obeys gravity.** Clothes, quilts and towels hang, drape and fold; they never stand stiff like a board. Do not show the child already wearing what it is putting on.
-- **Same world.** Bath and teeth happen in the same bathroom as the toilet image; the same teddy bear appears in waking up, making the bed, tidying up and sleeping. It wears its striped nightcap only around sleep (good morning, make the bed, sleep); in other scenes it has no cap. A fix to the shared room (tiles on both walls) goes into every picture of that room: compare them side by side.
+- **Two picture themes.** The parent picks one for the whole sheet: the teddy bear (`"theme": "bear"`, the default) or no character (`"plain"`). A step's image has one theme and may have a variant in the other (`"variant_of"`, without keywords or label of its own); without a variant the sheet shows the image it has.
+  - Teddy bear: the same bear does the step (toilet and bath too).
+  - No character: the child's own hands, in a child's-eye view entering from the bottom edge, where a child sees its own action (wash hands, set and clear the table, pajamas, getting dressed, spoon to the mouth, shoes, washcloth, hairbrush, quilt, toys into the chest); never disembodied hands from elsewhere. Otherwise only the room or the objects (toilet, bath; sleep: the bed at night; good morning: the bed in morning sun). Hug keeps the bear until a hug without a character reads clearly.
+  - Medicine and care show only the objects in both themes: an adult gives medicine.
+- **Cloth obeys gravity.** Clothes, quilts and towels hang, drape and fold; they never stand stiff like a board. Do not show the child already wearing what it is putting on. Clothes alone do not act: an upright long-sleeved shirt with an empty neck reads as a headless person, not as a hug; show the people (faces out of the frame) or the bear instead.
+- **Same world.** Bath and teeth happen in the same bathroom as the toilet image; the same teddy bear appears in waking up, making the bed, tidying up and sleeping. It wears its striped nightcap only around sleep (good morning, make the bed, sleep); in other scenes it has no cap. Its face is the same everywhere: small solid black round button eyes with no white of the eye, a small black nose, a gentle smile. A fix to the shared room (tiles on both walls) goes into every picture of that room: compare them side by side.
 - **Model good habits.** Images show safe, healthy behavior, never a bad example: a seat stays well back from a screen, never close to it.
 - **No false promises.** Do not show food the child will not get (pancakes for breakfast at home when breakfast is at kindergarten).
 - **Check before use:** contrast (see AGENTS.md), and the copyright check on the raw and the final file (`.agents/skills/copyright-check/`).
@@ -42,7 +42,7 @@ Every routine image is a square 1:1 illustration generated with an image model. 
 | story        | bedtime story       | style references        |
 | clear-table  | clear the table     | style references        |
 | bath         | bath                | `toilet.jpg` (bathroom) |
-| good-morning | good morning        | `sleep.jpg` (bear)      |
+| good-morning | good morning        | see the prompt          |
 | kindergarten | off to kindergarten | style references        |
 | make-bed     | make the bed        | none (see the prompt)   |
 | pajamas      | pajamas             | style references        |
@@ -66,7 +66,7 @@ Every routine image is a square 1:1 illustration generated with an image model. 
 
 **Bath** — The same cozy bathroom as in the reference (mint tiles, wooden shelf, plants, patterned floor): a happy small toddler sitting in a white clawfoot bathtub full of foamy bubbles, playing with a yellow rubber duck. The bathtub stands firmly on the bathroom floor. A fluffy towel hangs nearby. Gender-neutral child.
 
-**Good morning** — The same teddy bear, just woken up, SITTING UP in its small wooden bed under the patchwork quilt and stretching happily with both arms raised above its head, a big smile, its eyes WIDE OPEN, round and bright (NOT closed, NOT squinting; take only the bear's look from the reference, not its closed eyes). A cozy child's bedroom in the morning: bright warm sunshine streaming through a window, a small rug.
+**Good morning** — (references: `make-bed.jpg` for the bear, `sleep.jpg` for the bed only, `tidy-toys.jpg` for the style) The same cute brown teddy bear as the BEAR reference, wearing the same blue-and-white striped nightcap, has just woken up: it SITS UP in its small wooden bed with the heart cut-out on the footboard, under the patchwork quilt, the white pillow behind it, and stretches happily with both paws raised above its head. Its face is exactly the face of the BEAR reference: small solid black round button eyes, OPEN, with NO white of the eye, no big cartoon eyes, no eyelashes, not closed, not squinting; a small black nose and a gentle smiling mouth. A cozy child's bedroom in the morning: bright warm sunshine through a window with a curtain, a small rug on wooden floorboards, a plant. No light rays, no people, no hands.
 
 **Off to kindergarten** — A cheerful yellow child's backpack seen from a three-quarter back view so that both padded SHOULDER STRAPS are clearly visible, standing on the floor of a cozy home entrance hall next to a pair of small sneakers, near the front door with coat hooks. Ready to go to kindergarten.
 

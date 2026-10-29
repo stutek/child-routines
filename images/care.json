@@ -30,6 +30,7 @@
       "skin care"
     ]
   },
+  "theme": "plain",
   "model": "Google Gemini image generation (via Antigravity CLI, image-generator subagent)",
   "prompt": "Recreate this exact children's picture-book illustration in the same soft watercolor and gouache style, same mint-tiled wall, same wooden shelf, same colors and light. The only change: arrange the three objects evenly across the middle of the shelf with equal gaps between them, and make them slightly larger so they fill the shelf: the closed medicine bottle with the green cross on the left, the open cream jar with its lid in the middle, the tube on the right. No cup, no glass, no liquid, nothing else added. No people. No text, no letters, no logos. Square 1:1.",
   "reference_images": [

@@ -21,6 +21,7 @@
       "soap"
     ]
   },
+  "theme": "plain",
   "model": "Google Gemini image generation (via Antigravity CLI, image-generator subagent)",
   "prompt": "Recreate the first reference image exactly: the same children's picture-book watercolor and gouache style, the same child's hands seen from the child's own view washing under the same tap, the same soap, foam, sink, towel, plant and composition. The only change: the hands have the same light, warm, natural skin tone as the child's hands in the second reference image, not orange or red. Nothing else changes. No text, no letters, no logos. Square 1:1.",
   "reference_images": [

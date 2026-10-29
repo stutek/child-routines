@@ -18,6 +18,7 @@
       "making the bed"
     ]
   },
+  "theme": "bear",
   "model": "Google Gemini image generation (via Antigravity CLI)",
   "prompt": "Recreate the SAME picture (same bear, pose, raised patchwork quilt, bed with the heart, room, colors and drawing) with one change only: the painting fills the WHOLE square canvas edge to edge, with NO cream paper border or white margin around it. Do not zoom in: keep the whole bed and the bear fully in the picture.",
   "reference_images": [

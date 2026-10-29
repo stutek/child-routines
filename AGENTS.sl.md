@@ -6,20 +6,20 @@ Listi A4 za tisk z rutino majhnega otroka (jutro, dan, večer). Visijo na hladil
 
 ## Datoteke
 
-| Pot                               | Vsebina                                                                       |
-| --------------------------------- | ----------------------------------------------------------------------------- |
-| `routines/<jezik>/<ime>.json`     | Rutina: listi, vsak z naslovom, nebom in koraki (napis, oznaka slike, barva). |
-| `images/<oznaka>.jpg` + `.json`   | Slika 1024 × 1024 in metapodatki (model, poziv, ključne besede, preverba).    |
-| `images/README.md`                | Galerija vseh slik, zgradi jo `tools/build.py`.                               |
-| `output/<jezik>-<ime>.html`       | Zgrajeni listi za tisk. Nikoli jih ne urejaj ročno.                           |
-| `web/`                            | Izdelovalnik listov v brskalniku (`index.html`, `app.js`).                    |
-| `tools/build.py`                  | Generator: rutine → output in `web/data.js` za izdelovalnik listov.           |
-| `tools/check_images.py`           | Preverba, ki teče v CI.                                                       |
-| `tools/copyright_check.py`        | Vrata za avtorske pravice (Vision Web Detection).                             |
-| `tools/lens_check.py`             | Ročna preverba z Google Lens prek razhroščevalnega Chroma.                    |
-| `docs/PROMPTS.md`                 | Slog slik, pozivi in izkušnje.                                                |
-| `.agents/skills/copyright-check/` | Kako preveriti slike pred dodajanjem ali združitvijo.                         |
-| `docs/copyright-investigations/`  | Zapis vsakega ujemanja slike, ki je zahtevalo natančnejši pregled.            |
+| Pot                               | Vsebina                                                                          |
+| --------------------------------- | -------------------------------------------------------------------------------- |
+| `routines/<jezik>/<ime>.json`     | Rutina: listi, vsak z naslovom, nebom in koraki (napis, oznaka slike, barva).    |
+| `images/<oznaka>.jpg` + `.json`   | Slika 1024 × 1024 in metapodatki (model, poziv, ključne besede, tema, preverba). |
+| `images/README.md`                | Galerija vseh slik, zgradi jo `tools/build.py`.                                  |
+| `output/<jezik>-<ime>.html`       | Zgrajeni listi za tisk. Nikoli jih ne urejaj ročno.                              |
+| `web/`                            | Izdelovalnik listov v brskalniku (`index.html`, `app.js`).                       |
+| `tools/build.py`                  | Generator: rutine → output in `web/data.js` za izdelovalnik listov.              |
+| `tools/check_images.py`           | Preverba, ki teče v CI.                                                          |
+| `tools/copyright_check.py`        | Vrata za avtorske pravice (Vision Web Detection).                                |
+| `tools/lens_check.py`             | Ročna preverba z Google Lens prek razhroščevalnega Chroma.                       |
+| `docs/PROMPTS.md`                 | Slog slik, pozivi in izkušnje.                                                   |
+| `.agents/skills/copyright-check/` | Kako preveriti slike pred dodajanjem ali združitvijo.                            |
+| `docs/copyright-investigations/`  | Zapis vsakega ujemanja slike, ki je zahtevalo natančnejši pregled.               |
 
 ## Ukazi
 

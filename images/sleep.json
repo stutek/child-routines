@@ -23,6 +23,7 @@
       "nap"
     ]
   },
+  "theme": "bear",
   "model": "Google Gemini image generation (via Antigravity CLI, image-generator subagent)",
   "prompt": "Recreate this exact children's picture-book illustration in the same soft watercolor and gouache style, the same teddy bear asleep in the same bed, the same room, window, night sky, stars, colors, light and composition. The only change: the moon in the window is a plain, simple crescent moon with no face: no eyes, no nose, no mouth, no cheeks. Nothing else changes. No text, no letters, no logos. Square 1:1.",
   "edits": [

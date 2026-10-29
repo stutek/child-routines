@@ -19,6 +19,7 @@
       "shower"
     ]
   },
+  "theme": "plain",
   "model": "Google Gemini image generation (via Antigravity CLI, image-generator subagent)",
   "prompt": "Recreate this exact children's picture-book illustration in the same soft watercolor and gouache style, same cozy mint bathroom, same composition, camera angle, colors and light, same bathtub with foam, yellow rubber duck, towel, window with curtain, framed picture, shelf with plant and towel, rug and floor. The only change: the wall on the left behind the bathtub has the same tiling as the wall on the right: several rows of the same square mint tiles up to the same height, not a single row. Nothing floats in the air. No people. No text, no letters, no logos. Square 1:1.",
   "reference_images": [

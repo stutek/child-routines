@@ -21,6 +21,7 @@
       "show"
     ]
   },
+  "theme": "plain",
   "model": "Google Gemini image generation (via Antigravity CLI, image-generator subagent)",
   "prompt": "Recreate this exact children's picture-book illustration in the same soft watercolor and gouache style, the same wooden TV on the same cabinet, the same floor lamp, plant, window, room, colors, light and composition. The only change: the TV screen shows a simple cheerful cartoon landscape instead of the bunny: rolling green hills, a little river with a small sailboat and a few soft clouds in a blue sky. No characters, no animals, no faces anywhere (a sun, if any, has no face). Nothing else changes. No text, no letters, no logos. Square 1:1.",
   "reference_images": [

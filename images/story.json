@@ -21,6 +21,7 @@
       "read*"
     ]
   },
+  "theme": "plain",
   "model": "Google Gemini image generation (via Antigravity CLI)",
   "prompt": "Soft watercolor and gouache children's picture-book illustration, delicate colored-pencil outlines, warm cream paper texture, gentle pastel palette. Bedtime story: a large open picture storybook lying on a cozy bed with a colorful patchwork quilt and a soft white pillow. A charming miniature magical fairy-tale castle with pastel towers and little flags rises out of the open pages like an enchanted pop-up book, with tiny subtle golden sparkles around it. A warm glowing bedside lamp on a nightstand, and a window with a deep blue night sky and a golden crescent moon. Strictly NO people or characters in the bed, and NO clouds. Calm, magical bedtime atmosphere for a 4-year-old child. Clear contrast and rich, saturated colors with defined darker outlines and soft watercolor shadows, not pale or washed out. Everything painted in one consistent watercolor children's book style matching the reference images, no flat vector shapes, no text, no letters, no logos. Square 1:1 composition, open book and castle large and centered, readable at 4 cm size.",
   "reference_images": [

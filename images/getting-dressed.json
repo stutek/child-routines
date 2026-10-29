@@ -19,6 +19,7 @@
       "clothes"
     ]
   },
+  "theme": "plain",
   "model": "Google Gemini image generation (via Antigravity CLI, image-generator subagent)",
   "prompt": "Recreate this exact children's picture-book illustration in the same soft watercolor and gouache style, same bed, same blue jeans, same matching pair of rainbow-striped socks, same composition, colors and light, edge to edge with no border. The only change: the T-shirt has no picture and no print at all, only its soft rainbow watercolor colors. Nothing else changes. Nothing floats. No people, no hands. No text, no letters, no logos. Square 1:1.",
   "reference_images": [

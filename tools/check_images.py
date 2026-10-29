@@ -4,7 +4,9 @@
 
 - every images/<id>.jpg has images/<id>.json with the required fields, and vice versa
 - images are square 1024 x 1024 JPEG, at most 1.5 MB, license CC0-1.0; keywords per language are lists
-- every routine step points to an existing image or to null (empty placeholder)
+- "theme" is a picture theme (THEMES in tools/build.py); a variant ("variant_of") points to an image that is
+  no variant, has another theme, no keywords or label (they stay with the image), one variant per theme
+- every routine step points to an existing image that is no variant, or to null (empty placeholder)
 """
 import json
 import sys
@@ -15,6 +17,7 @@ from PIL import Image
 ROOT = Path(__file__).resolve().parent.parent
 REQUIRED = {"id", "title", "model", "prompt", "edits", "contributor", "license", "copyright_check"}
 MAX_BYTES = 1_500_000
+THEMES = ("bear", "plain")   # as in tools/build.py
 
 
 def main():
@@ -29,6 +32,7 @@ def main():
     for other in sorted(p.name for p in images.iterdir() if p.suffix not in {".jpg", ".json", ".md"}):
         errors.append(f"images/{other}: only .jpg images with a .json file are allowed")
 
+    all_meta = {}
     for id_ in sorted(jpgs & metas):
         jpg, meta_path = images / f"{id_}.jpg", images / f"{id_}.json"
         try:
@@ -36,6 +40,7 @@ def main():
         except json.JSONDecodeError as e:
             errors.append(f"{meta_path.name}: invalid JSON ({e})")
             continue
+        all_meta[id_] = meta
         missing = REQUIRED - meta.keys()
         if missing:
             errors.append(f"{meta_path.name}: missing fields {sorted(missing)}")
@@ -56,6 +61,24 @@ def main():
         with Image.open(jpg) as im:
             if im.format != "JPEG" or im.size != (1024, 1024):
                 errors.append(f"{jpg.name}: must be a 1024 x 1024 JPEG, is {im.format} {im.size}")
+        if "theme" in meta and meta["theme"] not in THEMES:
+            errors.append(f"{meta_path.name}: theme must be one of {list(THEMES)}")
+
+    variants = {}
+    for id_, meta in all_meta.items():
+        base = meta.get("variant_of")
+        if base is None:
+            continue
+        if base not in all_meta or "variant_of" in all_meta[base]:
+            errors.append(f"images/{id_}.json: variant_of must name an image that is no variant")
+        elif not meta.get("theme") or meta.get("theme") == all_meta[base].get("theme"):
+            errors.append(f"images/{id_}.json: a variant needs a theme other than its image's")
+        elif (base, meta["theme"]) in variants:
+            errors.append(f"images/{id_}.json: {base} already has a {meta['theme']} variant ({variants[base, meta['theme']]})")
+        else:
+            variants[base, meta["theme"]] = id_
+        if meta.get("keywords") or meta.get("label"):
+            errors.append(f"images/{id_}.json: a variant has no keywords or label; they stay in images/{base}.json")
 
     for path in sorted((ROOT / "routines").glob("*/*.json")):
         rel = path.relative_to(ROOT)
@@ -74,6 +97,8 @@ def main():
                 image = step.get("image")
                 if image is not None and image not in jpgs:
                     errors.append(f"{rel}: sheet {s} step {i} uses missing image {image!r}")
+                elif image is not None and "variant_of" in all_meta.get(image, {}):
+                    errors.append(f"{rel}: sheet {s} step {i} uses a variant; name its image {all_meta[image]['variant_of']!r}")
                 if not str(step.get("label", "")).strip():
                     errors.append(f"{rel}: sheet {s} step {i} has no label")
 

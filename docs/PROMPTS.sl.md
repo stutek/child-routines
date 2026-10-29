@@ -20,12 +20,12 @@ Vsaka slika rutine je kvadratna ilustracija 1 : 1, ustvarjena z modelom za slike
 - **Pokaži dejanje, ne rezultata.** »Pripravi mizo« so ročice, ki polagajo pribor ob prazen krožnik, ne krožnik s hrano (to bi bila večerja).
 - **Bogato, a berljivo.** Resničen prostor z nekaj domačimi podrobnostmi, nikoli prazen; pri 4 cm glavni motiv zapolni večino slike, ozadje ostane mirno (največ 3 do 4 podrobnosti). Nikjer črk ali številk, tudi ne na igračah ali urah.
 - **Koraki naj se ločijo.** »Pospravi mizo« ne sme kazati korita s pipo, ker to že kaže »umij roke«. Zaprte oči ima le slika spanja; ob prebujanju so oči široko odprte.
-- **Kdo opravi dejanje (začasno, do odziva bete).** Korak kaže dejanje, ki ga opravi eden od treh:
-  - otrokove roke v pogledu z otrokovimi očmi, od spodnjega roba, kjer otrok svoje dejanje vidi sam (umij roke, pripravi in pospravi mizo, pižama, oblačenje, žlica k ustom); nikoli roke brez telesa od drugod;
-  - medvedek, kjer dejanja z otrokovih oči ni videti (vstajanje, zobki, postiljanje, pospravljanje igrač, obuvanje pri vratih, spanje);
-  - le prostor ali predmeti pri zasebnih ali odraslih korakih (stranišče, kopel, zdravila in nega).
-- **Blago se podreja teži.** Oblačila, odeje in brisače visijo, se gubijo in polegajo; nikoli ne stojijo toge kot deska. Otrok ne nosi že tega, kar si oblači.
-- **Isti svet.** Kopanje in zobki so v isti kopalnici kot stranišče; isti medvedek se zbuja, pospravlja posteljo, pospravlja igrače in spi. Progasto čepico nosi le ob spanju (dobro jutro, pospravi posteljo, spanje); drugod je brez nje. Popravek skupnega prostora (ploščice na obeh stenah) gre v vse slike tega prostora: primerjaj jih drugo ob drugi.
+- **Dve temi sličic.** Starš izbere eno za ves list: medvedek (`"theme": "bear"`, privzeto) ali brez lika (`"plain"`). Slika koraka ima eno temo in ima lahko različico v drugi (`"variant_of"`, brez lastnih ključnih besed in napisa); brez različice list pokaže sliko, ki jo ima.
+  - Medvedek: korak opravi isti medvedek (tudi stranišče in kopel).
+  - Brez lika: otrokove roke v pogledu z otrokovimi očmi, od spodnjega roba, kjer otrok svoje dejanje vidi sam (umij roke, pripravi in pospravi mizo, pižama, oblačenje, žlica k ustom, čevlji, krpica, krtača, odeja, igrače v skrinjo); nikoli roke brez telesa od drugod. Sicer le prostor ali predmeti (stranišče, kopel; spanje: postelja ponoči; dobro jutro: postelja v jutranjem soncu). Objem obdrži medvedka, dokler objem brez lika ni jasno berljiv.
+  - Zdravila in nega kažejo v obeh temah le predmete: zdravilo daje odrasel.
+- **Blago se podreja teži.** Oblačila, odeje in brisače visijo, se gubijo in polegajo; nikoli ne stojijo toge kot deska. Otrok ne nosi že tega, kar si oblači. Oblačila sama ne delajo: pokončna majica z dolgimi rokavi in prazno odprtino za vrat se bere kot človek brez glave, ne kot objem; namesto tega pokaži ljudi (obraze zunaj okvirja) ali medvedka.
+- **Isti svet.** Kopanje in zobki so v isti kopalnici kot stranišče; isti medvedek se zbuja, pospravlja posteljo, pospravlja igrače in spi. Progasto čepico nosi le ob spanju (dobro jutro, pospravi posteljo, spanje); drugod je brez nje. Obraz je povsod enak: majhne črne okrogle oči kot gumbki brez beline, majhen črn nos, blag nasmeh. Popravek skupnega prostora (ploščice na obeh stenah) gre v vse slike tega prostora: primerjaj jih drugo ob drugi.
 - **Pokaži dobre navade.** Slike kažejo varno, zdravo vedenje, nikoli slabega zgleda: sedež je daleč od zaslona, nikoli tik ob njem.
 - **Brez lažnih obljub.** Ne kaži hrane, ki je otrok ne bo dobil (palačinke za zajtrk doma, ko je zajtrk v vrtcu).
 - **Pred uporabo preveri** kontrast (glej AGENTS.sl.md) in avtorstvo na surovi in končni datoteki (`.agents/skills/copyright-check/`).

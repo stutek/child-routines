@@ -1,6 +1,6 @@
 {
   "id": "good-morning",
-  "title": "Teddy bear waking up in bed, eyes wide open, stretching in the morning sun",
+  "title": "Teddy bear in a striped nightcap sitting up in its wooden bed and stretching both paws up in the morning",
   "label": {
     "sl": "DOBRO JUTRO",
     "en": "GOOD MORNING"
@@ -24,23 +24,22 @@
       "morning"
     ]
   },
-  "model": "Google Gemini image generation (via Antigravity CLI)",
-  "prompt": "Soft watercolor and gouache children's picture-book illustration, delicate colored-pencil outlines, warm cream paper texture, gentle pastel palette. The scene is set in a real, cozy room of a family home with a floor, walls and a few homely details (plants, a small shelf), like a warm picture-book interior. Clear contrast and rich, saturated colors with defined darker outlines and shadows, not pale or washed out. No clouds, nothing floating. Cute and friendly, for a 4-year-old. Gender-neutral. Everything painted in one consistent watercolor style, no flat vector shapes, no text, no letters, no logos, no brands, no flags, no recognizable existing characters; every character is original. Square 1:1 composition, main subject large and centered, readable at 4 cm size. The same teddy bear, just woken up, SITTING UP in its small wooden bed under the patchwork quilt and stretching happily with both arms raised above its head, a big smile, its eyes WIDE OPEN, round and bright (NOT closed, NOT squinting; take only the bear's look from the reference, not its closed eyes). A cozy child's bedroom in the morning: bright warm sunshine streaming through a window, a small rug.",
+  "theme": "bear",
+  "model": "Google Gemini image generation (via Antigravity CLI, image-generator subagent)",
+  "prompt": "Soft watercolor and gouache children's picture-book illustration, delicate colored-pencil outlines, warm cream paper texture, gentle pastel palette. The scene is set in a real, cozy room of a family home with a floor, walls and a few homely details (plants, a small shelf), like a warm picture-book interior. Clear contrast and rich, saturated colors with defined darker outlines and shadows, not pale or washed out. No clouds, nothing floating. Cute and friendly, for a 4-year-old. Gender-neutral. Everything painted in one consistent watercolor style, no flat vector shapes, no text, no letters, no logos, no brands, no flags, no recognizable existing characters; every character is original. Square 1:1 composition, main subject large and centered, readable at 4 cm size. The same cute brown teddy bear as the BEAR reference, wearing the same blue-and-white striped nightcap, has just woken up: it SITS UP in its small wooden bed with the heart cut-out on the footboard, under the patchwork quilt, the white pillow behind it, and stretches happily with both paws raised above its head. Its face is exactly the face of the BEAR reference: small solid black round button eyes, OPEN, with NO white of the eye, no big cartoon eyes, no eyelashes, not closed, not squinting; a small black nose and a gentle smiling mouth. A cozy child's bedroom in the morning: bright warm sunshine through a window with a curtain, a small rug on wooden floorboards, a plant. No light rays, no people, no hands.",
   "reference_images": [
-    "images/sleep.jpg (commit 65555ab), for the look of the bear, nightcap, bed and quilt"
+    "images/make-bed.jpg (commit 078700e)",
+    "images/sleep.jpg (commit 2824e41)",
+    "images/tidy-toys.jpg (commit 1649f64)"
   ],
   "edits": [
-    "contrast raised with tools/enhance.py",
-    "softened to match the other images: gamma 0.8, contrast x0.9",
-    "cropped to remove the painted paper border (184, 172, 848, 836) and resized to 1024 x 1024",
-    "brightened and desaturated after the crop, like sleep: gamma 0.7, color x0.88",
-    "eyes corrected (2026-10-30): the final file above was regenerated once more by Google Gemini image generation (via Antigravity CLI), with the final file itself as the only reference image (images/good-morning.jpg, commit 43785f7), 1:1, prompt exactly: \"Keep this image EXACTLY the same (same composition, pose, bear, nightcap, bed, quilt, window, plant, shelf, colors, watercolor and gouache style, outlines, lighting), the painting fills the whole square canvas edge to edge with no paper border. Change ONLY the bear's eyes: both eyes identical in size and shape (match the larger left eye on the image), perfectly round, wide open, bright, with the pupils looking straight at the viewer, and add the missing eyebrow above the other eye, matching the existing eyebrow in shape and color. No text, no letters, no new objects.\". The result is used as it is, only saved as JPEG quality 92 (it is derived from the already processed file; enhancing again would overdo the colors)"
+    "cropped (20, 30, 920, 930): less empty floor, larger bear, and scaled to 1024 x 1024; no tools/enhance.py: brightness and saturation already match make-bed (references were enhanced)"
   ],
   "contributor": "maintainer",
   "license": "CC0-1.0",
   "copyright_check": {
     "date": "2026-10-30",
-    "method": "Google Lens, Exact matches on the regenerated file and on crops (bear, window with plant, quilt); Visual matches on the file and the crops. Vision Web Detection not run: no key locally",
-    "result": "no exact matches; visual matches show other teddy bears in beds and common spider-plant drawings, none with the same composition"
+    "method": "Google Lens, Exact matches on the raw and final file and on crops (head, sun drawing, quilt, plant); Visual matches on the final file and the crops. Vision Web Detection not run: no key locally",
+    "result": "no exact matches; visual matches show other teddy bears in beds, sunflowers, patchwork quilts and potted plants, no same composition"
   }
 }

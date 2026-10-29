@@ -279,22 +279,29 @@ def main():
             bad = [k for k, v in json.loads(got).items() if not v]
             if bad:
                 errors.append(f"too-long label checks failed: {bad}")
-            # the form shows the state a link carries: type (sky), background, time checkbox; also after a reload
-            raw = json.dumps({"l": "sl", "b": "white", "t": 0, "s": "dawn", "h": "JUTRO", "r": [["UMIJ ZOBE", "", ""]]})
+            # the form shows the state a link carries: type (sky), background, picture theme (shown once an image has
+            # a variant), time checkbox; also after a reload. Every picture on the sheet is in the theme or has no variant in it.
+            raw = json.dumps({"l": "sl", "b": "white", "t": 0, "p": "plain", "s": "dawn", "h": "JUTRO", "r": [["UMIJ ZOBE", "", ""], ["POSPRAVI POSTELJO", "", ""]]})
             frag = base64.urlsafe_b64encode(raw.encode()).decode().rstrip("=")
             cdp.call("Page.navigate", url="about:blank")
             cdp.wait(0.5)
             cdp.call("Page.navigate", url=PAGE + "#" + frag)
             cdp.wait(2)
             form_state = """JSON.stringify([...document.querySelectorAll('#maker select')].map(s => s.value).concat([document.querySelector('#maker input[type=checkbox]').checked]))"""
+            themed = cdp.call("Runtime.evaluate", expression="Object.values(SHEET_DATA.images).some(i => i.variant_of)", returnByValue=True)["result"]["value"]
+            in_theme = """(() => { const I = SHEET_DATA.images;
+              return [...document.querySelectorAll('#sheets img[src*="/images/"]')].map(i => i.getAttribute('src').match(/images\\/([^/]+)\\.jpg/)[1])
+                .every(id => I[id].theme === 'plain' || !Object.values(I).some(v => v.variant_of === id && v.theme === 'plain')); })()"""
             for how in ("link", "reload"):
                 if how == "reload":
                     cdp.call("Page.reload")
                     cdp.wait(2)
                 got = json.loads(cdp.call("Runtime.evaluate", expression=form_state, returnByValue=True)["result"]["value"])
                 print(f"form after {how}: {got}")
-                if got != ["sl", "dawn", "white", False]:
-                    errors.append(f"form after {how} does not show the sheet (language, type, background, time): {got}")
+                if got != ["sl", "dawn", "white"] + (["plain"] if themed else []) + [False]:
+                    errors.append(f"form after {how} does not show the sheet (language, type, background, theme, time): {got}")
+                if not cdp.call("Runtime.evaluate", expression=in_theme, returnByValue=True)["result"]["value"]:
+                    errors.append(f"sheet after {how} shows a picture outside the theme though a variant exists")
             cdp.call("Page.navigate", url="about:blank")
             cdp.wait(0.5)
             cdp.call("Page.navigate", url=PAGE + "#abc")

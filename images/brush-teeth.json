@@ -1,6 +1,6 @@
 {
   "id": "brush-teeth",
-  "title": "Tooth character brushing at the bathroom sink",
+  "title": "Teddy bear behind the bathroom sink, seen from the front, brushing its teeth",
   "label": {
     "sl": "UMIJ ZOBKE",
     "en": "BRUSH TEETH"
@@ -18,19 +18,22 @@
       "brush your teeth"
     ]
   },
-  "model": "Google Gemini image generation (via Antigravity CLI)",
-  "prompt": "Recreate this exact children's picture-book illustration in the same soft watercolor and gouache style, same cozy mint bathroom, same composition, camera angle, colors, and warm lighting. In the center, the same friendly anthropomorphic white tooth character with cute black eyes, smiling mouth, rosy pink cheeks, and little arms, brushing with a toothbrush surrounded by fluffy white toothpaste foam bubbles. On the right, the wooden vanity counter with a white sink basin, a ceramic patterned cup with toothbrushes, and above on the right wall, a small wooden shelf with a potted succulent and hanging blue towel. On the left, the window with white sheer curtain, the framed botanical picture on the wall, the patterned rug on the floor, and a small potted plant/vase near the floor. The only change: the wall on the left has the same tiling as the wall on the right—several rows of the same square light-mint tiles extending from the floor/baseboard up to the exact same wainscot height, rather than a single row of tiles. Consistent square mint tile grid on both walls up to the wainscot line. No floating objects. No people. No text, no letters, no logos. Square 1:1.",
+  "theme": "bear",
+  "model": "Google Gemini image generation (via Antigravity CLI, image-generator subagent)",
+  "prompt": "Soft watercolor and gouache children's picture-book illustration, delicate colored-pencil outlines, warm cream paper texture, gentle pastel palette. The scene is set in a real, cozy room of a family home with a floor, walls and a few homely details (plants, a small shelf), like a warm picture-book interior. Clear contrast and rich, saturated colors with defined darker outlines and shadows, not pale or washed out. No clouds, nothing floating. Cute and friendly, for a 4-year-old. Gender-neutral. Everything painted in one consistent watercolor style, no flat vector shapes, no text, no letters, no logos, no brands, no flags, no recognizable existing characters; every character is original. Square 1:1 composition, main subject large and centered, readable at 4 cm size. Seen from the FRONT, straight across the bathroom sink, like a mirror view: the same cute brown teddy bear as the BEAR reference, WITHOUT a nightcap, with small solid black round button eyes (no white of the eye) and a happy smile, stands BEHIND the wooden counter facing the viewer; only its upper body shows above the counter, its belly hidden behind the white sink. With one paw it holds a small child's toothbrush with a colorful handle in its open smiling mouth, a little white foam at its lips; its other paw rests on the edge of the counter. Exactly two arms. In front on the counter: the white sink with a tap, a cup with toothbrushes, a small plant. Behind the bear: the same mint bathroom wall with square mint tiles as the BATHROOM reference. NOT seen from the side, NO step stool, no stool, no pedestal sink, no mirror, no people, no hands, no tooth character.",
   "reference_images": [
-    "images/brush-teeth.jpg (commit 65555ab, the same picture with a single row of tiles on the left wall; recreated with matching tiles)"
+    "images/make-bed.jpg (commit 078700e)",
+    "images/brush-teeth-plain.jpg (added in the same commit)"
   ],
   "edits": [
-    "contrast raised once with the values of tools/enhance.py"
+    "cream paper border cropped away (46, 40, 981, 975)",
+    "contrast raised once with tools/enhance.py (scaled to 1024 x 1024)"
   ],
   "contributor": "maintainer",
   "license": "CC0-1.0",
   "copyright_check": {
-    "date": "2026-10-23",
-    "method": "Google Lens, Exact and Visual matches tabs, raw and final file",
-    "result": "no exact matches; visual matches show many other tooth characters with a toothbrush (common motif), none with the same composition"
+    "date": "2026-10-30",
+    "method": "Google Lens, Exact matches on the raw and final file and on crops (face with toothbrush, cup); Visual matches on the final file and the crops. Vision Web Detection not run: no key locally",
+    "result": "no exact matches; visual matches show other bears brushing teeth, two of them also seen from the front behind a sink (a Facebook picture on a white background, a line-art colouring page), with other poses and drawing, no same composition. An earlier bear on a step stool was rejected: docs/copyright-investigations/2026-10-30-brush-teeth-bear-etsy-ezcreativeco.md"
   }
 }

@@ -15,7 +15,7 @@ Vsaka slika rutine je kvadratna ilustracija 1 : 1, ustvarjena z modelom za slike
 ## Pravila iz izkušenj
 
 - **Ustvarjaj, ne sestavljaj.** Če model ne uspe (kvota, napaka), se ustavi. Slike ne ponarejaj s Pythonom z lepljenjem ploskih oblik; taki rezultati so bili vsi zavrnjeni.
-- **Ne zahtevaj drže, ki je kopija.** Zobek, ki drži ščetko nad glavo, s peno na vrhu, je bil skoraj enak obstoječemu klipartu (Pngtree 2020, Pikbest 2019) in je odstranjen.
+- **Ne zahtevaj drže, ki je kopija.** Zobek, ki drži ščetko nad glavo, s peno na vrhu, je bil skoraj enak obstoječemu klipartu (Pngtree 2020, Pikbest 2019) in je odstranjen. Prav tako se je medvedek na stopnički pri umivalniku s ščetko pri ustih ujemal s kompletom slik na Etsyju: medvedka, ki umiva zobke, pokaži od spredaj, čez umivalnik.
 - **Največ 3 referenčne slike na sliko.** Orodje za slike v Antigravityju četrto zavrne, njegov podagent pa nato eno izpusti po svoji presoji in poskusi znova. Navedi največ 3, najpomembnejšo prvo, reference za `.json` pa vzemi iz klica, ki je sliko ustvaril, ne iz agentovega povzetka. V načinu brez vprašanj branje, ki ni dovoljeno, konča delo brez slike, zato navodilo pove, naj agent ne bere drugih datotek kot referenc.
 - **Pokaži dejanje, ne rezultata.** »Pripravi mizo« so ročice, ki polagajo pribor ob prazen krožnik, ne krožnik s hrano (to bi bila večerja).
 - **Bogato, a berljivo.** Resničen prostor z nekaj domačimi podrobnostmi, nikoli prazen; pri 4 cm glavni motiv zapolni večino slike, ozadje ostane mirno (največ 3 do 4 podrobnosti). Nikjer črk ali številk, tudi ne na igračah ali urah.

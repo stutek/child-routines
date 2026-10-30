@@ -1,0 +1,22 @@
+{
+  "id": "brush-teeth-plain",
+  "title": "A child's own hand holding a toothbrush with toothpaste in the mint bathroom, seen through the child's eyes",
+  "variant_of": "brush-teeth",
+  "theme": "plain",
+  "model": "Google Gemini image generation (via Antigravity CLI, image-generator subagent)",
+  "prompt": "Soft watercolor and gouache children's picture-book illustration, delicate colored-pencil outlines, warm cream paper texture, gentle pastel palette. The scene is set in a real, cozy room of a family home with a floor, walls and a few homely details (plants, a small shelf), like a warm picture-book interior. Clear contrast and rich, saturated colors with defined darker outlines and shadows, not pale or washed out. No clouds, nothing floating. Cute and friendly, for a 4-year-old. Gender-neutral. Everything painted in one consistent watercolor style, no flat vector shapes, no text, no letters, no logos, no brands, no flags, no recognizable existing characters; every character is original. Square 1:1 composition, main subject large and centered, readable at 4 cm size. Through the child's own eyes (first-person view, like the CHILD'S-EYE VIEW reference): exactly ONE small child hand with a bare forearm enters from the bottom edge of the picture and holds a small child's toothbrush with a colorful handle upright, bristles up, with a small pea-sized blob of white toothpaste on the bristles, ready to brush. The hand has exactly five fingers wrapped around the handle and belongs to the child looking at the scene; no other hand, no arm from any other side. In front, the same cozy mint bathroom as the BATHROOM reference: square mint tiles, a wooden counter with a white sink, a cup with toothbrushes, a small plant. The toothbrush with the toothpaste is the clear main subject, large and close. No face, no mirror, no people, no bear, no characters, no tooth character, no running water.",
+  "reference_images": [
+    "images/wash-hands.jpg (commit 2824e41)",
+    "a rejected teddy-bear candidate for brush-teeth, used for its mint bathroom only (never committed; SHA-256 e235900e43752eb594f63d5a6594b5ebd5f3a69716ee347b8f118b22f65f0528; docs/copyright-investigations/2026-10-30-brush-teeth-bear-etsy-ezcreativeco.md: the bear's pose matched, not the room)"
+  ],
+  "edits": [
+    "contrast raised once with tools/enhance.py"
+  ],
+  "contributor": "maintainer",
+  "license": "CC0-1.0",
+  "copyright_check": {
+    "date": "2026-10-30",
+    "method": "Google Lens, Exact matches on the raw and final file and on crops (hand with toothbrush, cup); Visual matches on the final file and the crops. Vision Web Detection not run: no key locally",
+    "result": "no exact matches; visual matches show other toothbrushes and children brushing, no same composition"
+  }
+}

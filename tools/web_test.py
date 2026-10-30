@@ -302,6 +302,61 @@ def main():
                     errors.append(f"form after {how} does not show the sheet (language, type, background, theme, time): {got}")
                 if not cdp.call("Runtime.evaluate", expression=in_theme, returnByValue=True)["result"]["value"]:
                     errors.append(f"sheet after {how} shows a picture outside the theme though a variant exists")
+            # image group: "all" (the default, also for a link without one) keeps a hand-picked variant; the bear group
+            # shows the bear picture of the same step
+            variant = cdp.call("Runtime.evaluate", expression="""(() => { const I = SHEET_DATA.images;
+              const v = Object.keys(I).find(id => I[id].variant_of && I[id].theme === 'plain' && I[I[id].variant_of].theme === 'bear');
+              return v ? [v, I[v].variant_of] : null; })()""", returnByValue=True)["result"]["value"]
+            if variant:
+                for group, want in ((None, ["all", variant[0]]), ("bear", ["bear", variant[1]])):
+                    raw = {"l": "sl", "b": "white", "t": 0, "s": "dawn", "h": "JUTRO", "r": [["KORAK", "", variant[0]]]}
+                    if group:
+                        raw["p"] = group
+                    frag = base64.urlsafe_b64encode(json.dumps(raw).encode()).decode().rstrip("=")
+                    cdp.call("Page.navigate", url="about:blank")
+                    cdp.wait(0.5)
+                    cdp.call("Page.navigate", url=PAGE + "#" + frag)
+                    cdp.wait(2)
+                    got = cdp.call("Runtime.evaluate", expression="""JSON.stringify([document.querySelectorAll('#maker select')[3].value,
+                      document.querySelector('#sheets img[src*="/images/"]').getAttribute('src').match(/images\\/([^/]+)\\.jpg/)[1]])""",
+                      returnByValue=True)["result"]["value"]
+                    print(f"image group {group or 'default'}: {got}")
+                    if json.loads(got) != want:
+                        errors.append(f"image group {group or 'default'} shows {got}, expected {want}")
+                # changing the image group refills an open gallery in place: it stays open, focus and scroll stay
+                cdp.call("Page.navigate", url="about:blank")
+                cdp.wait(0.5)
+                cdp.call("Page.navigate", url=PAGE)
+                cdp.wait(2)
+                got = cdp.call("Runtime.evaluate", expression="""(() => {
+                  const thumb = document.querySelector('.step .thumb'), gal = thumb.parentElement.nextElementSibling.nextElementSibling;
+                  thumb.click(); window.scrollTo(0, 200);
+                  const sel = document.querySelectorAll('#maker select')[3], y = scrollY, before = gal.querySelectorAll('img').length;
+                  sel.focus({ preventScroll: true }); sel.value = sel.value === 'all' ? 'bear' : 'all'; sel.dispatchEvent(new Event('change'));
+                  return JSON.stringify({ open: !gal.hidden && thumb.getAttribute('aria-expanded') === 'true',
+                    refilled: gal.querySelectorAll('img').length !== before, focus: document.activeElement === sel, scroll: scrollY === y }); })()""",
+                    returnByValue=True)["result"]["value"]
+                print(f"image group change, gallery: {got}")
+                bad = [k for k, v in json.loads(got).items() if not v]
+                if bad:
+                    errors.append(f"image group change: gallery checks failed: {bad}")
+            # a select opened and closed with the mouse keeps no focus ring; the keyboard brings it back (WCAG 2.2, 2.4.7)
+            ev = lambda e: cdp.call("Runtime.evaluate", expression=e, returnByValue=True)["result"].get("value")
+            sel = "document.querySelectorAll('#maker select')[1]"
+            ev(f"{sel}.scrollIntoView({{ block: 'center' }})")
+            x, y = json.loads(ev(f"JSON.stringify((r => [r.x + r.width / 2, r.y + r.height / 2])({sel}.getBoundingClientRect()))"))
+            for _ in range(2):
+                for kind in ("mousePressed", "mouseReleased"):
+                    cdp.call("Input.dispatchMouseEvent", type=kind, x=x, y=y, button="left", clickCount=1)
+                cdp.wait(0.4)
+            mouse = ev(f"document.activeElement === {sel} && getComputedStyle({sel}).outlineStyle")
+            for kind in ("rawKeyDown", "keyUp"):
+                cdp.call("Input.dispatchKeyEvent", type=kind, key="Tab", code="Tab", windowsVirtualKeyCode=9)
+            cdp.wait(0.3)
+            keyboard = ev("getComputedStyle(document.activeElement).outlineStyle")
+            print(f"select focus ring: after mouse {mouse}, after Tab {keyboard}")
+            if mouse != "none" or keyboard != "solid":
+                errors.append(f"select focus ring: after mouse {mouse} (want none), after Tab {keyboard} (want solid)")
             cdp.call("Page.navigate", url="about:blank")
             cdp.wait(0.5)
             cdp.call("Page.navigate", url=PAGE + "#abc")

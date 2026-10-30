@@ -19,16 +19,22 @@ from PIL import Image
 ROOT = Path(__file__).resolve().parent.parent
 IMAGES = {m["id"]: m for m in (json.loads(p.read_text(encoding="utf-8")) for p in sorted((ROOT / "images").glob("*.json")))}
 
-# picture themes a parent picks for a whole sheet, the default first: the teddy bear does the steps, or no
-# character (the child's hands, the room); images/<id>.json "theme", a variant names its image in "variant_of"
+# picture themes a parent can pick for a whole sheet: the teddy bear does the steps, or no character (the child's
+# hands, the room); images/<id>.json "theme", a variant names its image in "variant_of". The default image group,
+# ALL, is no theme: every step keeps its own picture.
 THEMES = ("bear", "plain")
+ALL = "all"
 
 
 def themed(image, theme):
-    """The picture of a step in the sheet's theme: the image's variant in that theme, else the image itself."""
-    if not image or IMAGES[image].get("theme") == theme:
+    """The picture of a step in the sheet's image group: as chosen for ALL; for a theme the picture's variant in that
+    theme, else the picture itself. Same as themed() in children/app.js."""
+    if not image or theme == ALL or IMAGES[image].get("theme") == theme:
         return image
-    return next((v for v, m in IMAGES.items() if m.get("variant_of") == image and m.get("theme") == theme), image)
+    base = IMAGES[image].get("variant_of", image)
+    if IMAGES[base].get("theme") == theme:
+        return base
+    return next((v for v, m in IMAGES.items() if m.get("variant_of") == base and m.get("theme") == theme), image)
 
 SKIES = {
     "dawn": "#FFB45E 0%, #FFCF9A 12%, #FFE9A8 25%, #FFF1C1 38%, #FFEAC9 58%, #FFF4D6 78%, #DDF3E4 100%",
@@ -211,7 +217,7 @@ def sheet_html(sheet, lang="sl"):
     rows = []
     for i, step in enumerate(sheet["steps"], 1):
         side = "left" if i % 2 else "right"
-        image = themed(step.get("image"), sheet.get("theme", THEMES[0]))
+        image = themed(step.get("image"), sheet.get("theme", ALL))
         bg = edge_color(image, side) if image else MISSING_BG
         style = f"--step: {step['color']}; --bg: {bg}; --ink: {label_color(step['color'], bg)};"
         picture = (f'<img src="../images/{escape(image)}.jpg" alt="{escape(step["label"].capitalize())}" />'

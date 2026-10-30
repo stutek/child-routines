@@ -62,6 +62,9 @@
     .skip { position: fixed; left: 8px; top: -100px; z-index: 20; padding: 8px 14px; border-radius: 10px; background: #0F766E; color: #fff; font-weight: 700; text-decoration: none; }
     .skip:focus { top: 8px; outline: 3px solid #0F172A; outline-offset: 2px; }
     .maker :focus-visible { outline: 3px solid #0F766E; outline-offset: 2px; }
+    /* Chrome counts a select clicked with the mouse as :focus-visible, so the ring stayed after the click;
+       the ring is for keyboard users (WCAG 2.2, 2.4.7), a text field keeps it to show where typing goes */
+    html[data-pointer] .maker select:focus-visible { outline: none; }
     .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
     /* always visible, plain text; the symbol is decoration */
     .maker .warn { font-size: 14px; color: #44403C; line-height: 1.4; }

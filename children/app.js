@@ -27,7 +27,7 @@ const T = {
     example: "Naloži primer", replaced: "Primer je zamenjal tvoj list.", stepRemoved: "Korak je odstranjen.", skip: "Preskoči na obrazec", previewName: "Predogled lista", linkReplaced: "Povezava je zamenjala tvoj list.", copy: "Deli povezavo", copied: "Povezava je kopirana.", linkHint: "Kdor ima povezavo, vidi list.", undo: "Razveljavi", undone: "Tvoj list je vrnjen.", print: "Natisni",
     type: "Tip rutine", sheetTitle: "Naslov lista", skies: { dawn: "jutro", afternoon: "dan", night: "večer" },
     times: "Ura na listu", background: "Ozadje", backgrounds: { gradient: "barvno", white: "belo", none: "brez (manj črnila)" },
-    pictures: "Sličice", themes: { bear: "medvedek", plain: "brez lika" },
+    pictures: "Skupina slik", themes: { all: "vse slike", bear: "medvedek", plain: "brez lika" },
     label: "Korak", labelHint: "npr. UMIJ ZOBKE", language: "Jezik", moved: n => `Premaknjeno na mesto ${n}`, picture: "Sličica", time: "Ura", auto: "Samodejno", none: "Brez sličice", pick: "Zamenjaj sličico", removeStep: "Izprazni vrstico", move: "Premakni korak", moveHint: "Povleci ali tapni tu, nato tapni novo mesto. S tipkovnico: puščici gor in dol.", moveDesc: "Alt in puščica gor ali dol premakne korak. Dotik ročaja in nato ročaja druge vrstice zamenja mesti.",
     warnNoMatch: (s, l) => `${s}: za »${l}« ni sličice. Klikni »?« in izberi sličico ali »Brez sličice«.`,
     warnMismatch: (s, l) => `${s}: sličica se morda ne ujema z napisom »${l}«.`,
@@ -41,7 +41,7 @@ const T = {
     example: "Load example", replaced: "The example replaced your sheet.", stepRemoved: "Step removed.", skip: "Skip to the form", previewName: "Sheet preview", linkReplaced: "The link replaced your sheet.", copy: "Share link", copied: "Link copied.", linkHint: "Anyone with the link can see the sheet.", undo: "Undo", undone: "Your sheet is back.", print: "Print",
     type: "Routine type", sheetTitle: "Sheet title", skies: { dawn: "morning", afternoon: "day", night: "evening" },
     times: "Time on the sheet", background: "Background", backgrounds: { gradient: "color", white: "white", none: "none (less ink)" },
-    pictures: "Pictures", themes: { bear: "teddy bear", plain: "no character" },
+    pictures: "Image group", themes: { all: "all pictures", bear: "teddy bear", plain: "no character" },
     label: "Step", labelHint: "e.g. BRUSH TEETH", language: "Language", moved: n => `Moved to place ${n}`, picture: "Picture", time: "Time", auto: "Automatic", none: "No picture", pick: "Change picture", removeStep: "Clear row", move: "Move step", moveHint: "Drag, or tap here and then tap the new place. Keyboard: up and down arrows.", moveDesc: "Alt and the up or down arrow move the step. Tap the handle, then another row's handle, to swap them.",
     warnNoMatch: (s, l) => `${s}: no picture for “${l}”. Click “?” and pick a picture or “No picture”.`,
     warnMismatch: (s, l) => `${s}: the picture may not match the label “${l}”.`,
@@ -76,11 +76,14 @@ function match(label, only) {
   return best;
 }
 
-// the picture of a step in the sheet's theme: the image's variant in that theme (images/<id>.json "variant_of"),
-// else the image itself; same as themed() in tools/build.py
+// the picture of a step in the sheet's image group: "all" keeps the picture as chosen; a theme takes the picture's
+// variant in that theme (images/<id>.json "variant_of"), else the picture itself; same as themed() in tools/build.py
+const ALL = "all";
 function themed(id, theme) {
-  if (!id || D.images[id].theme === theme) return id;
-  return Object.keys(D.images).find(v => D.images[v].variant_of === id && D.images[v].theme === theme) || id;
+  if (!id || theme === ALL || D.images[id].theme === theme) return id;
+  const base = D.images[id].variant_of || id;
+  if (D.images[base].theme === theme) return base;
+  return Object.keys(D.images).find(v => D.images[v].variant_of === base && D.images[v].theme === theme) || id;
 }
 // the theme choice shows once an image has a variant; before that it would change nothing
 const THEMED = Object.values(D.images).some(img => img.variant_of);
@@ -170,7 +173,7 @@ function sheetHtml(sheet, lang = "sl") {
   const n = sheet.steps.length, ys = centres(n);
   const rows = sheet.steps.map((step, k) => {
     const i = k + 1, side = i % 2 ? "left" : "right";
-    const pic = themed(step.image, sheet.theme || D.themes[0]);
+    const pic = themed(step.image, sheet.theme || ALL);
     const bg = pic && EDGES[pic] ? EDGES[pic][side === "left" ? 0 : 1] : D.missingBg;
     const style = `--step: ${step.color}; --bg: ${bg}; --ink: ${labelColor(step.color, bg)};`;
     const picture = pic ? `<img src="../images/${esc(pic)}.jpg" alt="${esc(step.label)}" />` : '<div class="rt-missing">?</div>';
@@ -229,7 +232,7 @@ const pad = steps => steps.concat(Array.from({ length: MAX_STEPS }, newStep)).sl
 const exampleSteps = ex => pad(ex.steps.map(st => ({ label: st.label, time: "", image: "auto" })));
 function fromExample(lang, sky = "night", base = {}) {   // the evening routine opens first
   const ex = example(sky, lang);
-  return { lang, background: base.background || "gradient", times: base.times !== false, theme: base.theme || D.themes[0],
+  return { lang, background: base.background || "gradient", times: base.times !== false, theme: base.theme || ALL,
            sheet: { title: bare(ex.title), sky, steps: exampleSteps(ex) } };
 }
 // loading an example would lose what the parent typed: rows with content that are not just an example (any language or type)
@@ -255,15 +258,15 @@ function clean(s) {
   const step = st => ({
     label: tidy(str(st && st.label, 40)),
     time: /^([01]\d|2[0-3]):[0-5]\d$/.test(st && st.time) ? st.time : "",
-    // a step keeps the image, not its variant: the sheet's theme picks the variant
-    image: st && st.image === "none" ? "none" : st && own(D.images, st.image) ? D.images[st.image].variant_of || st.image : "auto",
+    // a step keeps the picture as chosen, a variant too: an image group other than "all" swaps it (themed())
+    image: st && st.image === "none" ? "none" : st && own(D.images, st.image) ? st.image : "auto",
   });
   const sh = s.sheet || (Array.isArray(s.sheets) && s.sheets[0]);   // older versions kept several sheets
   if (!sh) return null;
   const sheet = { title: bare(tidy(str(sh.title, 60))), sky: own(D.skies, sh.sky) ? sh.sky : "night",
                   steps: pad((Array.isArray(sh.steps) ? sh.steps : []).slice(0, MAX_STEPS).map(step)) };
   return { lang: own(T, s.lang) ? s.lang : "sl", background: ["gradient", "white", "none"].includes(s.background) ? s.background : "gradient",
-           times: s.times !== false, theme: D.themes.includes(s.theme) ? s.theme : D.themes[0], sheet };
+           times: s.times !== false, theme: [ALL, ...D.themes].includes(s.theme) ? s.theme : ALL, sheet };
 }
 // first visit: the first of the browser's languages the page has (navigator.languages), else English
 function browserLang() {
@@ -462,7 +465,7 @@ function renderEditor() {
         oninput: e => { sheet.title = typedText(e); update(); } }), "grow")]),
     el("div", { class: "row-top fields" }, [
       field(L.background, select(L.background, state.background, L.backgrounds, v => { state.background = v; update(true); })),
-      ...(THEMED ? [field(L.pictures, select(L.pictures, state.theme, L.themes, v => { state.theme = v; update(true); }))] : []),
+      ...(THEMED ? [field(L.pictures, select(L.pictures, state.theme, L.themes, v => { state.theme = v; sheet.steps.forEach(st => st._gallery()); update(); }))] : []),
       el("label", { class: "grow check" }, [times, L.times]),
       el("button", { class: "secondary", onclick: () => {
         const prev = typed(sheet) && JSON.parse(JSON.stringify(state, (k, v) => (k.startsWith("_") ? undefined : v)));
@@ -491,12 +494,14 @@ function renderEditor() {
       const label = D.images[v] && D.images[v].label;
       if (!step.label.trim() && label) { step.label = label[state.lang] || label.sl || ""; update(true); } else update();
     };
-    gallery.append(
+    // filled in place, also when the image group changes: an open gallery stays open, focus and scroll stay
+    const fillGallery = () => gallery.replaceChildren(
       el("button", { onclick: () => choose("auto") }, `🔄 ${L.auto}`),
-      ...Object.entries(D.images).filter(([, img]) => !img.variant_of).map(([id, img]) =>
+      ...Object.entries(D.images).filter(([, img]) => state.theme === ALL || !img.variant_of).map(([id, img]) =>
         el("button", { title: img.title, "aria-label": (img.label && (img.label[state.lang] || img.label.sl)) || img.title, onclick: () => choose(id) },
           el("img", { src: `../images/${themed(id, state.theme)}.jpg`, alt: "", loading: "lazy" }))),
       el("button", { onclick: () => choose("none") }, `∅ ${L.none}`));
+    fillGallery();
     const grip = el("button", { class: "grip", title: L.moveHint, "aria-label": `${L.move} ${k + 1}`, "aria-describedby": "move-desc", "aria-keyshortcuts": "Alt+ArrowUp Alt+ArrowDown",
       "aria-pressed": picked === k ? "true" : null,   // only in the tap-tap mode; a keyboard user never sees a toggle
       onpointerdown: e => dragRow(e, k, rows), onclick: e => e.preventDefault(),
@@ -521,6 +526,7 @@ function renderEditor() {
     step._hint = el("div", { class: "row-hint", id: `hint-${k}`, hidden: true }, L.tooLong);
     box.append(row, step._hint, gallery);
     step._thumb = thumb;
+    step._gallery = fillGallery;
   });
   // warnings sit above the steps, where the parent looks; the green "all fine" stays below them
   root.append(el("div", { id: "warnings", class: "warnings", role: "status", hidden: true }), box,
@@ -534,6 +540,10 @@ function renderEditor() {
 }
 
 const rowInput = k => document.querySelectorAll("#maker .sheet-box .step:not(.step-head)")[k].querySelector("input:not([type=time])");
+
+// the last input decides the select's focus ring: none after the mouse or a touch, back with the keyboard (index.html)
+addEventListener("pointerdown", () => { document.documentElement.dataset.pointer = ""; }, true);
+addEventListener("keydown", () => { delete document.documentElement.dataset.pointer; }, true);
 
 // skip link: focus the first form field; no hash, the fragment carries the sheet
 document.getElementById("skip").addEventListener("click", e => { e.preventDefault(); document.querySelector("#maker .row-top.fields select").focus(); });

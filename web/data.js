@@ -300,6 +300,13 @@ window.SHEET_DATA = {
    },
    "theme": "bear"
   },
+  "hug-plain": {
+   "title": "A kneeling grown-up in an orange sweater and a small child in teal hugging on a rug beside a glowing lamp in the evening",
+   "label": {},
+   "keywords": {},
+   "theme": "plain",
+   "variant_of": "hug"
+  },
   "hug": {
    "title": "Big brown and small honey-colored teddy bear hugging on a rug beside a glowing lamp in the evening",
    "label": {
@@ -862,6 +869,7 @@ window.SHEET_EDGES = {
   "dinner": ["#E3C7B1", "#E3C6B4"],
   "getting-dressed": ["#F4E0C3", "#FAF1DA"],
   "good-morning": ["#DECCBA", "#F7ECCF"],
+  "hug-plain": ["#DFCEC0", "#D0D0BD"],
   "hug": ["#DACCCA", "#C2CFE5"],
   "kindergarten": ["#E4C8A8", "#D2D3B1"],
   "make-bed": ["#EBD5BB", "#F8EED1"],

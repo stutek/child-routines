@@ -1,0 +1,22 @@
+{
+  "id": "hug-plain",
+  "title": "A kneeling grown-up in an orange sweater and a small child in teal hugging on a rug beside a glowing lamp in the evening",
+  "variant_of": "hug",
+  "theme": "plain",
+  "model": "Google Gemini image generation (via Antigravity CLI, image-generator subagent)",
+  "prompt": "Soft watercolor and gouache children's picture-book illustration, delicate colored-pencil outlines, warm cream paper texture, gentle pastel palette. The scene is set in a real, cozy room of a family home with a floor, walls and a few homely details (plants, a small shelf), like a warm picture-book interior. Clear contrast and rich, saturated colors with defined darker outlines and shadows, not pale or washed out. No clouds, nothing floating. Cute and friendly, for a 4-year-old. Gender-neutral. Everything painted in one consistent watercolor style, no flat vector shapes, no text, no letters, no logos, no brands, no flags, no recognizable existing characters; every character is original. Square 1:1 composition, main subject large and centered, readable at 4 cm size. A grown-up and a small child hug each other warmly and tightly, large and centered: the grown-up kneels on a soft rug so they are at the same height, and both wrap their arms around each other. The grown-up wears a plain long-sleeved top in warm orange, the child a plain long-sleeved top in teal, no prints. Both are original, gender-neutral picture-book people with gentle happy expressions. A cozy living room in the evening: a warm lamp glowing on a small wooden side table, a plant, a soft rug on wooden floorboards, a window with a plain dusky evening sky. Calm, tender, warm mood. No hearts, no other people.",
+  "reference_images": [
+    "images/hug.jpg (commit 85fc151)",
+    "images/wash-hands.jpg (commit 2824e41)"
+  ],
+  "edits": [
+    "cropped (40, 100, 964, 1024): less empty wall and floor, larger hug, and scaled to 1024 x 1024; no tools/enhance.py: brightness and saturation already match the references (references were enhanced)"
+  ],
+  "contributor": "maintainer",
+  "license": "CC0-1.0",
+  "copyright_check": {
+    "date": "2026-10-30",
+    "method": "Google Lens, Exact matches on the raw and final file and on crops (faces, lamp, rug, plant); Visual matches on the final file and the crops. Vision Web Detection not run: no key locally",
+    "result": "no exact matches; visual matches show other parent-and-child hugs (e.g. a kneeling mother hugging a boy, other layout, room and faces), no same composition"
+  }
+}

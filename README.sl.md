@@ -13,7 +13,7 @@ Brezplačno, brez prijave in brez oglasov. Vaši vnosi in podatki ostanejo zgolj
 ## Hitri začetek
 
 1. Odprite [stran za izdelavo lista](https://stutek.github.io/child-routines/). Najlažje gre na računalniku. Stran se odpre s primerom večerne rutine.
-2. Izberite tip rutine in vpišite korake: priporočamo 3 do 8. Sličico zamenjate s klikom nanjo. Naslov in korake spremenite tako, da vpišete svoje besedilo; prazne vrstice so na listu nevidne. Uro vpišite ali izklopite stikalo *Ura na listu*. Vrstni red spremenite tako, da vrstico povlečete za pike.
+2. Izberite tip rutine in vpišite korake: priporočamo 3 do 8. Sličico zamenjate s klikom nanjo. Pri nekaterih korakih *Sličice* izbirajo med medvedkom in sličicami brez njega. Naslov in korake spremenite tako, da vpišete svoje besedilo; prazne vrstice so na listu nevidne. Uro vpišite ali izklopite stikalo *Ura na listu*. Vrstni red spremenite tako, da vrstico povlečete za pike.
 3. Kliknite **Natisni**: A4, robovi *Brez*, merilo 100 %. Za datoteko PDF, ki jo lahko delite, v oknu za tiskanje izberite *Shrani kot PDF*.
 4. Ko rutino spremenite ali prilagodite, natisnite nov list.
 5. Za deljenje trenutnega pogleda aplikacije s sorodniki in prijatelji uporabite gumb *Deli povezavo*.

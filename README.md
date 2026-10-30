@@ -13,7 +13,7 @@ Free, no sign-up and no ads. What you type stays in your browser.
 ## Quick start
 
 1. Open the [sheet maker](https://stutek.github.io/child-routines/). It is easiest on a computer. It opens with an example evening routine.
-2. Pick the routine type and type the steps: we recommend 3 to 8. Click a picture to change it. Type your own text to change the title and the steps; empty rows do not show on the sheet. Type a time, or turn off the *Time on the sheet* switch. Drag a row by its dots to change the order.
+2. Pick the routine type and type the steps: we recommend 3 to 8. Click a picture to change it. For some steps, *Pictures* switches between a teddy bear and pictures without one. Type your own text to change the title and the steps; empty rows do not show on the sheet. Type a time, or turn off the *Time on the sheet* switch. Drag a row by its dots to change the order.
 3. Click **Print**: A4, margins *None*, scale 100%. For a PDF file you can share, choose *Save as PDF* in the print window.
 4. When you change or adjust the routine, print a new sheet.
 5. To share the current view of the app with family and friends, use the *Share link* button.

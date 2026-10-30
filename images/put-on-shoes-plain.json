@@ -1,0 +1,23 @@
+{
+  "id": "put-on-shoes-plain",
+  "title": "A child's own two hands pulling a red rain boot onto its foot in the autumn hall, seen through the child's eyes",
+  "variant_of": "put-on-shoes",
+  "theme": "plain",
+  "model": "Google Gemini image generation (via Antigravity CLI, image-generator subagent)",
+  "prompt": "Soft watercolor and gouache children's picture-book illustration, delicate colored-pencil outlines, warm cream paper texture, gentle pastel palette. Cozy autumn entrance hall of a family home with wooden floor, wooden bench, front door, doormat with fallen autumn leaves, light cream wall. Rich, saturated watercolor with defined darker outlines and soft shadows. Square 1:1 composition.\nPoint-of-view shot looking down from above (child's-eye first-person perspective, exactly like the POV angle in the child's hands reference). The child is sitting on the small wooden bench looking down at the floor:\n- The child's right leg in soft blue trousers extends down to the floor, where the right foot is already inside and wearing the right red rubber rain boot, standing firmly on the floor/doormat (with a striped sock peeking out at the boot collar).\n- The child's left leg in soft blue trousers is bent with foot raised, and exactly TWO small child hands with bare forearms enter from the bottom edge of the frame, five fingers on each hand, pulling the second red rubber rain boot onto the left foot.\n- In total exactly two legs, two hands, and two red boots (one already on the right foot on the floor, one being pulled onto the left foot).\n- No bear, no adult, no extra limbs, no sneakers, nothing yellow. Downward perspective looking down at the floor and boots.",
+  "reference_images": [
+    "images/wash-hands.jpg (commit 2824e41)",
+    "images/put-on-shoes.jpg (commit 2f35269)",
+    "The subagent generated three variants against the brief (v1, v2, v3); agy reported v2, which is used."
+  ],
+  "edits": [
+    "contrast raised once with tools/enhance.py"
+  ],
+  "contributor": "maintainer",
+  "license": "CC0-1.0",
+  "copyright_check": {
+    "date": "2026-10-30",
+    "method": "Google Lens, Exact matches on the raw and final file and on crops (boots with hands, door); Visual matches on the final file and the crops. Vision Web Detection not run: no key locally",
+    "result": "no exact matches; visual matches show only the same motif in other pictures, no same composition"
+  }
+}

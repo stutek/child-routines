@@ -1,0 +1,22 @@
+{
+  "id": "breakfast-bear",
+  "title": "Teddy bear at the kitchen table taking a bite of buttered toast, with an apple and tea on the plaid placemat",
+  "variant_of": "breakfast",
+  "theme": "bear",
+  "model": "Google Gemini image generation (via Antigravity CLI, image-generator subagent)",
+  "prompt": "Soft watercolor and gouache children's picture-book illustration, delicate colored-pencil outlines, warm cream paper texture, gentle pastel palette. The scene is set in a real, cozy room of a family home with a floor, walls and a few homely details (plants, a small shelf), like a warm picture-book interior. Clear contrast and rich, saturated colors with defined darker outlines and shadows, not pale or washed out. No clouds, nothing floating. Cute and friendly, for a 4-year-old. Gender-neutral. Everything painted in one consistent watercolor style, no flat vector shapes, no text, no letters, no logos, no brands, no flags, no recognizable existing characters; every character is original. Square 1:1 composition, main subject large and centered, readable at 4 cm size. The same cute brown teddy bear as the BEAR reference, WITHOUT a nightcap, with small solid black round button eyes (no white of the eye) and a happy smile; exactly two arms and two legs. It sits on a chair at the SAME light wooden table with the colorful plaid fabric placemat as the ROOM reference and holds a slice of golden buttered toast in one paw, about to take a bite; on the placemat: a plate, a small butter dish with a butter knife, a fresh red apple and a cup of tea on a saucer. A cozy family kitchen in the morning, a window with soft light, a plant. The bear and the breakfast are the clear main subject. No people, no human hands, no other characters, no tooth character.",
+  "reference_images": [
+    "images/make-bed.jpg (commit 078700e)",
+    "images/breakfast.jpg (commit a97046d)"
+  ],
+  "edits": [
+    "contrast raised once with tools/enhance.py"
+  ],
+  "contributor": "maintainer",
+  "license": "CC0-1.0",
+  "copyright_check": {
+    "date": "2026-10-30",
+    "method": "Google Lens, Exact matches on the raw and final file and on crops (bear with toast, table); Visual matches on the final file and the crops. Vision Web Detection not run: no key locally",
+    "result": "no exact matches; visual matches show only the same motif in other pictures, no same composition"
+  }
+}

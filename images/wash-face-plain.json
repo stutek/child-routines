@@ -1,0 +1,22 @@
+{
+  "id": "wash-face-plain",
+  "title": "A child's own two hands holding a wet blue washcloth above the sink in the mint bathroom, seen through the child's eyes",
+  "variant_of": "wash-face",
+  "theme": "plain",
+  "model": "Google Gemini image generation (via Antigravity CLI, image-generator subagent)",
+  "prompt": "Soft watercolor and gouache children's picture-book illustration, delicate colored-pencil outlines, warm cream paper texture, gentle pastel palette. Clear contrast and rich, saturated colors with defined darker outlines and shadows, not pale or washed out. No clouds, nothing floating. Cute and friendly, for a 4-year-old. Gender-neutral. Everything painted in one consistent watercolor style, no flat vector shapes, no text, no letters, no logos, no brands, no flags, no recognizable existing characters. Square 1:1 composition, main subject large and centered, readable at 4 cm size. Through the child's own eyes (first-person POV perspective matching the camera angle and child hand framing of the first reference image), standing at the same white sink on the warm wooden vanity counter in the cozy mint-green tiled bathroom from the second reference image. Exactly TWO small child hands with bare forearms enter from the bottom edge of the picture; each hand has exactly five fingers; both belong to the child looking at the scene; no other hand, no arm from any other side, no face, no people, no bear, no characters. The two hands hold a small wet blue washcloth together, lifted up toward the viewer's face, a few water drops dripping from it into the sink; a little water runs from the tap. A fluffy white face towel hangs on a hook on the mint tile wall next to the sink. NO bear, NO teddy bear, NO toothbrush, NO toothpaste, NO soap bubbles, NO mirror. The washcloth and the hands are the clear main subject.",
+  "reference_images": [
+    "images/wash-hands.jpg (commit 2824e41)",
+    "images/wash-face.jpg (commit 2f35269)"
+  ],
+  "edits": [
+    "contrast raised once with tools/enhance.py"
+  ],
+  "contributor": "maintainer",
+  "license": "CC0-1.0",
+  "copyright_check": {
+    "date": "2026-10-30",
+    "method": "Google Lens, Exact matches on the raw and final file and on crops (hands with washcloth, tap); Visual matches on the final file and the crops. Vision Web Detection not run: no key locally",
+    "result": "no exact matches; visual matches show only the same motif in other pictures, no same composition"
+  }
+}

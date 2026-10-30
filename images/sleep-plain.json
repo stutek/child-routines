@@ -1,0 +1,22 @@
+{
+  "id": "sleep-plain",
+  "title": "An empty wooden bed made ready for the night under a starry sky with a crescent moon",
+  "variant_of": "sleep",
+  "theme": "plain",
+  "model": "Google Gemini image generation (via Antigravity CLI, image-generator subagent)",
+  "prompt": "Soft watercolor and gouache children's picture-book illustration, delicate colored-pencil outlines, warm cream paper texture, gentle pastel palette. The scene is set in a real, cozy room of a family home with a floor, walls and a few homely details (plants, a small shelf), like a warm picture-book interior. Clear contrast and rich, saturated colors with defined darker outlines and shadows, not pale or washed out. No clouds, nothing floating. Cute and friendly, for a 4-year-old. Gender-neutral. Everything painted in one consistent watercolor style, no flat vector shapes, no text, no letters, no logos, no brands, no flags, no recognizable existing characters; every character is original. Square 1:1 composition, main subject large and centered, readable at 4 cm size. Only the room, no character: the same small wooden bed with the heart cut-out on the footboard as the ROOM reference, ready for the night: the patchwork quilt turned down and the white pillow fluffed, nobody in it. A dreamy night setting as in the ROOM reference: a deep blue starry night sky with a crescent moon behind the bed, a soft glowing night light. No people, no hands, no bear, no characters, no moonbeam, no light rays. The bed at night is the clear main subject.",
+  "reference_images": [
+    "images/toilet.jpg (commit 078700e)",
+    "images/sleep.jpg (commit 2824e41)"
+  ],
+  "edits": [
+    "contrast raised once with tools/enhance.py"
+  ],
+  "contributor": "maintainer",
+  "license": "CC0-1.0",
+  "copyright_check": {
+    "date": "2026-10-30",
+    "method": "Google Lens, Exact matches on the raw and final file and on crops (bed, moon); Visual matches on the final file and the crops. Vision Web Detection not run: no key locally",
+    "result": "no exact matches; visual matches show only the same motif in other pictures, no same composition"
+  }
+}

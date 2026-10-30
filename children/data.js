@@ -77,6 +77,13 @@ window.SHEET_DATA = {
    },
    "theme": "plain"
   },
+  "breakfast-bear": {
+   "title": "Teddy bear at the kitchen table taking a bite of buttered toast, with an apple and tea on the plaid placemat",
+   "label": {},
+   "keywords": {},
+   "theme": "bear",
+   "variant_of": "breakfast"
+  },
   "breakfast": {
    "title": "Toast with butter, an apple and a cup of tea on the kitchen table",
    "label": {
@@ -103,6 +110,13 @@ window.SHEET_DATA = {
     ]
    },
    "theme": "plain"
+  },
+  "brush-hair-plain": {
+   "title": "A child's own hand lifting a wooden hairbrush in front of the dresser, seen through the child's eyes",
+   "label": {},
+   "keywords": {},
+   "theme": "plain",
+   "variant_of": "brush-hair"
   },
   "brush-hair": {
    "title": "Teddy bear on a stool brushing the fur on its head with a wooden brush, in front of a round mirror",
@@ -281,6 +295,13 @@ window.SHEET_DATA = {
    },
    "theme": "plain"
   },
+  "good-morning-plain": {
+   "title": "An empty wooden bed with the quilt thrown back in morning sunshine",
+   "label": {},
+   "keywords": {},
+   "theme": "plain",
+   "variant_of": "good-morning"
+  },
   "good-morning": {
    "title": "Teddy bear in a striped nightcap sitting up in its wooden bed and stretching both paws up in the morning",
    "label": {
@@ -361,6 +382,13 @@ window.SHEET_DATA = {
    },
    "theme": "plain"
   },
+  "make-bed-plain": {
+   "title": "A child's own two hands pulling the patchwork quilt over the small wooden bed with the heart, seen through the child's eyes",
+   "label": {},
+   "keywords": {},
+   "theme": "plain",
+   "variant_of": "make-bed"
+  },
   "make-bed": {
    "title": "Teddy bear standing beside its bed, raising the quilt to make the bed",
    "label": {
@@ -403,6 +431,13 @@ window.SHEET_DATA = {
     ]
    },
    "theme": "plain"
+  },
+  "put-on-shoes-plain": {
+   "title": "A child's own two hands pulling a red rain boot onto its foot in the autumn hall, seen through the child's eyes",
+   "label": {},
+   "keywords": {},
+   "theme": "plain",
+   "variant_of": "put-on-shoes"
   },
   "put-on-shoes": {
    "title": "Teddy bear on a bench in an autumn hall, pulling on a red rain boot, the other boot on the floor",
@@ -448,6 +483,13 @@ window.SHEET_DATA = {
     ]
    },
    "theme": "plain"
+  },
+  "sleep-plain": {
+   "title": "An empty wooden bed made ready for the night under a starry sky with a crescent moon",
+   "label": {},
+   "keywords": {},
+   "theme": "plain",
+   "variant_of": "sleep"
   },
   "sleep": {
    "title": "Teddy bear lying asleep in bed under a night sky",
@@ -499,6 +541,13 @@ window.SHEET_DATA = {
    },
    "theme": "plain"
   },
+  "tidy-toys-plain": {
+   "title": "A child's own two hands putting a ball into the full toy chest, seen through the child's eyes",
+   "label": {},
+   "keywords": {},
+   "theme": "plain",
+   "variant_of": "tidy-toys"
+  },
   "tidy-toys": {
    "title": "Teddy bear putting the last ball into a full toy chest",
    "label": {
@@ -548,6 +597,13 @@ window.SHEET_DATA = {
     ]
    },
    "theme": "plain"
+  },
+  "wash-face-plain": {
+   "title": "A child's own two hands holding a wet blue washcloth above the sink in the mint bathroom, seen through the child's eyes",
+   "label": {},
+   "keywords": {},
+   "theme": "plain",
+   "variant_of": "wash-face"
   },
   "wash-face": {
    "title": "Teddy bear on a step stool at the bathroom sink, wiping its face with a blue washcloth",
@@ -868,7 +924,9 @@ window.SHEET_DATA = {
 };
 window.SHEET_EDGES = {
   "bath": ["#87DCD9", "#A0EFD9"],
+  "breakfast-bear": ["#F7DCBB", "#FFF3CF"],
   "breakfast": ["#FFCE86", "#FFD68A"],
+  "brush-hair-plain": ["#FBD3B4", "#FDF7DA"],
   "brush-hair": ["#F9D7BE", "#FDF3DC"],
   "brush-teeth-plain": ["#CDEDE4", "#C6E9D2"],
   "brush-teeth": ["#B7EED8", "#B5EDD8"],
@@ -877,18 +935,24 @@ window.SHEET_EDGES = {
   "clear-table": ["#DAE0D1", "#EBD2B5"],
   "dinner": ["#E3C7B1", "#E3C6B4"],
   "getting-dressed": ["#F4E0C3", "#FAF1DA"],
+  "good-morning-plain": ["#D5D0B3", "#E6C7A9"],
   "good-morning": ["#DECCBA", "#F7ECCF"],
   "hug-plain": ["#DFCEC0", "#D0D0BD"],
   "hug": ["#DACCCA", "#C2CFE5"],
   "kindergarten": ["#E4C8A8", "#D2D3B1"],
+  "make-bed-plain": ["#F0D4B4", "#FCEFCB"],
   "make-bed": ["#EBD5BB", "#F8EED1"],
   "pajamas": ["#FCD1BB", "#FACCAF"],
+  "put-on-shoes-plain": ["#FAC384", "#F6C48C"],
   "put-on-shoes": ["#FFFAE5", "#E9CAAD"],
   "set-table": ["#FBDFCD", "#FFD692"],
+  "sleep-plain": ["#DECABC", "#E0C6C4"],
   "sleep": ["#D1CDCA", "#F3F8F8"],
   "story": ["#CECBD6", "#D8DFEE"],
+  "tidy-toys-plain": ["#FADCB6", "#FDF6CD"],
   "tidy-toys": ["#F5DBBB", "#FCF1D0"],
   "toilet": ["#C3F2E8", "#B4E6D2"],
+  "wash-face-plain": ["#C0F1EC", "#B6D9C6"],
   "wash-face": ["#CBEEEC", "#B1E5D2"],
   "wash-hands": ["#E1E4CE", "#FDDBCE"],
 };

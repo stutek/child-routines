@@ -1,0 +1,22 @@
+{
+  "id": "make-bed-plain",
+  "title": "A child's own two hands pulling the patchwork quilt over the small wooden bed with the heart, seen through the child's eyes",
+  "variant_of": "make-bed",
+  "theme": "plain",
+  "model": "Google Gemini image generation (via Antigravity CLI, image-generator subagent)",
+  "prompt": "Soft watercolor and gouache children's picture-book illustration, delicate colored-pencil outlines, warm cream paper texture, gentle pastel palette with clear contrast and rich saturated colors. First-person child's-eye view (POV), exactly matching the first-person perspective style of input_file_0.png with two small child hands with bare forearms entering from the bottom edge of the frame. The child is standing beside the exact same wooden bed seen in input_file_1.png, featuring the light wood grain and distinctive heart-shaped cut-out on the footboard. The two small hands (five fingers each) are holding and pulling the colorful patchwork quilt smoothly up over the bed towards a fluffy white pillow. The quilt has the same charming colorful patches (patterns of gingham, polka dots, checks, and solids in cheerful colors) as input_file_1.png with soft natural fabric folds. Morning sunlight streams across the wooden floorboards, a small braided round rug on the floor, and a green potted plant on the windowsill. Crucial details: First-person child perspective only; strictly NO teddy bear, NO people, NO faces, NO extra hands or arms; only the child's own two hands entering from the bottom. Clean, cozy, warm picture-book art style.",
+  "reference_images": [
+    "images/wash-hands.jpg (commit 2824e41)",
+    "images/make-bed.jpg (commit 078700e)"
+  ],
+  "edits": [
+    "contrast raised once with tools/enhance.py"
+  ],
+  "contributor": "maintainer",
+  "license": "CC0-1.0",
+  "copyright_check": {
+    "date": "2026-10-30",
+    "method": "Google Lens, Exact matches on the raw and final file and on crops (hands with quilt, footboard); Visual matches on the final file and the crops. Vision Web Detection not run: no key locally",
+    "result": "no exact matches; visual matches show only the same motif in other pictures, no same composition"
+  }
+}

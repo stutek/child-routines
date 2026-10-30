@@ -32,8 +32,8 @@
   "contributor": "maintainer",
   "license": "CC0-1.0",
   "copyright_check": {
-    "date": "2026-10-23",
-    "method": "Google Lens, Exact and Visual matches tabs, final file",
+    "date": "2026-10-30",
+    "method": "Google Lens, Exact and Visual matches tabs, final file after the crop to the tub (2026-10-28), and crops (rubber duck, floor). Vision Web Detection not run: no key locally. The check of 2026-10-23 covered the uncropped file",
     "result": "no exact matches; visual matches show other clawfoot tubs with a rubber duck (common motif), none with the same composition"
   }
 }

@@ -1,4 +1,4 @@
-"""Write web/qr.svg: the QR code printed in the footer of every sheet, leading to the sheet maker.
+"""Write children/qr.svg: the QR code printed in the footer of every sheet, leading to the sheet maker.
 
     pip install qrcode==8.2
     python3 tools/qr.py
@@ -11,7 +11,7 @@ import qrcode
 import qrcode.image.svg
 
 ROOT = Path(__file__).resolve().parent.parent
-URL = "https://stutek.github.io/child-routines/"   # the root redirects to web/; shorter gives a smaller code
+URL = "https://routines.twotech.si/children/"   # the sheet maker itself; / redirects here until other routine makers sit beside it
 
 
 def main():
@@ -19,7 +19,7 @@ def main():
                        image_factory=qrcode.image.svg.SvgPathImage)
     qr.add_data(URL)
     qr.make(fit=True)
-    out = ROOT / "web" / "qr.svg"
+    out = ROOT / "children" / "qr.svg"
     out.write_bytes(qr.make_image().to_string())
     print(f"Wrote {out.relative_to(ROOT)}: version {qr.version}, {qr.modules_count} modules, {URL}")
 

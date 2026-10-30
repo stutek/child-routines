@@ -1,11 +1,11 @@
 """Build printable A4 routine sheets from routines/<lang>/<name>.json into output/<lang>-<name>.html,
-and web/data.js for the sheet maker in web/ (sheet CSS, skies, image keywords and edge colors).
+and children/data.js for the sheet maker in children/ (sheet CSS, skies, image keywords and edge colors).
 
     python3 tools/build.py
 
 Each frame's background is the color of its image edge next to the frame, so rebuild after
 replacing an image. Labels get the darkest shade of the step color needed for 4.5 : 1 contrast.
-The sheet markup in sheet_html() is mirrored in web/app.js (sheetHtml); change both together.
+The sheet markup in sheet_html() is mirrored in children/app.js (sheetHtml); change both together.
 """
 import colorsys
 import json
@@ -38,9 +38,9 @@ SKIES = {
     "night": "#CFE3F7 0%, #A8C4EE 30%, #86A6E0 70%, #6F8FD3 86%, #22336B 93%, #1B2A5C 100%",
 }
 
-# The footer of every sheet: licence, address and a QR code (web/qr.svg, from tools/qr.py), so a
+# The footer of every sheet: licence, address and a QR code (children/qr.svg, from tools/qr.py), so a
 # sheet on a fridge leads to the sheet maker. It sits above the 14 mm home printers cannot print.
-SITE = "stutek.github.io/child-routines"
+SITE = "routines.twotech.si/children"
 LICENSE = {"sl": "CC0 · prosto za uporabo, spreminjanje in deljenje", "en": "CC0 · free to use, change and share"}
 # the sheet travels without the maker (to grandparents), so the essential warning goes on the sheet itself
 # a line in the footer only on a sheet that has such a step (by its picture), in step order
@@ -51,9 +51,9 @@ STEP_NOTES = {
 # no line for paper itself: a sheet is no small part (16 CFR 1501.3(b) exempts articles made of paper), and the
 # 0–3 sign already keeps away the toddlers who tear and mouth paper; another line would dilute the magnet warning
 SAFETY = {"sl": "Opozorilo: otrok ne sme pogoltniti magnetka ali drugih majhnih delov. Pisala naj bodo otroška in kemično varna.", "en": "Warning: a child must not swallow a magnet or other small parts. Use children's chemically safe pens."}
-# the EU pictogram for "not suitable for children under 36 months" (web/under3.json: source and licence), with the hazard above
+# the EU pictogram for "not suitable for children under 36 months" (children/under3.json: source and licence), with the hazard above
 UNDER3 = {"sl": "Ni primerno za otroke, mlajše od 3 let", "en": "Not suitable for children under 3 years"}
-QR = (ROOT / "web" / "qr.svg").read_text(encoding="utf-8").strip()
+QR = (ROOT / "children" / "qr.svg").read_text(encoding="utf-8").strip()
 
 # "sky" may also name a plain background: white, or none (transparent, prints no background)
 PLAIN = {"white": "#FFFFFF", "none": "none"}
@@ -249,15 +249,15 @@ def sheet_html(sheet, lang="sl"):
     <div class="rt-grid">
       <div class="rt-header"><div class="rt-title">{escape(sheet['title'])}</div></div>{''.join(rows)}
     </div>
-    <div class="rt-footer{' on-dark' if sheet['sky'] == 'night' else ''}"><span class="rt-license"><img class="rt-under3" src="../web/under3.jpg" alt="{escape(UNDER3.get(lang, UNDER3["en"]))}"><span class="rt-legal"><span class="rt-safety">{escape(SAFETY.get(lang, SAFETY["en"]))}</span>{notes}</span></span><span class="rt-source"><span class="rt-site">{SITE}</span><span class="rt-lic">{escape(LICENSE.get(lang, LICENSE["en"]))}</span></span>{QR}</div>
+    <div class="rt-footer{' on-dark' if sheet['sky'] == 'night' else ''}"><span class="rt-license"><img class="rt-under3" src="../children/under3.jpg" alt="{escape(UNDER3.get(lang, UNDER3["en"]))}"><span class="rt-legal"><span class="rt-safety">{escape(SAFETY.get(lang, SAFETY["en"]))}</span>{notes}</span></span><span class="rt-source"><span class="rt-site">{SITE}</span><span class="rt-lic">{escape(LICENSE.get(lang, LICENSE["en"]))}</span></span>{QR}</div>
   </div>
 """
 
 
 CSS = """
-    /* Baloo 2 (SIL OFL, web/fonts/OFL-Baloo2.txt) from this site, not Google: no visitor data leaves the page and it works offline */
-    @font-face { font-family: 'Baloo 2'; font-style: normal; font-weight: 400 800; font-display: swap; src: url('../web/fonts/baloo2-latin-ext.woff2') format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
-    @font-face { font-family: 'Baloo 2'; font-style: normal; font-weight: 400 800; font-display: swap; src: url('../web/fonts/baloo2-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+    /* Baloo 2 (SIL OFL, children/fonts/OFL-Baloo2.txt) from this site, not Google: no visitor data leaves the page and it works offline */
+    @font-face { font-family: 'Baloo 2'; font-style: normal; font-weight: 400 800; font-display: swap; src: url('../children/fonts/baloo2-latin-ext.woff2') format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+    @font-face { font-family: 'Baloo 2'; font-style: normal; font-weight: 400 800; font-display: swap; src: url('../children/fonts/baloo2-latin.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -299,7 +299,7 @@ CSS = """
     .no-print-toolbar h2 { font-size: 18px; margin-bottom: 3px; }
     .toolbar-info { font-size: 14px; color: #475569; line-height: 1.4; }
     .btn-print {
-      background: #0F766E;   /* the colour of web/icon.svg, like the sheet maker */
+      background: #0F766E;   /* the colour of children/icon.svg, like the sheet maker */
       color: white;
       border: none;
       padding: 12px 24px;
@@ -510,7 +510,7 @@ def page_html(routine):
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{escape(routine['title'])}</title>
-  <link rel="icon" href="../web/icon.svg" type="image/svg+xml">
+  <link rel="icon" href="../children/icon.svg" type="image/svg+xml">
   <!-- Generated by tools/build.py from routines/; do not edit by hand -->
   <style>{CSS}  </style>
 </head>
@@ -518,7 +518,7 @@ def page_html(routine):
 
   <div class="no-print-toolbar">
     <div>
-      <h2><img src="../web/icon.svg" alt="" style="width: 1.2em; height: 1.2em; vertical-align: -0.25em; margin-right: 6px">{escape(routine['title'])}</h2>
+      <h2><img src="../children/icon.svg" alt="" style="width: 1.2em; height: 1.2em; vertical-align: -0.25em; margin-right: 6px">{escape(routine['title'])}</h2>
       <p class="toolbar-info">{escape(hint)}</p>
     </div>
     <button class="btn-print" onclick="window.print()">{button}</button>
@@ -530,7 +530,7 @@ def page_html(routine):
 
 
 def web_data(routines):
-    """web/data.js: everything the browser sheet maker needs, from the same sources as the sheets.
+    """children/data.js: everything the browser sheet maker needs, from the same sources as the sheets.
     Edge colors sit one image per line, so CI can ignore them like the style lines in output/."""
     images, edges = {}, []
     for id_, meta in IMAGES.items():
@@ -583,7 +583,7 @@ def main():
         out = ROOT / "output" / f"{path.parent.name}-{path.stem}.html"
         out.write_text(page_html(routine), encoding="utf-8")
         built.append(out.relative_to(ROOT))
-    out = ROOT / "web" / "data.js"
+    out = ROOT / "children" / "data.js"
     out.parent.mkdir(exist_ok=True)
     out.write_text(web_data(routines), encoding="utf-8")
     built.append(out.relative_to(ROOT))

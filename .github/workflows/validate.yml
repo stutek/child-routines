@@ -21,11 +21,11 @@ jobs:
       - run: pip install -r requirements.txt
       - name: Images and routines
         run: python3 tools/check_images.py
-      - name: Output and web/data.js are rebuilt from the routines and images
+      - name: Output and children/data.js are rebuilt from the routines and images
         # Lines that differ only in measured colors (style="--step: ..." in output/, one edge color
-        # line per image in web/data.js) are ignored: JPEG decoding may differ slightly between
+        # line per image in children/data.js) are ignored: JPEG decoding may differ slightly between
         # Pillow builds. Any other difference means the files are stale.
         run: |
           python3 tools/build.py
-          git diff --exit-code -I 'style="--step:' -I '^  "[a-z0-9-]+": \["#' -- output/ web/data.js images/README.md \
-            || { echo "Run python3 tools/build.py and commit output/, web/data.js and images/README.md."; exit 1; }
+          git diff --exit-code -I 'style="--step:' -I '^  "[a-z0-9-]+": \["#' -- output/ children/data.js images/README.md \
+            || { echo "Run python3 tools/build.py and commit output/, children/data.js and images/README.md."; exit 1; }

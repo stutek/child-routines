@@ -2,7 +2,7 @@
 
 [English](README.md) · **Slovenščina**
 
-**[Naredite svoj list →](https://stutek.github.io/child-routines/)**
+**[Naredite svoj list →](https://routines.twotech.si/children/)**
 
 Listi A4 z dnevno rutino za otroke od 3 let: jutro, dan in večer. Otrok sledi sličicam. Opravljen korak označi z magnetkom v krogu ali s kljukico. Odrasli preberejo vrstni red in uro.
 
@@ -12,7 +12,7 @@ Brezplačno, brez prijave in brez oglasov. Vaši vnosi in podatki ostanejo zgolj
 
 ## Hitri začetek
 
-1. Odprite [stran za izdelavo lista](https://stutek.github.io/child-routines/). Najlažje gre na računalniku. Stran se odpre s primerom večerne rutine.
+1. Odprite [stran za izdelavo lista](https://routines.twotech.si/children/). Najlažje gre na računalniku. Stran se odpre s primerom večerne rutine.
 2. Izberite tip rutine in vpišite korake: priporočamo 3 do 8. Sličico zamenjate s klikom nanjo. Pri nekaterih korakih *Sličice* izbirajo med medvedkom in sličicami brez njega. Naslov in korake spremenite tako, da vpišete svoje besedilo; prazne vrstice so na listu nevidne. Uro vpišite ali izklopite stikalo *Ura na listu*. Vrstni red spremenite tako, da vrstico povlečete za pike.
 3. Kliknite **Natisni**: A4, robovi *Brez*, merilo 100 %. Za datoteko PDF, ki jo lahko delite, v oknu za tiskanje izberite *Shrani kot PDF*.
 4. Ko rutino spremenite ali prilagodite, natisnite nov list.
@@ -26,7 +26,7 @@ Brezplačno, brez prijave in brez oglasov. Vaši vnosi in podatki ostanejo zgolj
 - **Ure na listu so za odrasle,** ne za priganjanje. Če korak izpade ali se vrstni red pomeša, ohranite mir in poskusite znova naslednjič.
 - **Ko otrok prespi pri starih starših, teti ali stricu,** naj gre list z njim. Znano zaporedje mu lahko da občutek varnosti.
 
-Vzorčni listi so [tu](https://stutek.github.io/child-routines/output/sl-primer.html), pripravljeni za tisk.
+Vzorčni listi so [tu](https://routines.twotech.si/output/sl-primer.html), pripravljeni za tisk.
 
 ## Varnost
 
@@ -57,7 +57,7 @@ Prosim delite povezavo drugim staršem, ki jim takšen izpis lahko pomaga.
 ### Tisk brez povezave
 
 1. Na [strani projekta](https://github.com/stutek/child-routines) kliknite **Code**, nato **Download ZIP**, in arhiv razširite. Listi potrebujejo mapo `images/` ob mapi `output/`, zato odpiranje posamezne datoteke na GitHubu ne deluje.
-2. V Chromu odprite `web/index.html` za lasten list ali `output/sl-primer.html` za vzorec.
+2. V Chromu odprite `children/index.html` za lasten list ali `output/sl-primer.html` za vzorec.
 3. Natisnite kot zgoraj.
 
 ### Lastna rutina iz datotek ali z agentom in prispevki

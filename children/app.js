@@ -245,7 +245,7 @@ function showUndo(prev, message = t().replaced) {
   undoTimer = setTimeout(hideUndo, 10000);
 }
 const typed = sheet => sheet.steps.some(s => s.label.trim() || s.time || s.image !== "auto") && !EXAMPLE_ROWS.has(rowsKey(sheet.steps));
-// Stored state is untrusted: every page on stutek.github.io shares this origin and its storage.
+// Stored state is untrusted: anything else ever served from this origin shares its storage.
 // Keep only known values, so nothing from storage reaches the markup unchecked.
 // only a table's own keys count: "constructor" or "__proto__" exist on every object and would pass a plain lookup
 const own = (table, key) => typeof key === "string" && Object.prototype.hasOwnProperty.call(table, key);

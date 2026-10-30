@@ -1,4 +1,4 @@
-"""Smoke test of the sheet maker (web/index.html) in headless Chrome over CDP.
+"""Smoke test of the sheet maker (children/index.html) in headless Chrome over CDP.
 
     python3 tools/web_test.py
 
@@ -20,7 +20,7 @@ from pathlib import Path
 from websockets.sync.client import connect
 
 ROOT = Path(__file__).resolve().parent.parent
-PAGE = (ROOT / "web" / "index.html").as_uri()
+PAGE = (ROOT / "children" / "index.html").as_uri()
 PORT = 9333
 TIMEOUT = 20
 

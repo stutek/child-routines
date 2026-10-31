@@ -164,11 +164,11 @@ def main():
             got = cdp.call("Runtime.evaluate", returnByValue=True, expression="""(() => {
               const warn = document.querySelector('#maker .warn'), field = document.querySelector('#maker .row-top.fields');
               const d = [...document.querySelectorAll('#maker details')], box = document.querySelector('#maker .sheet-box');
-              const btn = document.querySelector('#actionbar .print'), hint = document.getElementById('print-hint');
-              const copy = document.querySelector('#actionbar .copy'), lh = document.getElementById('link-hint'), undo = document.getElementById('undo');
+              const btn = document.querySelector('#actionbar .print');
+              const copy = document.querySelector('#actionbar .copy'), undo = document.getElementById('undo');
               const row = [...document.querySelectorAll('#maker .row-top.fields')].find(r => r.querySelector('button.secondary')), sel = row.querySelector('select');
               return JSON.stringify({
-                copyInBar: !!copy && copy.getAttribute('aria-describedby') === 'link-hint' && !!lh && lh.textContent.length > 10 && !!document.querySelector('#actionbar #linkbox') && !document.getElementById('preview-label') && getComputedStyle(document.getElementById('actionbar')).position === 'sticky' && document.getElementById('maker').lastElementChild === document.getElementById('actionbar') && !!document.getElementById('preview').getAttribute('aria-label'),
+                copyInBar: !!copy && copy.dataset.tip === 'link' && (copy.getAttribute('aria-description') || '').length > 10 && !!document.querySelector('#actionbar #linkbox') && !document.getElementById('preview-label') && getComputedStyle(document.getElementById('actionbar')).position === 'sticky' && document.getElementById('maker').lastElementChild === document.getElementById('actionbar') && !!document.getElementById('preview').getAttribute('aria-label'),
                 noActionsRow: !document.querySelector('#maker .actions') && document.querySelectorAll('#maker .copy').length === 1 && !row.querySelector('.copy'),
                 undoLine: !!(row.compareDocumentPosition(undo) & Node.DOCUMENT_POSITION_FOLLOWING) && !!(undo.compareDocumentPosition(box) & Node.DOCUMENT_POSITION_FOLLOWING) && undo.parentElement === document.getElementById('maker'),
                 exampleWithBackground: !!sel && !!row.querySelector('input[type=checkbox]') && [...row.querySelectorAll('button.secondary')].length === 1,
@@ -176,7 +176,7 @@ def main():
                 iconHidden: warn.querySelector('.danger').getAttribute('aria-hidden') === 'true',
                 orderAbove: d.length === 2 && d.every(x => x.open) && !!(document.querySelector('#maker ol.how').compareDocumentPosition(field) & Node.DOCUMENT_POSITION_FOLLOWING) && !!(warn.compareDocumentPosition(document.querySelector('#maker ol.how')) & Node.DOCUMENT_POSITION_FOLLOWING),
                 howHas: document.querySelectorAll('#maker ol.how li').length === 8,
-                hint: btn.getAttribute('aria-describedby') === 'print-hint' && !!hint && hint.textContent.length > 10 });
+                hint: btn.dataset.tip === 'print' && (btn.getAttribute('aria-description') || '').length > 10 });
             })()""")["result"]["value"]
             print(f"warning, details, print hint, link button (390 px): {got}")
             bad = [k for k, v in json.loads(got).items() if not v]
@@ -194,6 +194,23 @@ def main():
             print(f"tidy text: {got}")
             if got != {"title": "VečerČŠŽ", "labels": ["Pij vodo 12", "Mamin čajs"]}:
                 errors.append(f"title and labels not tidied: {got}")
+            # typed markup: the title, every label and every time field get an <img onerror>; nothing runs, and neither
+            # the form nor the sheet gets an element with an event handler or the injected image
+            cdp.call("Page.navigate", url="about:blank"); cdp.wait(0.3)
+            cdp.call("Page.navigate", url=PAGE); cdp.wait(1.5)
+            got = cdp.call("Runtime.evaluate", awaitPromise=True, returnByValue=True, expression="""(async () => {
+              const payload = '<img src=x onerror="window.__injected=1">';
+              for (const i of document.querySelectorAll('#maker input.title, #maker .step input')) {
+                i.value = payload; i.dispatchEvent(new Event('input')); i.dispatchEvent(new Event('change'));
+              }
+              await new Promise(r => setTimeout(r, 500));
+              const handlers = [...document.querySelectorAll('*')].filter(e => [...e.attributes].some(a => /^on/i.test(a.name)));
+              return JSON.stringify({ ran: !!window.__injected, handlers: handlers.length,
+                injectedImg: document.querySelectorAll('img[src="x"]').length });
+            })()""")["result"]["value"]
+            print(f"typed markup: {got}")
+            if got != '{"ran":false,"handlers":0,"injectedImg":0}':
+                errors.append(f"typed markup reached the page: {got}")
             hostile = [{"l": "constructor", "b": "gradient", "t": 1, "s": "__proto__", "h": "<img src=x onerror=alert(1)>", "r": [["<b>X</b>", "25:99", "toString"]]},
                        {"l": "__proto__", "s": "constructor", "r": [["A", "", "constructor"]]}]
             for case in [base64.urlsafe_b64encode(json.dumps(h).encode()).decode().rstrip("=") for h in hostile] + ["A" * 5000]:
@@ -263,7 +280,7 @@ def main():
             cdp.call("Page.navigate", url=PAGE + "#" + frag)
             cdp.wait(2)
             got = cdp.call("Runtime.evaluate", returnByValue=True, expression="""(() => {
-              const inputs = [...document.querySelectorAll('.step input:not([type=time])')];
+              const inputs = [...document.querySelectorAll('.step input:not(.time)')];
               const hint = i => { const id = inputs[i].getAttribute('aria-describedby'); return id && document.getElementById(id); };
               const r = {
                 marked: inputs[1].getAttribute('aria-invalid') === 'true' && !!hint(1) && !hint(1).hidden && hint(1).textContent.length > 10,
@@ -302,13 +319,13 @@ def main():
                     errors.append(f"form after {how} does not show the sheet (language, type, background, theme, time): {got}")
                 if not cdp.call("Runtime.evaluate", expression=in_theme, returnByValue=True)["result"]["value"]:
                     errors.append(f"sheet after {how} shows a picture outside the theme though a variant exists")
-            # image group: "all" (the default, also for a link without one) keeps a hand-picked variant; the bear group
-            # shows the bear picture of the same step
+            # image group: "bear" is the default, also for a link without one, and shows the bear picture of the step;
+            # "all" keeps a hand-picked variant
             variant = cdp.call("Runtime.evaluate", expression="""(() => { const I = SHEET_DATA.images;
               const v = Object.keys(I).find(id => I[id].variant_of && I[id].theme === 'plain' && I[I[id].variant_of].theme === 'bear');
               return v ? [v, I[v].variant_of] : null; })()""", returnByValue=True)["result"]["value"]
             if variant:
-                for group, want in ((None, ["all", variant[0]]), ("bear", ["bear", variant[1]])):
+                for group, want in ((None, ["bear", variant[1]]), ("all", ["all", variant[0]])):
                     raw = {"l": "sl", "b": "white", "t": 0, "s": "dawn", "h": "JUTRO", "r": [["KORAK", "", variant[0]]]}
                     if group:
                         raw["p"] = group

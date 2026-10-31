@@ -354,8 +354,10 @@ CSS = """
     .rt-license { margin-right: auto; display: flex; align-items: center; gap: 2mm; align-self: flex-end; }
     .rt-legal { display: flex; flex-direction: column; gap: 0; line-height: 1.15; }
     .rt-legal > span { text-wrap: balance; }   /* a wrapped warning breaks into even lines, no lone last word */
-    .rt-source { display: flex; flex-direction: column; align-items: flex-end; text-align: right; line-height: 1.15; flex: none; }
-    .rt-lic { font-size: 8.5pt; white-space: nowrap; }
+    /* as narrow as the address: the licence wraps under it, so the warnings get the width and stay at three lines */
+    .rt-source { display: flex; flex-direction: column; align-items: flex-end; text-align: right; line-height: 1.15; flex: none; width: min-content; }
+    .rt-site { white-space: nowrap; }
+    .rt-lic { font-size: 8.5pt; text-wrap: balance; }
     .rt-safety, .rt-notes { font-weight: 800; }
     .rt-notes { display: block; }
     .rt-under3 { width: 10mm; height: 10mm; flex: none; background: #ffffff; border-radius: 1mm; padding: 0.5mm; }

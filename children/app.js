@@ -23,7 +23,7 @@ const T = {
   sl: {
     heading: "Otrokove rutine", aboutTitle: "O aplikaciji", howTitle: "Hitri začetek",
     about: "Jutro in večer sta polna korakov in pogosto jih naštevaš ti, vsak dan znova. Tu v nekaj minutah narediš in natisneš list s sličicami otrokove rutine, na katerem otrok opravljen korak sam označi z magnetkom ali kljukico. Tako vidi, kaj pride, list pa lahko gre z njim tudi k starim staršem, teti ali stricu, kjer mu znano zaporedje lahko da občutek varnosti. Brezplačno in brez prijave; kar vpišeš, ostane v tvojem brskalniku.",
-    how: ["Najlažje gre na računalniku. Izberi »Tip rutine« in vpiši korake: priporočamo 3 do 8. Prve dni jih opravi skupaj z otrokom.", "Stran sama izbere sličico za vsak korak. Klikni sličico, da jo zamenjaš.", "Naslov in korake lahko spremeniš tako, da vpišeš svoje besedilo. Prazne vrstice so na listu nevidne.", "Uro vpiši ali izklopi stikalo »Ura na listu«.", "Vrstni red spremeniš tako, da vrstico povlečeš za pike.", "Klikni »Natisni«: A4, robovi »Brez«, merilo 100 %. Za datoteko PDF, ki jo lahko deliš, v oknu za tiskanje izberi »Shrani kot PDF«.", "Ko rutino spremeniš ali prilagodiš, natisni nov list.", "Za deljenje trenutnega pogleda aplikacije s sorodniki in prijatelji uporabi gumb »Deli povezavo«."],
+    how: ["Najlažje gre na računalniku. Izberi »Tip rutine« in vpiši korake: priporočamo 3 do 8. Prve dni jih opravi skupaj z otrokom.", "Stran sama izbere sličico za vsak korak. Klikni sličico, da jo zamenjaš.", "Naslov in korake lahko spremeniš tako, da vpišeš svoje besedilo. Prazne vrstice so na listu nevidne.", "Za ure na listu vklopi stikalo »Ura na listu« in jih vpiši.", "Vrstni red spremeniš tako, da vrstico povlečeš za pike.", "Klikni »Natisni«: A4, robovi »Brez«, merilo 100 %. Za datoteko PDF, ki jo lahko deliš, v oknu za tiskanje izberi »Shrani kot PDF«.", "Ko rutino spremeniš ali prilagodiš, natisni nov list.", "Za deljenje trenutnega pogleda aplikacije s sorodniki in prijatelji uporabi gumb »Deli povezavo«."],
     example: "Naloži primer", replaced: "Primer je zamenjal tvoj list.", stepRemoved: "Korak je odstranjen.", skip: "Preskoči na obrazec", previewName: "Predogled lista", linkReplaced: "Povezava je zamenjala tvoj list.", copy: "Deli povezavo", copied: "Povezava je kopirana.", linkHint: "Povezava na končni izdelek brez aplikacije za urejanje. Povezava vsebuje vse podatke za ponovno ustvarjanje kopije deljene rutine.", undo: "Razveljavi", undone: "Tvoj list je vrnjen.", print: "Natisni",
     type: "Tip rutine", sheetTitle: "Naslov lista", skies: { dawn: "jutro", afternoon: "dan", night: "večer" },
     times: "Ura na listu", background: "Ozadje", backgrounds: { gradient: "barvno", white: "belo", none: "brez (manj črnila)" },
@@ -38,7 +38,7 @@ const T = {
   en: {
     heading: "Child routines", aboutTitle: "About", howTitle: "Quick start",
     about: "Mornings and evenings are full of steps, and often you're the one listing them, every day. Here you can make and print a picture sheet of your child's routine in a few minutes; your child marks each finished step with a magnet or a tick. They can see what comes next, and the sheet can travel to grandparents, an aunt or an uncle, where the familiar order can give a sense of security. Free, with no sign-up; what you type stays in your browser.",
-    how: ["It is easiest on a computer. Pick the “Routine type” and type the steps: we recommend 3 to 8. Do them with your child for the first few days.", "The page picks a picture for each step. Click a picture to change it.", "Type your own text to change the title and the steps. Empty rows do not show on the sheet.", "Type a time, or turn off the “Time on the sheet” switch.", "Drag a row by its dots to change the order.", "Click “Print”: A4, margins “None”, scale 100%. For a PDF file you can share, choose “Save as PDF” in the print window.", "When you change or adjust the routine, print a new sheet.", "To share the current view of the app with family and friends, use the “Share link” button."],
+    how: ["It is easiest on a computer. Pick the “Routine type” and type the steps: we recommend 3 to 8. Do them with your child for the first few days.", "The page picks a picture for each step. Click a picture to change it.", "Type your own text to change the title and the steps. Empty rows do not show on the sheet.", "For times on the sheet, turn on the “Time on the sheet” switch and type them.", "Drag a row by its dots to change the order.", "Click “Print”: A4, margins “None”, scale 100%. For a PDF file you can share, choose “Save as PDF” in the print window.", "When you change or adjust the routine, print a new sheet.", "To share the current view of the app with family and friends, use the “Share link” button."],
     example: "Load example", replaced: "The example replaced your sheet.", stepRemoved: "Step removed.", skip: "Skip to the form", previewName: "Sheet preview", linkReplaced: "The link replaced your sheet.", copy: "Share link", copied: "Link copied.", linkHint: "A link to the finished sheet, without the editing app. The link holds all the data to make a copy of the shared routine again.", undo: "Undo", undone: "Your sheet is back.", print: "Print",
     type: "Routine type", sheetTitle: "Sheet title", skies: { dawn: "morning", afternoon: "day", night: "evening" },
     times: "Time on the sheet", background: "Background", backgrounds: { gradient: "color", white: "white", none: "none (less ink)" },
@@ -234,7 +234,7 @@ const pad = steps => steps.concat(Array.from({ length: MAX_STEPS }, newStep)).sl
 const exampleSteps = ex => pad(ex.steps.map(st => ({ label: st.label, time: "", image: "auto" })));
 function fromExample(lang, sky = "night", base = {}) {   // the evening routine opens first
   const ex = example(sky, lang);
-  return { lang, background: base.background || "gradient", times: base.times !== false, theme: base.theme || ALL,
+  return { lang, background: base.background || "gradient", times: base.times === true, theme: base.theme || ALL,
            sheet: { title: bare(ex.title), sky, steps: exampleSteps(ex) } };
 }
 // loading an example would lose what the parent typed: rows with content that are not just an example (any language or type)
@@ -268,7 +268,7 @@ function clean(s) {
   const sheet = { title: bare(tidy(str(sh.title, 60))), sky: own(D.skies, sh.sky) ? sh.sky : "night",
                   steps: pad((Array.isArray(sh.steps) ? sh.steps : []).slice(0, MAX_STEPS).map(step)) };
   return { lang: own(T, s.lang) ? s.lang : "sl", background: ["gradient", "white", "none"].includes(s.background) ? s.background : "gradient",
-           times: s.times !== false, theme: [ALL, ...D.themes].includes(s.theme) ? s.theme : ALL, sheet };
+           times: s.times === true, theme: [ALL, ...D.themes].includes(s.theme) ? s.theme : ALL, sheet };
 }
 // first visit: the first of the browser's languages the page has (navigator.languages), else English
 function browserLang() {

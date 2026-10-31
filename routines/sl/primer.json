@@ -6,6 +6,7 @@
       "title": "JUTRANJA RUTINA",
       "sky": "dawn",
       "stars": false,
+      "theme": "bear",
       "steps": [
         {
           "label": "DOBRO JUTRO",
@@ -55,6 +56,7 @@
       "title": "VEČERJA",
       "sky": "afternoon",
       "stars": false,
+      "theme": "bear",
       "steps": [
         {
           "label": "NA STRANIŠČE",
@@ -98,6 +100,7 @@
       "title": "VEČERNA RUTINA",
       "sky": "night",
       "stars": true,
+      "theme": "bear",
       "steps": [
         {
           "label": "RISANKA",

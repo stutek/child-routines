@@ -722,6 +722,7 @@ window.SHEET_DATA = {
      "title": "MORNING ROUTINE",
      "sky": "dawn",
      "stars": false,
+     "theme": "bear",
      "steps": [
       {
        "label": "GOOD MORNING",
@@ -777,6 +778,7 @@ window.SHEET_DATA = {
      "title": "DINNER",
      "sky": "afternoon",
      "stars": false,
+     "theme": "bear",
      "steps": [
       {
        "label": "USE THE TOILET",
@@ -820,6 +822,7 @@ window.SHEET_DATA = {
      "title": "EVENING ROUTINE",
      "sky": "night",
      "stars": true,
+     "theme": "bear",
      "steps": [
       {
        "label": "CARTOON TIME",
@@ -881,6 +884,7 @@ window.SHEET_DATA = {
      "title": "JUTRANJA RUTINA",
      "sky": "dawn",
      "stars": false,
+     "theme": "bear",
      "steps": [
       {
        "label": "DOBRO JUTRO",
@@ -930,6 +934,7 @@ window.SHEET_DATA = {
      "title": "VEČERJA",
      "sky": "afternoon",
      "stars": false,
+     "theme": "bear",
      "steps": [
       {
        "label": "NA STRANIŠČE",
@@ -973,6 +978,7 @@ window.SHEET_DATA = {
      "title": "VEČERNA RUTINA",
      "sky": "night",
      "stars": true,
+     "theme": "bear",
      "steps": [
       {
        "label": "RISANKA",

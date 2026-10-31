@@ -6,6 +6,7 @@
       "title": "MORNING ROUTINE",
       "sky": "dawn",
       "stars": false,
+      "theme": "bear",
       "steps": [
         {
           "label": "GOOD MORNING",
@@ -61,6 +62,7 @@
       "title": "DINNER",
       "sky": "afternoon",
       "stars": false,
+      "theme": "bear",
       "steps": [
         {
           "label": "USE THE TOILET",
@@ -104,6 +106,7 @@
       "title": "EVENING ROUTINE",
       "sky": "night",
       "stars": true,
+      "theme": "bear",
       "steps": [
         {
           "label": "CARTOON TIME",

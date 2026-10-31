@@ -9,36 +9,43 @@
       "steps": [
         {
           "label": "DOBRO JUTRO",
+          "time": "06:45",
           "image": "good-morning",
           "color": "#D97706"
         },
         {
           "label": "POSTELJI POSTELJO",
+          "time": "06:50",
           "image": "make-bed",
           "color": "#0D9488"
         },
         {
           "label": "NA STRANIŠČE",
+          "time": "06:55",
           "image": "toilet",
           "color": "#EA580C"
         },
         {
           "label": "UMIJ ROKE",
+          "time": "07:00",
           "image": "wash-hands",
           "color": "#DC2626"
         },
         {
           "label": "OBLECI SE",
+          "time": "07:05",
           "image": "getting-dressed",
           "color": "#65A30D"
         },
         {
           "label": "UMIJ ZOBKE",
+          "time": "07:15",
           "image": "brush-teeth",
           "color": "#16A34A"
         },
         {
           "label": "V VRTEC",
+          "time": "07:30",
           "image": "kindergarten",
           "color": "#0284C7"
         }
@@ -51,31 +58,37 @@
       "steps": [
         {
           "label": "NA STRANIŠČE",
+          "time": "17:45",
           "image": "toilet",
           "color": "#16A34A"
         },
         {
           "label": "UMIJ ROKE",
+          "time": "17:50",
           "image": "wash-hands",
           "color": "#0D9488"
         },
         {
           "label": "PRIPRAVI MIZO",
+          "time": "17:55",
           "image": "set-table",
           "color": "#0284C7"
         },
         {
           "label": "VEČERJA",
+          "time": "18:00",
           "image": "dinner",
           "color": "#2563EB"
         },
         {
           "label": "POSPRAVI MIZO",
+          "time": "18:30",
           "image": "clear-table",
           "color": "#D97706"
         },
         {
           "label": "POSPRAVI IGRAČE",
+          "time": "18:40",
           "image": "tidy-toys",
           "color": "#EA580C"
         }
@@ -88,41 +101,49 @@
       "steps": [
         {
           "label": "RISANKA",
+          "time": "18:45",
           "image": "cartoon",
           "color": "#0284C7"
         },
         {
           "label": "OKOPAJ SE",
+          "time": "19:00",
           "image": "bath",
           "color": "#0D9488"
         },
         {
           "label": "ZDRAVILA IN NEGA",
+          "time": "19:25",
           "image": "care",
           "color": "#2563EB"
         },
         {
           "label": "OBLECI PIŽAMO",
+          "time": "19:30",
           "image": "pajamas",
           "color": "#16A34A"
         },
         {
           "label": "UMIJ ZOBKE",
+          "time": "19:35",
           "image": "brush-teeth",
           "color": "#0369A1"
         },
         {
           "label": "NA STRANIŠČE",
+          "time": "19:40",
           "image": "toilet",
           "color": "#1D4ED8"
         },
         {
           "label": "PRAVLJICA",
+          "time": "19:45",
           "image": "story",
           "color": "#115E59"
         },
         {
           "label": "LAHKO NOČ",
+          "time": "20:00",
           "image": "sleep",
           "color": "#1E40AF"
         }

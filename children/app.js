@@ -231,7 +231,7 @@ const EXAMPLE_IN = { sl: "sl-primer", en: "en-example" };
 const example = (sky, lang = (typeof state !== "undefined" && state.lang) || "sl") => D.examples[EXAMPLE_IN[lang] || "sl-primer"].sheets[EXAMPLE_FOR[sky] || 0];
 const pad = steps => steps.concat(Array.from({ length: MAX_STEPS }, newStep)).slice(0, MAX_STEPS);
 
-const exampleSteps = ex => pad(ex.steps.map(st => ({ label: st.label, time: "", image: "auto" })));
+const exampleSteps = ex => pad(ex.steps.map(st => ({ label: st.label, time: st.time || "", image: "auto" })));
 function fromExample(lang, sky = "night", base = {}) {   // the evening routine opens first
   const ex = example(sky, lang);
   return { lang, background: base.background || "gradient", times: base.times === true, theme: base.theme || ALL,

@@ -28,7 +28,7 @@ const T = {
     type: "Tip rutine", sheetTitle: "Naslov lista", skies: { dawn: "jutro", afternoon: "dan", night: "večer" },
     times: "Ura na listu", background: "Ozadje", backgrounds: { gradient: "barvno", white: "belo", none: "brez (manj črnila)" },
     pictures: "Skupina slik", themes: { all: "vse slike", bear: "medvedek", plain: "brez lika" },
-    label: "Korak", labelHint: "npr. UMIJ ZOBKE", language: "Jezik", moved: n => `Premaknjeno na mesto ${n}`, picture: "Sličica", time: "Ura", auto: "Samodejno", none: "Brez sličice", pick: "Zamenjaj sličico", removeStep: "Izprazni vrstico", move: "Premakni korak", moveHint: "Povleci ali tapni tu, nato tapni novo mesto. S tipkovnico: puščici gor in dol.", moveDesc: "Alt in puščica gor ali dol premakne korak. Dotik ročaja in nato ročaja druge vrstice zamenja mesti.",
+    label: "Korak", labelHint: "npr. UMIJ ZOBKE", language: "Jezik", moved: n => `Premaknjeno na mesto ${n}`, picture: "Sličica", time: "Ura", auto: "Samodejno", none: "Brez sličice", pick: "Zamenjaj sličico", closePick: "Zapri izbiro sličic", removeStep: "Izprazni vrstico", move: "Premakni korak", moveHint: "Povleci ali tapni tu, nato tapni novo mesto. S tipkovnico: puščici gor in dol.", moveDesc: "Alt in puščica gor ali dol premakne korak. Dotik ročaja in nato ročaja druge vrstice zamenja mesti.",
     warnNoMatch: (s, l) => `${s}: za »${l}« ni sličice. Klikni »?« in izberi sličico ali »Brez sličice«.`,
     warnMismatch: (s, l) => `${s}: sličica se morda ne ujema z napisom »${l}«.`,
     warnLong: (s, l) => `${s}: napis »${l}« je predolg za okvir; skrajšaj ga.`, tooLong: "Napis je predolg za okvir.",
@@ -43,7 +43,7 @@ const T = {
     type: "Routine type", sheetTitle: "Sheet title", skies: { dawn: "morning", afternoon: "day", night: "evening" },
     times: "Time on the sheet", background: "Background", backgrounds: { gradient: "color", white: "white", none: "none (less ink)" },
     pictures: "Image group", themes: { all: "all pictures", bear: "teddy bear", plain: "no character" },
-    label: "Step", labelHint: "e.g. BRUSH TEETH", language: "Language", moved: n => `Moved to place ${n}`, picture: "Picture", time: "Time", auto: "Automatic", none: "No picture", pick: "Change picture", removeStep: "Clear row", move: "Move step", moveHint: "Drag, or tap here and then tap the new place. Keyboard: up and down arrows.", moveDesc: "Alt and the up or down arrow move the step. Tap the handle, then another row's handle, to swap them.",
+    label: "Step", labelHint: "e.g. BRUSH TEETH", language: "Language", moved: n => `Moved to place ${n}`, picture: "Picture", time: "Time", auto: "Automatic", none: "No picture", pick: "Change picture", closePick: "Close the picture choice", removeStep: "Clear row", move: "Move step", moveHint: "Drag, or tap here and then tap the new place. Keyboard: up and down arrows.", moveDesc: "Alt and the up or down arrow move the step. Tap the handle, then another row's handle, to swap them.",
     warnNoMatch: (s, l) => `${s}: no picture for “${l}”. Click “?” and pick a picture or “No picture”.`,
     warnMismatch: (s, l) => `${s}: the picture may not match the label “${l}”.`,
     warnLong: (s, l) => `${s}: “${l}” is too long for the frame; shorten it.`, tooLong: "The label is too long for the frame.",
@@ -562,6 +562,8 @@ function renderEditor() {
     };
     // filled in place, also when the image group changes: an open gallery stays open, focus and scroll stay
     const fillGallery = () => gallery.replaceChildren(
+      el("div", { class: "gallery-top" }, el("button", { class: "gallery-close", "aria-label": L.closePick, title: L.closePick,
+        onclick: () => { openGallery(false); thumb.focus(); } }, "×")),
       el("button", { onclick: () => choose("auto") }, `🔄 ${L.auto}`),
       ...Object.entries(D.images).filter(([, img]) => state.theme === ALL || !img.variant_of).map(([id, img]) =>
         el("button", { title: img.title, "aria-label": (img.label && (img.label[state.lang] || img.label.sl)) || img.title, onclick: () => choose(id) },

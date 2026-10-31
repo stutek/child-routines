@@ -32,6 +32,7 @@ const T = {
     warnNoMatch: (s, l) => `${s}: za »${l}« ni sličice. Klikni »?« in izberi sličico ali »Brez sličice«.`,
     warnMismatch: (s, l) => `${s}: sličica se morda ne ujema z napisom »${l}«.`,
     warnLong: (s, l) => `${s}: napis »${l}« je predolg za okvir; skrajšaj ga.`, tooLong: "Napis je predolg za okvir.",
+    tipOff: "Ne kaži več tega namiga", tips: { type: "Jutro, dan ali večer: določi barve neba in primer korakov.", sheetTitle: "Besedilo na vrhu lista. Dolg naslov se zmanjša.", background: "Barvno ozadje je najlepše; belo ali brez porabi manj črnila.", pictures: "Ali naj sličice kažejo medvedka ali nobenega lika.", times: "Vklopljeno: ob vsakem koraku je polje za uro. Ure so za odrasle.", example: "Zamenja tvoj list s primerom za izbrani tip rutine. Razveljaviš lahko.", label: "Napis ob sličici, do približno 17 črk.", time: "Kdaj naj bo korak opravljen. Brez ure ostane na listu prazno polje.", pick: "Klikni in izberi drugo sličico.", del: "Izprazni vrstico. Razveljaviš lahko." },
     printHint: ["Pri tiskanju nastavi:", "velikost A4", "merilo 100 %", "brez robov", "lahko tudi shraniš kot PDF"], step: "Korak", ok: "✓ Vse sličice so najdene in vsi napisi se prilegajo.", suggest: "Manjka sličica? Predlagaj jo", warnTitle: "Opozorila", watchTitle: "Na kaj paziti", watch: [["Starost", "list je za otroke od 3 let naprej."], ["Magnetki", "uporabi le magnetke, varne za otroke in kemično neškodljive. Če otrok pogoltne magnetek, takoj pojdi k zdravniku."], ["Pisala", "za kljukice uporabi le pisala, varna za otroke in kemično neškodljiva."], ["Zdravila", "daje in hrani jih odrasel. Niso sladkarija."], ["Kopanje", "otroka nikoli ne pusti samega v kadi."], ["Zobki", "sledi navodilom svojega zobozdravnika."], ["Nagrade", "magnetek pomeni »narejeno«. Ne obljubljaj daril za magnetke: nagrada lahko otroku vzame veselje do opravila."], ["Brez pritiska", "ure na listu so za odrasle, ne za priganjanje. Če korak izpade ali se vrstni red pomeša, ohrani mir in poskusi znova naslednjič."]], guide: "Več o uporabi in varnosti", newTab: "(odpre se v novem zavihku)", project: "Projekt na GitHubu", hide: "Skrij", show: "Pokaži",
   },
   en: {
@@ -46,6 +47,7 @@ const T = {
     warnNoMatch: (s, l) => `${s}: no picture for “${l}”. Click “?” and pick a picture or “No picture”.`,
     warnMismatch: (s, l) => `${s}: the picture may not match the label “${l}”.`,
     warnLong: (s, l) => `${s}: “${l}” is too long for the frame; shorten it.`, tooLong: "The label is too long for the frame.",
+    tipOff: "Don't show this hint again", tips: { type: "Morning, day or evening: sets the sky colours and the example steps.", sheetTitle: "The text at the top of the sheet. A long title gets smaller.", background: "A coloured background looks best; white or none uses less ink.", pictures: "Whether the pictures show a teddy bear or no character.", times: "On: each step has a field for the time. The times are for adults.", example: "Replaces your sheet with the example for the chosen routine type. You can undo it.", label: "The label next to the picture, up to about 17 letters.", time: "When the step should be done. With no time, the sheet keeps an empty field.", pick: "Click to choose another picture.", del: "Clears the row. You can undo it." },
     printHint: ["When printing, set:", "size A4", "scale 100%", "margins “None”", "you can also save it as a PDF"], step: "Step", ok: "✓ All pictures found and all labels fit.", suggest: "Missing a picture? Suggest one", warnTitle: "Warnings", watchTitle: "What to watch for", watch: [["Age", "the sheet is for children aged 3 and up."], ["Magnets", "use only magnets that are safe for children and chemically harmless. If a child swallows a magnet, see a doctor at once."], ["Pens", "for ticks, use only pens that are safe for children and chemically harmless."], ["Medicine", "an adult gives and keeps it. It is not a sweet."], ["Bath", "never leave a child alone in the bath."], ["Teeth", "follow your dentist's advice."], ["Rewards", "a magnet means “done”. Don't promise gifts for magnets: a reward can take away the joy of the task."], ["No pressure", "the times on the sheet are for adults, not for hurrying. If a step is skipped or the order gets mixed up, stay calm and try again next time."]], guide: "More about use and safety", newTab: "(opens in a new tab)", project: "Project on GitHub", hide: "Hide", show: "Show",
   },
 };
@@ -331,9 +333,53 @@ function el(tag, attrs = {}, children = []) {
   for (const c of [].concat(children)) e.append(c);
   return e;
 }
+// ---------- hints ----------
+// One popup for every control with a hint: after a pause on hover, at once on keyboard focus, never on a tap (the tap acts).
+// It stays while the pointer is on it, Escape closes it, and × hides that hint for good (WCAG 2.2, 1.4.13); a screen reader
+// gets the same text through aria-describedby.
+const TIPS_OFF = "child-routines-tips-off";
+const tipsOff = new Set((() => { try { return JSON.parse(localStorage.getItem(TIPS_OFF)) || []; } catch (e) { return []; } })());
+const tipText = (key, L = t()) => key === "print" ? L.printHint : key === "link" ? L.linkHint : key === "move" ? L.moveHint : L.tips[key];
+function tip(control, key) {
+  const target = control.matches("label") ? control.querySelector("input") : control;
+  target.dataset.tip = key;
+  if (!tipsOff.has(key)) target.setAttribute("aria-description", [].concat(tipText(key)).join(" "));
+  return control;
+}
+const tipBox = el("div", { class: "pop", role: "tooltip", hidden: true });
+document.body.append(tipBox);
+let tipFor = null, tipTimer = 0;
+function hideTip() { clearTimeout(tipTimer); tipBox.hidden = true; tipFor = null; }
+function showTip(target) {
+  const key = target.dataset.tip, text = tipText(key);
+  if (tipsOff.has(key) || !text) return;
+  const off = el("button", { class: "tip-off", "aria-label": t().tipOff, title: t().tipOff, onclick: () => {
+    tipsOff.add(key); try { localStorage.setItem(TIPS_OFF, JSON.stringify([...tipsOff])); } catch (e) { /* no storage */ }
+    document.querySelectorAll(`[data-tip="${key}"]`).forEach(c => c.removeAttribute("aria-description"));
+    hideTip(); target.focus();
+  } }, "×");
+  tipBox.replaceChildren(off, ...(Array.isArray(text) ? [el("p", {}, text[0]), el("ul", {}, text.slice(1).map(t => el("li", {}, t)))] : [el("p", {}, text)]));
+  tipBox.hidden = false; tipFor = target;
+  // above the control if it fits, else below; kept inside the window
+  const r = target.getBoundingClientRect(), b = tipBox.getBoundingClientRect();
+  tipBox.style.left = `${Math.max(8, Math.min(r.left, innerWidth - b.width - 8))}px`;
+  tipBox.style.top = `${r.top - b.height - 8 >= 8 ? r.top - b.height - 8 : r.bottom + 8}px`;
+}
+const tipTarget = e => e.target.closest && e.target.closest("[data-tip]");
+addEventListener("pointerover", e => {
+  if (e.pointerType !== "mouse" || tipBox.contains(e.target)) { if (tipBox.contains(e.target)) clearTimeout(tipTimer); return; }
+  const t = tipTarget(e); clearTimeout(tipTimer);
+  if (t && t !== tipFor) tipTimer = setTimeout(() => showTip(t), 700);
+  else if (!t && tipFor) tipTimer = setTimeout(hideTip, 300);
+});
+addEventListener("pointerdown", e => { if (!tipBox.contains(e.target)) hideTip(); }, true);
+addEventListener("focusin", e => { const t = tipTarget(e); if (t && !("pointer" in document.documentElement.dataset)) showTip(t); else if (!tipBox.contains(e.target)) hideTip(); });
+addEventListener("keydown", e => { if (e.key === "Escape" && !tipBox.hidden) hideTip(); });
+addEventListener("scroll", hideTip, true);
+
 function select(label, value, options, onchange) {
   // autocomplete off: the browser must not restore an earlier choice over the state (a link, an example, Undo)
-  const s = el("select", { "aria-label": label, title: label, autocomplete: "off", onchange: e => onchange(e.target.value) },
+  const s = el("select", { "aria-label": label, autocomplete: "off", onchange: e => onchange(e.target.value) },
     Object.entries(options).map(([v, text]) => el("option", { value: v }, text)));
   s.value = value;
   return s;
@@ -460,18 +506,18 @@ function renderEditor() {
     details("how", L.howTitle, el("ol", { class: "how" }, L.how.map(s => el("li", {}, s)))),
     // every field has a visible label (WCAG 2.2, 3.3.2); a placeholder disappears once the parent types
     el("div", { class: "row-top fields" }, [
-      field(L.type, select(L.type, sheet.sky, L.skies, setType)),
-      field(L.sheetTitle, el("input", { class: "title", value: sheet.title, autocapitalize: "characters",
-        oninput: e => { sheet.title = typedText(e); update(); } }), "grow")]),
+      field(L.type, tip(select(L.type, sheet.sky, L.skies, setType), "type")),
+      field(L.sheetTitle, tip(el("input", { class: "title", value: sheet.title, autocapitalize: "characters",
+        oninput: e => { sheet.title = typedText(e); update(); } }), "sheetTitle"), "grow")]),
     el("div", { class: "row-top fields" }, [
-      field(L.background, select(L.background, state.background, L.backgrounds, v => { state.background = v; update(true); })),
-      ...(THEMED ? [field(L.pictures, select(L.pictures, state.theme, L.themes, v => { state.theme = v; sheet.steps.forEach(st => st._gallery()); update(); }))] : []),
-      el("label", { class: "grow check" }, [times, L.times]),
-      el("button", { class: "secondary", onclick: () => {
+      field(L.background, tip(select(L.background, state.background, L.backgrounds, v => { state.background = v; update(true); }), "background")),
+      ...(THEMED ? [field(L.pictures, tip(select(L.pictures, state.theme, L.themes, v => { state.theme = v; sheet.steps.forEach(st => st._gallery()); update(); }), "pictures"))] : []),
+      tip(el("label", { class: "grow check" }, [times, L.times]), "times"),
+      tip(el("button", { class: "secondary", onclick: () => {
         const prev = typed(sheet) && JSON.parse(JSON.stringify(state, (k, v) => (k.startsWith("_") ? undefined : v)));
         state = fromExample(state.lang, sheet.sky, state); update(true);
         if (prev) showUndo(prev);
-      } }, `${L.example}: ${L.skies[sheet.sky]}`)]),
+      } }, `${L.example}: ${L.skies[sheet.sky]}`), "example")]),
     // the undo notice has its own line between the controls and the steps (example loaded, step removed)
     el("div", { id: "undo", class: "undo" }));
 
@@ -482,7 +528,7 @@ function renderEditor() {
   const rows = [];
   sheet.steps.forEach((step, k) => {
     const gallery = el("div", { class: "gallery", hidden: true });
-    const thumb = el("button", { class: "thumb", title: L.pick, "aria-label": `${L.pick} ${k + 1}`, "aria-expanded": "false" });
+    const thumb = tip(el("button", { class: "thumb", "aria-label": `${L.pick} ${k + 1}`, "aria-expanded": "false" }), "pick");
     const openGallery = open => { gallery.hidden = !open; thumb.setAttribute("aria-expanded", String(open)); };
     thumb.addEventListener("click", () => openGallery(gallery.hidden));
     // Escape closes the gallery and gives focus back to the thumbnail (WCAG 2.1.1, 2.4.3)
@@ -502,7 +548,7 @@ function renderEditor() {
           el("img", { src: `../images/${themed(id, state.theme)}.jpg`, alt: "", loading: "lazy" }))),
       el("button", { onclick: () => choose("none") }, `∅ ${L.none}`));
     fillGallery();
-    const grip = el("button", { class: "grip", title: L.moveHint, "aria-label": `${L.move} ${k + 1}`, "aria-describedby": "move-desc", "aria-keyshortcuts": "Alt+ArrowUp Alt+ArrowDown",
+    const grip = el("button", { class: "grip", "data-tip": "move", "aria-label": `${L.move} ${k + 1}`, "aria-describedby": "move-desc", "aria-keyshortcuts": "Alt+ArrowUp Alt+ArrowDown",
       "aria-pressed": picked === k ? "true" : null,   // only in the tap-tap mode; a keyboard user never sees a toggle
       onpointerdown: e => dragRow(e, k, rows), onclick: e => e.preventDefault(),
       onkeydown: e => {
@@ -511,17 +557,17 @@ function renderEditor() {
       } }, el("span", { class: "dots", "aria-hidden": "true" }));
     const row = el("div", { class: picked === k ? "step picked" : "step" }, [
       el("span", { class: "n", id: `n-${k}` }, `${place(k)}`), grip,
-      step._input = el("input", { value: step.label, placeholder: k === 0 ? L.labelHint : "", maxlength: "24", "aria-labelledby": `col-label n-${k}`, autocapitalize: "characters",
-        oninput: e => { step.label = typedText(e); update(); } }),
-      el("input", { type: "time", value: step.time, "aria-labelledby": `col-time n-${k}`, oninput: e => { step.time = e.target.value; update(); } }),
+      step._input = tip(el("input", { value: step.label, placeholder: k === 0 ? L.labelHint : "", maxlength: "24", "aria-labelledby": `col-label n-${k}`, autocapitalize: "characters",
+        oninput: e => { step.label = typedText(e); update(); } }), "label"),
+      tip(el("input", { type: "time", value: step.time, "aria-labelledby": `col-time n-${k}`, oninput: e => { step.time = e.target.value; update(); } }), "time"),
       thumb,
-      el("button", { class: "del", title: L.removeStep, "aria-label": L.removeStep,
+      tip(el("button", { class: "del", "aria-label": L.removeStep,
         onclick: () => {
           const had = step.label.trim(), prev = had && JSON.parse(JSON.stringify(state, (key, v) => (key.startsWith("_") ? undefined : v)));
           sheet.steps.splice(k, 1); sheet.steps.push(newStep()); update(true);
           if (prev) showUndo(prev, L.stepRemoved);
           rowInput(k).focus();   // the row now at this place (WCAG 2.4.3)
-        } }, broom())]);
+        } }, broom()), "del")]);
     rows.push(row);
     step._hint = el("div", { class: "row-hint", id: `hint-${k}`, hidden: true }, L.tooLong);
     box.append(row, step._hint, gallery);
@@ -533,10 +579,8 @@ function renderEditor() {
     el("span", { id: "move-desc", class: "sr-only" }, L.moveDesc), el("div", { id: "all-fine", class: "warnings ok", role: "status", hidden: true }),
     // Share link and Print stay in view at the bottom of the form (sticky), the sheet keeps the whole preview height
     el("div", { class: "actionbar", id: "actionbar" }, [
-      el("span", { class: "tip" }, [el("button", { class: "copy", "aria-describedby": "link-hint", onclick: copyLink }, [el("img", { class: "icon", src: "share.svg", alt: "" }), L.copy]),
-        el("div", { class: "pop", role: "tooltip", id: "link-hint" }, L.linkHint)]),
-      el("span", { class: "tip" }, [el("button", { class: "print", "aria-describedby": "print-hint", onclick: () => window.print() }, L.print),
-        el("div", { class: "pop", role: "tooltip", id: "print-hint" }, [el("p", {}, L.printHint[0]), el("ul", {}, L.printHint.slice(1).map(t => el("li", {}, t)))])]),
+      tip(el("button", { class: "copy", onclick: copyLink }, [el("img", { class: "icon", src: "share.svg", alt: "" }), L.copy]), "link"),
+      tip(el("button", { class: "print", onclick: () => window.print() }, L.print), "print"),
       el("input", { id: "linkbox", class: "linkbox", readonly: "", hidden: "", "aria-label": L.copy })]));
 }
 

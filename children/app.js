@@ -481,7 +481,6 @@ function renderEditor() {
   const L = t(), root = document.getElementById("maker"), sheet = state.sheet;
   document.documentElement.lang = state.lang;
   document.title = L.heading;
-  root.classList.toggle("no-times", !state.times);
   document.getElementById("skip").textContent = L.skip;
   document.getElementById("preview").setAttribute("aria-label", L.previewName);
   const times = el("input", { type: "checkbox", autocomplete: "off", onchange: e => { state.times = e.target.checked; update(true); } });

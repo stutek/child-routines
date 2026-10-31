@@ -1,0 +1,22 @@
+{
+  "id": "pajamas-bear",
+  "title": "Teddy bear holding up a starry pajama top in the evening bedroom",
+  "variant_of": "pajamas",
+  "theme": "bear",
+  "model": "Google Gemini image generation (via Antigravity CLI, image-generator subagent)",
+  "prompt": "Soft watercolor and gouache children's picture-book illustration, delicate colored-pencil outlines, warm cream paper texture, gentle pastel palette. The scene is set in a real, cozy room of a family home with a floor, walls and a few homely details (plants, a small shelf), like a warm picture-book interior. Clear contrast and rich, saturated colors with defined darker outlines and shadows, not pale or washed out. No clouds, nothing floating. Cute and friendly, for a 4-year-old. Gender-neutral. Everything painted in one consistent watercolor style, no flat vector shapes, no text, no letters, no logos, no brands, no flags, no recognizable existing characters; every character is original. Square 1:1 composition, main subject large and centered, readable at 4 cm size. The same cute brown teddy bear as the BEAR reference (/home/simon/Projects/child-routines/images/make-bed.jpg), WITHOUT a nightcap, with small solid black round button eyes (no white of the eye) and a happy smile; exactly two arms and two legs. It stands beside a bed and lifts a soft pastel cotton pajama top with little moons and stars by its shoulders with both paws, about to pull it over its head, like the ROOM reference (/home/simon/Projects/child-routines/images/pajamas.jpg); the soft fabric hangs down limply with natural folds and drooping sleeves, NOT stiff. The matching pajama pants lie loosely on the bed. A cozy child's bedroom in the evening with warm lamp light, a shelf with books, a plant, a patterned rug. The bear and the pajama top are the clear main subject. No people, no human hands, no other characters, no tooth character.",
+  "reference_images": [
+    "images/make-bed.jpg (commit 078700e)",
+    "images/pajamas.jpg (commit f321f42)"
+  ],
+  "edits": [
+    "contrast raised once with tools/enhance.py"
+  ],
+  "contributor": "maintainer",
+  "license": "CC0-1.0",
+  "copyright_check": {
+    "date": "2026-10-31",
+    "method": "Google Lens, Exact matches on the raw and final file and on crops (bear, pajamas); Visual matches on the final file and the crops. Vision Web Detection not run: no key locally",
+    "result": "no exact matches; visual matches show only the same motif in other pictures, no same composition"
+  }
+}

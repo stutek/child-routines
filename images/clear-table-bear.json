@@ -1,0 +1,22 @@
+{
+  "id": "clear-table-bear",
+  "title": "Teddy bear carrying a used plate with cutlery from the table to the kitchen counter",
+  "variant_of": "clear-table",
+  "theme": "bear",
+  "model": "Google Gemini image generation (via Antigravity CLI, image-generator subagent)",
+  "prompt": "Soft watercolor and gouache children's picture-book illustration, delicate colored-pencil outlines, warm cream paper texture, gentle pastel palette. The scene is set in a real, cozy room of a family home with a floor, walls and a few homely details (plants, a small shelf), like a warm picture-book interior. Clear contrast and rich, saturated colors with defined darker outlines and shadows, not pale or washed out. No clouds, nothing floating. Cute and friendly, for a 4-year-old. Gender-neutral. Everything painted in one consistent watercolor style, no flat vector shapes, no text, no letters, no logos, no brands, no flags, no recognizable existing characters; every character is original. Square 1:1 composition, main subject large and centered, readable at 4 cm size. The same cute brown teddy bear as the BEAR reference, WITHOUT a nightcap, with small solid black round button eyes (no white of the eye) and a happy smile; exactly two arms and two legs. It walks away from a light wooden table with a colorful fabric placemat, carrying in both paws a used plate with a fork and spoon on it (a few crumbs and a little leftover sauce) toward a kitchen counter, as in the ROOM reference. No sink, no running water, no tap. A cozy family kitchen, a plant. The bear carrying the plate away is the clear main subject. No people, no human hands, no other characters, no tooth character.",
+  "reference_images": [
+    "images/make-bed.jpg (commit 078700e)",
+    "images/clear-table.jpg (commit 65555ab)"
+  ],
+  "edits": [
+    "contrast raised once with tools/enhance.py"
+  ],
+  "contributor": "maintainer",
+  "license": "CC0-1.0",
+  "copyright_check": {
+    "date": "2026-10-31",
+    "method": "Google Lens, Exact matches on the raw and final file and on crops (bear with plate, table and chairs); Visual matches on the final file and the crops. Vision Web Detection not run: no key locally",
+    "result": "no exact matches; visual matches show only the same motif in other pictures, no same composition"
+  }
+}

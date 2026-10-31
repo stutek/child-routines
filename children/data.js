@@ -203,6 +203,13 @@ window.SHEET_DATA = {
    },
    "theme": "plain"
   },
+  "cartoon-bear": {
+   "title": "Teddy bear in an armchair watching a friendly bunny on a rounded wooden TV",
+   "label": {},
+   "keywords": {},
+   "theme": "bear",
+   "variant_of": "cartoon"
+  },
   "cartoon": {
    "title": "Wooden TV showing hills, a river and a sailboat, with lamp, flowering plant and window",
    "label": {
@@ -227,6 +234,13 @@ window.SHEET_DATA = {
    },
    "theme": "plain"
   },
+  "clear-table-bear": {
+   "title": "Teddy bear carrying a used plate with cutlery from the table to the kitchen counter",
+   "label": {},
+   "keywords": {},
+   "theme": "bear",
+   "variant_of": "clear-table"
+  },
   "clear-table": {
    "title": "Child's hands carrying a used plate from the table",
    "label": {
@@ -246,6 +260,13 @@ window.SHEET_DATA = {
     ]
    },
    "theme": "plain"
+  },
+  "dinner-bear": {
+   "title": "Teddy bear at the kitchen table eating pasta, meatballs and vegetables with a fork",
+   "label": {},
+   "keywords": {},
+   "theme": "bear",
+   "variant_of": "dinner"
   },
   "dinner": {
    "title": "Plate of pasta, meatballs, carrots and broccoli on the set-table placemat",
@@ -272,6 +293,13 @@ window.SHEET_DATA = {
     ]
    },
    "theme": "plain"
+  },
+  "getting-dressed-bear": {
+   "title": "Teddy bear pulling on a rainbow T-shirt beside the bed with trousers and socks laid out",
+   "label": {},
+   "keywords": {},
+   "theme": "bear",
+   "variant_of": "getting-dressed"
   },
   "getting-dressed": {
    "title": "Rainbow T-shirt, jeans and a pair of striped socks laid out on a child's bed",
@@ -355,6 +383,13 @@ window.SHEET_DATA = {
    },
    "theme": "bear"
   },
+  "kindergarten-bear": {
+   "title": "Teddy bear with a yellow backpack, jacket and sneakers opening the front door",
+   "label": {},
+   "keywords": {},
+   "theme": "bear",
+   "variant_of": "kindergarten"
+  },
   "kindergarten": {
    "title": "Yellow backpack with straps and sneakers by the door",
    "label": {
@@ -410,6 +445,13 @@ window.SHEET_DATA = {
    },
    "theme": "bear"
   },
+  "pajamas-bear": {
+   "title": "Teddy bear holding up a starry pajama top in the evening bedroom",
+   "label": {},
+   "keywords": {},
+   "theme": "bear",
+   "variant_of": "pajamas"
+  },
   "pajamas": {
    "title": "Child's hands holding up a soft pajama top with moons and stars, pants on the bed",
    "label": {
@@ -462,6 +504,13 @@ window.SHEET_DATA = {
     ]
    },
    "theme": "bear"
+  },
+  "set-table-bear": {
+   "title": "Teddy bear placing a fork beside an empty plate on the plaid placemat",
+   "label": {},
+   "keywords": {},
+   "theme": "bear",
+   "variant_of": "set-table"
   },
   "set-table": {
    "title": "Child's hands setting cutlery next to an empty plate",
@@ -516,6 +565,13 @@ window.SHEET_DATA = {
     ]
    },
    "theme": "bear"
+  },
+  "story-bear": {
+   "title": "Teddy bear sitting on a rug against a cushion, looking at a picture book by a reading lamp",
+   "label": {},
+   "keywords": {},
+   "theme": "bear",
+   "variant_of": "story"
   },
   "story": {
    "title": "Open storybook on a bed with a pop-up castle",
@@ -624,6 +680,13 @@ window.SHEET_DATA = {
     ]
    },
    "theme": "bear"
+  },
+  "wash-hands-bear": {
+   "title": "Teddy bear on a step stool rubbing soapy paws under the tap in the mint bathroom, seen from the front",
+   "label": {},
+   "keywords": {},
+   "theme": "bear",
+   "variant_of": "wash-hands"
   },
   "wash-hands": {
    "title": "Child's hands washing under a tap with soap bubbles",
@@ -931,28 +994,37 @@ window.SHEET_EDGES = {
   "brush-teeth-plain": ["#CDEDE4", "#C6E9D2"],
   "brush-teeth": ["#B7EED8", "#B5EDD8"],
   "care": ["#9EE3CA", "#BAE9D2"],
+  "cartoon-bear": ["#E5C6BA", "#FFFAB9"],
   "cartoon": ["#FAD9C2", "#FFFAC2"],
+  "clear-table-bear": ["#FFF4D4", "#FDEEC7"],
   "clear-table": ["#DAE0D1", "#EBD2B5"],
+  "dinner-bear": ["#FFEFC9", "#EBC9AF"],
   "dinner": ["#E3C7B1", "#E3C6B4"],
+  "getting-dressed-bear": ["#F2D5B4", "#FDF0CB"],
   "getting-dressed": ["#F4E0C3", "#FAF1DA"],
   "good-morning-plain": ["#D5D0B3", "#E6C7A9"],
   "good-morning": ["#DECCBA", "#F7ECCF"],
   "hug-plain": ["#DFCEC0", "#D0D0BD"],
   "hug": ["#DACCCA", "#C2CFE5"],
+  "kindergarten-bear": ["#F6DCD2", "#F9D3BD"],
   "kindergarten": ["#E4C8A8", "#D2D3B1"],
   "make-bed-plain": ["#F0D4B4", "#FCEFCB"],
   "make-bed": ["#EBD5BB", "#F8EED1"],
+  "pajamas-bear": ["#F0E0D4", "#E1CCC1"],
   "pajamas": ["#FCD1BB", "#FACCAF"],
   "put-on-shoes-plain": ["#FAC384", "#F6C48C"],
   "put-on-shoes": ["#FFFAE5", "#E9CAAD"],
+  "set-table-bear": ["#FCD59C", "#FDD183"],
   "set-table": ["#FBDFCD", "#FFD692"],
   "sleep-plain": ["#DECABC", "#E0C6C4"],
   "sleep": ["#D1CDCA", "#F3F8F8"],
+  "story-bear": ["#FBDEAD", "#E3C9A7"],
   "story": ["#CECBD6", "#D8DFEE"],
   "tidy-toys-plain": ["#FADCB6", "#FDF6CD"],
   "tidy-toys": ["#F5DBBB", "#FCF1D0"],
   "toilet": ["#C3F2E8", "#B4E6D2"],
   "wash-face-plain": ["#C0F1EC", "#B6D9C6"],
   "wash-face": ["#CBEEEC", "#B1E5D2"],
+  "wash-hands-bear": ["#BDEACE", "#C4EACE"],
   "wash-hands": ["#E1E4CE", "#FDDBCE"],
 };

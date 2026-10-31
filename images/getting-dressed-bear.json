@@ -1,0 +1,22 @@
+{
+  "id": "getting-dressed-bear",
+  "title": "Teddy bear pulling on a rainbow T-shirt beside the bed with trousers and socks laid out",
+  "variant_of": "getting-dressed",
+  "theme": "bear",
+  "model": "Google Gemini image generation (via Antigravity CLI, image-generator subagent)",
+  "prompt": "Soft watercolor and gouache children's picture-book illustration, delicate colored-pencil outlines, warm cream paper texture, gentle pastel palette. The scene is set in a real, cozy room of a family home with a wooden floor, soft warm walls and homely details, like a warm picture-book interior. Clear contrast and rich, saturated colors with defined darker outlines and shadows, not pale or washed out. Cute and friendly, for a 4-year-old. Everything painted in one consistent watercolor style, no flat vector shapes, no text, no letters, no logos. Square 1:1 composition, main subject large and centered, readable at 4 cm size. The first reference image (make-bed.jpg) provides the appearance of the cute brown teddy bear (warm brown fur, lighter snout, round button ears, happy smiling face with small solid black round button eyes with no white showing), but the bear is WITHOUT any nightcap. Exactly two arms and two legs. The second reference image (getting-dressed.jpg) provides the wooden child's bed, the rainbow watercolor t-shirt, blue denim jeans, and rainbow striped socks. In this scene, the cute brown teddy bear sits on the edge of the wooden bed and pulls the soft rainbow-colored watercolor T-shirt over its head with both paws, with its happy smiling face and head just emerging through the round neck opening of the shirt. The little blue jeans and pair of rainbow-striped socks lie neatly on the white bedsheet beside the bear. Cozy morning bedroom atmosphere with soft natural morning light. Clear main subject, no people, no human hands, no other characters.",
+  "reference_images": [
+    "images/make-bed.jpg (commit 078700e)",
+    "images/getting-dressed.jpg (commit 2824e41)"
+  ],
+  "edits": [
+    "contrast raised once with tools/enhance.py"
+  ],
+  "contributor": "maintainer",
+  "license": "CC0-1.0",
+  "copyright_check": {
+    "date": "2026-10-31",
+    "method": "Google Lens, Exact matches on the raw and final file and on crops (bear with T-shirt, bed with clothes); Visual matches on the final file and the crops. Vision Web Detection not run: no key locally",
+    "result": "no exact matches; visual matches show only the same motif in other pictures, no same composition"
+  }
+}

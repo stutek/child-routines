@@ -55,6 +55,13 @@ window.SHEET_DATA = {
   "plain"
  ],
  "images": {
+  "bath-bear": {
+   "title": "Teddy bear in the white clawfoot tub full of bubbles in the mint bathroom, waving a paw, seen from the front",
+   "label": {},
+   "keywords": {},
+   "theme": "bear",
+   "variant_of": "bath"
+  },
   "bath": {
    "title": "Bubble bath ready with a rubber duck and a towel in the same bathroom",
    "label": {
@@ -626,6 +633,13 @@ window.SHEET_DATA = {
    },
    "theme": "bear"
   },
+  "toilet-bear": {
+   "title": "Teddy bear sitting on the toilet with the wooden seat in the mint bathroom, paws on its knees, seen from the front",
+   "label": {},
+   "keywords": {},
+   "theme": "bear",
+   "variant_of": "toilet"
+  },
   "toilet": {
    "title": "Plain toilet with a wooden seat in a cozy bathroom",
    "label": {
@@ -1035,6 +1049,7 @@ window.SHEET_DATA = {
  }
 };
 window.SHEET_EDGES = {
+  "bath-bear": ["#A4D6C7", "#B7EBCD"],
   "bath": ["#87DCD9", "#A0EFD9"],
   "breakfast-bear": ["#F7DCBB", "#FFF3CF"],
   "breakfast": ["#FFCE86", "#FFD68A"],
@@ -1071,6 +1086,7 @@ window.SHEET_EDGES = {
   "story": ["#CECBD6", "#D8DFEE"],
   "tidy-toys-plain": ["#FADCB6", "#FDF6CD"],
   "tidy-toys": ["#F5DBBB", "#FCF1D0"],
+  "toilet-bear": ["#C0F0E6", "#B0E0CF"],
   "toilet": ["#C3F2E8", "#B4E6D2"],
   "wash-face-plain": ["#C0F1EC", "#B6D9C6"],
   "wash-face": ["#CBEEEC", "#B1E5D2"],

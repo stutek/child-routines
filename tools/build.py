@@ -52,7 +52,7 @@ LICENSE = {"sl": "CC0 · prosto za uporabo, spreminjanje in deljenje", "en": "CC
 # a line in the footer only on a sheet that has such a step (by its picture), in step order
 STEP_NOTES = {
     "care": {"sl": "Zdravila daje in hrani odrasel.", "en": "An adult gives and keeps medicine."},
-    "bath": {"sl": "Otroka nikoli ne pusti samega v kadi.", "en": "Never leave a child alone in the bath."},
+    "bath": {"sl": "Majhnega otroka nikoli ne pusti samega v kadi.", "en": "Never leave a young child alone in the bath."},
 }
 # no line for paper itself: a sheet is no small part (16 CFR 1501.3(b) exempts articles made of paper), and the
 # 0–3 sign already keeps away the toddlers who tear and mouth paper; another line would dilute the magnet warning

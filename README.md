@@ -34,7 +34,7 @@ Example sheets, ready to print, are [here](https://routines.twotech.si/output/en
 - **Magnets:** use only magnets that are safe for children and chemically harmless. If a child swallows a magnet, see a doctor at once.
 - **Pens:** for ticks, use only pens that are safe for children and chemically harmless.
 - **Medicine:** an adult gives and keeps it. It is not a sweet.
-- **Bath:** never leave a child alone in the bath.
+- **Bath:** never leave a young child alone in the bath.
 - **Teeth:** follow your dentist's advice.
 
 ## Privacy

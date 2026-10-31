@@ -34,7 +34,7 @@ Vzorčni listi so [tu](https://routines.twotech.si/output/sl-primer.html), pripr
 - **Magnetki:** uporabite le magnetke, varne za otroke in kemično neškodljive. Če otrok pogoltne magnetek, takoj pojdite k zdravniku.
 - **Pisala:** za kljukice uporabite le pisala, varna za otroke in kemično neškodljiva.
 - **Zdravila:** daje in hrani jih odrasel. Niso sladkarija.
-- **Kopanje:** otroka nikoli ne pustite samega v kadi.
+- **Kopanje:** majhnega otroka nikoli ne pustite samega v kadi.
 - **Zobki:** sledite navodilom vašega zobozdravnika.
 
 ## Zasebnost

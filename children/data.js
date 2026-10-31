@@ -41,8 +41,8 @@ window.SHEET_DATA = {
    "en": "An adult gives and keeps medicine."
   },
   "bath": {
-   "sl": "Otroka nikoli ne pusti samega v kadi.",
-   "en": "Never leave a child alone in the bath."
+   "sl": "Majhnega otroka nikoli ne pusti samega v kadi.",
+   "en": "Never leave a young child alone in the bath."
   }
  },
  "under3": {

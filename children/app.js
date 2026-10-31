@@ -377,6 +377,27 @@ addEventListener("focusin", e => { const t = tipTarget(e); if (t && !("pointer" 
 addEventListener("keydown", e => { if (e.key === "Escape" && !tipBox.hidden) hideTip(); });
 addEventListener("scroll", hideTip, true);
 
+// a text field, not the browser's time picker: that one shows AM/PM to a reader whose browser is in English, whatever
+// the page language. It takes 7:30, 19.30, 1930 and, in English, 7:30 PM; leaving the field shows the sheet's form
+function timeInput(step, k) {
+  const shown = t => t ? clockText(t, state.lang) : "";
+  const parse = v => {
+    const m = v.trim().toLowerCase().match(/^(\d{1,2})(?:[:.,\s]?(\d{2}))?\s*([ap])?\.?m?\.?$/);
+    if (!m) return null;
+    let h = +m[1]; const min = +(m[2] || 0);
+    if (m[3]) { if (h < 1 || h > 12) return null; h = h % 12 + (m[3] === "p" ? 12 : 0); }
+    return h < 24 && min < 60 ? `${String(h).padStart(2, "0")}:${String(min).padStart(2, "0")}` : null;
+  };
+  return el("input", { value: shown(step.time), "aria-labelledby": `col-time n-${k}`, class: "time", type: "text", maxlength: "8",
+    placeholder: state.lang === "en" ? "7:30 PM" : "19:30", autocomplete: "off",
+    oninput: e => {
+      const t = e.target.value.trim() ? parse(e.target.value) : "";
+      e.target.toggleAttribute("aria-invalid", t === null);
+      if (t !== null) { step.time = t; update(); }
+    },
+    onchange: e => { if (parse(e.target.value)) e.target.value = shown(step.time); } });
+}
+
 function select(label, value, options, onchange) {
   // autocomplete off: the browser must not restore an earlier choice over the state (a link, an example, Undo)
   const s = el("select", { "aria-label": label, autocomplete: "off", onchange: e => onchange(e.target.value) },
@@ -558,7 +579,7 @@ function renderEditor() {
       el("span", { class: "n", id: `n-${k}` }, `${place(k)}`), grip,
       step._input = tip(el("input", { value: step.label, placeholder: k === 0 ? L.labelHint : "", maxlength: "24", "aria-labelledby": `col-label n-${k}`, autocapitalize: "characters",
         oninput: e => { step.label = typedText(e); update(); } }), "label"),
-      tip(el("input", { type: "time", value: step.time, "aria-labelledby": `col-time n-${k}`, oninput: e => { step.time = e.target.value; update(); } }), "time"),
+      tip(timeInput(step, k), "time"),
       thumb,
       tip(el("button", { class: "del", "aria-label": L.removeStep,
         onclick: () => {
@@ -583,7 +604,7 @@ function renderEditor() {
       el("input", { id: "linkbox", class: "linkbox", readonly: "", hidden: "", "aria-label": L.copy })]));
 }
 
-const rowInput = k => document.querySelectorAll("#maker .sheet-box .step:not(.step-head)")[k].querySelector("input:not([type=time])");
+const rowInput = k => document.querySelectorAll("#maker .sheet-box .step:not(.step-head)")[k].querySelector("input:not(.time)");
 
 // the last input decides the select's focus ring: none after the mouse or a touch, back with the keyboard (index.html)
 addEventListener("pointerdown", () => { document.documentElement.dataset.pointer = ""; }, true);

@@ -125,7 +125,7 @@
     .maker button.thumb.empty { background: #f8fafc; border-style: dashed; border-color: #64748b; color: #64748b; }
     .maker input.title { font-weight: 700; }
     /* labels print in capitals, so the fields show them that way too */
-    .maker input.title, .step input:not([type=time]) { text-transform: uppercase; }
+    .maker input.title, .step input:not(.time) { text-transform: uppercase; }
     .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 8px; padding: 8px 0 8px 28px; }
     .gallery[hidden] { display: none; }
@@ -140,16 +140,16 @@
     @media (max-width: 640px) {
       body { padding: 8px !important; gap: 16px !important; }
       .maker { padding: 12px; }
-      .step input[type=time] { font-size: 13px; padding: 6px 2px; }
+      .step input.time { font-size: 13px; padding: 6px 2px; }
       .maker button.thumb { width: 38px; height: 38px; }
       /* phone: the time goes under the label, so a 17-character label shows whole; grip and broom at least 24 px (WCAG 2.2, 2.5.8) */
       .step { grid-template-columns: 14px 24px minmax(0, 1fr) 38px 24px; gap: 4px; }
-      .step input[type=time] { grid-row: 2; grid-column: 3; justify-self: start; width: 110px; }
+      .step input.time { grid-row: 2; grid-column: 3; justify-self: start; width: 110px; }
       .step-head .col-time { display: none; }
       .gallery { grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); padding-left: 0; }
     }
     @media (max-width: 360px) {
-      .step input:not([type=time]) { font-size: 13px; padding: 6px 5px; }   /* 17 characters fit on the smallest phones */
+      .step input:not(.time) { font-size: 13px; padding: 6px 5px; }   /* 17 characters fit on the smallest phones */
     }
     .layout { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 24px; }
     /* the preview takes the column's width, so fitPreview() scales the sheet to it, not to itself */

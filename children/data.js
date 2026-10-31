@@ -696,7 +696,7 @@ window.SHEET_DATA = {
    "theme": "bear"
   },
   "wash-hands-bear": {
-   "title": "Teddy bear on a step stool rubbing soapy paws under the tap in the mint bathroom, seen from the front",
+   "title": "Teddy bear seen from the front across a low sink, rubbing its soapy paws by the running tap in the mint bathroom",
    "label": {},
    "keywords": {},
    "theme": "bear",
@@ -1090,6 +1090,6 @@ window.SHEET_EDGES = {
   "toilet": ["#C3F2E8", "#B4E6D2"],
   "wash-face-plain": ["#C0F1EC", "#B6D9C6"],
   "wash-face": ["#CBEEEC", "#B1E5D2"],
-  "wash-hands-bear": ["#BDEACE", "#C4EACE"],
+  "wash-hands-bear": ["#FBF5E0", "#FCF4DE"],
   "wash-hands": ["#E1E4CE", "#FDDBCE"],
 };

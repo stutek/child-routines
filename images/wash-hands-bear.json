@@ -1,14 +1,14 @@
 {
   "id": "wash-hands-bear",
-  "title": "Teddy bear on a step stool rubbing soapy paws under the tap in the mint bathroom, seen from the front",
+  "title": "Teddy bear seen from the front across a low sink, rubbing its soapy paws by the running tap in the mint bathroom",
   "variant_of": "wash-hands",
   "theme": "bear",
   "model": "Google Gemini image generation (via Antigravity CLI, image-generator subagent)",
-  "prompt": "Soft watercolor and gouache children's picture-book illustration, delicate colored-pencil outlines, warm cream paper texture, gentle pastel palette. The scene is set in a real, cozy room of a family home with a floor, walls and a few homely details (plants, a small shelf), like a warm picture-book interior. Clear contrast and rich, saturated colors with defined darker outlines and shadows, not pale or washed out. No clouds, nothing floating. Cute and friendly, for a 4-year-old. Gender-neutral. Everything painted in one consistent watercolor style, no flat vector shapes, no text, no letters, no logos, no brands, no flags, no recognizable existing characters; every character is original. Square 1:1 composition, main subject large and centered, readable at 4 cm size. The same cute brown teddy bear as the BEAR reference (first image), WITHOUT a nightcap, with small solid black round button eyes (no white of the eye) and a happy smile; exactly two arms and two legs. It stands on a small wooden step stool at the white sink in the cozy mint bathroom of the ROOM reference (second image), seen from the front, and rubs its two paws together under the running water from the tap, with soft white soap foam on its paws; a bar of soap on a little dish beside the sink and a towel on a hook. No toothbrush. The paws under the water are the clear main subject. No people, no human hands, no other characters, no tooth character.",
+  "prompt": "Soft watercolor and gouache children's picture-book illustration, delicate colored-pencil outlines, warm cream paper texture, gentle pastel palette. The scene is set in a real, cozy room of a family home with a floor, walls and a few homely details (plants, a small shelf), like a warm picture-book interior. Clear contrast and rich, saturated colors with defined darker outlines and shadows, not pale or washed out. No clouds, nothing floating. Cute and friendly, for a 4-year-old. Gender-neutral. Everything painted in one consistent watercolor style, no flat vector shapes, no text, no letters, no logos, no brands, no flags, no recognizable existing characters; every character is original. Square 1:1 composition, main subject large and centered, readable at 4 cm size. The same cute brown teddy bear as the BEAR reference, WITHOUT a nightcap, with small solid black round button eyes (no white of the eye) and a happy smile; exactly two arms and two legs. Seen from the front across the white sink, the whole upper body of the bear is visible behind a low child-height sink (no stool, no steps) in the cozy mint bathroom of the ROOM reference. Its face is fully visible above the tap and not covered by the water. It holds its two round, soft, fingerless teddy-bear paws (plush paws like the BEAR reference, no fingers, no human hands) together under the running water in front of its tummy, with soft white soap foam on the paws, and looks down at them happily; a bar of soap on a little dish on the sink edge and a striped towel hanging beside it. Exactly two arms, both attached to the bear. No toothbrush, no cup. The bear washing its paws is the clear main subject. No people, no human hands, no other characters, no tooth character.",
   "reference_images": [
     "images/make-bed.jpg (commit 078700e)",
     "images/wash-hands.jpg (commit 2824e41)",
-    "Lens Visual matches listed the EZCreativeCo Etsy teeth print (docs/copyright-investigations/2026-10-30-brush-teeth-bear-etsy-ezcreativeco.md): side view with a toothbrush at a pedestal sink; this is a front view washing hands in a full room, a different composition."
+    "Replaces a first bear on a step stool at the sink, whose Lens Visual matches listed the EZCreativeCo Etsy print set (docs/copyright-investigations/2026-10-30-brush-teeth-bear-etsy-ezcreativeco.md); a second attempt had human fingers and a third arm and was not used. The Etsy set still shows among the Visual matches of this image as the same motif (bear at a sink), not the same composition."
   ],
   "edits": [
     "contrast raised once with tools/enhance.py"
@@ -17,7 +17,7 @@
   "license": "CC0-1.0",
   "copyright_check": {
     "date": "2026-10-31",
-    "method": "Google Lens, Exact matches on the raw and final file and on crops (bear, sink with tap); Visual matches on the final file and the crops. Vision Web Detection not run: no key locally",
+    "method": "Google Lens, Exact matches on the raw and final file and on crops (bear face, sink with soap and tap); Visual matches on the final file and the crops. Vision Web Detection not run: no key locally",
     "result": "no exact matches; visual matches show only the same motif in other pictures, no same composition"
   }
 }

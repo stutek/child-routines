@@ -22,7 +22,7 @@ Free, no sign-up and no ads. What you type stays in your browser.
 
 - **Make the sheet together with your child.** You type the steps, your child picks the pictures.
 - **Do the steps together for the first few days.**
-- **A magnet means “done”.** Don't promise gifts for magnets: a reward can take away the joy of the task.
+- **A magnet means “done”.** Don't promise gifts for magnets: a reward can take away the child's own motivation to succeed and lessen the joy of the task.
 - **The times on the sheet are for adults,** not for hurrying. If a step is skipped or the order gets mixed up, stay calm and try again next time.
 - **When your child sleeps over at grandparents', an aunt's or an uncle's,** send the sheet along. A familiar order can give a child a sense of security.
 

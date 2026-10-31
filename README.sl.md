@@ -22,7 +22,7 @@ Brezplačno, brez prijave in brez oglasov. Vaši vnosi in podatki ostanejo zgolj
 
 - **List sestavite skupaj z otrokom.** Vi vpišete korake, otrok izbere sličice.
 - **Prve dni korake opravite skupaj.**
-- **Magnetek pomeni »narejeno«.** Ne obljubljajte daril za magnetke: nagrada lahko otroku vzame veselje do opravila.
+- **Magnetek pomeni »narejeno«.** Ne obljubljajte daril za magnetke: nagrada lahko otroku vzame lastno motivacijo ob doseganju uspeha in zmanjša veselje do opravila.
 - **Ure na listu so za odrasle,** ne za priganjanje. Če korak izpade ali se vrstni red pomeša, ohranite mir in poskusite znova naslednjič.
 - **Ko otrok prespi pri starih starših, teti ali stricu,** naj gre list z njim. Znano zaporedje mu lahko da občutek varnosti.
 

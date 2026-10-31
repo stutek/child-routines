@@ -234,7 +234,7 @@ const pad = steps => steps.concat(Array.from({ length: MAX_STEPS }, newStep)).sl
 const exampleSteps = ex => pad(ex.steps.map(st => ({ label: st.label, time: st.time || "", image: "auto" })));
 function fromExample(lang, sky = "night", base = {}) {   // the evening routine opens first
   const ex = example(sky, lang);
-  return { lang, background: base.background || "gradient", times: base.times === true, theme: base.theme || ALL,
+  return { lang, background: base.background || "gradient", times: base.times === true, theme: base.theme || "bear",
            sheet: { title: bare(ex.title), sky, steps: exampleSteps(ex) } };
 }
 // loading an example would lose what the parent typed: rows with content that are not just an example (any language or type)
@@ -268,7 +268,7 @@ function clean(s) {
   const sheet = { title: bare(tidy(str(sh.title, 60))), sky: own(D.skies, sh.sky) ? sh.sky : "night",
                   steps: pad((Array.isArray(sh.steps) ? sh.steps : []).slice(0, MAX_STEPS).map(step)) };
   return { lang: own(T, s.lang) ? s.lang : "sl", background: ["gradient", "white", "none"].includes(s.background) ? s.background : "gradient",
-           times: s.times === true, theme: [ALL, ...D.themes].includes(s.theme) ? s.theme : ALL, sheet };
+           times: s.times === true, theme: [ALL, ...D.themes].includes(s.theme) ? s.theme : "bear", sheet };
 }
 // first visit: the first of the browser's languages the page has (navigator.languages), else English
 function browserLang() {

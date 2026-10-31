@@ -204,7 +204,7 @@ window.SHEET_DATA = {
    "theme": "plain"
   },
   "cartoon-bear": {
-   "title": "Teddy bear in an armchair watching a friendly bunny on a rounded wooden TV",
+   "title": "Teddy bear in an armchair watching a landscape with a sailboat on a rounded wooden TV",
    "label": {},
    "keywords": {},
    "theme": "bear",
@@ -994,7 +994,7 @@ window.SHEET_EDGES = {
   "brush-teeth-plain": ["#CDEDE4", "#C6E9D2"],
   "brush-teeth": ["#B7EED8", "#B5EDD8"],
   "care": ["#9EE3CA", "#BAE9D2"],
-  "cartoon-bear": ["#E5C6BA", "#FFFAB9"],
+  "cartoon-bear": ["#E7C7BE", "#FFFDAF"],
   "cartoon": ["#FAD9C2", "#FFFAC2"],
   "clear-table-bear": ["#FFF4D4", "#FDEEC7"],
   "clear-table": ["#DAE0D1", "#EBD2B5"],

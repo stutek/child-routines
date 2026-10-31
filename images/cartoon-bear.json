@@ -1,13 +1,12 @@
 {
   "id": "cartoon-bear",
-  "title": "Teddy bear in an armchair watching a friendly bunny on a rounded wooden TV",
+  "title": "Teddy bear in an armchair watching a landscape with a sailboat on a rounded wooden TV",
   "variant_of": "cartoon",
   "theme": "bear",
   "model": "Google Gemini image generation (via Antigravity CLI, image-generator subagent)",
-  "prompt": "Soft watercolor and gouache children's picture-book illustration, delicate colored-pencil outlines, warm cream paper texture, gentle pastel palette. The scene is set in a real, cozy room of a family home with a floor, walls and a few homely details (plants, a small shelf), like a warm picture-book interior. Clear contrast and rich, saturated colors with defined darker outlines and shadows, not pale or washed out. No clouds, nothing floating. Cute and friendly, for a 4-year-old. Gender-neutral. Everything painted in one consistent watercolor style, no flat vector shapes, no text, no letters, no logos, no brands, no flags, no recognizable existing characters; every character is original. Square 1:1 composition, main subject large and centered, readable at 4 cm size. The same cute brown teddy bear as the BEAR reference (/home/simon/Projects/child-routines/images/make-bed.jpg), WITHOUT a nightcap, with small solid black round button eyes (no white of the eye) and a happy smile; exactly two arms and two legs. It sits far back on a soft sofa in the same cozy family living room in the evening as the ROOM reference (/home/simon/Projects/child-routines/images/cartoon.jpg), well away from the screen, and happily watches the same rounded wooden TV on its low wooden cabinet, where an original friendly cartoon bunny waves (not any known character); a cozy floor lamp glows warmly, a potted plant. The bear sits at a healthy distance, never close to the screen. The bear on the sofa and the TV are both clearly visible. No people, no human hands, no other characters, no tooth character.",
+  "prompt": "Recreate this exact children's picture-book illustration in the same soft watercolor and gouache style, the same teddy bear in the same armchair, the same rounded wooden TV on the same cabinet, the same floor lamp, bookshelf, window, plant, room, colors, light and composition. The only change: the TV screen shows a simple cheerful cartoon landscape instead of the bunny: rolling green hills, a little river with a small sailboat and a blue sky. No characters, no animals, no faces on the screen (a sun, if any, has no face). Remove the small animal figure on the bookshelf; the shelf keeps only books. Nothing else changes. No text, no letters, no logos. Square 1:1.",
   "reference_images": [
-    "images/make-bed.jpg (commit 078700e)",
-    "images/cartoon.jpg (commit 2824e41)"
+    "images/cartoon-bear.jpg (commit d792917, a bunny on the TV, which the cartoon decision excludes: docs/copyright-investigations/2026-10-23-cartoon-silhouette-bunny.md)"
   ],
   "edits": [
     "contrast raised once with tools/enhance.py"
@@ -16,7 +15,7 @@
   "license": "CC0-1.0",
   "copyright_check": {
     "date": "2026-10-31",
-    "method": "Google Lens, Exact matches on the raw and final file and on crops (bear in armchair, TV with bunny); Visual matches on the final file and the crops. Vision Web Detection not run: no key locally",
-    "result": "no exact matches; visual matches show only the same motif in other pictures, no same composition"
+    "method": "Google Lens, Exact and Visual matches on the raw and final file and on crops (bear in armchair, TV with landscape, bookshelf, plant, lamp). Vision Web Detection not run: no key locally",
+    "result": "no exact matches; visual matches show only the same motif (teddy bears, old TVs), no same composition"
   }
 }

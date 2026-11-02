@@ -55,7 +55,7 @@ Dotik v izdelovalniku (CDP `Input.dispatchTouchEvent`) preizkusi v brezglavem Ch
 ## Pravila
 
 - Repozitorij je samozadosten: vse, kar agent potrebuje (pravila, veščine, orodja), je v njem, in nič se ne sklicuje na datoteke zunaj njega. `CLAUDE.md` in `GEMINI.md` le uvozita to datoteko (angleško različico).
-- Začasne datoteke (meritve, profili brskalnika, okolja Python, posnetki), tudi iz orodij, nastajajo v `.private/tmp/` v repozitoriju (git jih prezre), ne v `/tmp` ali drugih sistemskih mapah; po delu jih agent pobriše.
+- Začasne datoteke (meritve, profili brskalnika, okolja Python, posnetki), tudi iz orodij, nastajajo v `.private/tmp/<seja>/` v repozitoriju (lastna podmapa, ker vzporedne seje pospravljajo za sabo; git jih prezre), ne v `/tmp` ali drugih sistemskih mapah; po delu jih agent pobriše.
 - Nikoli ne oslabi vrat za avtorske pravice (`.github/workflows/copyright-gate.yml`): ostati morajo na `pull_request_target`, ne smejo prevzeti ali pognati kode iz zahteve in morajo ob napaki zavrniti.
 - Ko starš sestavlja rutino za svojega otroka, otrokovega imena in drugih osebnih podatkov ne daj v commit ali zahtevo za združitev.
 - Primera (`routines/sl/primer.json`, `routines/en/example.json`; izdelovalnik ju naloži) kažeta dobre navade, npr. zaslon vsaj uro pred spanjem (KidsHealth), umite roke pred obrokom, zobje po zadnjem obroku; večer vključuje zdravila in nego, v podporo družinam, ki jih potrebujejo. Slovensko jutro nima zajtrka, ker ga dajo slovenski vrtci; angleško ga ohrani.

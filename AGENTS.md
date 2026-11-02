@@ -55,7 +55,7 @@ Test touch in the sheet maker (CDP `Input.dispatchTouchEvent`) in a headless Chr
 ## Rules
 
 - This repository is self-contained: everything an agent needs (rules, skills, tools) is in it, and nothing refers to files outside it. `CLAUDE.md` and `GEMINI.md` only import this file.
-- Temporary files (measurements, browser profiles, Python environments, recordings), also those of the tools, go in `.private/tmp/` inside the repository (ignored by git), never in `/tmp` or other system folders; remove them when the work is done.
+- Temporary files (measurements, browser profiles, Python environments, recordings), also those of the tools, go in `.private/tmp/<session>/` inside the repository (own subfolder, since parallel sessions clean up after themselves; ignored by git), never in `/tmp` or other system folders; remove them when the work is done.
 - Never weaken the copyright gate (`.github/workflows/copyright-gate.yml`): it must stay on `pull_request_target`, must not check out or run pull request code, and must fail closed.
 - When a parent makes a routine for their own child, keep the child's name and other personal details out of commits and pull requests.
 - The examples (`routines/sl/primer.json`, `routines/en/example.json`; the sheet maker loads them) model good habits, e.g. screens at least an hour before sleep (KidsHealth), hands washed before meals, teeth after the last meal; the evening includes medicine and care, to support families who need it. The Slovenian morning has no breakfast, because Slovenian kindergartens serve it; the English one keeps it.

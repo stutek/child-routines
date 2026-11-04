@@ -24,7 +24,7 @@ Slika sme v `images/` le, če na spletu ni njene kopije ali kopije njenega dela.
 ## Odločitev
 
 - Vsak natančen ali delni zadetek ali stran, ki sliko prikazuje: **zavrni**. Ustvari novo sliko z drugačno kompozicijo; stare ne urejaj, dokler ne prestane preverbe.
-- Le *podobne* slike (isti motiv, druga slika): sprejmi.
+- Le *podobne* slike (isti motiv, druga slika): sprejmi. Lastnosti, ki jih ima vsaka risba motiva (medvedkova okrogla ušesa, svetel gobček, oči kot gumbki), niso nikogaršnji izraz. Izrazit lik (lastne oznake, oblačilo, obraz) pa je: tudi v novi kompoziciji je kopija, zato zavrni.
 - Stran z zadetkom zahteva preverjanje robota ali prijavo: ne obhajaj je; zadetek velja za resničen.
 - Ročnih izjem od vrat ni.
 

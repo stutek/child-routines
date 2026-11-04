@@ -24,7 +24,7 @@ An image may enter `images/` only if no copy of it, or of a part of it, exists o
 ## Decide
 
 - Any exact or partial match, or a page showing the image: **reject**. Generate a new image with a different composition; do not edit the old one until it passes.
-- Only *visually similar* results (same subject, different picture): accept.
+- Only *visually similar* results (same subject, different picture): accept. Features every drawing of the subject shares (a teddy bear's round ears, light muzzle, button eyes) are no one's expression. A distinctive character (its own markings, clothing, face) is: copied into a new composition it is still a copy, so reject.
 - A matched site shows a bot check or login wall: do not bypass it; treat the match as real.
 - No manual exceptions to the gate.
 

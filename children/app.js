@@ -24,31 +24,31 @@ const T = {
   sl: {
     heading: "Otrokove rutine", aboutTitle: "O aplikaciji", howTitle: "Hitri začetek",
     about: "Jutro in večer sta polna korakov in pogosto jih naštevaš ti, vsak dan znova. Tu v nekaj minutah narediš in natisneš list s sličicami otrokove rutine, na katerem otrok opravljen korak sam označi z magnetkom ali kljukico. Tako vidi, kaj pride, list pa lahko gre z njim tudi k starim staršem, teti ali stricu, kjer mu znano zaporedje lahko da občutek varnosti. Brezplačno in brez prijave; kar vpišeš, ostane v tvojem brskalniku.",
-    how: ["Najlažje gre na računalniku. Izberi »Tip rutine« in vpiši korake: priporočamo 3 do 8. Prve dni jih opravi skupaj z otrokom.", "Stran sama izbere sličico za vsak korak. Klikni sličico, da jo zamenjaš.", "Naslov in korake lahko spremeniš tako, da vpišeš svoje besedilo. Prazne vrstice so na listu nevidne.", "Za ure na listu vklopi stikalo »Ura na listu« in jih vpiši.", "Vrstni red spremeniš tako, da vrstico povlečeš za pike.", "Klikni »Natisni«: A4, robovi »Brez«, merilo 100 %. Za datoteko PDF, ki jo lahko deliš, v oknu za tiskanje izberi »Shrani kot PDF«.", "Ko rutino spremeniš ali prilagodiš, natisni nov list.", "Za deljenje trenutnega pogleda aplikacije s sorodniki in prijatelji uporabi gumb »Deli povezavo«."],
+    how: ["Najlažje gre na računalniku. Izberi »Tip rutine« in vpiši korake: priporočamo 3 do 8. Prve dni jih opravi skupaj z otrokom.", "Stran sama izbere sličico za vsak korak. Klikni sličico, da jo zamenjaš.", "Naslov in korake lahko spremeniš tako, da vpišeš svoje besedilo. Prazne vrstice so na listu nevidne.", "Za ure na listu vklopi stikalo »Ura na listu«, vpiši začetek in koliko minut traja vsak korak. Ob želenem koncu vidiš rezervo ali preliv.", "Vrstni red spremeniš tako, da vrstico povlečeš za pike.", "Klikni »Natisni«: A4, robovi »Brez«, merilo 100 %. Za datoteko PDF, ki jo lahko deliš, v oknu za tiskanje izberi »Shrani kot PDF«.", "Ko rutino spremeniš ali prilagodiš, natisni nov list.", "Za deljenje trenutnega pogleda aplikacije s sorodniki in prijatelji uporabi gumb »Deli povezavo«."],
     example: "Naloži primer", replaced: "Primer je zamenjal tvoj list.", stepRemoved: "Korak je odstranjen.", skip: "Preskoči na obrazec", previewName: "Predogled lista", linkReplaced: "Povezava je zamenjala tvoj list.", copy: "Deli povezavo", copied: "Povezava je kopirana.", linkHint: "Povezava na končni izdelek brez aplikacije za urejanje. Povezava vsebuje vse podatke za ponovno ustvarjanje kopije deljene rutine.", undo: "Razveljavi", undone: "Tvoj list je vrnjen.", print: "Natisni",
     type: "Tip rutine", sheetTitle: "Naslov lista", skies: { dawn: "jutro", afternoon: "dan", night: "večer" },
     times: "Ura na listu", background: "Ozadje", backgrounds: { gradient: "barvno", white: "belo", none: "brez (manj črnila)" },
     pictures: "Skupina slik", themes: { all: "vse slike", bear: "medvedek", plain: "brez lika" },
-    label: "Korak", labelHint: "npr. UMIJ ZOBKE", language: "Jezik", moved: n => `Premaknjeno na mesto ${n}`, picture: "Sličica", time: "Ura", auto: "Samodejno", none: "Brez sličice", pick: "Zamenjaj sličico", closePick: "Zapri izbiro sličic", removeStep: "Izprazni vrstico", move: "Premakni korak", moveHint: "Povleci ali tapni tu, nato tapni novo mesto. S tipkovnico: puščici gor in dol.", moveDesc: "Alt in puščica gor ali dol premakne korak. Dotik ročaja in nato ročaja druge vrstice zamenja mesti.",
+    label: "Korak", labelHint: "npr. UMIJ ZOBKE", language: "Jezik", moved: n => `Premaknjeno na mesto ${n}`, picture: "Sličica", time: "Trajanje", start: "Začetek", end: "Želeni konec", endsAt: x => `konec ob ${x}`, spare: n => `+${n} min rezerve`, over: n => `−${n} min preliva`, minutes: "minut", auto: "Samodejno", none: "Brez sličice", pick: "Zamenjaj sličico", closePick: "Zapri izbiro sličic", removeStep: "Izprazni vrstico", move: "Premakni korak", moveHint: "Povleci ali tapni tu, nato tapni novo mesto. S tipkovnico: puščici gor in dol.", moveDesc: "Alt in puščica gor ali dol premakne korak. Dotik ročaja in nato ročaja druge vrstice zamenja mesti.",
     warnNoMatch: (s, l) => `${s}: za »${l}« ni sličice. Klikni »?« in izberi sličico ali »Brez sličice«.`,
     warnMismatch: (s, l) => `${s}: sličica se morda ne ujema z napisom »${l}«.`,
     warnLong: (s, l) => `${s}: napis »${l}« je predolg za okvir; skrajšaj ga.`, tooLong: "Napis je predolg za okvir.",
-    tipOff: "Ne kaži več tega namiga", tips: { type: "Jutro, dan ali večer: določi barve neba in primer korakov.", sheetTitle: "Besedilo na vrhu lista. Dolg naslov se zmanjša.", background: "Barvno ozadje je najlepše; belo ali brez porabi manj črnila.", pictures: "Ali naj sličice kažejo medvedka ali nobenega lika.", times: "Vklopljeno: ob vsakem koraku je polje za uro. Ure so za odrasle.", example: "Zamenja tvoj list s primerom za izbrani tip rutine. Razveljaviš lahko.", label: "Napis ob sličici, do približno 17 črk.", time: "Kdaj naj bo korak opravljen. Na listu je le, ko je vklopljena »Ura na listu«; brez vpisane ure je tam prazno polje.", pick: "Klikni in izberi drugo sličico.", del: "Izprazni vrstico. Razveljaviš lahko." },
+    tipOff: "Ne kaži več tega namiga", tips: { type: "Jutro, dan ali večer: določi barve neba in primer korakov.", sheetTitle: "Besedilo na vrhu lista. Dolg naslov se zmanjša.", background: "Barvno ozadje je najlepše; belo ali brez porabi manj črnila.", pictures: "Ali naj sličice kažejo medvedka ali nobenega lika.", times: "Vklopljeno: ob vsakem koraku je ura, izračunana iz začetka in trajanj. Ure so za odrasle.", start: "Ura, ko se rutina začne. Brez nje so polja za uro na listu prazna.", end: "Kdaj naj bo rutina končana. Obrazec pokaže, koliko časa ostane ali zmanjka; na listu je ni.", example: "Zamenja tvoj list s primerom za izbrani tip rutine. Razveljaviš lahko.", label: "Napis ob sličici, do približno 17 črk.", time: "Koliko minut traja korak; sivo je predlog. Desno je ura, do katere naj bo korak opravljen. Trajanje gre s korakom, ko ga premakneš.", pick: "Klikni in izberi drugo sličico.", del: "Izprazni vrstico. Razveljaviš lahko." },
     printHint: ["Pri tiskanju nastavi:", "velikost A4", "merilo 100 %", "brez robov", "lahko tudi shraniš kot PDF"], step: "Korak", ok: "✓ Vse sličice so najdene in vsi napisi se prilegajo.", suggest: "Manjka sličica? Predlagaj jo", warnTitle: "Opozorila", watchTitle: "Na kaj paziti", watch: [["Starost", "list je za otroke od 3 let naprej."], ["Magnetki", "uporabi le magnetke, varne za otroke in kemično neškodljive. Če otrok pogoltne magnetek, takoj pojdi k zdravniku."], ["Pisala", "za kljukice uporabi le pisala, varna za otroke in kemično neškodljiva."], ["Zdravila", "daje in hrani jih odrasel. Niso sladkarija."], ["Kopanje", "majhnega otroka nikoli ne pusti samega v kadi."], ["Zobki", "sledi navodilom svojega zobozdravnika."], ["Nagrade", "magnetek pomeni »narejeno«. Ne obljubljaj daril za magnetke: nagrada lahko otroku vzame lastno motivacijo ob doseganju uspeha in zmanjša veselje do opravila."], ["Brez pritiska", "ure na listu so za odrasle, ne za priganjanje. Če korak izpade ali se vrstni red pomeša, ohrani mir in poskusi znova naslednjič."]], guide: "Več o uporabi in varnosti", newTab: "(odpre se v novem zavihku)", project: "Projekt na GitHubu", madeBy: "Naredil", hide: "Skrij", show: "Pokaži",
   },
   en: {
     heading: "Child routines", aboutTitle: "About", howTitle: "Quick start",
     about: "Mornings and evenings are full of steps, and often you're the one listing them, every day. Here you can make and print a picture sheet of your child's routine in a few minutes; your child marks each finished step with a magnet or a tick. They can see what comes next, and the sheet can travel to grandparents, an aunt or an uncle, where the familiar order can give a sense of security. Free, with no sign-up; what you type stays in your browser.",
-    how: ["It is easiest on a computer. Pick the “Routine type” and type the steps: we recommend 3 to 8. Do them with your child for the first few days.", "The page picks a picture for each step. Click a picture to change it.", "Type your own text to change the title and the steps. Empty rows do not show on the sheet.", "For times on the sheet, turn on the “Time on the sheet” switch and type them.", "Drag a row by its dots to change the order.", "Click “Print”: A4, margins “None”, scale 100%. For a PDF file you can share, choose “Save as PDF” in the print window.", "When you change or adjust the routine, print a new sheet.", "To share the current view of the app with family and friends, use the “Share link” button."],
+    how: ["It is easiest on a computer. Pick the “Routine type” and type the steps: we recommend 3 to 8. Do them with your child for the first few days.", "The page picks a picture for each step. Click a picture to change it.", "Type your own text to change the title and the steps. Empty rows do not show on the sheet.", "For times on the sheet, turn on the “Time on the sheet” switch, type the start and how many minutes each step takes. With a wished end you see the time to spare or the overrun.", "Drag a row by its dots to change the order.", "Click “Print”: A4, margins “None”, scale 100%. For a PDF file you can share, choose “Save as PDF” in the print window.", "When you change or adjust the routine, print a new sheet.", "To share the current view of the app with family and friends, use the “Share link” button."],
     example: "Load example", replaced: "The example replaced your sheet.", stepRemoved: "Step removed.", skip: "Skip to the form", previewName: "Sheet preview", linkReplaced: "The link replaced your sheet.", copy: "Share link", copied: "Link copied.", linkHint: "A link to the finished sheet, without the editing app. The link holds all the data to make a copy of the shared routine again.", undo: "Undo", undone: "Your sheet is back.", print: "Print",
     type: "Routine type", sheetTitle: "Sheet title", skies: { dawn: "morning", afternoon: "day", night: "evening" },
     times: "Time on the sheet", background: "Background", backgrounds: { gradient: "color", white: "white", none: "none (less ink)" },
     pictures: "Image group", themes: { all: "all pictures", bear: "teddy bear", plain: "no character" },
-    label: "Step", labelHint: "e.g. BRUSH TEETH", language: "Language", moved: n => `Moved to place ${n}`, picture: "Picture", time: "Time", auto: "Automatic", none: "No picture", pick: "Change picture", closePick: "Close the picture choice", removeStep: "Clear row", move: "Move step", moveHint: "Drag, or tap here and then tap the new place. Keyboard: up and down arrows.", moveDesc: "Alt and the up or down arrow move the step. Tap the handle, then another row's handle, to swap them.",
+    label: "Step", labelHint: "e.g. BRUSH TEETH", language: "Language", moved: n => `Moved to place ${n}`, picture: "Picture", time: "Duration", start: "Start", end: "Wished end", endsAt: x => `ends at ${x}`, spare: n => `+${n} min to spare`, over: n => `−${n} min over`, minutes: "minutes", auto: "Automatic", none: "No picture", pick: "Change picture", closePick: "Close the picture choice", removeStep: "Clear row", move: "Move step", moveHint: "Drag, or tap here and then tap the new place. Keyboard: up and down arrows.", moveDesc: "Alt and the up or down arrow move the step. Tap the handle, then another row's handle, to swap them.",
     warnNoMatch: (s, l) => `${s}: no picture for “${l}”. Click “?” and pick a picture or “No picture”.`,
     warnMismatch: (s, l) => `${s}: the picture may not match the label “${l}”.`,
     warnLong: (s, l) => `${s}: “${l}” is too long for the frame; shorten it.`, tooLong: "The label is too long for the frame.",
-    tipOff: "Don't show this hint again", tips: { type: "Morning, day or evening: sets the sky colours and the example steps.", sheetTitle: "The text at the top of the sheet. A long title gets smaller.", background: "A coloured background looks best; white or none uses less ink.", pictures: "Whether the pictures show a teddy bear or no character.", times: "On: each step has a field for the time. The times are for adults.", example: "Replaces your sheet with the example for the chosen routine type. You can undo it.", label: "The label next to the picture, up to about 17 letters.", time: "When the step should be done. It shows on the sheet only with “Time on the sheet” on; with no time typed, the sheet has an empty field.", pick: "Click to choose another picture.", del: "Clears the row. You can undo it." },
+    tipOff: "Don't show this hint again", tips: { type: "Morning, day or evening: sets the sky colours and the example steps.", sheetTitle: "The text at the top of the sheet. A long title gets smaller.", background: "A coloured background looks best; white or none uses less ink.", pictures: "Whether the pictures show a teddy bear or no character.", times: "On: each step shows a time worked out from the start and the durations. The times are for adults.", start: "The time the routine starts. Without it the time fields on the sheet stay empty.", end: "When the routine should be over. The form shows how much time is left or missing; it is not on the sheet.", example: "Replaces your sheet with the example for the chosen routine type. You can undo it.", label: "The label next to the picture, up to about 17 letters.", time: "How many minutes the step takes; grey is a suggestion. On the right is the time the step should be done by. The duration moves with the step.", pick: "Click to choose another picture.", del: "Clears the row. You can undo it." },
     printHint: ["When printing, set:", "size A4", "scale 100%", "margins “None”", "you can also save it as a PDF"], step: "Step", ok: "✓ All pictures found and all labels fit.", suggest: "Missing a picture? Suggest one", warnTitle: "Warnings", watchTitle: "What to watch for", watch: [["Age", "the sheet is for children aged 3 and up."], ["Magnets", "use only magnets that are safe for children and chemically harmless. If a child swallows a magnet, see a doctor at once."], ["Pens", "for ticks, use only pens that are safe for children and chemically harmless."], ["Medicine", "an adult gives and keeps it. It is not a sweet."], ["Bath", "never leave a young child alone in the bath."], ["Teeth", "follow your dentist's advice."], ["Rewards", "a magnet means “done”. Don't promise gifts for magnets: a reward can take away the child's own motivation to succeed and lessen the joy of the task."], ["No pressure", "the times on the sheet are for adults, not for hurrying. If a step is skipped or the order gets mixed up, stay calm and try again next time."]], guide: "More about use and safety", newTab: "(opens in a new tab)", project: "Project on GitHub", madeBy: "Made by", hide: "Hide", show: "Show",
   },
 };
@@ -219,7 +219,28 @@ function sheetHtml(sheet, lang = "sl") {
 
 // ---------- state: one sheet, always MAX_STEPS rows; empty rows are left off the sheet ----------
 
-const newStep = () => ({ label: "", time: "", image: "auto" });
+const newStep = () => ({ label: "", mins: "", image: "auto" });
+// generous minutes per picture for a young child, used while the parent types none; a step without a picture takes 5
+const MINUTES = { "good-morning": 5, "make-bed": 5, toilet: 5, "wash-hands": 5, "wash-face": 5, "brush-teeth": 5, "brush-hair": 5,
+  "getting-dressed": 10, "put-on-shoes": 5, kindergarten: 10, breakfast: 20, dinner: 30, "set-table": 5, "clear-table": 10,
+  "tidy-toys": 10, cartoon: 20, bath: 20, care: 10, pajamas: 10, story: 15, hug: 5, sleep: 5 };
+const HHMM = /^([01]\d|2[0-3]):[0-5]\d$/;
+const toMin = t => +t.slice(0, 2) * 60 + +t.slice(3);
+const fromMin = m => { m = ((m % 1440) + 1440) % 1440; return `${String(Math.floor(m / 60)).padStart(2, "0")}:${String(m % 60).padStart(2, "0")}`; };
+const okMins = v => Number.isInteger(v) && v >= 1 && v <= 240 ? v : "";
+// times of the day (example routines, older links and storage) become durations: each the gap to the step before;
+// the first step keeps its default, the start comes before it and the last time is the wished end
+function fromTimes(steps) {
+  const timed = steps.filter(st => st.label && HHMM.test(st.time || ""));
+  if (!timed.length) return { start: "", end: "", steps: steps.map(st => ({ ...st, mins: okMins(st.mins) })) };
+  let prev = null;
+  const out = steps.map(st => {
+    if (!timed.includes(st)) return { ...st, mins: "" };
+    const m = prev === null ? "" : okMins(toMin(st.time) - prev); prev = toMin(st.time); return { ...st, mins: m };
+  });
+  const first = out.find(st => timed.includes(steps[out.indexOf(st)]));
+  return { start: fromMin(toMin(timed[0].time) - minutesOf(first)), end: fromMin(Math.max(...timed.map(st => toMin(st.time)))), steps: out };
+}
 const EXAMPLE_FOR = { dawn: 0, afternoon: 1, night: 2 };   // sheet of the example routine per type
 // titles are plain text; older stored titles and the example may start with an icon, which is dropped
 const bare = s => s.replace(/^[^\p{L}\p{N}]+/u, "").trim();
@@ -232,14 +253,15 @@ const EXAMPLE_IN = { sl: "sl-primer", en: "en-example" };
 const example = (sky, lang = (typeof state !== "undefined" && state.lang) || "sl") => D.examples[EXAMPLE_IN[lang] || "sl-primer"].sheets[EXAMPLE_FOR[sky] || 0];
 const pad = steps => steps.concat(Array.from({ length: MAX_STEPS }, newStep)).slice(0, MAX_STEPS);
 
-const exampleSteps = ex => pad(ex.steps.map(st => ({ label: st.label, time: st.time || "", image: "auto" })));
+const exampleTimes = ex => fromTimes(ex.steps.map(st => ({ label: st.label, time: st.time || "", image: "auto" })));
+const exampleSteps = ex => pad(exampleTimes(ex).steps.map(({ time, ...st }) => st));
 function fromExample(lang, sky = "night", base = {}) {   // the evening routine opens first
   const ex = example(sky, lang);
   return { lang, background: base.background || "gradient", times: base.times === true, theme: base.theme || "bear",
-           sheet: { title: bare(ex.title), sky, steps: exampleSteps(ex) } };
+           sheet: { title: bare(ex.title), sky, start: exampleTimes(ex).start, end: exampleTimes(ex).end, steps: exampleSteps(ex) } };
 }
 // loading an example would lose what the parent typed: rows with content that are not just an example (any language or type)
-const rowsKey = steps => JSON.stringify(steps.map(s => [s.label.trim(), s.time, s.image]));
+const rowsKey = steps => JSON.stringify(steps.map(s => [s.label.trim(), s.mins, s.image]));
 const EXAMPLE_ROWS = new Set(Object.values(EXAMPLE_IN).flatMap(name => D.examples[name].sheets.map(ex => rowsKey(exampleSteps(ex)))));
 // after an example replaced typed rows, "Undo" brings them back until the next edit or 10 s
 let undoTimer;
@@ -250,7 +272,7 @@ function showUndo(prev, message = t().replaced) {
   document.getElementById("announce").textContent = `${message} ${L.undo}?`;
   undoTimer = setTimeout(hideUndo, 10000);
 }
-const typed = sheet => sheet.steps.some(s => s.label.trim() || s.time || s.image !== "auto") && !EXAMPLE_ROWS.has(rowsKey(sheet.steps));
+const typed = sheet => sheet.steps.some(s => s.label.trim() || s.mins || s.image !== "auto") && !EXAMPLE_ROWS.has(rowsKey(sheet.steps));
 // Stored state is untrusted: anything else ever served from this origin shares its storage.
 // Keep only known values, so nothing from storage reaches the markup unchecked.
 // only a table's own keys count: "constructor" or "__proto__" exist on every object and would pass a plain lookup
@@ -260,14 +282,18 @@ function clean(s) {
   const str = (v, max) => (typeof v === "string" ? v : "").slice(0, max);
   const step = st => ({
     label: tidy(str(st && st.label, 40)),
-    time: /^([01]\d|2[0-3]):[0-5]\d$/.test(st && st.time) ? st.time : "",
+    time: HHMM.test(st && st.time) ? st.time : "",   // older versions kept times of the day, fromTimes() turns them into durations
+    mins: okMins(st && st.mins),
     // a step keeps the picture as chosen, a variant too: an image group other than "all" swaps it (themed())
     image: st && st.image === "none" ? "none" : st && own(D.images, st.image) ? st.image : "auto",
   });
   const sh = s.sheet || (Array.isArray(s.sheets) && s.sheets[0]);   // older versions kept several sheets
   if (!sh) return null;
+  const steps = (Array.isArray(sh.steps) ? sh.steps : []).slice(0, MAX_STEPS).map(step);
+  const old = steps.some(st => st.time) ? fromTimes(steps) : null;
   const sheet = { title: bare(tidy(str(sh.title, 60))), sky: own(D.skies, sh.sky) ? sh.sky : "night",
-                  steps: pad((Array.isArray(sh.steps) ? sh.steps : []).slice(0, MAX_STEPS).map(step)) };
+                  start: old ? old.start : HHMM.test(sh.start) ? sh.start : "", end: old ? old.end : HHMM.test(sh.end) ? sh.end : "",
+                  steps: pad((old ? old.steps : steps).map(({ time, ...st }) => st)) };
   return { lang: own(T, s.lang) ? s.lang : "sl", background: ["gradient", "white", "none"].includes(s.background) ? s.background : "gradient",
            times: s.times === true, theme: [ALL, ...D.themes].includes(s.theme) ? s.theme : "bear", sheet };
 }
@@ -278,12 +304,13 @@ function browserLang() {
   return "en";
 }
 // ---------- share link: the sheet in the URL fragment (never sent to a server), base64url of compact JSON ----------
-// {l: language, b: background, t: 0 when the time is off, p: picture theme, s: sky, h: title, r: [[label, time, image], ...]};
+// {l: language, b: background, t: 0 when the time is off, p: picture theme, s: sky, h: title, a: start, e: wished end,
+// r: [[label, minutes, image], ...]} (older links: [label, time of day, image]);
 // trailing empty rows and image "auto" are left out. Base64 is not encryption.
 function encodeSheet(st) {
-  const r = st.sheet.steps.map(x => [x.label, x.time, x.image === "auto" ? "" : x.image]);
+  const r = st.sheet.steps.map(x => [x.label, x.mins, x.image === "auto" ? "" : x.image]);
   while (r.length && !r[r.length - 1][0] && !r[r.length - 1][1] && !r[r.length - 1][2]) r.pop();
-  const json = JSON.stringify({ l: st.lang, b: st.background, t: st.times ? 1 : 0, p: st.theme, s: st.sheet.sky, h: st.sheet.title, r });
+  const json = JSON.stringify({ l: st.lang, b: st.background, t: st.times ? 1 : 0, p: st.theme, s: st.sheet.sky, h: st.sheet.title, a: st.sheet.start, e: st.sheet.end, r });
   let bin = ""; for (const b of new TextEncoder().encode(json)) bin += String.fromCharCode(b);
   return btoa(bin).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
 }
@@ -295,7 +322,8 @@ function decodeSheet(data) {
     const j = JSON.parse(new TextDecoder("utf-8", { fatal: true }).decode(Uint8Array.from(bin, c => c.charCodeAt(0))));
     if (!j || typeof j !== "object" || !Array.isArray(j.r)) return null;
     return clean({ lang: j.l, background: j.b, times: j.t !== 0, theme: j.p,
-      sheet: { title: j.h, sky: j.s, steps: j.r.slice(0, MAX_STEPS).map(x => Array.isArray(x) ? { label: x[0], time: x[1], image: x[2] || "auto" } : {}) } });
+      sheet: { title: j.h, sky: j.s, start: j.a, end: j.e, steps: j.r.slice(0, MAX_STEPS).map(x => Array.isArray(x)
+        ? { label: x[0], [typeof x[1] === "string" ? "time" : "mins"]: x[1], image: x[2] || "auto" } : {}) } });
   } catch (e) { return null; }
 }
 const linkData = () => decodeSheet(location.hash.slice(1));
@@ -317,10 +345,24 @@ const filled = () => state.sheet.steps.filter(st => st.label.trim());
 const place = k => state.sheet.steps[k].label.trim() ? state.sheet.steps.slice(0, k + 1).filter(st => st.label.trim()).length : "";
 
 // resolved step for drawing: uppercase label, chosen or matched image, palette color by type and position
-function resolve(step, k) {
+function imageOf(step) {
+  return step.image === "auto" ? (match(step.label) || {}).id || null : step.image === "none" ? null : step.image;
+}
+function minutesOf(step) {
+  const id = imageOf(step);
+  return step.mins || (id && MINUTES[D.images[id].variant_of || id]) || 5;
+}
+// the time each filled step should be done by: start plus the durations up to and including it
+function schedule() {
+  const at = new Map(), start = state.sheet.start;
+  let m = HHMM.test(start) ? toMin(start) : null;
+  for (const st of filled()) if (m !== null) { m += minutesOf(st); at.set(st, fromMin(m)); }
+  return { at, end: m };
+}
+function resolve(step, k, at = schedule().at) {
   const m = match(step.label);
-  const image = step.image === "auto" ? (m ? m.id : null) : step.image === "none" ? null : step.image;
-  return { label: step.label.toLocaleUpperCase(state.lang), time: step.time, image, match: m,
+  const image = imageOf(step);
+  return { label: step.label.toLocaleUpperCase(state.lang), time: at.get(step) || "", image, match: m,
            color: PALETTES[EXAMPLE_FOR[state.sheet.sky] || 0][k % MAX_STEPS] };
 }
 
@@ -380,7 +422,7 @@ addEventListener("scroll", hideTip, true);
 
 // a text field, not the browser's time picker: that one shows AM/PM to a reader whose browser is in English, whatever
 // the page language. It takes 7:30, 19.30, 1930 and, in English, 7:30 PM; leaving the field shows the sheet's form
-function timeInput(step, k) {
+function timeInput(get, set, attrs) {
   const shown = t => t ? clockText(t, state.lang) : "";
   const parse = v => {
     const m = v.trim().toLowerCase().match(/^(\d{1,2})(?:[:.,\s]?(\d{2}))?\s*([ap])?\.?m?\.?$/);
@@ -389,14 +431,28 @@ function timeInput(step, k) {
     if (m[3]) { if (h < 1 || h > 12) return null; h = h % 12 + (m[3] === "p" ? 12 : 0); }
     return h < 24 && min < 60 ? `${String(h).padStart(2, "0")}:${String(min).padStart(2, "0")}` : null;
   };
-  return el("input", { value: shown(step.time), "aria-labelledby": `col-time n-${k}`, class: "time", type: "text", maxlength: "8",
-    placeholder: k > 0 ? "" : state.lang === "en" ? "7:30 PM" : "19:30", autocomplete: "off",
+  return el("input", { value: shown(get()), class: "clock", type: "text", maxlength: "8",
+    placeholder: state.lang === "en" ? "7:30 PM" : "19:30", autocomplete: "off", ...attrs,
     oninput: e => {
       const t = e.target.value.trim() ? parse(e.target.value) : "";
       e.target.toggleAttribute("aria-invalid", t === null);
-      if (t !== null) { step.time = t; update(); }
+      if (t !== null) { set(t); update(); }
     },
-    onchange: e => { if (parse(e.target.value)) e.target.value = shown(step.time); } });
+    onchange: e => { if (parse(e.target.value)) e.target.value = shown(get()); } });
+}
+// minutes a step takes: 10, +10, 10 min; empty takes the picture's default, shown grey. The time it should be done by sits beside it
+function minutesInput(step, k) {
+  const shown = v => v ? `+${v}` : "";
+  const input = el("input", { value: shown(step.mins), "aria-labelledby": `col-time n-${k}`, "aria-describedby": `at-${k}`, class: "time",
+    type: "text", inputmode: "numeric", maxlength: "7", autocomplete: "off",
+    oninput: e => {
+      const v = e.target.value.trim(), m = v.match(/^\+?\s*(\d{1,3})\s*(m|min)?$/i), n = m && okMins(+m[1]);
+      e.target.toggleAttribute("aria-invalid", !!v && !n);
+      if (!v || n) { step.mins = v ? n : ""; update(); }
+    },
+    onchange: e => { if (!e.target.hasAttribute("aria-invalid")) e.target.value = shown(step.mins); } });
+  step._mins = input;
+  return el("span", { class: "dur" }, [input, step._at = el("span", { class: "at", id: `at-${k}` })]);
 }
 
 function select(label, value, options, onchange) {
@@ -421,14 +477,12 @@ const field = (text, control, cls = "") => el("label", { class: `field ${cls}`.t
 const broom = () => el("span", { class: "broom", "aria-hidden": "true" }, "🧹");
 
 // ---------- reordering: drag a row by its grip (mouse or touch), tap a grip and then another, or arrow keys ----------
-// dragging is not the only way (WCAG 2.2, 2.5.7). The numbers are places 1 to 8 and stay put, the times too; the rest of the row moves.
+// dragging is not the only way (WCAG 2.2, 2.5.7). The numbers are places 1 to 8 and stay put; the row's content moves.
 const shift = (row, y) => { for (const c of row.children) if (!c.classList.contains("n")) c.style.transform = y ? `translateY(${y}px)` : ""; };
 let picked = null;   // row picked by a tap, waiting for the tap at its new place
 function moveStep(from, to) {
   const steps = state.sheet.steps;
-  const times = steps.map(s => s.time);   // times stay with the places, so the order of the day stays in order
-  steps.splice(to, 0, steps.splice(from, 1)[0]);
-  steps.forEach((s, i) => { s.time = times[i]; });
+  steps.splice(to, 0, steps.splice(from, 1)[0]);   // the duration moves with the step
   picked = null; update(true);
   document.querySelectorAll(".grip")[to].focus();
   document.getElementById("announce").textContent = T[state.lang].moved(to + 1);   // read out by screen readers
@@ -547,11 +601,16 @@ function renderEditor() {
         state = fromExample(state.lang, sheet.sky, state); update(true);
         if (prev) showUndo(prev);
       } }, `${L.example}: ${L.skies[sheet.sky]}`), "example")]),
+    // start, wished end and what is left or missing; only with times on the sheet
+    ...(state.times ? [el("div", { class: "row-top fields" }, [
+      field(L.start, tip(timeInput(() => sheet.start, v => { sheet.start = v; }, { placeholder: "" }), "start")),
+      field(L.end, tip(timeInput(() => sheet.end, v => { sheet.end = v; }, { placeholder: "" }), "end")),
+      el("span", { id: "budget", class: "budget grow", role: "status" })])] : []),
     // the undo notice has its own line between the controls and the steps (example loaded, step removed)
     el("div", { id: "undo", class: "undo" }));
 
   // column headings label the rows: a screen reader reads a field as "Step 3"
-  const box = el("div", { class: "sheet-box" }, el("div", { class: "step step-head", "aria-hidden": "true" }, [
+  const box = el("div", { class: state.times ? "sheet-box" : "sheet-box no-times" }, el("div", { class: "step step-head", "aria-hidden": "true" }, [
     el("span"), el("span"), el("span", { id: "col-label" }, L.label), el("span", { id: "col-time", class: "col-time" }, L.time),
     el("span", { id: "col-pic" }, L.picture), el("span")]));
   const rows = [];
@@ -590,7 +649,7 @@ function renderEditor() {
       el("span", { class: "n", id: `n-${k}` }, `${place(k)}`), grip,
       step._input = tip(el("input", { value: step.label, placeholder: k === 0 ? L.labelHint : "", maxlength: "24", "aria-labelledby": `col-label n-${k}`, autocapitalize: "characters",
         oninput: e => { step.label = typedText(e); update(); } }), "label"),
-      tip(timeInput(step, k), "time"),
+      ...(state.times ? [tip(minutesInput(step, k), "time")] : []),
       thumb,
       tip(el("button", { class: "del", "aria-label": L.removeStep,
         onclick: () => {
@@ -616,6 +675,23 @@ function renderEditor() {
 }
 
 const rowInput = k => document.querySelectorAll("#maker .sheet-box .step:not(.step-head)")[k].querySelector("input:not(.time)");
+// each row's default minutes and done-by time, and the start, end and what is left or missing
+function refreshTimes() {
+  const L = t(), { at, end } = schedule();
+  state.sheet.steps.forEach(st => {
+    if (!st._mins) return;
+    st._mins.placeholder = st.label.trim() ? `+${minutesOf(st)}` : "";
+    st._at.textContent = at.get(st) ? clockText(at.get(st), state.lang) : "";
+  });
+  const b = document.getElementById("budget");
+  if (!b) return;
+  const wished = state.sheet.end;
+  if (end === null || !filled().length) { b.replaceChildren(); return; }
+  let d = HHMM.test(wished) ? ((toMin(wished) - end) % 1440 + 1440) % 1440 : null;
+  if (d !== null && d > 720) d -= 1440;
+  b.className = `budget grow${d === null ? "" : d < 0 ? " over" : " spare"}`;
+  b.replaceChildren(L.endsAt(clockText(fromMin(end), state.lang)) + (d === null ? "" : `: ${d < 0 ? L.over(-d) : L.spare(d)}`));
+}
 
 // the last input decides the select's focus ring: none after the mouse or a touch, back with the keyboard (index.html)
 addEventListener("pointerdown", () => { document.documentElement.dataset.pointer = ""; }, true);
@@ -647,9 +723,9 @@ function labelRoom(lab) {
 }
 
 function renderPreview() {
-  const L = t(), s = state.sheet, steps = filled();
+  const L = t(), s = state.sheet, steps = filled(), { at } = schedule();
   const sky = state.background === "gradient" ? s.sky : state.background;
-  document.getElementById("sheets").innerHTML = sheetHtml({ title: s.title.toLocaleUpperCase(state.lang), sky, times: state.times, theme: state.theme, steps: steps.map(resolve) }, state.lang);
+  document.getElementById("sheets").innerHTML = sheetHtml({ title: s.title.toLocaleUpperCase(state.lang), sky, times: state.times, theme: state.theme, steps: steps.map((st, k) => resolve(st, k, at)) }, state.lang);
 
   const warnings = [];
   steps.forEach((st, k) => {
@@ -682,6 +758,7 @@ function update(structure = false) {
   hideUndo();
   if (structure) renderEditor();
   refreshSteps();
+  refreshTimes();
   renderPreview();
   save();
 }

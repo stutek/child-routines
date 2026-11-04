@@ -390,7 +390,7 @@ function timeInput(step, k) {
     return h < 24 && min < 60 ? `${String(h).padStart(2, "0")}:${String(min).padStart(2, "0")}` : null;
   };
   return el("input", { value: shown(step.time), "aria-labelledby": `col-time n-${k}`, class: "time", type: "text", maxlength: "8",
-    placeholder: state.lang === "en" ? "7:30 PM" : "19:30", autocomplete: "off",
+    placeholder: k > 0 ? "" : state.lang === "en" ? "7:30 PM" : "19:30", autocomplete: "off",
     oninput: e => {
       const t = e.target.value.trim() ? parse(e.target.value) : "";
       e.target.toggleAttribute("aria-invalid", t === null);
@@ -421,12 +421,14 @@ const field = (text, control, cls = "") => el("label", { class: `field ${cls}`.t
 const broom = () => el("span", { class: "broom", "aria-hidden": "true" }, "🧹");
 
 // ---------- reordering: drag a row by its grip (mouse or touch), tap a grip and then another, or arrow keys ----------
-// dragging is not the only way (WCAG 2.2, 2.5.7). The numbers are places 1 to 8 and stay put; the row's content moves.
+// dragging is not the only way (WCAG 2.2, 2.5.7). The numbers are places 1 to 8 and stay put, the times too; the rest of the row moves.
 const shift = (row, y) => { for (const c of row.children) if (!c.classList.contains("n")) c.style.transform = y ? `translateY(${y}px)` : ""; };
 let picked = null;   // row picked by a tap, waiting for the tap at its new place
 function moveStep(from, to) {
   const steps = state.sheet.steps;
+  const times = steps.map(s => s.time);   // times stay with the places, so the order of the day stays in order
   steps.splice(to, 0, steps.splice(from, 1)[0]);
+  steps.forEach((s, i) => { s.time = times[i]; });
   picked = null; update(true);
   document.querySelectorAll(".grip")[to].focus();
   document.getElementById("announce").textContent = T[state.lang].moved(to + 1);   // read out by screen readers

@@ -29,7 +29,8 @@ const T = {
     type: "Tip rutine", sheetTitle: "Naslov lista", skies: { dawn: "jutro", afternoon: "dan", night: "večer" },
     times: "Ura na listu", background: "Ozadje", backgrounds: { gradient: "barvno", white: "belo", none: "brez (manj črnila)" },
     pictures: "Skupina slik", themes: { all: "vse slike", bear: "medvedek", plain: "brez lika" },
-    label: "Korak", labelHint: "npr. UMIJ ZOBKE", language: "Jezik", moved: n => `Premaknjeno na mesto ${n}`, picture: "Sličica", time: "Trajanje", start: "Začetek rutine", end: "Želeni konec", endsAt: x => `Konec ob ${x}`, spare: n => `+${n} min rezerve`, over: n => `−${n} min preliva`, minutes: "minut", auto: "Samodejno", none: "Brez sličice", pick: "Zamenjaj sličico", closePick: "Zapri izbiro sličic", removeStep: "Izprazni vrstico", move: "Premakni korak", moveHint: "Povleci ali tapni tu, nato tapni novo mesto. S tipkovnico: puščici gor in dol.", moveDesc: "Alt in puščica gor ali dol premakne korak. Dotik ročaja in nato ročaja druge vrstice zamenja mesti.",
+    label: "Korak", labelHint: "npr. UMIJ ZOBKE", language: "Jezik", moved: n => `Premaknjeno na mesto ${n}`, picture: "Sličica", time: "Trajanje", start: "Začetek rutine", end: "Želeni konec", endsAt: x => `Konec ob ${x}`,
+    converted: (u, n) => `Ure iz starejše povezave so preračunane v trajanja.${u ? ` Ure niso bile po vrsti pri: ${u}; ti koraki imajo privzeto trajanje.` : ""}${n ? ` Brez ure: ${n}; privzeto trajanje.` : ""}`, spare: n => `+${n} min rezerve`, over: n => `−${n} min preliva`, minutes: "minut", auto: "Samodejno", none: "Brez sličice", pick: "Zamenjaj sličico", closePick: "Zapri izbiro sličic", removeStep: "Izprazni vrstico", move: "Premakni korak", moveHint: "Povleci ali tapni tu, nato tapni novo mesto. S tipkovnico: puščici gor in dol.", moveDesc: "Alt in puščica gor ali dol premakne korak. Dotik ročaja in nato ročaja druge vrstice zamenja mesti.",
     warnNoMatch: (s, l) => `${s}: za »${l}« ni sličice. Klikni »?« in izberi sličico ali »Brez sličice«.`,
     warnMismatch: (s, l) => `${s}: sličica se morda ne ujema z napisom »${l}«.`,
     warnLong: (s, l) => `${s}: napis »${l}« je predolg za okvir; skrajšaj ga.`, tooLong: "Napis je predolg za okvir.",
@@ -44,7 +45,8 @@ const T = {
     type: "Routine type", sheetTitle: "Sheet title", skies: { dawn: "morning", afternoon: "day", night: "evening" },
     times: "Time on the sheet", background: "Background", backgrounds: { gradient: "color", white: "white", none: "none (less ink)" },
     pictures: "Image group", themes: { all: "all pictures", bear: "teddy bear", plain: "no character" },
-    label: "Step", labelHint: "e.g. BRUSH TEETH", language: "Language", moved: n => `Moved to place ${n}`, picture: "Picture", time: "Duration", start: "Routine start", end: "Wished end", endsAt: x => `Ends at ${x}`, spare: n => `+${n} min to spare`, over: n => `−${n} min over`, minutes: "minutes", auto: "Automatic", none: "No picture", pick: "Change picture", closePick: "Close the picture choice", removeStep: "Clear row", move: "Move step", moveHint: "Drag, or tap here and then tap the new place. Keyboard: up and down arrows.", moveDesc: "Alt and the up or down arrow move the step. Tap the handle, then another row's handle, to swap them.",
+    label: "Step", labelHint: "e.g. BRUSH TEETH", language: "Language", moved: n => `Moved to place ${n}`, picture: "Picture", time: "Duration", start: "Routine start", end: "Wished end", endsAt: x => `Ends at ${x}`,
+    converted: (u, n) => `The times from an older link are turned into durations.${u ? ` Out of order: ${u}; these steps take the default duration.` : ""}${n ? ` No time: ${n}; default duration.` : ""}`, spare: n => `+${n} min to spare`, over: n => `−${n} min over`, minutes: "minutes", auto: "Automatic", none: "No picture", pick: "Change picture", closePick: "Close the picture choice", removeStep: "Clear row", move: "Move step", moveHint: "Drag, or tap here and then tap the new place. Keyboard: up and down arrows.", moveDesc: "Alt and the up or down arrow move the step. Tap the handle, then another row's handle, to swap them.",
     warnNoMatch: (s, l) => `${s}: no picture for “${l}”. Click “?” and pick a picture or “No picture”.`,
     warnMismatch: (s, l) => `${s}: the picture may not match the label “${l}”.`,
     warnLong: (s, l) => `${s}: “${l}” is too long for the frame; shorten it.`, tooLong: "The label is too long for the frame.",
@@ -229,17 +231,22 @@ const toMin = t => +t.slice(0, 2) * 60 + +t.slice(3);
 const fromMin = m => { m = ((m % 1440) + 1440) % 1440; return `${String(Math.floor(m / 60)).padStart(2, "0")}:${String(m % 60).padStart(2, "0")}`; };
 const okMins = v => Number.isInteger(v) && v >= 1 && v <= 240 ? v : "";
 // times of the day (example routines, older links and storage) become durations: each the gap to the step before;
-// the first step keeps its default, the start comes before it and the last time is the wished end
+// the first step keeps its default, the start comes before it and the last time is the wished end.
+// Steps whose time was not after the one before (gap 0 or over 4 h: out of order) and steps without a time get their default, listed in
+// "unordered" and "untimed" for the status line
 function fromTimes(steps) {
   const timed = steps.filter(st => st.label && HHMM.test(st.time || ""));
-  if (!timed.length) return { start: "", end: "", steps: steps.map(st => ({ ...st, mins: okMins(st.mins) })) };
+  if (!timed.length) return { start: "", end: "", steps: steps.map(st => ({ ...st, mins: okMins(st.mins) })), unordered: [], untimed: [] };
   let prev = null;
+  const unordered = [], untimed = [];
   const out = steps.map(st => {
-    if (!timed.includes(st)) return { ...st, mins: "" };
-    const m = prev === null ? "" : okMins(toMin(st.time) - prev); prev = toMin(st.time); return { ...st, mins: m };
+    if (!timed.includes(st)) { if (st.label) untimed.push(st.label); return { ...st, mins: "" }; }
+    const m = prev === null ? "" : okMins(toMin(st.time) - prev); prev = toMin(st.time);
+    if (m === "" && st !== timed[0]) unordered.push(st.label);
+    return { ...st, mins: m };
   });
-  const first = out.find(st => timed.includes(steps[out.indexOf(st)]));
-  return { start: fromMin(toMin(timed[0].time) - minutesOf(first)), end: fromMin(Math.max(...timed.map(st => toMin(st.time)))), steps: out };
+  const first = out[steps.indexOf(timed[0])];
+  return { start: fromMin(toMin(timed[0].time) - minutesOf(first)), end: fromMin(Math.max(...timed.map(st => toMin(st.time)))), steps: out, unordered, untimed };
 }
 const EXAMPLE_FOR = { dawn: 0, afternoon: 1, night: 2 };   // sheet of the example routine per type
 // titles are plain text; older stored titles and the example may start with an icon, which is dropped
@@ -295,7 +302,8 @@ function clean(s) {
                   start: old ? old.start : HHMM.test(sh.start) ? sh.start : "", end: old ? old.end : HHMM.test(sh.end) ? sh.end : "",
                   steps: pad((old ? old.steps : steps).map(({ time, ...st }) => st)) };
   return { lang: own(T, s.lang) ? s.lang : "sl", background: ["gradient", "white", "none"].includes(s.background) ? s.background : "gradient",
-           times: s.times === true, theme: [ALL, ...D.themes].includes(s.theme) ? s.theme : "bear", sheet };
+           times: s.times === true, theme: [ALL, ...D.themes].includes(s.theme) ? s.theme : "bear", sheet,
+           _old: old && { unordered: old.unordered, untimed: old.untimed } };   // shown in the status line until the first change
 }
 // first visit: the first of the browser's languages the page has (navigator.languages), else English
 function browserLang() {
@@ -339,6 +347,7 @@ function save() {
 
 let state = linkData() || load();   // a valid link wins over the saved sheet; a broken one is ignored
 const fromLink = !!linkData();
+let oldKey = state._old ? encodeSheet(state) : null;   // the converted sheet; the note goes once the parent changes it
 const t = () => T[state.lang] || T.sl;
 const filled = () => state.sheet.steps.filter(st => st.label.trim());
 // a row's number on the sheet: empty rows are left off, so they have none and do not count
@@ -754,7 +763,11 @@ function renderPreview() {
        el("ul", {}, warnings.map((w, i) => el("li", { "aria-hidden": longs.has(i) ? "true" : null }, w))),
        el("a", { href: CONTRIBUTE, target: "_blank", rel: "noopener" }, L.suggest)]
     : []));
-  fine.replaceChildren(...(warnings.length ? [] : [el("div", {}, L.ok)]), ...(b ? [el("div", { class: over ? "over" : null }, b.text)] : []));
+  const old = state._old && oldKey === encodeSheet(state) ? state._old : null, odd = old && (old.unordered.length || old.untimed.length);
+  if (old) fine.hidden = false;
+  fine.replaceChildren(...(warnings.length ? [] : [el("div", {}, L.ok)]),
+    ...(old ? [el("div", { class: odd ? "over" : null }, L.converted(old.unordered.join(", "), old.untimed.join(", ")))] : []),
+    ...(b ? [el("div", { class: over ? "over" : null }, b.text)] : []));
 }
 
 function update(structure = false) {
@@ -791,7 +804,7 @@ document.head.append(el("style", {}, D.css));
 }
 window.addEventListener("hashchange", () => {   // a link pasted into this tab
   const s = linkData();
-  if (s && encodeSheet(s) !== encodeSheet(state)) { const prev = typed(state.sheet) && state; state = s; update(true); if (prev) showUndo(prev, t().linkReplaced); }
+  if (s && encodeSheet(s) !== encodeSheet(state)) { const prev = typed(state.sheet) && state; state = s; oldKey = s._old ? encodeSheet(s) : null; update(true); if (prev) showUndo(prev, t().linkReplaced); }
 });
 fitPreview();
 document.fonts && document.fonts.ready.then(() => { renderPreview(); fitPreview(); });   // re-measure labels once the font is in

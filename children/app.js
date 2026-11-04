@@ -29,7 +29,7 @@ const T = {
     type: "Tip rutine", sheetTitle: "Naslov lista", skies: { dawn: "jutro", afternoon: "dan", night: "večer" },
     times: "Ura na listu", background: "Ozadje", backgrounds: { gradient: "barvno", white: "belo", none: "brez (manj črnila)" },
     pictures: "Skupina slik", themes: { all: "vse slike", bear: "medvedek", plain: "brez lika" },
-    label: "Korak", labelHint: "npr. UMIJ ZOBKE", language: "Jezik", moved: n => `Premaknjeno na mesto ${n}`, picture: "Sličica", time: "Trajanje", start: "Začetek", end: "Želeni konec", endsAt: x => `konec ob ${x}`, spare: n => `+${n} min rezerve`, over: n => `−${n} min preliva`, minutes: "minut", auto: "Samodejno", none: "Brez sličice", pick: "Zamenjaj sličico", closePick: "Zapri izbiro sličic", removeStep: "Izprazni vrstico", move: "Premakni korak", moveHint: "Povleci ali tapni tu, nato tapni novo mesto. S tipkovnico: puščici gor in dol.", moveDesc: "Alt in puščica gor ali dol premakne korak. Dotik ročaja in nato ročaja druge vrstice zamenja mesti.",
+    label: "Korak", labelHint: "npr. UMIJ ZOBKE", language: "Jezik", moved: n => `Premaknjeno na mesto ${n}`, picture: "Sličica", time: "Trajanje", start: "Začetek rutine", end: "Želeni konec", endsAt: x => `Konec ob ${x}`, spare: n => `+${n} min rezerve`, over: n => `−${n} min preliva`, minutes: "minut", auto: "Samodejno", none: "Brez sličice", pick: "Zamenjaj sličico", closePick: "Zapri izbiro sličic", removeStep: "Izprazni vrstico", move: "Premakni korak", moveHint: "Povleci ali tapni tu, nato tapni novo mesto. S tipkovnico: puščici gor in dol.", moveDesc: "Alt in puščica gor ali dol premakne korak. Dotik ročaja in nato ročaja druge vrstice zamenja mesti.",
     warnNoMatch: (s, l) => `${s}: za »${l}« ni sličice. Klikni »?« in izberi sličico ali »Brez sličice«.`,
     warnMismatch: (s, l) => `${s}: sličica se morda ne ujema z napisom »${l}«.`,
     warnLong: (s, l) => `${s}: napis »${l}« je predolg za okvir; skrajšaj ga.`, tooLong: "Napis je predolg za okvir.",
@@ -44,7 +44,7 @@ const T = {
     type: "Routine type", sheetTitle: "Sheet title", skies: { dawn: "morning", afternoon: "day", night: "evening" },
     times: "Time on the sheet", background: "Background", backgrounds: { gradient: "color", white: "white", none: "none (less ink)" },
     pictures: "Image group", themes: { all: "all pictures", bear: "teddy bear", plain: "no character" },
-    label: "Step", labelHint: "e.g. BRUSH TEETH", language: "Language", moved: n => `Moved to place ${n}`, picture: "Picture", time: "Duration", start: "Start", end: "Wished end", endsAt: x => `ends at ${x}`, spare: n => `+${n} min to spare`, over: n => `−${n} min over`, minutes: "minutes", auto: "Automatic", none: "No picture", pick: "Change picture", closePick: "Close the picture choice", removeStep: "Clear row", move: "Move step", moveHint: "Drag, or tap here and then tap the new place. Keyboard: up and down arrows.", moveDesc: "Alt and the up or down arrow move the step. Tap the handle, then another row's handle, to swap them.",
+    label: "Step", labelHint: "e.g. BRUSH TEETH", language: "Language", moved: n => `Moved to place ${n}`, picture: "Picture", time: "Duration", start: "Routine start", end: "Wished end", endsAt: x => `Ends at ${x}`, spare: n => `+${n} min to spare`, over: n => `−${n} min over`, minutes: "minutes", auto: "Automatic", none: "No picture", pick: "Change picture", closePick: "Close the picture choice", removeStep: "Clear row", move: "Move step", moveHint: "Drag, or tap here and then tap the new place. Keyboard: up and down arrows.", moveDesc: "Alt and the up or down arrow move the step. Tap the handle, then another row's handle, to swap them.",
     warnNoMatch: (s, l) => `${s}: no picture for “${l}”. Click “?” and pick a picture or “No picture”.`,
     warnMismatch: (s, l) => `${s}: the picture may not match the label “${l}”.`,
     warnLong: (s, l) => `${s}: “${l}” is too long for the frame; shorten it.`, tooLong: "The label is too long for the frame.",
@@ -221,7 +221,7 @@ function sheetHtml(sheet, lang = "sl") {
 
 const newStep = () => ({ label: "", mins: "", image: "auto" });
 // generous minutes per picture for a young child, used while the parent types none; a step without a picture takes 5
-const MINUTES = { "good-morning": 5, "make-bed": 5, toilet: 5, "wash-hands": 5, "wash-face": 5, "brush-teeth": 5, "brush-hair": 5,
+const MINUTES = { "good-morning": 5, "make-bed": 5, toilet: 5, "wash-hands": 2, "wash-face": 5, "brush-teeth": 5, "brush-hair": 5,
   "getting-dressed": 10, "put-on-shoes": 5, kindergarten: 10, breakfast: 20, dinner: 30, "set-table": 5, "clear-table": 10,
   "tidy-toys": 10, cartoon: 20, bath: 20, care: 10, pajamas: 10, story: 15, hug: 5, sleep: 5 };
 const HHMM = /^([01]\d|2[0-3]):[0-5]\d$/;
@@ -605,7 +605,7 @@ function renderEditor() {
     ...(state.times ? [el("div", { class: "row-top fields" }, [
       field(L.start, tip(timeInput(() => sheet.start, v => { sheet.start = v; }, { placeholder: "" }), "start")),
       field(L.end, tip(timeInput(() => sheet.end, v => { sheet.end = v; }, { placeholder: "" }), "end")),
-      el("span", { id: "budget", class: "budget grow", role: "status" })])] : []),
+    ])] : []),
     // the undo notice has its own line between the controls and the steps (example loaded, step removed)
     el("div", { id: "undo", class: "undo" }));
 
@@ -665,8 +665,10 @@ function renderEditor() {
     step._gallery = fillGallery;
   });
   // warnings sit above the steps, where the parent looks; the green "all fine" stays below them
-  root.append(el("div", { id: "warnings", class: "warnings", role: "status", hidden: true }), box,
-    el("span", { id: "move-desc", class: "sr-only" }, L.moveDesc), el("div", { id: "all-fine", class: "warnings ok", role: "status", hidden: true }),
+  // the status sits between the form fields and the steps: warnings, then the green "all fine" with the time left or missing
+  root.append(el("div", { id: "warnings", class: "warnings", role: "status", hidden: true }),
+    el("div", { id: "all-fine", class: "warnings ok", role: "status", hidden: true }), box,
+    el("span", { id: "move-desc", class: "sr-only" }, L.moveDesc),
     // Share link and Print stay in view at the bottom of the form (sticky), the sheet keeps the whole preview height
     el("div", { class: "actionbar", id: "actionbar" }, [
       tip(el("button", { class: "copy", onclick: copyLink }, [el("img", { class: "icon", src: "share.svg", alt: "" }), L.copy]), "link"),
@@ -677,20 +679,20 @@ function renderEditor() {
 const rowInput = k => document.querySelectorAll("#maker .sheet-box .step:not(.step-head)")[k].querySelector("input:not(.time)");
 // each row's default minutes and done-by time, and the start, end and what is left or missing
 function refreshTimes() {
-  const L = t(), { at, end } = schedule();
+  const { at } = schedule();
   state.sheet.steps.forEach(st => {
     if (!st._mins) return;
     st._mins.placeholder = st.label.trim() ? `+${minutesOf(st)}` : "";
     st._at.textContent = at.get(st) ? clockText(at.get(st), state.lang) : "";
   });
-  const b = document.getElementById("budget");
-  if (!b) return;
-  const wished = state.sheet.end;
-  if (end === null || !filled().length) { b.replaceChildren(); return; }
+}
+// "Ends at 18:45: −15 min over" for the status line, with the minutes left (negative: missing); none with times off or no start
+function budget() {
+  const L = t(), { end } = schedule(), wished = state.sheet.end;
+  if (!state.times || end === null || !filled().length) return null;
   let d = HHMM.test(wished) ? ((toMin(wished) - end) % 1440 + 1440) % 1440 : null;
   if (d !== null && d > 720) d -= 1440;
-  b.className = `budget grow${d === null ? "" : d < 0 ? " over" : " spare"}`;
-  b.replaceChildren(L.endsAt(clockText(fromMin(end), state.lang)) + (d === null ? "" : `: ${d < 0 ? L.over(-d) : L.spare(d)}`));
+  return { d, text: L.endsAt(clockText(fromMin(end), state.lang)) + (d === null ? "." : `: ${d < 0 ? L.over(-d) : L.spare(d)}.`) };
 }
 
 // the last input decides the select's focus ring: none after the mouse or a touch, back with the keyboard (index.html)
@@ -745,13 +747,14 @@ function renderPreview() {
     if (st && st._input) { st._input.setAttribute("aria-invalid", "true"); st._input.setAttribute("aria-describedby", st._hint.id); st._hint.hidden = false; }
   });
   const box = document.getElementById("warnings"), fine = document.getElementById("all-fine");
-  box.hidden = !warnings.length; fine.hidden = !!warnings.length;
+  const b = budget(), over = b && b.d !== null && b.d < 0;
+  box.hidden = !warnings.length; fine.hidden = !!warnings.length && !b;
   box.replaceChildren(...(warnings.length
     ? [el("strong", { "aria-hidden": longs.size === warnings.length ? "true" : null }, L.warnTitle),
        el("ul", {}, warnings.map((w, i) => el("li", { "aria-hidden": longs.has(i) ? "true" : null }, w))),
        el("a", { href: CONTRIBUTE, target: "_blank", rel: "noopener" }, L.suggest)]
     : []));
-  fine.replaceChildren(warnings.length ? "" : L.ok);
+  fine.replaceChildren(...(warnings.length ? [] : [el("div", {}, L.ok)]), ...(b ? [el("div", { class: over ? "over" : null }, b.text)] : []));
 }
 
 function update(structure = false) {

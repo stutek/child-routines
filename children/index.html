@@ -174,6 +174,9 @@
     .actionbar .print:hover { background: #115E59; }
     .actionbar .copy { background: #DDF3EE; color: #115E59; }
     .actionbar .copy { display: inline-flex; align-items: center; gap: 6px; }
+    .actionbar .copy.done { background: #0F766E; color: #ffffff; animation: copied .4s ease-out; }
+    @keyframes copied { 0% { transform: scale(.94); } 60% { transform: scale(1.04); } 100% { transform: none; } }
+    @media (prefers-reduced-motion: reduce) { .actionbar .copy.done { animation: none; } }
     .actionbar .icon { width: 16px; height: 16px; flex: none; }
     .actionbar button:focus-visible { outline: 3px solid #0F766E; outline-offset: 2px; }
     /* hints: one popup for every control with a hint (app.js, hints) */

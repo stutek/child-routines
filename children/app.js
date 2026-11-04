@@ -464,7 +464,13 @@ function dragRow(e, k, rows) {
 // the system share sheet (SMS, e-mail, copy …) where the browser has one (phones, Safari, Chrome on most desktops);
 // elsewhere (Firefox on a computer) the link is copied, or shown selected if the clipboard is blocked
 function copyLink() {
-  const url = shareUrl(), L = t(), say = () => { document.getElementById("announce").textContent = L.copied; };
+  // copied: a screen reader hears it, and the button itself says so for two seconds with a short flash
+  const url = shareUrl(), L = t(), say = () => {
+    document.getElementById("announce").textContent = L.copied;
+    const btn = document.querySelector("#actionbar .copy"), label = [...btn.childNodes];
+    btn.replaceChildren(`✓ ${L.copied.replace(/\.$/, "")}`); btn.classList.add("done");
+    setTimeout(() => { btn.replaceChildren(...label); btn.classList.remove("done"); }, 2000);
+  };
   const show = () => { const b = document.getElementById("linkbox"); b.hidden = false; b.value = url; b.focus(); b.select(); };
   const copy = () => { if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(say, show); else show(); };
   if (navigator.canShare && navigator.canShare({ url }))

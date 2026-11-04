@@ -177,6 +177,13 @@ window.SHEET_DATA = {
    },
    "theme": "bear"
   },
+  "care-bear": {
+   "title": "Teddy bear dabbing skin cream on its cheek, the closed medicine bottle high on a shelf out of its reach",
+   "label": {},
+   "keywords": {},
+   "theme": "bear",
+   "variant_of": "care"
+  },
   "care": {
    "title": "Medicine bottle with a green cross, cream jar and tube evenly arranged on a bathroom shelf",
    "label": {
@@ -1057,6 +1064,7 @@ window.SHEET_EDGES = {
   "brush-hair": ["#F9D7BE", "#FDF3DC"],
   "brush-teeth-plain": ["#CDEDE4", "#C6E9D2"],
   "brush-teeth": ["#B7EED8", "#B5EDD8"],
+  "care-bear": ["#AEE6CF", "#BDECD5"],
   "care": ["#9EE3CA", "#BAE9D2"],
   "cartoon-bear": ["#E7C7BE", "#FFFDAF"],
   "cartoon": ["#FAD9C2", "#FFFAC2"],

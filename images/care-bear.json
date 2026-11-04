@@ -1,0 +1,22 @@
+{
+  "id": "care-bear",
+  "title": "Teddy bear dabbing skin cream on its cheek, the closed medicine bottle high on a shelf out of its reach",
+  "variant_of": "care",
+  "theme": "bear",
+  "model": "Google Gemini image generation (via Antigravity CLI, image-generator subagent)",
+  "prompt": "Soft watercolor and gouache children's picture-book illustration, delicate colored-pencil outlines, warm cream paper texture, gentle pastel palette. The scene is set in a real, cozy room of a family home with a floor, walls and a few homely details (plants, a small shelf), like a warm picture-book interior. Clear contrast and rich, saturated colors with defined darker outlines and shadows, not pale or washed out. No clouds, nothing floating. Cute and friendly, for a 4-year-old. Gender-neutral. Everything painted in one consistent watercolor style, no flat vector shapes, no text, no letters, no logos, no brands, no flags, no recognizable existing characters; every character is original. Square 1:1 composition, main subject large and centered, readable at 4 cm size. The same cute brown teddy bear as the BEAR reference, WITHOUT a nightcap: small solid black round button eyes with no white of the eye, a small black nose, a gentle smile, rosy cheeks; exactly two arms and two legs. The bear stands large in the lower middle of the picture, seen from the front, in front of the same mint ceramic tile wall as the SHELF reference. It is putting on skin cream: in one paw it holds the open round jar of white skin cream from the SHELF reference, and with the other paw it dabs a small white dot of cream onto its own cheek. HIGH on the wall, ABOVE the bear's head and clearly out of its reach, hangs the same simple wooden shelf as in the SHELF reference; on it stand the small amber glass medicine bottle with its child-proof cap CLOSED and a plain white label with only a simple GREEN cross (never a red cross) and no text, and the small plain cream tube. The bear does NOT touch the medicine bottle and does not look at it. No dosing cup, no spoon, no syrup, no pills, nothing that looks like candy, no sink, no tap, no toilet, no bathtub, no towel, no people, no human hands, no other characters, no letters or numbers anywhere.",
+  "reference_images": [
+    "images/wash-hands-bear.jpg (commit 6aa73c8)",
+    "images/care.jpg (commit 739e03f)"
+  ],
+  "edits": [
+    "contrast raised once with tools/enhance.py"
+  ],
+  "contributor": "maintainer",
+  "license": "CC0-1.0",
+  "copyright_check": {
+    "date": "2026-11-04",
+    "method": "Google Lens, Exact matches on the raw and final file; Visual matches on the final file and on crops (bear, shelf with medicine, both wall pictures, plant). Vision Web Detection not run: no key locally",
+    "result": "no exact matches; visual matches show only the same motif in other pictures, no same composition"
+  }
+}

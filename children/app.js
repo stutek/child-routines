@@ -400,19 +400,21 @@ function load() {
   return fromExample(browserLang());
 }
 // The address bar is the link to this sheet. Each finished action adds an entry to the tab's history, so Back undoes it
-// and Forward redoes it: a choice, a move, the broom, an example. Typing in one field is one entry until a pause of 1 s
-// or leaving the field, never one per letter, or Back would walk letter by letter and keep the parent on the page.
+// and Forward redoes it: a click (the broom, an example, a picture, a move) is a step, and so is a field (text or select)
+// from its first change until the parent leaves it, however long the typing or arrowing through options takes.
+// The first change opens the step and the rest of the edit rewrites it, so Back while still typing undoes the typing,
+// and leaving the page mid-edit loses nothing (the address, which wins over storage on reload, has the edit).
 // OURS marks the entries this page wrote; an entry without it is a link pasted into the address bar.
 const OURS = "routine";
-let burst = null;   // the field being typed in: { field, at }
-// leaving a field ends its entry; a field removed because the form was rebuilt (after a select) was not left
-document.addEventListener("focusout", e => queueMicrotask(() => { if (e.target.isConnected) burst = null; }));
-function save(how = "push") {   // "push", "replace", or the field being changed (an input element, a select's label)
+let editing = false;   // a field changed since it got focus: its step is open
+// a field removed because the form was rebuilt (after a select) was not left
+document.addEventListener("focusout", e => queueMicrotask(() => { if (e.target.isConnected) editing = false; }));
+function save(how = "push") {   // "push", "replace", or "edit" (a change in the field that has focus)
   try { localStorage.setItem(STORE, JSON.stringify(state, (k, v) => (k.startsWith("_") ? undefined : v))); } catch (e) { /* no storage */ }
-  const url = shareUrl(), now = performance.now(), field = how !== "push" && how !== "replace" ? how : null;
-  const join = how === "replace" || (field && burst && burst.field === field && now - burst.at < 1000);
-  burst = field ? { field, at: now } : null;
-  if (url === location.href && history.state === OURS) return false;   // nothing on the sheet changed
+  const url = shareUrl(), join = how === "replace" || (how === "edit" && editing);
+  // nothing on the sheet changed: no step, and none opened (a later change would rewrite the step before it)
+  if (url === location.href && history.state === OURS) { if (how !== "edit") editing = false; return false; }
+  editing = how === "edit";
   try {
     if (join) history.replaceState(OURS, "", url); else history.pushState(OURS, "", url);
     return !join;
@@ -531,7 +533,7 @@ function timeInput(get, set, attrs) {
     oninput: e => {
       const t = e.target.value.trim() ? parse(e.target.value) : "";
       e.target.toggleAttribute("aria-invalid", t === null);
-      if (t !== null) { set(t); update(false, e.target); }
+      if (t !== null) { set(t); update(false, "edit"); }
     },
     onchange: e => { if (parse(e.target.value)) e.target.value = shown(get()); } });
 }
@@ -543,7 +545,7 @@ function minutesInput(step, k) {
     oninput: e => {
       const v = e.target.value.trim(), m = v.match(/^\+?\s*(\d{1,3})\s*(m|min)?$/i), n = m && okMins(+m[1]);
       e.target.toggleAttribute("aria-invalid", !!v && !n);
-      if (!v || n) { step.mins = v ? n : ""; update(false, e.target); }
+      if (!v || n) { step.mins = v ? n : ""; update(false, "edit"); }
     },
     onchange: e => { if (!e.target.hasAttribute("aria-invalid")) e.target.value = shown(step.mins); } });
   step._mins = input;
@@ -552,8 +554,8 @@ function minutesInput(step, k) {
 
 function select(label, value, options, onchange) {
   // autocomplete off: the browser must not restore an earlier choice over the state (a link, an example, Undo)
-  // arrow keys on a closed select change it at every option: changes of one select within 1 s are one history entry
-  const s = el("select", { "aria-label": label, autocomplete: "off", onchange: e => { choosing = label; try { onchange(e.target.value); } finally { choosing = null; } } },
+  // arrow keys on a closed select change it at every option: like a text field, it is a history step when left changed
+  const s = el("select", { "aria-label": label, autocomplete: "off", onchange: e => { choosing = true; try { onchange(e.target.value); } finally { choosing = false; } } },
     Object.entries(options).map(([v, text]) => el("option", { value: v }, text)));
   s.value = value;
   return s;
@@ -691,7 +693,7 @@ function renderEditor() {
     el("div", { class: "row-top fields" }, [
       field(L.type, tip(select(L.type, sheet.sky, L.skies, setType), "type")),
       field(L.sheetTitle, tip(el("input", { class: "title", value: sheet.title, autocapitalize: "characters", maxlength: "60",   // as clean() keeps
-        oninput: e => { sheet.title = typedText(e); update(false, e.target); } }), "sheetTitle"), "grow")]),
+        oninput: e => { sheet.title = typedText(e); update(false, "edit"); } }), "sheetTitle"), "grow")]),
     el("div", { class: "row-top fields" }, [
       field(L.layout, tip(select(L.layout, state.layout, L.layouts, v => { state.layout = v; update(true); }), "layout")),
       field(L.background, tip(select(L.background, state.background, L.backgrounds, v => { state.background = v; update(true); }), "background")),
@@ -748,7 +750,7 @@ function renderEditor() {
     const row = el("div", { class: picked === k ? "step picked" : "step" }, [
       el("span", { class: "n", id: `n-${k}` }, `${place(k)}`), grip,
       step._input = tip(el("input", { value: step.label, placeholder: k === 0 ? L.labelHint : "", maxlength: "24", "aria-labelledby": `col-label n-${k}`, autocapitalize: "characters",
-        oninput: e => { step.label = typedText(e); update(false, e.target); } }), "label"),
+        oninput: e => { step.label = typedText(e); update(false, "edit"); } }), "label"),
       ...(state.times ? [tip(minutesInput(step, k), "time")] : []),
       thumb,
       tip(el("button", { class: "del", "aria-label": `${L.removeStep} ${k + 1}`,
@@ -870,8 +872,8 @@ function renderPreview() {
 }
 
 // true when the change made a new history entry, so Undo (Back) has something to go back to
-let choosing = null;   // the select being changed (select()), joined like typing in one field
-function update(structure = false, how = choosing || "push") {
+let choosing = false;   // a select is being changed (select()): an edit, a step once the select is left
+function update(structure = false, how = choosing ? "edit" : "push") {
   hideUndo();
   if (structure) renderEditor();
   refreshSteps();

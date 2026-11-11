@@ -486,14 +486,21 @@ def main():
               r.undone = first().value === 'MOJE' && !!ex() && !inPlace() && stored() === 'MOJE';
               history.forward(); await tick(); r.redone = first().value !== 'MOJE' && !inPlace() && stored() !== 'MOJE';
               history.back(); await tick(); r.back = first().value === 'MOJE';
-              first().focus(); for (const v of ['MOJEA', 'MOJEAB', 'MOJEABC']) { first().value = v; first().dispatchEvent(new Event('input')); }
-              first().blur(); await tick();
+              // a changed field is one step however long the typing (pauses too), and leaving it ends the step
+              const h0 = location.hash, i0 = navigation.currentEntry.index;
+              first().focus(); for (const v of ['MOJEA', 'MOJEAB', 'MOJEABC']) { first().value = v; first().dispatchEvent(new Event('input')); await tick(700); }
+              r.typingOneEntry = navigation.currentEntry.index === i0 + 1;
+              first().blur(); await tick(); r.leavingOneStep = location.hash !== h0 && navigation.currentEntry.index === i0 + 1;
               history.back(); await tick(); r.typingOneStep = first().value === 'MOJE';
-              // arrow keys through a select (evening, day, morning) are one step: Back gives the first type, not the one between
+              // Back in a field still being edited (Alt+Left) undoes the edit, not the step before it
+              first().focus(); first().value = 'MOJEQ'; first().dispatchEvent(new Event('input')); await tick(100);
+              history.back(); await tick(600); r.backWhileTyping = first().value === 'MOJE' && location.hash === h0;
+              // arrow keys through a select (evening, day, morning), then leaving it, are one step: Back gives the first type
               const sky = () => [...document.querySelectorAll('#maker select')].find(x => [...x.options].some(o => o.value === 'dawn'));
               const was = sky().value; sky().focus();
               for (const v of ['afternoon', 'dawn', 'night'].filter(v => v !== was).concat(was === 'dawn' ? [] : ['dawn'])) {
                 sky().value = v; sky().dispatchEvent(new Event('change')); await tick(150); }
+              sky().blur(); await tick();
               history.back(); await tick(); r.selectOneStep = sky().value === was;
               const keys = Object.keys(JSON.parse(atob(location.hash.slice(1).replace(/-/g, '+').replace(/_/g, '/'))));
               r.addressOnlySheet = keys.every(k => 'lbtpyshaer'.includes(k)) && history.state === 'routine';

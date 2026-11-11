@@ -446,6 +446,46 @@ def main():
                     errors.append(f"centre layout, times {times}: {got}")
                 ev("document.querySelector('#maker input[type=checkbox]').click()")
                 cdp.wait(1)
+            # (4) Wrapped labels in the centre layout are not "too long" (a rounding pixel flagged every one), on a phone
+            # and a desktop width.
+            raw = json.dumps({"l": "en", "b": "gradient", "t": 0, "p": "bear", "y": "center", "s": "night", "h": "EVENING",
+                              "r": [[x, "", ""] for x in ("BATH TIME", "BRUSH TEETH", "PUT ON PAJAMAS", "BEDTIME STORY", "MEDICINE AND CARE", "CARTOON TIME")]})
+            for width, mobile in ((390, True), (1280, False)):
+                cdp.call("Emulation.setDeviceMetricsOverride", width=width, height=900, deviceScaleFactor=1, mobile=mobile)
+                cdp.call("Page.navigate", url="about:blank")
+                cdp.wait(0.5)
+                cdp.call("Page.navigate", url=PAGE + "#" + base64.urlsafe_b64encode(raw.encode()).decode().rstrip("="))
+                cdp.wait(2.5)
+                flagged = ev("document.querySelectorAll('#maker input[aria-invalid=true]').length")
+                print(f"wrapped centre labels flagged at {width} px: {flagged}")
+                if flagged:
+                    errors.append(f"{flagged} wrapped centre labels flagged as too long at {width} px")
+            # (5) Loading the example twice keeps the Undo of the first click (the typed sheet was lost for good), and
+            # (6) a changed select keeps the focus (the form is rebuilt; focus fell to <body>).
+            cdp.call("Emulation.setDeviceMetricsOverride", width=1280, height=900, deviceScaleFactor=1, mobile=False)
+            ex = "[...document.querySelectorAll('#maker button.secondary')].find(b => b.textContent.includes(':'))"
+            ev(f"(() => {{ const i = document.querySelector('.step input'); i.value = 'MOJE'; i.dispatchEvent(new Event('input')); {ex}.click(); }})()")
+            cdp.wait(0.5)
+            ev(f"{ex}.click()")
+            cdp.wait(0.5)
+            undo = ev("!!document.querySelector('#undo button')")
+            print(f"undo after loading the example twice: {undo}")
+            if not undo:
+                errors.append("loading the example twice lost the Undo")
+            focus = ev(f"""(() => {{ const s = [...document.querySelectorAll('#maker select')].find(x => [...x.options].some(o => o.value === 'sides'));
+              s.focus(); {pick}('sides'); return new Promise(r => setTimeout(() => r(document.activeElement.tagName + ':' + document.activeElement.value), 300)); }})()""".replace("{pick}", pick), wait=True)
+            print(f"focus after changing the layout: {focus}")
+            if focus != "SELECT:sides":
+                errors.append(f"changing the layout moved the focus to {focus}")
+            # (7) Junk in the hints storage key does not blank the page (an object threw at start-up).
+            ev("localStorage.setItem('child-routines-tips-off', '{\"a\":1}')")
+            cdp.call("Page.reload")
+            cdp.wait(2)
+            alive = ev("document.querySelectorAll('#maker select').length > 0 && document.querySelectorAll('#sheets .rt-page').length > 0")
+            ev("localStorage.removeItem('child-routines-tips-off')")
+            print(f"page alive with junk in the hints storage: {alive}")
+            if not alive:
+                errors.append("junk in the hints storage blanked the page")
             for e in cdp.events:
                 if e["method"] == "Runtime.exceptionThrown":
                     errors.append("exception: " + e["params"]["exceptionDetails"].get("text", "?"))

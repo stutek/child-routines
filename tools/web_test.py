@@ -463,18 +463,52 @@ def main():
                 print(f"wrapped centre labels flagged at {width} px: {flagged}")
                 if flagged:
                     errors.append(f"{flagged} wrapped centre labels flagged as too long at {width} px")
-            # (5) Loading the example twice keeps the Undo of the first click (the typed sheet was lost for good), and
-            # (6) a changed select keeps the focus (the form is rebuilt; focus fell to <body>).
+            # (5) Undo is the browser's Back: after an example it takes the place of "Load example", with no timer, and a
+            # double click does not undo; Back and Forward walk the finished actions, typing in one field is one step,
+            # storage follows the sheet shown, and the address holds only the sheet (no Undo flag, nothing to share).
             cdp.call("Emulation.setDeviceMetricsOverride", width=1280, height=900, deviceScaleFactor=1, mobile=False)
-            ex = "[...document.querySelectorAll('#maker button.secondary')].find(b => b.textContent.includes(':'))"
-            ev(f"(() => {{ const i = document.querySelector('.step input'); i.value = 'MOJE'; i.dispatchEvent(new Event('input')); {ex}.click(); }})()")
-            cdp.wait(0.5)
-            ev(f"{ex}.click()")
-            cdp.wait(0.5)
-            undo = ev("!!document.querySelector('#undo button')")
-            print(f"undo after loading the example twice: {undo}")
-            if not undo:
-                errors.append("loading the example twice lost the Undo")
+            got = ev("""(async () => {
+              const tick = (ms = 300) => new Promise(r => setTimeout(r, ms));
+              const first = () => document.querySelector('.step input');
+              const ex = () => [...document.querySelectorAll('#maker button.secondary')].find(b => b.textContent.includes(':'));
+              const inPlace = () => document.querySelector('#maker .fields button.secondary img[src="undo.svg"]')?.closest('button');
+              const stored = () => JSON.parse(localStorage.getItem('child-routines-maker')).sheet.steps[0].label;
+              const r = {};
+              try {
+              first().focus(); first().value = 'MOJE'; first().dispatchEvent(new Event('input')); first().blur(); await tick();
+              const delays = [], st = window.setTimeout;
+              window.setTimeout = (f, d, ...a) => { delays.push(d || 0); return st(f, d, ...a); };
+              ex().click(); const u = inPlace(); u && u.dispatchEvent(new MouseEvent('click', {bubbles: true, detail: 2}));
+              window.setTimeout = st;
+              await tick(); r.inPlace = !!inPlace() && !document.querySelector('#undo button') && !ex();
+              r.doubleClickKept = first().value !== 'MOJE'; r.noTimer = !delays.some(d => d >= 5000);
+              await tick(300); inPlace().click(); await tick();
+              r.undone = first().value === 'MOJE' && !!ex() && !inPlace() && stored() === 'MOJE';
+              history.forward(); await tick(); r.redone = first().value !== 'MOJE' && !inPlace() && stored() !== 'MOJE';
+              history.back(); await tick(); r.back = first().value === 'MOJE';
+              first().focus(); for (const v of ['MOJEA', 'MOJEAB', 'MOJEABC']) { first().value = v; first().dispatchEvent(new Event('input')); }
+              first().blur(); await tick();
+              history.back(); await tick(); r.typingOneStep = first().value === 'MOJE';
+              const keys = Object.keys(JSON.parse(atob(location.hash.slice(1).replace(/-/g, '+').replace(/_/g, '/'))));
+              r.addressOnlySheet = keys.every(k => 'lbtpyshaer'.includes(k)) && history.state === 'routine';
+              } catch (e) { r.error = false; r.message = String(e); }
+              return JSON.stringify(r); })()""", wait=True)
+            print(f"undo and history: {got}")
+            if not isinstance(got, str) or any(v is False for v in json.loads(got).values()):
+                errors.append(f"undo or Back/Forward wrong: {got}")
+            # A link that replaces the typed, saved sheet offers Undo, and Undo (Back) brings the typed sheet back.
+            mine = ev("document.querySelector('.step input').value")
+            other = base64.urlsafe_b64encode(json.dumps({"l": "sl", "s": "morning", "h": "DRUGI", "r": [["OBLECI SE", 5, ""]]}).encode()).decode().rstrip("=")
+            cdp.call("Page.navigate", url=PAGE + "#" + other)
+            cdp.wait(2.5)
+            offered = ev("!!document.querySelector('#undo button')")
+            ev("document.querySelector('#undo button')?.click()")
+            cdp.wait(1)
+            back = ev("document.querySelector('.step input').value")
+            print(f"link over a typed sheet: undo {offered}, back to {back!r} (typed {mine!r})")
+            if not offered or back != mine:
+                errors.append(f"a link over a typed sheet: undo {offered}, back to {back!r}, typed {mine!r}")
+            # (6) A changed select keeps the focus (the form is rebuilt; focus fell to <body>).
             focus = ev(f"""(() => {{ const s = [...document.querySelectorAll('#maker select')].find(x => [...x.options].some(o => o.value === 'sides'));
               s.focus(); {pick}('sides'); return new Promise(r => setTimeout(() => r(document.activeElement.tagName + ':' + document.activeElement.value), 300)); }})()""".replace("{pick}", pick), wait=True)
             print(f"focus after changing the layout: {focus}")

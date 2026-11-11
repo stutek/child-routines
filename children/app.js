@@ -25,7 +25,7 @@ const T = {
     heading: "Otrokove rutine", aboutTitle: "O aplikaciji", howTitle: "Hitri začetek",
     about: "Jutro in večer sta polna korakov in pogosto jih naštevaš ti, vsak dan znova. Tu v nekaj minutah narediš in natisneš list s sličicami otrokove rutine, na katerem otrok opravljen korak sam označi z magnetkom ali kljukico. Tako vidi, kaj pride, list pa lahko gre z njim tudi k starim staršem, teti ali stricu, kjer mu znano zaporedje lahko da občutek varnosti. Brezplačno in brez prijave; kar vpišeš, ostane v tvojem brskalniku.",
     how: ["Najlažje gre na računalniku. Izberi »Tip rutine« in vpiši korake: priporočamo 3 do 8. Prve dni jih opravi skupaj z otrokom.", "Stran sama izbere sličico za vsak korak. Klikni sličico, da jo zamenjaš.", "Naslov in korake lahko spremeniš tako, da vpišeš svoje besedilo. Prazne vrstice so na listu nevidne.", "Za ure na listu vklopi stikalo »Ura na listu«, vpiši začetek in koliko minut traja vsak korak. Ob želenem koncu vidiš rezervo ali preliv.", "Vrstni red spremeniš tako, da vrstico povlečeš za pike.", "Klikni »Natisni«: A4, robovi »Brez«, merilo 100 %. Za datoteko PDF, ki jo lahko deliš, v oknu za tiskanje izberi »Shrani kot PDF«.", "Ko rutino spremeniš ali prilagodiš, natisni nov list.", "Za deljenje trenutnega pogleda aplikacije s sorodniki in prijatelji uporabi gumb »Deli povezavo«."],
-    example: "Naloži primer", replaced: "Primer je zamenjal tvoj list.", stepRemoved: "Korak je odstranjen.", skip: "Preskoči na obrazec", previewName: "Predogled lista", linkReplaced: "Povezava je zamenjala tvoj list.", copy: "Deli povezavo", copied: "Povezava je kopirana.", linkHint: "Povezava na končni izdelek brez aplikacije za urejanje. Povezava vsebuje vse podatke za ponovno ustvarjanje kopije deljene rutine.", undo: "Razveljavi", undone: "Tvoj list je vrnjen.", print: "Natisni",
+    example: "Naloži primer", replaced: "Primer je zamenjal tvoj list.", stepRemoved: "Korak je odstranjen.", skip: "Preskoči na obrazec", previewName: "Predogled lista", linkReplaced: "Povezava je zamenjala tvoj list.", copy: "Deli povezavo", copied: "Povezava je kopirana.", linkHint: "Povezava na končni izdelek brez aplikacije za urejanje. Povezava vsebuje vse podatke za ponovno ustvarjanje kopije deljene rutine.", undo: "Razveljavi", undone: "Tvoj list je vrnjen.", fromHistory: "Različica lista iz zgodovine brskalnika.", print: "Natisni",
     type: "Tip rutine", sheetTitle: "Naslov lista", skies: { dawn: "jutro", afternoon: "dan", night: "večer" },
     times: "Ura na listu", background: "Ozadje", backgrounds: { gradient: "barvno", white: "belo", none: "brez (manj črnila)" },
     layout: "Postavitev sličic", layouts: { center: "v sredini", sides: "levo in desno" },
@@ -42,7 +42,7 @@ const T = {
     heading: "Child routines", aboutTitle: "About", howTitle: "Quick start",
     about: "Mornings and evenings are full of steps, and often you're the one listing them, every day. Here you can make and print a picture sheet of your child's routine in a few minutes; your child marks each finished step with a magnet or a tick. They can see what comes next, and the sheet can travel to grandparents, an aunt or an uncle, where the familiar order can give a sense of security. Free, with no sign-up; what you type stays in your browser.",
     how: ["It is easiest on a computer. Pick the “Routine type” and type the steps: we recommend 3 to 8. Do them with your child for the first few days.", "The page picks a picture for each step. Click a picture to change it.", "Type your own text to change the title and the steps. Empty rows do not show on the sheet.", "For times on the sheet, turn on the “Time on the sheet” switch, type the start and how many minutes each step takes. With a wished end you see the time to spare or the overrun.", "Drag a row by its dots to change the order.", "Click “Print”: A4, margins “None”, scale 100%. For a PDF file you can share, choose “Save as PDF” in the print window.", "When you change or adjust the routine, print a new sheet.", "To share the current view of the app with family and friends, use the “Share link” button."],
-    example: "Load example", replaced: "The example replaced your sheet.", stepRemoved: "Step removed.", skip: "Skip to the form", previewName: "Sheet preview", linkReplaced: "The link replaced your sheet.", copy: "Share link", copied: "Link copied.", linkHint: "A link to the finished sheet, without the editing app. The link holds all the data to make a copy of the shared routine again.", undo: "Undo", undone: "Your sheet is back.", print: "Print",
+    example: "Load example", replaced: "The example replaced your sheet.", stepRemoved: "Step removed.", skip: "Skip to the form", previewName: "Sheet preview", linkReplaced: "The link replaced your sheet.", copy: "Share link", copied: "Link copied.", linkHint: "A link to the finished sheet, without the editing app. The link holds all the data to make a copy of the shared routine again.", undo: "Undo", undone: "Your sheet is back.", fromHistory: "A version of the sheet from the browser history.", print: "Print",
     type: "Routine type", sheetTitle: "Sheet title", skies: { dawn: "morning", afternoon: "day", night: "evening" },
     times: "Time on the sheet", background: "Background", backgrounds: { gradient: "color", white: "white", none: "none (less ink)" },
     layout: "Picture layout", layouts: { center: "in the middle", sides: "left and right" },
@@ -312,15 +312,30 @@ function fromExample(lang, sky = "night", base = {}) {   // the evening routine 
 // loading an example would lose what the parent typed: rows with content that are not just an example (any language or type)
 const rowsKey = steps => JSON.stringify(steps.map(s => [s.label.trim(), s.mins, s.image]));
 const EXAMPLE_ROWS = new Set(Object.values(EXAMPLE_IN).flatMap(name => D.examples[name].sheets.map(ex => rowsKey(exampleSteps(ex)))));
-// after an example replaced typed rows, "Undo" brings them back until the next edit or 10 s
-let undoTimer, pendingUndo = null;
-function hideUndo() { clearTimeout(undoTimer); pendingUndo = null; const u = document.getElementById("undo"); if (u) u.replaceChildren(); }
-function showUndo(prev, message = t().replaced) {
+// "Undo" is the browser's Back: every finished action is an entry in the tab's history (save()), so Undo keeps no copy
+// of the sheet and nothing is stored for it; the address holds only the sheet now shown. It stays until the next action,
+// with no time limit (WCAG 2.2, 2.2.1). After an example it takes the place of "Load example", where the parent clicked;
+// otherwise it sits in its own line above the steps.
+let undoBtn = null, exampleBtn = null, undoAt = 0, undoing = false;
+function hideUndo() {
+  if (undoBtn && undoBtn.isConnected && exampleBtn) { const had = document.activeElement === undoBtn; undoBtn.replaceWith(exampleBtn); if (had) exampleBtn.focus(); }
+  undoBtn = null;
+  const u = document.getElementById("undo"); if (u) u.replaceChildren();
+}
+function showUndo(message, inPlace = false) {
   const L = t(), u = document.getElementById("undo");
-  pendingUndo = { prev, message };
-  u.replaceChildren(message + " ", el("button", { onclick: () => { state = prev; update(true); document.getElementById("announce").textContent = L.undone; } }, [el("img", { class: "icon", src: "undo.svg", alt: "" }), L.undo]));
+  undoAt = performance.now();
+  undoBtn = el("button", { class: inPlace ? "secondary" : null, onclick: () => {
+    if (inPlace && performance.now() - undoAt < 500) return;   // the second click of a double click on "Load example" must not undo it
+    undoing = true; history.back();
+  } }, [el("img", { class: "icon", src: "undo.svg", alt: "" }), L.undo]);
+  if (inPlace && exampleBtn && exampleBtn.isConnected) {
+    const had = document.activeElement === exampleBtn;
+    undoBtn.style.minWidth = `${exampleBtn.offsetWidth}px`;   // the row does not jump
+    exampleBtn.replaceWith(undoBtn);
+    if (had) undoBtn.focus();
+  } else u.replaceChildren(message + " ", undoBtn);
   document.getElementById("announce").textContent = `${message} ${L.undo}?`;
-  undoTimer = setTimeout(hideUndo, 10000);
 }
 const typed = sheet => sheet.steps.some(s => s.label.trim() || s.mins || s.image !== "auto") && !EXAMPLE_ROWS.has(rowsKey(sheet.steps));
 // Stored state is untrusted: anything else ever served from this origin shares its storage.
@@ -379,14 +394,31 @@ function decodeSheet(data) {
   } catch (e) { return null; }
 }
 const linkData = () => decodeSheet(location.hash.slice(1));
-const shareUrl = () => `${location.href.split("#")[0]}#${encodeSheet(state)}`;
+const shareUrl = (st = state) => `${location.href.split("#")[0]}#${encodeSheet(st)}`;
 function load() {
   try { const s = clean(JSON.parse(localStorage.getItem(STORE))); if (s) return s; } catch (e) { /* no or bad storage */ }
   return fromExample(browserLang());
 }
-function save() {
+// The address bar is the link to this sheet. Each finished action adds an entry to the tab's history, so Back undoes it
+// and Forward redoes it: a choice, a move, the broom, an example. Typing in one field is one entry until a pause of 1 s
+// or leaving the field, never one per letter, or Back would walk letter by letter and keep the parent on the page.
+// OURS marks the entries this page wrote; an entry without it is a link pasted into the address bar.
+const OURS = "routine";
+let burst = null;   // the field being typed in: { field, at }
+document.addEventListener("focusout", () => { burst = null; });
+function save(how = "push") {   // "push", "replace", or the input element being typed in
   try { localStorage.setItem(STORE, JSON.stringify(state, (k, v) => (k.startsWith("_") ? undefined : v))); } catch (e) { /* no storage */ }
-  try { history.replaceState(null, "", shareUrl()); } catch (e) { /* no history */ }   // the address bar is the link to this sheet
+  const url = shareUrl(), now = performance.now(), field = typeof how === "object" ? how : null;
+  const join = how === "replace" || (field && burst && burst.field === field && now - burst.at < 1000);
+  burst = field ? { field, at: now } : null;
+  if (url === location.href && history.state === OURS) return false;   // nothing on the sheet changed
+  try {
+    if (join) history.replaceState(OURS, "", url); else history.pushState(OURS, "", url);
+    return !join;
+  } catch (e) {   // Safari limits how often pushState may run
+    try { history.replaceState(OURS, "", url); } catch (e2) { /* no history */ }
+    return false;
+  }
 }
 
 let state = linkData() || load();   // a valid link wins over the saved sheet; a broken one is ignored
@@ -498,7 +530,7 @@ function timeInput(get, set, attrs) {
     oninput: e => {
       const t = e.target.value.trim() ? parse(e.target.value) : "";
       e.target.toggleAttribute("aria-invalid", t === null);
-      if (t !== null) { set(t); update(); }
+      if (t !== null) { set(t); update(false, e.target); }
     },
     onchange: e => { if (parse(e.target.value)) e.target.value = shown(get()); } });
 }
@@ -510,7 +542,7 @@ function minutesInput(step, k) {
     oninput: e => {
       const v = e.target.value.trim(), m = v.match(/^\+?\s*(\d{1,3})\s*(m|min)?$/i), n = m && okMins(+m[1]);
       e.target.toggleAttribute("aria-invalid", !!v && !n);
-      if (!v || n) { step.mins = v ? n : ""; update(); }
+      if (!v || n) { step.mins = v ? n : ""; update(false, e.target); }
     },
     onchange: e => { if (!e.target.hasAttribute("aria-invalid")) e.target.value = shown(step.mins); } });
   step._mins = input;
@@ -657,17 +689,15 @@ function renderEditor() {
     el("div", { class: "row-top fields" }, [
       field(L.type, tip(select(L.type, sheet.sky, L.skies, setType), "type")),
       field(L.sheetTitle, tip(el("input", { class: "title", value: sheet.title, autocapitalize: "characters", maxlength: "60",   // as clean() keeps
-        oninput: e => { sheet.title = typedText(e); update(); } }), "sheetTitle"), "grow")]),
+        oninput: e => { sheet.title = typedText(e); update(false, e.target); } }), "sheetTitle"), "grow")]),
     el("div", { class: "row-top fields" }, [
       field(L.layout, tip(select(L.layout, state.layout, L.layouts, v => { state.layout = v; update(true); }), "layout")),
       field(L.background, tip(select(L.background, state.background, L.backgrounds, v => { state.background = v; update(true); }), "background")),
       ...(THEMED ? [field(L.pictures, tip(select(L.pictures, state.theme, L.themes, v => { state.theme = v; sheet.steps.forEach(st => st._gallery()); update(); }), "pictures"))] : []),
       tip(el("label", { class: "grow check" }, [times, L.times]), "times"),
-      tip(el("button", { class: "secondary", onclick: () => {
-        // a second click finds only example rows: the Undo of the first click stays, or the typed sheet is lost for good
-        const prev = typed(sheet) && JSON.parse(JSON.stringify(state, (k, v) => (k.startsWith("_") ? undefined : v))), keep = !prev && pendingUndo;
-        state = fromExample(state.lang, sheet.sky, state); update(true);
-        if (prev) showUndo(prev); else if (keep) showUndo(keep.prev, keep.message);
+      exampleBtn = tip(el("button", { class: "secondary", onclick: () => {
+        state = fromExample(state.lang, sheet.sky, state);
+        if (update(true)) showUndo(L.replaced, true);   // Undo in its place, until the next action
       } }, `${L.example}: ${L.skies[sheet.sky]}`), "example")]),
     // start, wished end and what is left or missing; only with times on the sheet
     ...(state.times ? [el("div", { class: "row-top fields" }, [
@@ -716,14 +746,14 @@ function renderEditor() {
     const row = el("div", { class: picked === k ? "step picked" : "step" }, [
       el("span", { class: "n", id: `n-${k}` }, `${place(k)}`), grip,
       step._input = tip(el("input", { value: step.label, placeholder: k === 0 ? L.labelHint : "", maxlength: "24", "aria-labelledby": `col-label n-${k}`, autocapitalize: "characters",
-        oninput: e => { step.label = typedText(e); update(); } }), "label"),
+        oninput: e => { step.label = typedText(e); update(false, e.target); } }), "label"),
       ...(state.times ? [tip(minutesInput(step, k), "time")] : []),
       thumb,
       tip(el("button", { class: "del", "aria-label": `${L.removeStep} ${k + 1}`,
         onclick: () => {
-          const had = step.label.trim(), prev = had && JSON.parse(JSON.stringify(state, (key, v) => (key.startsWith("_") ? undefined : v)));
-          sheet.steps.splice(k, 1); sheet.steps.push(newStep()); update(true);
-          if (prev) showUndo(prev, L.stepRemoved);
+          const had = step.label.trim();   // an empty row loses nothing: no Undo offered (Back still works)
+          sheet.steps.splice(k, 1); sheet.steps.push(newStep());
+          if (update(true) && had) showUndo(L.stepRemoved);
           rowInput(k).focus();   // the row now at this place (WCAG 2.4.3)
         } }, broom()), "del")]);
     rows.push(row);
@@ -837,13 +867,14 @@ function renderPreview() {
     ...(b ? [el("div", { class: over ? "over" : null }, `${over ? "⚠" : "✓"} ${b.text}`)] : []));   // ✓ like the line above; ⚠ when over
 }
 
-function update(structure = false) {
+// true when the change made a new history entry, so Undo (Back) has something to go back to
+function update(structure = false, how = "push") {
   hideUndo();
   if (structure) renderEditor();
   refreshSteps();
   refreshTimes();
   renderPreview();
-  save();
+  return save(how);
 }
 
 // the A4 sheet shrinks to its column: by width on a narrow screen, by width and height side by side,
@@ -868,13 +899,29 @@ window.addEventListener("resize", fitPreview);
 
 document.head.append(el("style", {}, D.css));
 {
-  const prev = fromLink ? load() : null;   // what was saved, to bring back with Undo if the link replaces typed rows
-  update(true);
-  if (prev && typed(prev.sheet) && rowsKey(prev.sheet.steps) !== rowsKey(state.sheet.steps)) showUndo(prev, t().linkReplaced);
+  // a link that replaces the saved, typed sheet: the saved sheet becomes the entry before the link, so Undo (Back) brings
+  // it back. It stays in this tab's history on this device, where storage holds it already; the link itself is unchanged.
+  const prev = fromLink ? load() : null;
+  let back = false;
+  if (prev && typed(prev.sheet) && rowsKey(prev.sheet.steps) !== rowsKey(state.sheet.steps)) {
+    try { history.replaceState(OURS, "", shareUrl(prev)); history.pushState(OURS, "", shareUrl()); back = true; } catch (e) { /* no history */ }
+  }
+  update(true, "replace");
+  if (back) showUndo(t().linkReplaced);
 }
-window.addEventListener("hashchange", () => {   // a link pasted into this tab
-  const s = linkData();
-  if (s && encodeSheet(s) !== encodeSheet(state)) { const prev = typed(state.sheet) && state; state = s; oldKey = s._old ? encodeSheet(s) : null; update(true); if (prev) showUndo(prev, t().linkReplaced); }
-});
+// Back, Forward, or a link pasted into the address bar: the sheet comes from the address, with no new history entry.
+// Chrome fires popstate and then hashchange for one step; the second finds the sheet already shown.
+function fromAddress() {
+  const s = linkData(), pasted = history.state !== OURS;
+  if (!s || encodeSheet(s) === encodeSheet(state)) { if (s && pasted) update(false, "replace"); return; }
+  const lost = pasted && typed(state.sheet);
+  state = s; oldKey = s._old ? encodeSheet(s) : null;
+  update(true, "replace");   // also into storage, so a reload shows the same sheet
+  if (lost) showUndo(t().linkReplaced);
+  else document.getElementById("announce").textContent = undoing ? t().undone : t().fromHistory;
+  undoing = false;
+}
+window.addEventListener("popstate", fromAddress);
+window.addEventListener("hashchange", fromAddress);
 fitPreview();
 document.fonts && document.fonts.ready.then(() => { renderPreview(); fitPreview(); });   // re-measure labels once the font is in

@@ -171,15 +171,20 @@ function centres(n, center = false) {
 
 // centre layout: one label size (pt) for the sheet, the largest at which every label fits its card, wrapped at spaces
 const PT = 25.4 / 72;
-const textWidth = (text, pt) => [...text].reduce((s, c) => s + (D.labelEm[c] || 0.868), 0) * pt * PT + 0.079 * [...text].length;
-function labelLines(label, pt, width) {
+const textWidth = (text, pt, sp = 0.079) => [...text].reduce((s, c) => s + (D.labelEm[c] || 0.868), 0) * pt * PT + sp * [...text].length;
+function labelLines(label, pt, width, sp = 0.079) {
   let lines = 0, line = "";
   for (const word of label.split(/\s+/).filter(Boolean)) {
-    if (textWidth(word, pt) > width) return null;
-    if (line && textWidth(`${line} ${word}`, pt) <= width) line = `${line} ${word}`;
+    if (textWidth(word, pt, sp) > width) return null;
+    if (line && textWidth(`${line} ${word}`, pt, sp) <= width) line = `${line} ${word}`;
     else { line = word; lines++; }
   }
   return Math.max(lines, 1);
+}
+function centerTitleSize(title, width) {   // up to two lines at 21 pt, smaller only if that does not fit
+  let pt = 21;
+  while (pt > 9) { const n = labelLines(title, pt, width - 15.8, 0.265); if (n !== null && n <= 2) break; pt -= 0.5; }
+  return pt;
 }
 function centerLabelSize(labels, img, times) {
   const g = D.geometry, cw = (g.page_w - 2 * g.margin - g.gap) / 2 - img;
@@ -238,7 +243,7 @@ function sheetHtml(sheet, lang = "sl") {
   const notes = noteIds.length ? `<span class="rt-notes">${esc(noteIds.map(i => D.stepNotes[i][lang] || D.stepNotes[i].en).join(" "))}</span>` : "";
   const { img, wide } = layout(n, center);
   const ts = titleSpace(n, center);
-  let size = ` --img: ${img}mm; --title-x: ${ts.x}mm; --title-size: ${titleSize(sheet.title, ts.w).toFixed(2)}pt;`;
+  let size = ` --img: ${img}mm; --title-x: ${ts.x}mm; --title-size: ${(center ? centerTitleSize : titleSize)(sheet.title, ts.w).toFixed(2)}pt;`;
   if (wide) {   // label and time grow with the picture (+30 % at the largest), as in tools/build.py
     const k = 1 + 0.3 * (img - D.geometry.img) / (D.geometry.wide_max - D.geometry.img);
     size += ` --label: ${(13 * k).toFixed(1)}pt; --time: ${(15 * k).toFixed(1)}pt;`;

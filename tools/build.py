@@ -150,6 +150,18 @@ def title_size(title, width):
     return min(21.0, room / (TITLE_EM * max(len(title), 1)))
 
 
+def center_title_size(title, width):
+    """Centre layout: the title sits above step 2 (at least 26 mm free), so it wraps at spaces into up to two lines
+    and keeps 21 pt; a longer one gets smaller. Width as title_size(); letter-spacing 1 px (0.265 mm)."""
+    pt = 21.0
+    while pt > 9:
+        lines = label_lines(title, pt, width - 15.8, 0.265)
+        if lines is not None and lines <= 2:
+            break
+        pt -= 0.5
+    return pt
+
+
 # Advance width per character as a share of the font size, Baloo 2 ExtraBold, measured in Chrome; another character
 # counts as the widest (W). Labels are uppercase.
 LABEL_EM = {"A": .645, "B": .619, "C": .562, "D": .666, "E": .548, "F": .531, "G": .664, "H": .672, "I": .305, "J": .412,
@@ -164,19 +176,19 @@ LABEL_RANGE = (9, 20)   # pt, centre layout
 CARD_BOTTOM = 2         # mm from the magnet circle to the card's bottom edge, centre layout
 
 
-def text_width(text, pt):
-    """Width of a label in mm at `pt`, with its 0.3 px letter-spacing (0.079 mm per character)."""
-    return sum(LABEL_EM.get(c, .868) for c in text) * pt * PT + 0.079 * len(text)
+def text_width(text, pt, spacing=0.079):
+    """Width of a text in mm at `pt` with `spacing` mm letter-spacing per character (label 0.3 px, title 1 px)."""
+    return sum(LABEL_EM.get(c, .868) for c in text) * pt * PT + spacing * len(text)
 
 
-def label_lines(label, pt, width):
+def label_lines(label, pt, width, spacing=0.079):
     """Lines of `label` wrapped at spaces into `width` mm, or None if a word alone is wider."""
     lines = 0
     line = ""
     for word in label.split():
-        if text_width(word, pt) > width:
+        if text_width(word, pt, spacing) > width:
             return None
-        if line and text_width(f"{line} {word}", pt) <= width:
+        if line and text_width(f"{line} {word}", pt, spacing) <= width:
             line = f"{line} {word}"
         else:
             line, lines = word, lines + 1
@@ -310,7 +322,7 @@ def sheet_html(sheet, lang="sl"):
     tx, tw = title_space(n, center)
     notes = " ".join(STEP_NOTES[i][lang if lang in STEP_NOTES[i] else "en"] for i in dict.fromkeys(st.get("image") for st in sheet["steps"]) if i in STEP_NOTES)
     notes = f'<span class="rt-notes">{escape(notes)}</span>' if notes else ""
-    size = f" --img: {img:g}mm; --title-x: {tx:g}mm; --title-size: {title_size(sheet['title'], tw):.2f}pt;"
+    size = f" --img: {img:g}mm; --title-x: {tx:g}mm; --title-size: {(center_title_size if center else title_size)(sheet['title'], tw):.2f}pt;"
     if wide:   # label and time grow with the picture (+30 % at the largest picture), every label still fits (AGENTS.md)
         k = 1 + 0.3 * (img - GEOMETRY["img"]) / (GEOMETRY["wide_max"] - GEOMETRY["img"])
         size += f" --label: {13 * k:.1f}pt; --time: {15 * k:.1f}pt;"
@@ -455,7 +467,7 @@ CSS = """
       border-radius: 7mm;   /* badge radius 5 + gap 1 + border 0.9: concentric with the badge */
       border: 0.9mm solid var(--step);
       background: var(--bg);
-      filter: drop-shadow(0 1mm 0 rgba(42, 46, 110, 0.22));   /* as the card's: a box-shadow prints darker beside it */
+      box-shadow: 0 1mm 0 rgba(42, 46, 110, 0.22);   /* not a filter: it rasterises the picture, grainy in the scaled preview */
       overflow: hidden;
     }
     .rt-pic img { width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -572,6 +584,7 @@ CSS = """
     /* the card meets the picture edge to edge, no overlap: the picture has no border on that side, so the two shadows
        join without doubling (an overlap darkens the shadow under the seam and nicks the border) */
     .rt-center .rt-label { white-space: normal; text-align: center; line-height: 1.05; text-wrap: balance; }
+    .rt-center .rt-title { overflow-wrap: normal; text-wrap: balance; }   /* wraps at spaces, even lines (center_title_size()) */
     .rt-center .pic-left { left: calc(50% - var(--gapc) / 2 - var(--img)); border-radius: 0 7mm 7mm 0; border-left: 0; }
     .rt-center .pic-right { right: calc(50% - var(--gapc) / 2 - var(--img)); border-radius: 7mm 0 0 7mm; border-right: 0; }
     .rt-center .pic-left .rt-num { left: auto; right: 1.1mm; }
@@ -581,6 +594,9 @@ CSS = """
     .rt-center .rt-card { top: calc(var(--y) - var(--img) / 2); height: var(--img); width: var(--cw); flex-direction: column; justify-content: flex-end; padding: 1.5mm 2mm var(--cb); gap: 1.5mm; }
     .rt-center .rt-text { flex-grow: 1; justify-content: center; }
     .rt-center .rt-check { z-index: 2; }   /* inside the card: above its fill */
+    /* the card is a plain rounded box here: the same box-shadow as the picture, so both print alike (a filter
+       drop-shadow prints lighter than a box-shadow, and rasterises the card) */
+    .rt-center .rt-card { filter: none; box-shadow: 0 1mm 0 rgba(42, 46, 110, 0.22); }
     .rt-center .card-left { left: 0; right: auto; border-radius: 6mm 0 0 6mm; }
     .rt-center .card-left::after { left: 0.9mm; right: -0.3mm; border-radius: 5.1mm 0 0 5.1mm; }
     .rt-center .card-right { right: 0; left: auto; border-radius: 0 6mm 6mm 0; }

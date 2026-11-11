@@ -216,8 +216,9 @@ function sheetHtml(sheet, lang = "sl") {
   const rows = sheet.steps.map((step, k) => {
     const i = k + 1, side = i % 2 ? "left" : "right";
     const pic = themed(step.image, sheet.theme || ALL);
-    // EDGES: [right edge, left edge]; centre layout: the card joins the picture's outer edge
-    const bg = pic && EDGES[pic] ? EDGES[pic][(side === "left") === !center ? 0 : 1] : D.missingBg;
+    // EDGES: [right edge, left edge] in the frame's band, then the same over the full height (centre layout, where the
+    // card joins the picture's outer edge from top to bottom)
+    const bg = pic && EDGES[pic] ? EDGES[pic][((side === "left") === !center ? 0 : 1) + (center ? 2 : 0)] : D.missingBg;
     const style = `--step: ${step.color}; --bg: ${bg}; --ink: ${labelColor(step.color, bg)};`;
     const picture = pic ? `<img src="../images/${esc(pic)}.jpg" alt="${esc(step.label)}" />` : '<div class="rt-missing">?</div>';
     const clock = sheet.times === false ? "" : step.time ? `<div class="rt-time">${esc(clockText(step.time, lang))}</div>`
@@ -310,10 +311,11 @@ function fromExample(lang, sky = "night", base = {}) {   // the evening routine 
 const rowsKey = steps => JSON.stringify(steps.map(s => [s.label.trim(), s.mins, s.image]));
 const EXAMPLE_ROWS = new Set(Object.values(EXAMPLE_IN).flatMap(name => D.examples[name].sheets.map(ex => rowsKey(exampleSteps(ex)))));
 // after an example replaced typed rows, "Undo" brings them back until the next edit or 10 s
-let undoTimer;
-function hideUndo() { clearTimeout(undoTimer); const u = document.getElementById("undo"); if (u) u.replaceChildren(); }
+let undoTimer, pendingUndo = null;
+function hideUndo() { clearTimeout(undoTimer); pendingUndo = null; const u = document.getElementById("undo"); if (u) u.replaceChildren(); }
 function showUndo(prev, message = t().replaced) {
   const L = t(), u = document.getElementById("undo");
+  pendingUndo = { prev, message };
   u.replaceChildren(message + " ", el("button", { onclick: () => { state = prev; update(true); document.getElementById("announce").textContent = L.undone; } }, [el("img", { class: "icon", src: "undo.svg", alt: "" }), L.undo]));
   document.getElementById("announce").textContent = `${message} ${L.undo}?`;
   undoTimer = setTimeout(hideUndo, 10000);
@@ -429,7 +431,8 @@ function el(tag, attrs = {}, children = []) {
 // It stays while the pointer is on it, Escape closes it, and × hides that hint for good (WCAG 2.2, 1.4.13); a screen reader
 // gets the same text through aria-describedby.
 const TIPS_OFF = "child-routines-tips-off";
-const tipsOff = new Set((() => { try { return JSON.parse(localStorage.getItem(TIPS_OFF)) || []; } catch (e) { return []; } })());
+// untrusted like all storage: only an array of strings counts (an object or a number threw and left the page blank)
+const tipsOff = new Set((() => { try { const v = JSON.parse(localStorage.getItem(TIPS_OFF)); return Array.isArray(v) ? v.filter(x => typeof x === "string") : []; } catch (e) { return []; } })());
 const tipText = (key, L = t()) => key === "print" ? L.printHint : key === "link" ? L.linkHint : key === "move" ? L.moveHint : L.tips[key];
 function tip(control, key) {
   const target = control.matches("label") ? control.querySelector("input") : control;
@@ -622,6 +625,10 @@ function renderEditor() {
     const auto = Object.keys(EXAMPLE_FOR).some(k => bare(example(k).title) === sheet.title) || !sheet.title.trim();
     sheet.sky = v; if (auto) sheet.title = bare(example(v).title); update(true);
   };
+  // the form is rebuilt: the control that had focus gets it back by its place, or it would fall to <body> (WCAG 2.4.3)
+  const FOCUSABLE = "input, select, button, summary, a[href]";
+  const had = [...root.querySelectorAll(FOCUSABLE)].indexOf(document.activeElement);
+  queueMicrotask(() => { if (had >= 0 && !root.contains(document.activeElement)) { const now = root.querySelectorAll(FOCUSABLE); (now[had] || now[now.length - 1])?.focus({ preventScroll: true }); } });
   root.replaceChildren(
     el("header", { class: "row-top" }, [
       el("h1", { class: "grow" }, [el("img", { class: "logo", src: "icon.svg", alt: "" }), L.heading]),
@@ -646,9 +653,10 @@ function renderEditor() {
       ...(THEMED ? [field(L.pictures, tip(select(L.pictures, state.theme, L.themes, v => { state.theme = v; sheet.steps.forEach(st => st._gallery()); update(); }), "pictures"))] : []),
       tip(el("label", { class: "grow check" }, [times, L.times]), "times"),
       tip(el("button", { class: "secondary", onclick: () => {
-        const prev = typed(sheet) && JSON.parse(JSON.stringify(state, (k, v) => (k.startsWith("_") ? undefined : v)));
+        // a second click finds only example rows: the Undo of the first click stays, or the typed sheet is lost for good
+        const prev = typed(sheet) && JSON.parse(JSON.stringify(state, (k, v) => (k.startsWith("_") ? undefined : v))), keep = !prev && pendingUndo;
         state = fromExample(state.lang, sheet.sky, state); update(true);
-        if (prev) showUndo(prev);
+        if (prev) showUndo(prev); else if (keep) showUndo(keep.prev, keep.message);
       } }, `${L.example}: ${L.skies[sheet.sky]}`), "example")]),
     // start, wished end and what is left or missing; only with times on the sheet
     ...(state.times ? [el("div", { class: "row-top fields" }, [
@@ -700,7 +708,7 @@ function renderEditor() {
         oninput: e => { step.label = typedText(e); update(); } }), "label"),
       ...(state.times ? [tip(minutesInput(step, k), "time")] : []),
       thumb,
-      tip(el("button", { class: "del", "aria-label": L.removeStep,
+      tip(el("button", { class: "del", "aria-label": `${L.removeStep} ${k + 1}`,
         onclick: () => {
           const had = step.label.trim(), prev = had && JSON.parse(JSON.stringify(state, (key, v) => (key.startsWith("_") ? undefined : v)));
           sheet.steps.splice(k, 1); sheet.steps.push(newStep()); update(true);
@@ -769,7 +777,9 @@ function refreshSteps() {
 // .rt-text grows with its label, so its own width says nothing; the room is frame minus circle
 function labelRoom(lab) {
   const card = lab.closest(".rt-card"), cs = getComputedStyle(card);
-  if (cs.flexDirection === "column") return card.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);   // centre: circle below
+  // centre: a wrapped label fills the card's inner width, its rounded scrollWidth may exceed the fractional room by a
+  // pixel (that flagged every wrapped label as too long): 1 px tolerance; a word wider than the card overflows by more
+  if (cs.flexDirection === "column") return card.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight) + 1;
   return card.clientWidth - card.querySelector(".rt-check").offsetWidth
     - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight) - parseFloat(cs.columnGap || 0);
 }

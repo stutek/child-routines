@@ -60,7 +60,7 @@ STEP_NOTES = {
 SAFETY = {"sl": "Opozorilo: otrok ne sme pogoltniti magnetka ali drugih majhnih delov. Pisala naj bodo otroška in kemično varna.", "en": "Warning: a child must not swallow a magnet or other small parts. Use children's chemically safe pens."}
 # the EU pictogram for "not suitable for children under 36 months" (children/under3.json: source and licence), with the hazard above
 UNDER3 = {"sl": "Ni primerno za otroke, mlajše od 3 let", "en": "Not suitable for children under 3 years"}
-QR = (ROOT / "children" / "qr.svg").read_text(encoding="utf-8").strip()
+QR = (ROOT / "children" / "qr.svg").read_text(encoding="utf-8").strip().replace("<svg", f'<svg role="img" aria-label="QR: {SITE}"', 1)   # a name for screen readers (WCAG 1.1.1)
 
 # "sky" may also name a plain background: white, or none (transparent, prints no background)
 PLAIN = {"white": "#FFFFFF", "none": "none"}
@@ -215,14 +215,16 @@ def center_label_size(labels, img, times):
 MIN_FRAME_LUMINANCE = 0.6  # WCAG relative luminance; keeps frames pastel
 
 
-def edge_color(image_id, side):
+def edge_color(image_id, side, full=False):
     """Median of the image strip that fades into the frame (the inner 12 %, at the frame's height, as the CSS mask; image
     on the left -> right edge), without its darkest quarter (outlines, furniture, floor). The
     lighter half alone picked near-white paper specks and lost the background's hue."""
     im = Image.open(ROOT / "images" / f"{image_id}.jpg").convert("RGB")
     w, h = im.size
     x0, x1 = (int(w * 0.88), w) if side == "left" else (0, int(w * 0.12))
-    px = sorted(im.crop((x0, int(h * 0.35), x1, int(h * 0.65))).get_flattened_data(),
+    # full: the whole height, where the centre layout's card joins the picture from top to bottom
+    y0, y1 = (0, h) if full else (int(h * 0.35), int(h * 0.65))
+    px = sorted(im.crop((x0, y0, x1, y1)).get_flattened_data(),
                 key=lambda p: 0.299 * p[0] + 0.587 * p[1] + 0.114 * p[2])
     light = px[len(px) // 4:]
     c = [statistics.median(p[k] for p in light) for k in range(3)]
@@ -293,7 +295,7 @@ def sheet_html(sheet, lang="sl"):
         side = "left" if i % 2 else "right"
         image = themed(step.get("image"), sheet.get("theme", ALL))
         seam = side if not center else "right" if side == "left" else "left"   # centre: the card joins the outer edge
-        bg = edge_color(image, seam) if image else MISSING_BG
+        bg = edge_color(image, seam, center) if image else MISSING_BG
         style = f"--step: {step['color']}; --bg: {bg}; --ink: {label_color(step['color'], bg)};"
         picture = (f'<img src="../images/{escape(image)}.jpg" alt="{escape(step["label"].capitalize())}" />'
                    if image else '<div class="rt-missing">?</div>')
@@ -425,7 +427,7 @@ CSS = """
        light on the night sky */
     .rt-footer {
       position: relative; flex: none; height: __FOOTER__mm; margin-top: 1mm;
-      display: flex; align-items: flex-end; gap: 2mm; padding: 0 1mm 0.5mm;   /* texts sit on the bottom line of the QR code */
+      display: flex; align-items: flex-end; gap: 2mm; padding: 0 1mm;   /* texts sit on the bottom line of the QR code; no bottom padding: the 15 mm QR fills the footer, 0.5 mm more poked into the gap above */
       font-size: 9.5pt; font-weight: 600; color: #475569;   /* the largest size at which three warning lines stay within the QR's 15 mm */
     }
     .rt-license { margin-right: auto; display: flex; align-items: center; gap: 2mm; align-self: flex-end; }
@@ -583,7 +585,7 @@ CSS = """
     /* the card meets the picture edge to edge, no overlap: the picture has no border on that side, so the two shadows
        join without doubling (an overlap darkens the shadow under the seam and nicks the border) */
     .rt-center .rt-label { white-space: normal; text-align: center; line-height: 1.05; text-wrap: balance; }
-    .rt-center .rt-title { overflow-wrap: normal; text-wrap: balance; }   /* wraps at spaces, even lines (center_title_size()) */
+    .rt-center .rt-title { text-wrap: balance; }   /* wraps at spaces, even lines (center_title_size()); a word wider than the zone still breaks (overflow-wrap: anywhere) rather than leave it */
     /* No border on the picture itself, the outline (three sides) is an overlay: a clipping box with uneven borders
        makes the GPU clip the picture another way, visibly grainy in the scaled preview (measured with Chrome on a
        real GPU; software rendering shows no difference). The badge moves in by the border, 2 mm = 1.1 + 0.9. */
@@ -672,7 +674,7 @@ def web_data(routines):
     for id_, meta in IMAGES.items():
         images[id_] = {"title": meta["title"], "label": meta.get("label", {}), "keywords": meta.get("keywords", {}),
                        **{k: meta[k] for k in ("theme", "variant_of") if k in meta}}
-        edges.append(f'  "{id_}": ["{edge_color(id_, "left")}", "{edge_color(id_, "right")}"],')
+        edges.append(f'  "{id_}": ["{edge_color(id_, "left")}", "{edge_color(id_, "right")}", "{edge_color(id_, "left", True)}", "{edge_color(id_, "right", True)}"],')
     data = {"css": CSS, "skies": SKIES, "plain": PLAIN, "missingBg": MISSING_BG, "geometry": {**GEOMETRY, "label_line": LABEL_LINE, "label_range": LABEL_RANGE}, "labelEm": LABEL_EM, "site": SITE, "mail": MAIL, "license": LICENSE, "safety": SAFETY, "stepNotes": STEP_NOTES, "under3": UNDER3, "qr": QR,
             "themes": THEMES, "images": images, "examples": routines}
     return ("// Generated by tools/build.py; do not edit by hand.\n"

@@ -383,6 +383,64 @@ def main():
             print(f"broken fragment ignored, sheet shown: {ok}")
             if not ok:
                 errors.append("a broken fragment left no sheet")
+            # Regressions of the centre layout. (1) The preview grows back: after shrinking and enlarging the window
+            # the zoom equals a fresh load's (fitPreview() once measured the column, which follows the zoomed sheet).
+            ev = lambda x, wait=False: cdp.call("Runtime.evaluate", expression=x, returnByValue=True, awaitPromise=wait)["result"].get("value")
+
+            def zoom_at(w, h, reload):
+                cdp.call("Emulation.setDeviceMetricsOverride", width=w, height=h, deviceScaleFactor=1, mobile=False)
+                if reload:
+                    cdp.call("Page.reload")
+                cdp.wait(2 if reload else 1)
+                return ev("document.getElementById('sheets').style.zoom")
+            cdp.call("Page.navigate", url=PAGE)
+            zoom_at(1920, 1000, True)
+            zoom_at(1280, 800, False)
+            grown, fresh = zoom_at(1920, 1000, False), zoom_at(1920, 1000, True)
+            print(f"preview zoom after resize {grown}, fresh {fresh}")
+            if grown != fresh:
+                errors.append(f"preview zoom after resizing is {grown}, a fresh load gives {fresh}")
+            # (2) Pictures have the same border on all four sides and no filter, in both layouts: uneven borders on the
+            # clipping box (or a filter) made the pictures grainy on a real GPU, which CI cannot see directly.
+            pick = "(v => { const s = [...document.querySelectorAll('#maker select')].find(x => [...x.options].some(o => o.value === 'sides')); s.value = v; s.dispatchEvent(new Event('change')); })"
+            even = """[...document.querySelectorAll('#sheets .rt-pic')].filter(p => { const s = getComputedStyle(p);
+              return new Set([s.borderTopWidth, s.borderRightWidth, s.borderBottomWidth, s.borderLeftWidth]).size > 1 || s.filter !== 'none'; }).length"""
+            for layout in ("sides", "center"):
+                ev(f"{pick}('{layout}')")
+                cdp.wait(1)
+                bad = ev(even)
+                print(f"pictures with uneven border or a filter ({layout}): {bad}")
+                if bad:
+                    errors.append(f"{bad} pictures with uneven border or a filter in the {layout} layout")
+            # (3) Centre layout, Baloo 2 loaded: every label inside its card and above the magnet circle, with and without
+            # times, and the title clear of picture 2 (a fallback font would measure wrong, so the font must be in).
+            # The label block is bottom-anchored: the gap from its last line (label or time) to the circle is the same on
+            # every card (within 1 px).
+            fit = """(async () => { await document.fonts.ready; const bad = [], gaps = [];
+              for (const lab of document.querySelectorAll('#sheets .rt-center .rt-label')) {
+                const c = lab.closest('.rt-card').getBoundingClientRect(), l = lab.getBoundingClientRect(), text = lab.closest('.rt-text'),
+                      t = text.getBoundingClientRect(), k = lab.closest('.rt-card').querySelector('.rt-check').getBoundingClientRect();
+                gaps.push(k.top - text.lastElementChild.getBoundingClientRect().bottom);
+                if (lab.scrollWidth > lab.clientWidth + 1 || l.left < c.left || l.right > c.right || t.bottom > k.top || t.top < c.top) bad.push(lab.textContent); }
+              if (gaps.length && Math.max(...gaps) - Math.min(...gaps) > 1) bad.push('uneven gap to circle ' + gaps.map(g => g.toFixed(1)).join(','));
+              const ti = document.querySelector('#sheets .rt-center .rt-title'), p2 = document.querySelectorAll('#sheets .rt-pic')[1];
+              if (ti && p2 && ti.getBoundingClientRect().bottom > p2.getBoundingClientRect().top) bad.push('title');
+              return JSON.stringify({font: document.fonts.check("800 13pt 'Baloo 2'", 'A'), labels: document.querySelectorAll('#sheets .rt-center .rt-label').length, bad}); })()"""
+            # eight steps, the longest labels of the examples, times on; then off (the checkbox), larger labels
+            raw = json.dumps({"l": "sl", "b": "gradient", "t": 1, "p": "bear", "y": "center", "s": "night", "h": "VEČERNA RUTINA PRED SPANJEM",
+                              "a": "18:25", "e": "20:00", "r": [[x, 5, ""] for x in ("RISANKA", "POSTELJI POSTELJO", "ZDRAVILA IN NEGA", "OBLECI PIŽAMO",
+                                                                                     "UMIJ ZOBKE", "NA STRANIŠČE", "POSPRAVI IGRAČE", "LAHKO NOČ")]})
+            cdp.call("Page.navigate", url="about:blank")
+            cdp.wait(0.5)
+            cdp.call("Page.navigate", url=PAGE + "#" + base64.urlsafe_b64encode(raw.encode()).decode().rstrip("="))
+            cdp.wait(2)
+            for times in ("on", "off"):
+                got = json.loads(ev(fit, wait=True))
+                print(f"centre labels fit, times {times}: {got}")
+                if not got["font"] or not got["labels"] or got["bad"]:
+                    errors.append(f"centre layout, times {times}: {got}")
+                ev("document.querySelector('#maker input[type=checkbox]').click()")
+                cdp.wait(1)
             for e in cdp.events:
                 if e["method"] == "Runtime.exceptionThrown":
                     errors.append("exception: " + e["params"]["exceptionDetails"].get("text", "?"))

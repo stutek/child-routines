@@ -131,15 +131,15 @@ function stars() {
   return out;
 }
 
-// same as layout(), centres(), title_space() and title_size() in tools/build.py; center: pictures in the middle (default)
-const centerTop = () => D.geometry.title_h + D.geometry.gap;
+// same as layout(), centres(), title_space(), title_size() and center_label_size() in tools/build.py;
+// center: pictures in the middle (default)
 function layout(n, center = false) {
   const g = D.geometry, w = g.page_w - 2 * g.margin;
   const area = g.page_h - g.margin - g.margin_bottom - g.footer + g.footer_gap, span = area - g.edge, top = Math.floor((w - g.gap) / 2 * 2) / 2;
   const half = x => Math.floor(x * 2) / 2;
   if (center) {
-    const s = span - centerTop(), img = n === 1 ? g.img : Math.min(g.img, half((2 * s - g.gap * (n - 1)) / (n + 1)));
-    return { img, wide: false, p: n > 1 ? (s - img) / (n - 1) : 0, area };
+    const img = n === 1 ? g.img : Math.min(g.img, half((2 * span - g.gap * (n - 1)) / (n + 1)));
+    return { img, wide: false, p: n > 1 ? (span - img) / (n - 1) : 0, area };
   }
   let narrow, wide;
   if (n === 1) { narrow = g.img; wide = top; }
@@ -155,7 +155,7 @@ function layout(n, center = false) {
 }
 
 function titleSpace(n, center = false) {
-  if (center) return { x: 0, w: D.geometry.page_w - 2 * D.geometry.margin };
+  if (center) { const w = D.geometry.page_w - 2 * D.geometry.margin; return { x: (w + D.geometry.gap) / 2, w: (w - D.geometry.gap) / 2 }; }
   const g = D.geometry, { img } = layout(n);
   let x = img + g.gap;
   if (img / 2 - g.circle / 2 - g.gap < g.title_h) x = img - 0.9 + g.circle + g.gap;
@@ -165,8 +165,32 @@ const TITLE_EM = 0.7;   // widest share of the font size per title character
 const titleSize = (title, width) => Math.min(21, (width - 15.8) / 25.4 * 72 / (TITLE_EM * Math.max(title.length, 1)));
 
 function centres(n, center = false) {
-  const { img, p, area } = layout(n, center), top = center ? centerTop() : 0;
-  return Array.from({ length: n }, (_, k) => n === 1 ? top + (area - top) / 2 : Math.round((top + img / 2 + k * p) * 1000) / 1000);
+  const { img, p, area } = layout(n, center);
+  return Array.from({ length: n }, (_, k) => n === 1 ? area / 2 : Math.round((img / 2 + k * p) * 1000) / 1000);
+}
+
+// centre layout: one label size (pt) for the sheet, the largest at which every label fits its card, wrapped at spaces
+const PT = 25.4 / 72;
+const textWidth = (text, pt) => [...text].reduce((s, c) => s + (D.labelEm[c] || 0.868), 0) * pt * PT + 0.079 * [...text].length;
+function labelLines(label, pt, width) {
+  let lines = 0, line = "";
+  for (const word of label.split(/\s+/).filter(Boolean)) {
+    if (textWidth(word, pt) > width) return null;
+    if (line && textWidth(`${line} ${word}`, pt) <= width) line = `${line} ${word}`;
+    else { line = word; lines++; }
+  }
+  return Math.max(lines, 1);
+}
+function centerLabelSize(labels, img, times) {
+  const g = D.geometry, cw = (g.page_w - 2 * g.margin - g.gap) / 2 - img;
+  const room = img - 1.5 - g.circle - g.card_bottom - 1.5 - 0.8 - (times ? 7.3 : 0), width = cw - 4;
+  let pt = g.label_range[1];
+  while (pt > g.label_range[0]) {
+    const lines = labels.map(l => labelLines(l, pt, width));
+    if (!lines.includes(null) && Math.max(1, ...lines) * pt * PT * g.label_line <= room) break;
+    pt -= 0.5;
+  }
+  return pt;
 }
 
 // the reader's locale when it matches the page language (en-GB: 19:30, en-US: 7:30 PM, sl: 19:30),
@@ -219,6 +243,7 @@ function sheetHtml(sheet, lang = "sl") {
     const k = 1 + 0.3 * (img - D.geometry.img) / (D.geometry.wide_max - D.geometry.img);
     size += ` --label: ${(13 * k).toFixed(1)}pt; --time: ${(15 * k).toFixed(1)}pt;`;
   }
+  if (center) size += ` --label: ${centerLabelSize(sheet.steps.map(st => st.label), img, sheet.times !== false)}pt;`;
   return `
   <div class="page-a4 rt-page${wide ? " rt-wide" : ""}${center ? " rt-center" : ""}" style="background: ${background};${size}">${starry}
     <div class="rt-grid">
@@ -778,7 +803,7 @@ function renderPreview() {
   if (old) fine.hidden = false;
   fine.replaceChildren(...(warnings.length ? [] : [el("div", {}, L.ok)]),
     ...(old ? [el("div", { class: odd ? "over" : null }, L.converted(old.unordered.join(", "), old.untimed.join(", ")))] : []),
-    ...(b ? [el("div", { class: over ? "over" : null }, b.text)] : []));
+    ...(b ? [el("div", { class: over ? "over" : null }, `${over ? "⚠" : "✓"} ${b.text}`)] : []));   // ✓ like the line above; ⚠ when over
 }
 
 function update(structure = false) {

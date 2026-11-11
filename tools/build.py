@@ -83,13 +83,12 @@ def floor_half(x):
     return int(x * 2) / 2
 
 
-CENTER_TOP = GEOMETRY["title_h"] + GEOMETRY["gap"]   # centre layout: the title has its own row above the steps
-
-
 def layout(n, center=False):
     """Picture size, whether the frames are wide, and the step spacing for n steps (n >= 1).
-    Centre layout (the default; "layout": "sides" gives the pictures at the page edges): pictures meet in the middle, each card (as tall as its picture) runs outwards
-    to the page edge; same-side pictures keep `gap` (2p >= img + gap), at most `img`, below the title row.
+    Centre layout (the default; "layout": "sides" gives the pictures at the page edges): pictures meet in the middle,
+    each card (as tall as its picture) runs outwards to the page edge; same-side pictures keep `gap` (2p >= img + gap),
+    at most `img`. Picture 1 (left) starts at the top margin; the title sits above step 2 in the right half, which
+    starts p >= 29 mm down (8 steps), well below the title pill (title_h + gap).
     Narrow frames (width - 2 pictures, 84 mm at 58 mm): pictures on the same side keep `gap` (2p >= img + gap).
     Wide frames (from the own picture to the far edge): the frame of a step passes the opposite column, so the next
     picture must clear it (p >= img/2 + frame_h/2 + gap); a picture wider than half the free width minus the circle
@@ -100,7 +99,6 @@ def layout(n, center=False):
     # steps area: from the top margin to the footer; the footer's own gap above it counts as space for the last picture
     span = g["page_h"] - g["margin"] - g["margin_bottom"] - g["footer"] + g["footer_gap"] - g["edge"]
     if center:
-        span -= CENTER_TOP
         img = g["img"] if n == 1 else min(g["img"], floor_half((2 * span - g["gap"] * (n - 1)) / (n + 1)))
         return img, False, (span - img) / (n - 1) if n > 1 else 0
     top = floor_half((w - g["gap"]) / 2)   # pictures in the two columns keep `gap` between them
@@ -122,10 +120,9 @@ def centres(n, center=False):
     """Step centres in mm from the top of the steps area (the top margin)."""
     g = GEOMETRY
     img, wide, p = layout(n, center)
-    top = CENTER_TOP if center else 0
     if n == 1:
-        return [top + (g["page_h"] - g["margin"] - g["margin_bottom"] - g["footer"] + g["footer_gap"] - top) / 2]
-    return [round(top + img / 2 + k * p, 3) for k in range(n)]
+        return [(g["page_h"] - g["margin"] - g["margin_bottom"] - g["footer"] + g["footer_gap"]) / 2]
+    return [round(img / 2 + k * p, 3) for k in range(n)]
 
 
 def title_space(n, center=False):
@@ -134,8 +131,9 @@ def title_space(n, center=False):
     img/2 - circle/2 from the top: if the title pill (title_h) does not fit above it with `gap` to spare, the zone
     starts `gap` right of the circle instead. The frame (top at img/2 - frame_h/2) and picture 2 are lower still."""
     g = GEOMETRY
-    if center:   # its own row, centred over the full width
-        return 0, g["page_w"] - 2 * g["margin"]
+    if center:   # the right half, above step 2: from the right column's edge to the right margin
+        w = g["page_w"] - 2 * g["margin"]
+        return (w + g["gap"]) / 2, (w - g["gap"]) / 2
     img = layout(n)[0]
     x = img + g["gap"]
     if img / 2 - g["circle"] / 2 - g["gap"] < g["title_h"]:
@@ -150,6 +148,57 @@ def title_size(title, width):
     """Title font size in pt: 21 pt, smaller for a long title so that it fits `width` mm (pill padding 14 mm + border 1.8 mm)."""
     room = (width - 15.8) / 25.4 * 72
     return min(21.0, room / (TITLE_EM * max(len(title), 1)))
+
+
+# Advance width per character as a share of the font size, Baloo 2 ExtraBold, measured in Chrome; another character
+# counts as the widest (W). Labels are uppercase.
+LABEL_EM = {"A": .645, "B": .619, "C": .562, "D": .666, "E": .548, "F": .531, "G": .664, "H": .672, "I": .305, "J": .412,
+            "K": .615, "L": .513, "M": .797, "N": .679, "O": .703, "P": .581, "Q": .705, "R": .609, "S": .551, "T": .565,
+            "U": .664, "V": .645, "W": .868, "X": .606, "Y": .592, "Z": .565, "Č": .562, "Š": .551, "Ž": .565, "Ć": .562,
+            "Đ": .7, "Ä": .645, "Ö": .703, "Ü": .664, "É": .548, "È": .548, "À": .645, "Ñ": .679, " ": .2, "-": .354,
+            ".": .238, ",": .243, "!": .298, "?": .498, "'": .219, "’": .231, ":": .258, "/": .312, "&": .673, "(": .305,
+            ")": .305, "0": .606, "1": .393, "2": .522, "3": .518, "4": .62, "5": .522, "6": .558, "7": .496, "8": .56, "9": .558}
+PT = 25.4 / 72          # mm per point
+LABEL_LINE = 1.05       # line height of a wrapped label (centre layout)
+LABEL_RANGE = (9, 20)   # pt, centre layout
+CARD_BOTTOM = 2         # mm from the magnet circle to the card's bottom edge, centre layout
+
+
+def text_width(text, pt):
+    """Width of a label in mm at `pt`, with its 0.3 px letter-spacing (0.079 mm per character)."""
+    return sum(LABEL_EM.get(c, .868) for c in text) * pt * PT + 0.079 * len(text)
+
+
+def label_lines(label, pt, width):
+    """Lines of `label` wrapped at spaces into `width` mm, or None if a word alone is wider."""
+    lines = 0
+    line = ""
+    for word in label.split():
+        if text_width(word, pt) > width:
+            return None
+        if line and text_width(f"{line} {word}", pt) <= width:
+            line = f"{line} {word}"
+        else:
+            line, lines = word, lines + 1
+    return max(lines, 1)
+
+
+def center_label_size(labels, img, times):
+    """Centre layout: one label size (pt) for the whole sheet, the largest at which every label fits its card.
+    Card: as wide as the space beside the picture, as tall as the picture; the magnet circle sits CARD_BOTTOM above its
+    bottom edge (as much as the sides would leave at 8 steps eats the label). Above it, with 1.5 mm padding and 1.5 mm
+    gap: the label (wrapped at spaces, 0.8 mm top padding) and, with times on the sheet, the time field (6.5 mm, 0.8 mm gap)."""
+    g = GEOMETRY
+    cw = (g["page_w"] - 2 * g["margin"] - g["gap"]) / 2 - img
+    room = img - 1.5 - g["circle"] - CARD_BOTTOM - 1.5 - 0.8 - (7.3 if times else 0)
+    width = cw - 4
+    pt = LABEL_RANGE[1]
+    while pt > LABEL_RANGE[0]:
+        lines = [label_lines(lab, pt, width) for lab in labels]
+        if None not in lines and max(lines, default=1) * pt * PT * LABEL_LINE <= room:
+            break
+        pt -= 0.5
+    return pt
 
 
 MIN_FRAME_LUMINANCE = 0.6  # WCAG relative luminance; keeps frames pastel
@@ -265,6 +314,8 @@ def sheet_html(sheet, lang="sl"):
     if wide:   # label and time grow with the picture (+30 % at the largest picture), every label still fits (AGENTS.md)
         k = 1 + 0.3 * (img - GEOMETRY["img"]) / (GEOMETRY["wide_max"] - GEOMETRY["img"])
         size += f" --label: {13 * k:.1f}pt; --time: {15 * k:.1f}pt;"
+    if center:   # one size for the sheet, as large as its longest label and the time field allow
+        size += f" --label: {center_label_size([s['label'] for s in sheet['steps']], img, sheet.get('times') is not False):g}pt;"
     return f"""
   <div class="page-a4 rt-page{' rt-wide' if wide else ''}{' rt-center' if center else ''}" style="background: {background};{size}">{starry}
     <div class="rt-grid">
@@ -404,7 +455,7 @@ CSS = """
       border-radius: 7mm;   /* badge radius 5 + gap 1 + border 0.9: concentric with the badge */
       border: 0.9mm solid var(--step);
       background: var(--bg);
-      box-shadow: 0 1mm 0 rgba(42, 46, 110, 0.22);
+      filter: drop-shadow(0 1mm 0 rgba(42, 46, 110, 0.22));   /* as the card's: a box-shadow prints darker beside it */
       overflow: hidden;
     }
     .rt-pic img { width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -514,18 +565,21 @@ CSS = """
 
     /* Centre layout (default): the pictures meet in the middle (3 mm apart), so the eye moves one picture across, not
        the page width; each step's card (as tall as its picture) runs outwards to the page edge, label and time above
-       the magnet circle. The card is 41.4 mm wide at a 58 mm picture, so the label is 11 pt (17 characters fit).
+       the magnet circle. The circle sits 2 mm above the bottom edge (CARD_BOTTOM); label and time are
+       centred in the space above. The label wraps at spaces; its size, one for the sheet, is center_label_size().
        The seam is the picture's outer edge: it fades there over the full height, the number sits in the inner corner. */
-    .rt-center { --gapc: 3mm; --label: 11pt; --cw: calc((var(--page-w) - 2 * var(--margin) - var(--gapc)) / 2 - var(--img) + 0.9mm); }
-    .rt-center .rt-header { left: 0; justify-content: center; }
-    .rt-center .pic-left { left: calc(50% - var(--gapc) / 2 - var(--img)); border-radius: 0 7mm 7mm 0; }
-    .rt-center .pic-right { right: calc(50% - var(--gapc) / 2 - var(--img)); border-radius: 7mm 0 0 7mm; }
+    .rt-center { --gapc: 3mm; --label: 11pt; --cw: calc((var(--page-w) - 2 * var(--margin) - var(--gapc)) / 2 - var(--img)); --cb: __CB__mm; }
+    /* the card meets the picture edge to edge, no overlap: the picture has no border on that side, so the two shadows
+       join without doubling (an overlap darkens the shadow under the seam and nicks the border) */
+    .rt-center .rt-label { white-space: normal; text-align: center; line-height: 1.05; text-wrap: balance; }
+    .rt-center .pic-left { left: calc(50% - var(--gapc) / 2 - var(--img)); border-radius: 0 7mm 7mm 0; border-left: 0; }
+    .rt-center .pic-right { right: calc(50% - var(--gapc) / 2 - var(--img)); border-radius: 7mm 0 0 7mm; border-right: 0; }
     .rt-center .pic-left .rt-num { left: auto; right: 1.1mm; }
     .rt-center .pic-right .rt-num { right: auto; left: 1.1mm; }
     .rt-center .pic-left img { -webkit-mask-image: linear-gradient(to left, #000 88%, transparent 97%); mask-image: linear-gradient(to left, #000 88%, transparent 97%); }
     .rt-center .pic-right img { -webkit-mask-image: linear-gradient(to right, #000 88%, transparent 97%); mask-image: linear-gradient(to right, #000 88%, transparent 97%); }
-    .rt-center .rt-card { top: calc(var(--y) - var(--img) / 2); height: var(--img); width: var(--cw); flex-direction: column; justify-content: center; padding: 1.5mm 2mm; gap: 1.5mm; }
-    .rt-center .rt-text { flex-grow: 0; }
+    .rt-center .rt-card { top: calc(var(--y) - var(--img) / 2); height: var(--img); width: var(--cw); flex-direction: column; justify-content: flex-end; padding: 1.5mm 2mm var(--cb); gap: 1.5mm; }
+    .rt-center .rt-text { flex-grow: 1; justify-content: center; }
     .rt-center .rt-check { z-index: 2; }   /* inside the card: above its fill */
     .rt-center .card-left { left: 0; right: auto; border-radius: 6mm 0 0 6mm; }
     .rt-center .card-left::after { left: 0.9mm; right: -0.3mm; border-radius: 5.1mm 0 0 5.1mm; }
@@ -541,7 +595,7 @@ CSS = """
 """
 
 
-CSS = CSS.replace("__IMG__", str(GEOMETRY["img"])).replace("__TITLE__", str(GEOMETRY["title_h"])).replace("__FOOTER__", str(GEOMETRY["footer"] - 1))
+CSS = CSS.replace("__CB__", str(CARD_BOTTOM)).replace("__IMG__", str(GEOMETRY["img"])).replace("__TITLE__", str(GEOMETRY["title_h"])).replace("__FOOTER__", str(GEOMETRY["footer"] - 1))
 
 
 def page_html(routine):
@@ -580,7 +634,7 @@ def web_data(routines):
         images[id_] = {"title": meta["title"], "label": meta.get("label", {}), "keywords": meta.get("keywords", {}),
                        **{k: meta[k] for k in ("theme", "variant_of") if k in meta}}
         edges.append(f'  "{id_}": ["{edge_color(id_, "left")}", "{edge_color(id_, "right")}"],')
-    data = {"css": CSS, "skies": SKIES, "plain": PLAIN, "missingBg": MISSING_BG, "geometry": GEOMETRY, "site": SITE, "mail": MAIL, "license": LICENSE, "safety": SAFETY, "stepNotes": STEP_NOTES, "under3": UNDER3, "qr": QR,
+    data = {"css": CSS, "skies": SKIES, "plain": PLAIN, "missingBg": MISSING_BG, "geometry": {**GEOMETRY, "card_bottom": CARD_BOTTOM, "label_line": LABEL_LINE, "label_range": LABEL_RANGE}, "labelEm": LABEL_EM, "site": SITE, "mail": MAIL, "license": LICENSE, "safety": SAFETY, "stepNotes": STEP_NOTES, "under3": UNDER3, "qr": QR,
             "themes": THEMES, "images": images, "examples": routines}
     return ("// Generated by tools/build.py; do not edit by hand.\n"
             f"window.SHEET_DATA = {json.dumps(data, ensure_ascii=False, indent=1)};\n"

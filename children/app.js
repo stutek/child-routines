@@ -476,7 +476,11 @@ addEventListener("pointerover", e => {
 addEventListener("pointerdown", e => { if (!tipBox.contains(e.target)) hideTip(); }, true);
 addEventListener("focusin", e => { const t = tipTarget(e); if (t && !("pointer" in document.documentElement.dataset)) showTip(t); else if (!tipBox.contains(e.target)) hideTip(); });
 addEventListener("keydown", e => { if (e.key === "Escape" && !tipBox.hidden) hideTip(); });
-addEventListener("scroll", hideTip, true);
+// a scroll moves the control: the hint of a keyboard-focused one follows it (Tab scrolls to the next field, and its
+// hint vanished), any other hint goes
+addEventListener("scroll", () => {
+  if (tipFor && tipFor === document.activeElement && !("pointer" in document.documentElement.dataset)) showTip(tipFor); else hideTip();
+}, true);
 
 // a text field, not the browser's time picker: that one shows AM/PM to a reader whose browser is in English, whatever
 // the page language. It takes 7:30, 19.30, 1930 and, in English, 7:30 PM; leaving the field shows the sheet's form

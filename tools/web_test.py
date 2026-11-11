@@ -554,6 +554,18 @@ def main():
             print(f"hint over its control at 200 % zoom: {cover} px")
             if cover != 0:
                 errors.append(f"at 200 % zoom a hint covers its control by {cover} px (-1: no hint shown)")
+            # (15) Tab through the form: every control with a hint shows it, also when Tab scrolled the page to it
+            # (the scroll hid it, 5 of 33 stops).
+            ev("window.scrollTo(0, 0); document.activeElement.blur()")
+            missed = 0
+            for _ in range(40):
+                for typ in ("rawKeyDown", "keyUp"):
+                    cdp.call("Input.dispatchKeyEvent", type=typ, key="Tab", code="Tab", windowsVirtualKeyCode=9)
+                cdp.wait(0.25)
+                missed += ev("(() => { const a = document.activeElement; return a && a.dataset.tip && document.querySelector('.pop').hidden ? 1 : 0; })()")
+            print(f"hints missing while tabbing at 200 % zoom: {missed}")
+            if missed:
+                errors.append(f"{missed} controls reached with Tab showed no hint")
             cdp.call("Emulation.setDeviceMetricsOverride", width=1280, height=900, deviceScaleFactor=1, mobile=False)
             for e in cdp.events:
                 if e["method"] == "Runtime.exceptionThrown":

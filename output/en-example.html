@@ -259,16 +259,21 @@
     .rt-center .pic-right .rt-num { right: auto; left: 1.1mm; }
     .rt-center .pic-left img { -webkit-mask-image: linear-gradient(to left, #000 88%, transparent 97%); mask-image: linear-gradient(to left, #000 88%, transparent 97%); }
     .rt-center .pic-right img { -webkit-mask-image: linear-gradient(to right, #000 88%, transparent 97%); mask-image: linear-gradient(to right, #000 88%, transparent 97%); }
-    .rt-center .rt-card { top: calc(var(--y) - var(--img) / 2); height: var(--img); width: var(--cw); flex-direction: column; justify-content: flex-end; padding: 1.5mm 2mm var(--cb); gap: 1.5mm; }
+    .rt-center .rt-card { top: calc(var(--y) - var(--img) / 2); height: var(--img); width: var(--cw); flex-direction: column; justify-content: flex-end; gap: 1.5mm; }
     .rt-center .rt-text { flex-grow: 1; justify-content: center; }
     .rt-center .rt-check { z-index: 2; }   /* inside the card: above its fill */
     /* the card is a plain rounded box here: the same box-shadow as the picture, so both print alike (a filter
        drop-shadow prints lighter than a box-shadow, and rasterises the card) */
     .rt-center .rt-card { filter: none; box-shadow: 0 1mm 0 rgba(42, 46, 110, 0.22); }
-    .rt-center .card-left { left: 0; right: auto; border-radius: 6mm 0 0 6mm; }
-    .rt-center .card-left::after { left: 0.9mm; right: -0.3mm; border-radius: 5.1mm 0 0 5.1mm; }
-    .rt-center .card-right { right: 0; left: auto; border-radius: 0 6mm 6mm 0; }
-    .rt-center .card-right::after { right: 0.9mm; left: -0.3mm; border-radius: 0 5.1mm 5.1mm 0; }
+    /* a real border, as on the picture: the layered outline (::before colour, ::after fill inset 0.9 mm) rounds
+       differently from the picture's border in the scaled preview, so the top line steps at the seam and the arcs
+       look uneven. Paddings count from inside the border: 1.5 mm top and 2 mm sides from the card edge as before. */
+    .rt-center .rt-card { border: 0.9mm solid var(--step); background: var(--bg); }
+    .rt-center .rt-card::before, .rt-center .rt-card::after { display: none; }
+    .rt-center .card-left { left: 0; right: auto; border-radius: 6mm 0 0 6mm; border-right: 0;
+                            padding: 0.6mm 2mm calc(var(--cb) - 0.9mm) 1.1mm; }
+    .rt-center .card-right { right: 0; left: auto; border-radius: 0 6mm 6mm 0; border-left: 0;
+                             padding: 0.6mm 1.1mm calc(var(--cb) - 0.9mm) 2mm; }
 
     @media print {
       body { background: transparent; padding: 0; gap: 0; }

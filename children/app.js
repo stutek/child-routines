@@ -121,9 +121,9 @@ function stars() {
   const rnd = () => { s = (s * 1664525 + 1013904223) % 4294967296; return s / 4294967296; };
   const pick = a => a[Math.floor(rnd() * a.length)];
   let out = "", n = 0;
-  while (n < 46) {   // no stars behind the footer text (264 to 286 mm), as stars() in tools/build.py
+  while (n < 46) {   // no stars behind the footer text (262 to 286 mm), as stars() in tools/build.py
     const x = 3 + rnd() * 204, y = 110 + rnd() * 185, r = pick([0.35, 0.5, 0.7, 0.9]), o = 0.45 + rnd() * 0.5;
-    if (y > 264 && y < 286) continue;
+    if (y > 262 && y < 286) continue;
     out += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${r}" opacity="${o.toFixed(2)}"/>`; n++;
   }
   return out;
@@ -215,7 +215,7 @@ function sheetHtml(sheet, lang = "sl") {
     <div class="rt-grid">
       <div class="rt-header"><div class="rt-title">${esc(sheet.title)}</div></div>${rows}
     </div>
-    <div class="rt-footer${sheet.sky === "night" ? " on-dark" : ""}"><span class="rt-license"><img class="rt-under3" src="under3.jpg" alt="${esc(D.under3[lang] || D.under3.en)}"><span class="rt-legal"><span class="rt-safety">${esc(D.safety[lang] || D.safety.en)}</span>${notes}</span></span><span class="rt-source"><span class="rt-site">${esc(D.site)}</span><span class="rt-lic">${esc(D.license[lang] || D.license.en)}</span></span>${D.qr}</div>
+    <div class="rt-footer${sheet.sky === "night" ? " on-dark" : ""}"><span class="rt-license"><img class="rt-under3" src="under3.jpg" alt="${esc(D.under3[lang] || D.under3.en)}"><span class="rt-legal"><span class="rt-safety">${esc(D.safety[lang] || D.safety.en)}</span>${notes}</span></span><span class="rt-source"><span class="rt-site">${esc(D.site)}</span><span class="rt-mail">${esc(D.mail)}</span><span class="rt-lic">${esc(D.license[lang] || D.license.en)}</span></span>${D.qr}</div>
   </div>`;
 }
 

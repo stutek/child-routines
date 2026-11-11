@@ -44,9 +44,10 @@ SKIES = {
     "night": "#CFE3F7 0%, #A8C4EE 30%, #86A6E0 70%, #6F8FD3 86%, #22336B 93%, #1B2A5C 100%",
 }
 
-# The footer of every sheet: licence, address and a QR code (children/qr.svg, from tools/qr.py), so a
+# The footer of every sheet: licence, address, contact mail and a QR code (children/qr.svg, from tools/qr.py), so a
 # sheet on a fridge leads to the sheet maker. It sits above the 14 mm home printers cannot print.
 SITE = "routines.twotech.si/children"
+MAIL = "routines@twotech.si"   # English, like the address; no personal name on a public sheet
 LICENSE = {"sl": "CC0 · prosto za uporabo, spreminjanje in deljenje", "en": "CC0 · free to use, change and share"}
 # the sheet travels without the maker (to grandparents), so the essential warning goes on the sheet itself
 # a line in the footer only on a sheet that has such a step (by its picture), in step order
@@ -74,7 +75,7 @@ MISSING_BG = "#FFFFFF"
 # Sheet geometry in mm (A4). The first picture sits at the top margin (the title is beside it, to its right) and the
 # last `edge` above the footer; the step centres are evenly spaced in between. "img" is the largest picture, "gap" the
 # clearance between objects, "title_h" the height the title pill is built for (21 pt, one line).
-GEOMETRY = {"page_h": 297, "page_w": 210, "margin": 5, "margin_bottom": 14, "title_h": 11, "footer": 14, "img": 58,
+GEOMETRY = {"page_h": 297, "page_w": 210, "margin": 5, "margin_bottom": 14, "title_h": 11, "footer": 16, "img": 58,
             "gap": 3, "edge": 1.5, "frame_h": 18, "circle": 35, "footer_gap": 1, "wide_max": 98.5}
 
 
@@ -188,7 +189,7 @@ def label_color(step, background, minimum=4.5):
     return "#1E1B4B"
 
 
-FOOTER_BAND = (264, 286)   # mm from the top: no stars behind the footer text
+FOOTER_BAND = (262, 286)   # mm from the top: no stars behind the footer text
 
 
 def stars():
@@ -255,7 +256,7 @@ def sheet_html(sheet, lang="sl"):
     <div class="rt-grid">
       <div class="rt-header"><div class="rt-title">{escape(sheet['title'])}</div></div>{''.join(rows)}
     </div>
-    <div class="rt-footer{' on-dark' if sheet['sky'] == 'night' else ''}"><span class="rt-license"><img class="rt-under3" src="../children/under3.jpg" alt="{escape(UNDER3.get(lang, UNDER3["en"]))}"><span class="rt-legal"><span class="rt-safety">{escape(SAFETY.get(lang, SAFETY["en"]))}</span>{notes}</span></span><span class="rt-source"><span class="rt-site">{SITE}</span><span class="rt-lic">{escape(LICENSE.get(lang, LICENSE["en"]))}</span></span>{QR}</div>
+    <div class="rt-footer{' on-dark' if sheet['sky'] == 'night' else ''}"><span class="rt-license"><img class="rt-under3" src="../children/under3.jpg" alt="{escape(UNDER3.get(lang, UNDER3["en"]))}"><span class="rt-legal"><span class="rt-safety">{escape(SAFETY.get(lang, SAFETY["en"]))}</span>{notes}</span></span><span class="rt-source"><span class="rt-site">{SITE}</span><span class="rt-mail">{MAIL}</span><span class="rt-lic">{escape(LICENSE.get(lang, LICENSE["en"]))}</span></span>{QR}</div>
   </div>
 """
 
@@ -349,22 +350,22 @@ CSS = """
     .rt-footer {
       position: relative; flex: none; height: __FOOTER__mm; margin-top: 1mm;
       display: flex; align-items: flex-end; gap: 2mm; padding: 0 1mm 0.5mm;   /* texts sit on the bottom line of the QR code */
-      font-size: 9.5pt; font-weight: 600; color: #475569;   /* the largest size at which three warning lines stay within the QR's 13 mm */
+      font-size: 9.5pt; font-weight: 600; color: #475569;   /* the largest size at which three warning lines stay within the QR's 15 mm */
     }
     .rt-license { margin-right: auto; display: flex; align-items: center; gap: 2mm; align-self: flex-end; }
     .rt-legal { display: flex; flex-direction: column; gap: 0; line-height: 1.15; }
     .rt-legal > span { text-wrap: balance; }   /* a wrapped warning breaks into even lines, no lone last word */
     /* as narrow as the address: the licence wraps under it, so the warnings get the width and stay at three lines */
     .rt-source { display: flex; flex-direction: column; align-items: flex-end; text-align: right; line-height: 1.15; flex: none; width: min-content; }
-    .rt-site { white-space: nowrap; }
+    .rt-site, .rt-mail { white-space: nowrap; }
     .rt-lic { font-size: 8.5pt; text-wrap: balance; }
     .rt-safety, .rt-notes { font-weight: 800; }
     .rt-notes { display: block; }
-    .rt-under3 { width: 10mm; height: 10mm; flex: none; background: #ffffff; border-radius: 1mm; padding: 0.5mm; }
-    .rt-site { font-weight: 800; color: #115E59; }
-    .rt-footer.on-dark, .rt-footer.on-dark .rt-site { color: #EEF4FF; }
-    /* 13 mm with 1.3 mm white around (with the code's own 1-module border, about the 4-module quiet zone) */
-    .rt-footer svg { width: 13mm; height: 13mm; flex: none; background: #ffffff; border-radius: 1mm; padding: 1.3mm; }
+    .rt-under3 { width: 15mm; height: 15mm; flex: none; background: #ffffff; border-radius: 1mm; padding: 0.5mm; }
+    .rt-site, .rt-mail { font-weight: 800; color: #115E59; }
+    .rt-footer.on-dark, .rt-footer.on-dark .rt-site, .rt-footer.on-dark .rt-mail { color: #EEF4FF; }
+    /* 15 mm with 1.5 mm white around (with the code's own 1-module border, about the 4-module quiet zone); the 0–3 sign is as large */
+    .rt-footer svg { width: 15mm; height: 15mm; flex: none; background: #ffffff; border-radius: 1mm; padding: 1.5mm; }
     .rt-title {
       display: inline-block;
       font-size: var(--title-size, 21pt);
@@ -545,7 +546,7 @@ def web_data(routines):
         images[id_] = {"title": meta["title"], "label": meta.get("label", {}), "keywords": meta.get("keywords", {}),
                        **{k: meta[k] for k in ("theme", "variant_of") if k in meta}}
         edges.append(f'  "{id_}": ["{edge_color(id_, "left")}", "{edge_color(id_, "right")}"],')
-    data = {"css": CSS, "skies": SKIES, "plain": PLAIN, "missingBg": MISSING_BG, "geometry": GEOMETRY, "site": SITE, "license": LICENSE, "safety": SAFETY, "stepNotes": STEP_NOTES, "under3": UNDER3, "qr": QR,
+    data = {"css": CSS, "skies": SKIES, "plain": PLAIN, "missingBg": MISSING_BG, "geometry": GEOMETRY, "site": SITE, "mail": MAIL, "license": LICENSE, "safety": SAFETY, "stepNotes": STEP_NOTES, "under3": UNDER3, "qr": QR,
             "themes": THEMES, "images": images, "examples": routines}
     return ("// Generated by tools/build.py; do not edit by hand.\n"
             f"window.SHEET_DATA = {json.dumps(data, ensure_ascii=False, indent=1)};\n"

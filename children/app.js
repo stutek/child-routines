@@ -405,10 +405,11 @@ function load() {
 // OURS marks the entries this page wrote; an entry without it is a link pasted into the address bar.
 const OURS = "routine";
 let burst = null;   // the field being typed in: { field, at }
-document.addEventListener("focusout", () => { burst = null; });
-function save(how = "push") {   // "push", "replace", or the input element being typed in
+// leaving a field ends its entry; a field removed because the form was rebuilt (after a select) was not left
+document.addEventListener("focusout", e => queueMicrotask(() => { if (e.target.isConnected) burst = null; }));
+function save(how = "push") {   // "push", "replace", or the field being changed (an input element, a select's label)
   try { localStorage.setItem(STORE, JSON.stringify(state, (k, v) => (k.startsWith("_") ? undefined : v))); } catch (e) { /* no storage */ }
-  const url = shareUrl(), now = performance.now(), field = typeof how === "object" ? how : null;
+  const url = shareUrl(), now = performance.now(), field = how !== "push" && how !== "replace" ? how : null;
   const join = how === "replace" || (field && burst && burst.field === field && now - burst.at < 1000);
   burst = field ? { field, at: now } : null;
   if (url === location.href && history.state === OURS) return false;   // nothing on the sheet changed
@@ -551,7 +552,8 @@ function minutesInput(step, k) {
 
 function select(label, value, options, onchange) {
   // autocomplete off: the browser must not restore an earlier choice over the state (a link, an example, Undo)
-  const s = el("select", { "aria-label": label, autocomplete: "off", onchange: e => onchange(e.target.value) },
+  // arrow keys on a closed select change it at every option: changes of one select within 1 s are one history entry
+  const s = el("select", { "aria-label": label, autocomplete: "off", onchange: e => { choosing = label; try { onchange(e.target.value); } finally { choosing = null; } } },
     Object.entries(options).map(([v, text]) => el("option", { value: v }, text)));
   s.value = value;
   return s;
@@ -868,7 +870,8 @@ function renderPreview() {
 }
 
 // true when the change made a new history entry, so Undo (Back) has something to go back to
-function update(structure = false, how = "push") {
+let choosing = null;   // the select being changed (select()), joined like typing in one field
+function update(structure = false, how = choosing || "push") {
   hideUndo();
   if (structure) renderEditor();
   refreshSteps();

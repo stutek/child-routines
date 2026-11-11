@@ -489,6 +489,12 @@ def main():
               first().focus(); for (const v of ['MOJEA', 'MOJEAB', 'MOJEABC']) { first().value = v; first().dispatchEvent(new Event('input')); }
               first().blur(); await tick();
               history.back(); await tick(); r.typingOneStep = first().value === 'MOJE';
+              // arrow keys through a select (evening, day, morning) are one step: Back gives the first type, not the one between
+              const sky = () => [...document.querySelectorAll('#maker select')].find(x => [...x.options].some(o => o.value === 'dawn'));
+              const was = sky().value; sky().focus();
+              for (const v of ['afternoon', 'dawn', 'night'].filter(v => v !== was).concat(was === 'dawn' ? [] : ['dawn'])) {
+                sky().value = v; sky().dispatchEvent(new Event('change')); await tick(150); }
+              history.back(); await tick(); r.selectOneStep = sky().value === was;
               const keys = Object.keys(JSON.parse(atob(location.hash.slice(1).replace(/-/g, '+').replace(/_/g, '/'))));
               r.addressOnlySheet = keys.every(k => 'lbtpyshaer'.includes(k)) && history.state === 'routine';
               } catch (e) { r.error = false; r.message = String(e); }

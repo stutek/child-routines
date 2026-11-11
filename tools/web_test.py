@@ -53,18 +53,23 @@ class Cdp:
 def main():
     errors = []
     with tempfile.TemporaryDirectory(ignore_cleanup_errors=True) as tmp:
+        log = open(Path(tmp) / "chrome.log", "w+")
         chrome = subprocess.Popen(["google-chrome", "--headless=new", "--disable-gpu", "--no-sandbox", f"--user-data-dir={tmp}",
                                    f"--remote-debugging-port={PORT}", "--lang=sl", "about:blank"],
-                                  stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                                  stdout=subprocess.DEVNULL, stderr=log)
         try:
-            for _ in range(50):
+            # A cold start on a CI runner can take longer than 10 s, so wait up to 60 s, stop at once if Chrome exits,
+            # and show its log when it does not come up.
+            end = time.time() + 60
+            while True:
                 try:
                     tabs = json.load(urllib.request.urlopen(f"http://127.0.0.1:{PORT}/json/list", timeout=2))
                     break
                 except OSError:
+                    if chrome.poll() is not None or time.time() > end:
+                        log.seek(0)
+                        sys.exit(f"Chrome did not start (exit code {chrome.poll()}):\n" + log.read()[-3000:])
                     time.sleep(0.2)
-            else:
-                sys.exit("Chrome did not start")
             cdp = Cdp(next(t for t in tabs if t["type"] == "page")["webSocketDebuggerUrl"])
             cdp.call("Runtime.enable")
             cdp.call("Log.enable")
@@ -457,6 +462,7 @@ def main():
         finally:
             chrome.terminate()
             chrome.wait(timeout=10)
+            log.close()
     for e in errors:
         print("ERROR", e)
     print(f"{len(errors)} errors")

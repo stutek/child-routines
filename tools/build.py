@@ -585,10 +585,18 @@ CSS = """
        join without doubling (an overlap darkens the shadow under the seam and nicks the border) */
     .rt-center .rt-label { white-space: normal; text-align: center; line-height: 1.05; text-wrap: balance; }
     .rt-center .rt-title { overflow-wrap: normal; text-wrap: balance; }   /* wraps at spaces, even lines (center_title_size()) */
-    .rt-center .pic-left { left: calc(50% - var(--gapc) / 2 - var(--img)); border-radius: 0 7mm 7mm 0; border-left: 0; }
-    .rt-center .pic-right { right: calc(50% - var(--gapc) / 2 - var(--img)); border-radius: 7mm 0 0 7mm; border-right: 0; }
-    .rt-center .pic-left .rt-num { left: auto; right: 1.1mm; }
-    .rt-center .pic-right .rt-num { right: auto; left: 1.1mm; }
+    /* No border on the picture itself, the outline (three sides) is an overlay: a clipping box with uneven borders
+       makes the GPU clip the picture another way, visibly grainy in the scaled preview (measured with Chrome on a
+       real GPU; software rendering shows no difference). The badge moves in by the border, 2 mm = 1.1 + 0.9. */
+    .rt-center .rt-pic { border: 0; }
+    .rt-center .rt-pic::after { content: ""; position: absolute; inset: 0; border: 0.9mm solid var(--step); border-radius: inherit; pointer-events: none; }
+    .rt-center .pic-left { left: calc(50% - var(--gapc) / 2 - var(--img)); border-radius: 0 7mm 7mm 0; }
+    .rt-center .pic-right { right: calc(50% - var(--gapc) / 2 - var(--img)); border-radius: 7mm 0 0 7mm; }
+    .rt-center .pic-left::after { border-left: 0; }
+    .rt-center .pic-right::after { border-right: 0; }
+    .rt-center .rt-num { top: 2mm; }
+    .rt-center .pic-left .rt-num { left: auto; right: 2mm; }
+    .rt-center .pic-right .rt-num { right: auto; left: 2mm; }
     .rt-center .pic-left img { -webkit-mask-image: linear-gradient(to left, #000 88%, transparent 97%); mask-image: linear-gradient(to left, #000 88%, transparent 97%); }
     .rt-center .pic-right img { -webkit-mask-image: linear-gradient(to right, #000 88%, transparent 97%); mask-image: linear-gradient(to right, #000 88%, transparent 97%); }
     .rt-center .rt-card { top: calc(var(--y) - var(--img) / 2); height: var(--img); width: var(--cw); flex-direction: column; justify-content: flex-end; gap: 1.5mm; }

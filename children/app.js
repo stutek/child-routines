@@ -827,9 +827,12 @@ function fitPreview() {
   const sheets = document.getElementById("sheets");
   let zoom = (preview.clientWidth - 8) / a4w;
   // side by side the sheet fits the column's height too, 2 px spare,
-  // rounded down so it never overflows by a pixel (the scroll bar stays only as a fallback)
+  // rounded down so it never overflows by a pixel (the scroll bar stays only as a fallback).
+  // The room is the column's max-height (100vh - 32px), not its height: that follows the zoomed sheet,
+  // so a sheet once shrunk would never grow back when the window gets taller.
   if (matchMedia("(min-width: 1100px)").matches) {
-    sheets.style.zoom = Math.floor(Math.min(zoom, (preview.clientHeight - 2) / a4h) * 1000) / 1000;
+    const room = parseFloat(getComputedStyle(preview).maxHeight) || preview.clientHeight;
+    sheets.style.zoom = Math.floor(Math.min(zoom, (room - 2) / a4h) * 1000) / 1000;
     return;
   }
   zoom = Math.floor(zoom * 1000) / 1000;

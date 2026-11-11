@@ -145,9 +145,10 @@ TITLE_EM = 0.7   # widest share of the font size per title character (Baloo 2 Ex
 
 
 def title_size(title, width):
-    """Title font size in pt: 21 pt, smaller for a long title so that it fits `width` mm (pill padding 14 mm + border 1.8 mm)."""
+    """Title font size in pt: 21 pt, smaller for a long title so that it fits `width` mm (pill padding 14 mm + border 1.8 mm);
+    never below 12 pt, which stays readable across the kitchen: a longer title wraps instead (.rt-title wraps)."""
     room = (width - 15.8) / 25.4 * 72
-    return min(21.0, room / (TITLE_EM * max(len(title), 1)))
+    return max(12.0, min(21.0, room / (TITLE_EM * max(len(title), 1))))
 
 
 def center_title_size(title, width):
@@ -590,6 +591,8 @@ CSS = """
        makes the GPU clip the picture another way, visibly grainy in the scaled preview (measured with Chrome on a
        real GPU; software rendering shows no difference). The badge moves in by the border, 2 mm = 1.1 + 0.9. */
     .rt-center .rt-pic { border: 0; }
+    /* the missing-picture box sits inside the outline: full size, the picture's corners and the overlay cut its dashes */
+    .rt-center .rt-missing { width: calc(100% - 3.6mm); height: calc(100% - 3.6mm); margin: 1.8mm; box-sizing: border-box; border-radius: 5mm; }
     .rt-center .rt-pic::after { content: ""; position: absolute; inset: 0; border: 0.9mm solid var(--step); border-radius: inherit; pointer-events: none; }
     .rt-center .pic-left { left: calc(50% - var(--gapc) / 2 - var(--img)); border-radius: 0 7mm 7mm 0; }
     .rt-center .pic-right { right: calc(50% - var(--gapc) / 2 - var(--img)); border-radius: 7mm 0 0 7mm; }

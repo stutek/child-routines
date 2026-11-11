@@ -162,7 +162,7 @@ function titleSpace(n, center = false) {
   return { x, w: g.page_w - 2 * g.margin - x };
 }
 const TITLE_EM = 0.7;   // widest share of the font size per title character
-const titleSize = (title, width) => Math.min(21, (width - 15.8) / 25.4 * 72 / (TITLE_EM * Math.max(title.length, 1)));
+const titleSize = (title, width) => Math.max(12, Math.min(21, (width - 15.8) / 25.4 * 72 / (TITLE_EM * Math.max(title.length, 1))));
 
 function centres(n, center = false) {
   const { img, p, area } = layout(n, center);
@@ -220,7 +220,9 @@ function sheetHtml(sheet, lang = "sl") {
     // card joins the picture's outer edge from top to bottom)
     const bg = pic && EDGES[pic] ? EDGES[pic][((side === "left") === !center ? 0 : 1) + (center ? 2 : 0)] : D.missingBg;
     const style = `--step: ${step.color}; --bg: ${bg}; --ink: ${labelColor(step.color, bg)};`;
-    const picture = pic ? `<img src="../images/${esc(pic)}.jpg" alt="${esc(step.label)}" />` : '<div class="rt-missing">?</div>';
+    // alt as the generator writes it (Python str.capitalize()): "Umij zobke", not the shouted "UMIJ ZOBKE"
+    const alt = step.label.charAt(0).toLocaleUpperCase(lang) + step.label.slice(1).toLocaleLowerCase(lang);
+    const picture = pic ? `<img src="../images/${esc(pic)}.jpg" alt="${esc(alt)}" />` : '<div class="rt-missing">?</div>';
     const clock = sheet.times === false ? "" : step.time ? `<div class="rt-time">${esc(clockText(step.time, lang))}</div>`
       : '<div class="rt-time"><span class="blank"></span>:<span class="blank"></span></div>';
     return `
@@ -357,7 +359,8 @@ function browserLang() {
 // r: [[label, minutes, image], ...]} (older links: [label, time of day, image]);
 // trailing empty rows and image "auto" are left out. Base64 is not encryption.
 function encodeSheet(st) {
-  const r = st.sheet.steps.map(x => [x.label, x.mins, x.image === "auto" ? "" : x.image]);
+  // a row without a label is not on the sheet: its minutes and picture stay out of the link
+  const r = st.sheet.steps.map(x => x.label.trim() ? [x.label, x.mins, x.image === "auto" ? "" : x.image] : ["", "", ""]);
   while (r.length && !r[r.length - 1][0] && !r[r.length - 1][1] && !r[r.length - 1][2]) r.pop();
   const json = JSON.stringify({ l: st.lang, b: st.background, t: st.times ? 1 : 0, p: st.theme, y: st.layout, s: st.sheet.sky, h: st.sheet.title, a: st.sheet.start, e: st.sheet.end, r });
   let bin = ""; for (const b of new TextEncoder().encode(json)) bin += String.fromCharCode(b);
@@ -455,9 +458,13 @@ function showTip(target) {
   tipBox.replaceChildren(off, ...(Array.isArray(text) ? [el("p", {}, text[0]), el("ul", {}, text.slice(1).map(t => el("li", {}, t)))] : [el("p", {}, text)]));
   tipBox.hidden = false; tipFor = target;
   // above the control if it fits, else below; kept inside the window
-  const r = target.getBoundingClientRect(), b = tipBox.getBoundingClientRect();
-  tipBox.style.left = `${Math.max(8, Math.min(r.left, innerWidth - b.width - 8))}px`;
-  tipBox.style.top = `${r.top - b.height - 8 >= 8 ? r.top - b.height - 8 : r.bottom + 8}px`;
+  // the height after the move: at the previous place the text can wrap into fewer lines, and the box then grew down over
+  // the control (13 px at 200 % zoom, WCAG 2.4.12); start from the left edge so the width is the full one
+  const r = target.getBoundingClientRect();
+  tipBox.style.left = "0px";
+  tipBox.style.left = `${Math.max(8, Math.min(r.left, innerWidth - tipBox.getBoundingClientRect().width - 8))}px`;
+  const h = tipBox.getBoundingClientRect().height;
+  tipBox.style.top = `${r.top - h - 8 >= 8 ? r.top - h - 8 : r.bottom + 8}px`;
 }
 const tipTarget = e => e.target.closest && e.target.closest("[data-tip]");
 addEventListener("pointerover", e => {
@@ -645,7 +652,7 @@ function renderEditor() {
     // every field has a visible label (WCAG 2.2, 3.3.2); a placeholder disappears once the parent types
     el("div", { class: "row-top fields" }, [
       field(L.type, tip(select(L.type, sheet.sky, L.skies, setType), "type")),
-      field(L.sheetTitle, tip(el("input", { class: "title", value: sheet.title, autocapitalize: "characters",
+      field(L.sheetTitle, tip(el("input", { class: "title", value: sheet.title, autocapitalize: "characters", maxlength: "60",   // as clean() keeps
         oninput: e => { sheet.title = typedText(e); update(); } }), "sheetTitle"), "grow")]),
     el("div", { class: "row-top fields" }, [
       field(L.layout, tip(select(L.layout, state.layout, L.layouts, v => { state.layout = v; update(true); }), "layout")),
@@ -808,14 +815,19 @@ function renderPreview() {
   });
   const box = document.getElementById("warnings"), fine = document.getElementById("all-fine");
   const b = budget(), over = b && b.d !== null && b.d < 0;
-  box.hidden = !warnings.length; fine.hidden = !!warnings.length && !b;
-  box.replaceChildren(...(warnings.length
-    ? [el("strong", { "aria-hidden": longs.size === warnings.length ? "true" : null }, L.warnTitle),
-       el("ul", {}, warnings.map((w, i) => el("li", { "aria-hidden": longs.has(i) ? "true" : null }, w))),
-       el("a", { href: CONTRIBUTE, target: "_blank", rel: "noopener" }, L.suggest)]
-    : []));
   const old = state._old && oldKey === encodeSheet(state) ? state._old : null, odd = old && (old.unordered.length || old.untimed.length);
-  if (old) fine.hidden = false;
+  box.hidden = !warnings.length; fine.hidden = !!warnings.length && !b && !old;
+  // both are live regions: rewrite them only when the text changes, else a screen reader repeats them on every keystroke
+  const key = JSON.stringify([warnings, [...longs], L.ok, old && L.converted(old.unordered.join(", "), old.untimed.join(", ")), b && b.text, over]);
+  if (key === box.dataset.key) return;
+  box.dataset.key = key;
+  // "Suggest a picture" only with a picture warning; with only long labels (not read out) it would be read alone
+  const pics = warnings.length > longs.size;
+  box.replaceChildren(...(warnings.length
+    ? [el("strong", { "aria-hidden": pics ? null : "true" }, L.warnTitle),
+       el("ul", {}, warnings.map((w, i) => el("li", { "aria-hidden": longs.has(i) ? "true" : null }, w))),
+       ...(pics ? [el("a", { href: CONTRIBUTE, target: "_blank", rel: "noopener" }, L.suggest)] : [])]
+    : []));
   fine.replaceChildren(...(warnings.length ? [] : [el("div", {}, L.ok)]),
     ...(old ? [el("div", { class: odd ? "over" : null }, L.converted(old.unordered.join(", "), old.untimed.join(", ")))] : []),
     ...(b ? [el("div", { class: over ? "over" : null }, `${over ? "⚠" : "✓"} ${b.text}`)] : []));   // ✓ like the line above; ⚠ when over

@@ -486,6 +486,75 @@ def main():
             print(f"page alive with junk in the hints storage: {alive}")
             if not alive:
                 errors.append("junk in the hints storage blanked the page")
+            # Minor findings of the exploratory testing.
+            link = lambda d: PAGE + "#" + base64.urlsafe_b64encode(json.dumps(d).encode()).decode().rstrip("=")
+            cdp.call("Page.navigate", url=link({"l": "sl", "y": "center", "s": "morning", "h": "JUTRO",
+                                                "r": [["UMIJ ZOBKE", 5, ""], ["XQZW", 15, ""], ["OBLECI SE", "", ""]]}))
+            cdp.wait(2.5)
+            # (8) The picture's alt text is as the generator writes it ("Umij zobke", not "UMIJ ZOBKE").
+            alts = ev("[...document.querySelectorAll('#sheets .rt-pic img')].map(i => i.alt).join('|')")
+            print(f"alt texts: {alts}")
+            if alts != "Umij zobke|Obleci se":
+                errors.append(f"alt texts are {alts!r}, expected 'Umij zobke|Obleci se'")
+            # (9) Centre layout: the missing-picture box lies whole inside the picture (its dashes were cut off).
+            box = ev("""(() => { const m = document.querySelector('#sheets .rt-missing').getBoundingClientRect(), p = m && document.querySelector('#sheets .rt-missing').parentElement.getBoundingClientRect();
+              return m.left >= p.left && m.right <= p.right && m.top >= p.top && m.bottom <= p.bottom; })()""")
+            print(f"missing-picture box inside the picture: {box}")
+            if not box:
+                errors.append("centre layout: the missing-picture box sticks out of the picture")
+            # (10) The status line is not rewritten while its text stays the same (a screen reader repeated it on every key).
+            same = ev("""(async () => { let n = 0; const o = new MutationObserver(m => { n += m.length; });
+              ['warnings', 'all-fine'].forEach(id => o.observe(document.getElementById(id), { childList: true, subtree: true, characterData: true }));
+              const i = document.querySelector('.step input'); i.value = 'UMIJ ZOBKE'; i.dispatchEvent(new Event('input'));
+              await new Promise(r => setTimeout(r, 100)); o.disconnect(); return n; })()""", wait=True)
+            print(f"status changes after an input with the same result: {same}")
+            if same:
+                errors.append(f"the status line was rewritten {same} times though its text stayed the same")
+            # (11) A cleared label takes its minutes out of the share link (they went in as ["", 15, ""]).
+            ev("(() => { const i = [...document.querySelectorAll('.step input')].filter(x => !x.classList.contains('time'))[1]; i.value = ''; i.dispatchEvent(new Event('input')); })()")
+            cdp.wait(0.3)
+            h = ev("location.hash.slice(1)")
+            rows = json.loads(base64.urlsafe_b64decode(h + "=" * (-len(h) % 4)))["r"]
+            print(f"link rows after clearing label 2: {rows}")
+            if rows[1] != ["", "", ""]:
+                errors.append(f"a cleared row goes into the link as {rows[1]}")
+            # (12) Only too-long labels (read out at their rows): no lone "Suggest a picture" link in the status.
+            cdp.call("Page.navigate", url=link({"l": "sl", "y": "sides", "s": "morning", "h": "JUTRO", "r": [["UMIJ ZOBKE PRAV DOLGO", "", ""]]}))
+            cdp.wait(2.5)
+            lone = ev("!!document.querySelector('#warnings a')")
+            print(f"suggest link with only a too-long label: {lone}")
+            if lone:
+                errors.append("with only a too-long label the status still offers 'Suggest a picture'")
+            # (13) A 60-character title: the field stops at 60, and in the sides layout the title stays at 12 pt or more,
+            # wrapped, inside the page (it shrank to about 3 pt).
+            title = "JUTRANJA RUTINA ZA NAJINO MALO DEKLICO IN NJENEGA BRATCA OK"
+            cdp.call("Page.navigate", url=link({"l": "sl", "y": "sides", "s": "morning", "h": title,
+                                                "r": [[x, "", ""] for x in ("UMIJ ZOBKE", "OBLECI SE", "OBUJ SE", "POSPRAVI POSTELJO", "UMIJ ROKE", "ZAJTRK")]}))
+            cdp.wait(2.5)
+            got = ev("""(() => { const ti = document.querySelector('#sheets .rt-title'), r = ti.getBoundingClientRect(), p = document.querySelector('#sheets .rt-page').getBoundingClientRect();
+              const hit = [...document.querySelectorAll('#sheets .rt-pic, #sheets .rt-check')].map(e => e.getBoundingClientRect())
+                .filter(b => b.left < r.right && b.right > r.left && b.top < r.bottom && b.bottom > r.top).length;
+              return { pt: parseFloat(getComputedStyle(ti).fontSize) * 0.75, hit, inside: r.left >= p.left && r.right <= p.right,
+                       max: document.querySelector('#maker input.title').maxLength }; })()""")
+            print(f"long sides title: {got}")
+            if got["pt"] < 12 or got["hit"] or not got["inside"] or got["max"] != 60:
+                errors.append(f"long title in the sides layout: {got}")
+            # (14) At 200 % zoom (640 CSS px) a hint never covers the control it belongs to (13 px on its first show:
+            # the height was measured before the box moved and rewrapped).
+            cdp.call("Emulation.setDeviceMetricsOverride", width=640, height=450, deviceScaleFactor=2, mobile=False)
+            cdp.call("Page.navigate", url=PAGE)
+            cdp.wait(2)
+            cover = ev("""(async () => { let worst = 0;
+              for (const sel of ['button.thumb', 'button.del', 'button.thumb']) { const b = document.querySelector('#maker ' + sel);
+                b.scrollIntoView({ block: 'center' }); await new Promise(r => setTimeout(r, 200)); b.focus({ preventScroll: true });
+                await new Promise(r => setTimeout(r, 100)); const p = document.querySelector('.pop'); if (p.hidden) return -1;
+                const a = b.getBoundingClientRect(), t = p.getBoundingClientRect();
+                worst = Math.max(worst, Math.min(a.right, t.right) > Math.max(a.left, t.left) ? Math.max(0, Math.min(a.bottom, t.bottom) - Math.max(a.top, t.top)) : 0); }
+              return worst; })()""", wait=True)
+            print(f"hint over its control at 200 % zoom: {cover} px")
+            if cover != 0:
+                errors.append(f"at 200 % zoom a hint covers its control by {cover} px (-1: no hint shown)")
+            cdp.call("Emulation.setDeviceMetricsOverride", width=1280, height=900, deviceScaleFactor=1, mobile=False)
             for e in cdp.events:
                 if e["method"] == "Runtime.exceptionThrown":
                     errors.append("exception: " + e["params"]["exceptionDetails"].get("text", "?"))

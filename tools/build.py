@@ -83,8 +83,13 @@ def floor_half(x):
     return int(x * 2) / 2
 
 
-def layout(n):
+CENTER_TOP = GEOMETRY["title_h"] + GEOMETRY["gap"]   # centre layout: the title has its own row above the steps
+
+
+def layout(n, center=False):
     """Picture size, whether the frames are wide, and the step spacing for n steps (n >= 1).
+    Centre layout (the default; "layout": "sides" gives the pictures at the page edges): pictures meet in the middle, each card (as tall as its picture) runs outwards
+    to the page edge; same-side pictures keep `gap` (2p >= img + gap), at most `img`, below the title row.
     Narrow frames (width - 2 pictures, 84 mm at 58 mm): pictures on the same side keep `gap` (2p >= img + gap).
     Wide frames (from the own picture to the far edge): the frame of a step passes the opposite column, so the next
     picture must clear it (p >= img/2 + frame_h/2 + gap); a picture wider than half the free width minus the circle
@@ -94,6 +99,10 @@ def layout(n):
     w = g["page_w"] - 2 * g["margin"]
     # steps area: from the top margin to the footer; the footer's own gap above it counts as space for the last picture
     span = g["page_h"] - g["margin"] - g["margin_bottom"] - g["footer"] + g["footer_gap"] - g["edge"]
+    if center:
+        span -= CENTER_TOP
+        img = g["img"] if n == 1 else min(g["img"], floor_half((2 * span - g["gap"] * (n - 1)) / (n + 1)))
+        return img, False, (span - img) / (n - 1) if n > 1 else 0
     top = floor_half((w - g["gap"]) / 2)   # pictures in the two columns keep `gap` between them
     if n == 1:
         narrow, wide = g["img"], top
@@ -109,21 +118,24 @@ def layout(n):
     return img, wide > narrow, p
 
 
-def centres(n):
+def centres(n, center=False):
     """Step centres in mm from the top of the steps area (the top margin)."""
     g = GEOMETRY
-    img, wide, p = layout(n)
+    img, wide, p = layout(n, center)
+    top = CENTER_TOP if center else 0
     if n == 1:
-        return [(g["page_h"] - g["margin"] - g["margin_bottom"] - g["footer"] + g["footer_gap"]) / 2]
-    return [round(img / 2 + k * p, 3) for k in range(n)]
+        return [top + (g["page_h"] - g["margin"] - g["margin_bottom"] - g["footer"] + g["footer_gap"] - top) / 2]
+    return [round(top + img / 2 + k * p, 3) for k in range(n)]
 
 
-def title_space(n):
+def title_space(n, center=False):
     """Left edge and width of the title zone in mm (from the left edge of the steps area), right-aligned at the right
     edge. It starts `gap` right of picture 1. Step 1's magnet circle sits next to picture 1 and reaches up to
     img/2 - circle/2 from the top: if the title pill (title_h) does not fit above it with `gap` to spare, the zone
     starts `gap` right of the circle instead. The frame (top at img/2 - frame_h/2) and picture 2 are lower still."""
     g = GEOMETRY
+    if center:   # its own row, centred over the full width
+        return 0, g["page_w"] - 2 * g["margin"]
     img = layout(n)[0]
     x = img + g["gap"]
     if img / 2 - g["circle"] / 2 - g["gap"] < g["title_h"]:
@@ -214,12 +226,14 @@ def clock_text(time, lang):
 
 def sheet_html(sheet, lang="sl"):
     n = len(sheet["steps"])
-    ys = centres(n)
+    center = sheet.get("layout", "center") != "sides"   # pictures in the middle unless the sheet asks for "sides"
+    ys = centres(n, center)
     rows = []
     for i, step in enumerate(sheet["steps"], 1):
         side = "left" if i % 2 else "right"
         image = themed(step.get("image"), sheet.get("theme", ALL))
-        bg = edge_color(image, side) if image else MISSING_BG
+        seam = side if not center else "right" if side == "left" else "left"   # centre: the card joins the outer edge
+        bg = edge_color(image, seam) if image else MISSING_BG
         style = f"--step: {step['color']}; --bg: {bg}; --ink: {label_color(step['color'], bg)};"
         picture = (f'<img src="../images/{escape(image)}.jpg" alt="{escape(step["label"].capitalize())}" />'
                    if image else '<div class="rt-missing">?</div>')
@@ -243,8 +257,8 @@ def sheet_html(sheet, lang="sl"):
     background = plain or f'linear-gradient(180deg, {SKIES.get(sheet["sky"], sheet["sky"])})'
     starry = (f'\n    <svg class="rt-sky" viewBox="0 0 210 297" preserveAspectRatio="none" aria-hidden="true">'
               f'<g fill="#FFF8DC">{stars()}</g></svg>') if sheet.get("stars") and not plain else ""
-    img, wide, _ = layout(n)
-    tx, tw = title_space(n)
+    img, wide, _ = layout(n, center)
+    tx, tw = title_space(n, center)
     notes = " ".join(STEP_NOTES[i][lang if lang in STEP_NOTES[i] else "en"] for i in dict.fromkeys(st.get("image") for st in sheet["steps"]) if i in STEP_NOTES)
     notes = f'<span class="rt-notes">{escape(notes)}</span>' if notes else ""
     size = f" --img: {img:g}mm; --title-x: {tx:g}mm; --title-size: {title_size(sheet['title'], tw):.2f}pt;"
@@ -252,7 +266,7 @@ def sheet_html(sheet, lang="sl"):
         k = 1 + 0.3 * (img - GEOMETRY["img"]) / (GEOMETRY["wide_max"] - GEOMETRY["img"])
         size += f" --label: {13 * k:.1f}pt; --time: {15 * k:.1f}pt;"
     return f"""
-  <div class="page-a4 rt-page{' rt-wide' if wide else ''}" style="background: {background};{size}">{starry}
+  <div class="page-a4 rt-page{' rt-wide' if wide else ''}{' rt-center' if center else ''}" style="background: {background};{size}">{starry}
     <div class="rt-grid">
       <div class="rt-header"><div class="rt-title">{escape(sheet['title'])}</div></div>{''.join(rows)}
     </div>
@@ -497,6 +511,26 @@ CSS = """
     .rt-check::before { inset: 0; z-index: 0; background: var(--step); }
     /* a thin dashed ring inside, in a lighter mix of the step colour: an invitation to place the magnet */
     .rt-check::after { inset: 0.9mm; z-index: 1; background: var(--bg); outline: 0.4mm dashed color-mix(in srgb, var(--step) 60%, var(--bg)); outline-offset: -3.2mm; }
+
+    /* Centre layout (default): the pictures meet in the middle (3 mm apart), so the eye moves one picture across, not
+       the page width; each step's card (as tall as its picture) runs outwards to the page edge, label and time above
+       the magnet circle. The card is 41.4 mm wide at a 58 mm picture, so the label is 11 pt (17 characters fit).
+       The seam is the picture's outer edge: it fades there over the full height, the number sits in the inner corner. */
+    .rt-center { --gapc: 3mm; --label: 11pt; --cw: calc((var(--page-w) - 2 * var(--margin) - var(--gapc)) / 2 - var(--img) + 0.9mm); }
+    .rt-center .rt-header { left: 0; justify-content: center; }
+    .rt-center .pic-left { left: calc(50% - var(--gapc) / 2 - var(--img)); border-radius: 0 7mm 7mm 0; }
+    .rt-center .pic-right { right: calc(50% - var(--gapc) / 2 - var(--img)); border-radius: 7mm 0 0 7mm; }
+    .rt-center .pic-left .rt-num { left: auto; right: 1.1mm; }
+    .rt-center .pic-right .rt-num { right: auto; left: 1.1mm; }
+    .rt-center .pic-left img { -webkit-mask-image: linear-gradient(to left, #000 88%, transparent 97%); mask-image: linear-gradient(to left, #000 88%, transparent 97%); }
+    .rt-center .pic-right img { -webkit-mask-image: linear-gradient(to right, #000 88%, transparent 97%); mask-image: linear-gradient(to right, #000 88%, transparent 97%); }
+    .rt-center .rt-card { top: calc(var(--y) - var(--img) / 2); height: var(--img); width: var(--cw); flex-direction: column; justify-content: center; padding: 1.5mm 2mm; gap: 1.5mm; }
+    .rt-center .rt-text { flex-grow: 0; }
+    .rt-center .rt-check { z-index: 2; }   /* inside the card: above its fill */
+    .rt-center .card-left { left: 0; right: auto; border-radius: 6mm 0 0 6mm; }
+    .rt-center .card-left::after { left: 0.9mm; right: -0.3mm; border-radius: 5.1mm 0 0 5.1mm; }
+    .rt-center .card-right { right: 0; left: auto; border-radius: 0 6mm 6mm 0; }
+    .rt-center .card-right::after { right: 0.9mm; left: -0.3mm; border-radius: 0 5.1mm 5.1mm 0; }
 
     @media print {
       body { background: transparent; padding: 0; gap: 0; }

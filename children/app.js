@@ -28,13 +28,14 @@ const T = {
     example: "Naloži primer", replaced: "Primer je zamenjal tvoj list.", stepRemoved: "Korak je odstranjen.", skip: "Preskoči na obrazec", previewName: "Predogled lista", linkReplaced: "Povezava je zamenjala tvoj list.", copy: "Deli povezavo", copied: "Povezava je kopirana.", linkHint: "Povezava na končni izdelek brez aplikacije za urejanje. Povezava vsebuje vse podatke za ponovno ustvarjanje kopije deljene rutine.", undo: "Razveljavi", undone: "Tvoj list je vrnjen.", print: "Natisni",
     type: "Tip rutine", sheetTitle: "Naslov lista", skies: { dawn: "jutro", afternoon: "dan", night: "večer" },
     times: "Ura na listu", background: "Ozadje", backgrounds: { gradient: "barvno", white: "belo", none: "brez (manj črnila)" },
+    layout: "Postavitev sličic", layouts: { center: "v sredini", sides: "levo in desno" },
     pictures: "Skupina slik", themes: { all: "vse slike", bear: "medvedek", plain: "brez lika" },
     label: "Korak", labelHint: "npr. UMIJ ZOBKE", language: "Jezik", moved: n => `Premaknjeno na mesto ${n}`, picture: "Sličica", time: "Trajanje", start: "Začetek rutine", end: "Želeni konec", endsAt: x => `Konec ob ${x}`,
     converted: (u, n) => `Ure iz starejše povezave so preračunane v trajanja.${u ? ` Ure niso bile po vrsti pri: ${u}; ti koraki imajo privzeto trajanje.` : ""}${n ? ` Brez ure: ${n}; privzeto trajanje.` : ""} Nastavi »Začetek rutine« in »Želeni konec«.`, spare: n => `+${n} min rezerve`, over: n => `−${n} min preliva`, minutes: "minut", auto: "Samodejno", none: "Brez sličice", pick: "Zamenjaj sličico", closePick: "Zapri izbiro sličic", removeStep: "Izprazni vrstico", move: "Premakni korak", moveHint: "Povleci ali tapni tu, nato tapni novo mesto. S tipkovnico: puščici gor in dol.", moveDesc: "Alt in puščica gor ali dol premakne korak. Dotik ročaja in nato ročaja druge vrstice zamenja mesti.",
     warnNoMatch: (s, l) => `${s}: za »${l}« ni sličice. Klikni »?« in izberi sličico ali »Brez sličice«.`,
     warnMismatch: (s, l) => `${s}: sličica se morda ne ujema z napisom »${l}«.`,
     warnLong: (s, l) => `${s}: napis »${l}« je predolg za okvir; skrajšaj ga.`, tooLong: "Napis je predolg za okvir.",
-    tipOff: "Ne kaži več tega namiga", tips: { type: "Jutro, dan ali večer: določi barve neba in primer korakov.", sheetTitle: "Besedilo na vrhu lista. Dolg naslov se zmanjša.", background: "Barvno ozadje je najlepše; belo ali brez porabi manj črnila.", pictures: "Ali naj sličice kažejo medvedka ali nobenega lika.", times: "Vklopljeno: ob vsakem koraku je ura, izračunana iz začetka in trajanj. Ure so za odrasle.", start: "Ura, ko se rutina začne. Brez nje so polja za uro na listu prazna.", end: "Kdaj naj bo rutina končana. Obrazec pokaže, koliko časa ostane ali zmanjka; na listu je ni.", example: "Zamenja tvoj list s primerom za izbrani tip rutine. Razveljaviš lahko.", label: "Napis ob sličici, do približno 17 črk.", time: "Koliko minut traja korak; sivo je predlog. Desno je ura, do katere naj bo korak opravljen. Trajanje gre s korakom, ko ga premakneš.", pick: "Klikni in izberi drugo sličico.", del: "Izprazni vrstico. Razveljaviš lahko." },
+    tipOff: "Ne kaži več tega namiga", tips: { type: "Jutro, dan ali večer: določi barve neba in primer korakov.", layout: "V sredini so sličice skupaj, zato pogled ne skače čez ves list. Levo in desno ima večje napise.", sheetTitle: "Besedilo na vrhu lista. Dolg naslov se zmanjša.", background: "Barvno ozadje je najlepše; belo ali brez porabi manj črnila.", pictures: "Ali naj sličice kažejo medvedka ali nobenega lika.", times: "Vklopljeno: ob vsakem koraku je ura, izračunana iz začetka in trajanj. Ure so za odrasle.", start: "Ura, ko se rutina začne. Brez nje so polja za uro na listu prazna.", end: "Kdaj naj bo rutina končana. Obrazec pokaže, koliko časa ostane ali zmanjka; na listu je ni.", example: "Zamenja tvoj list s primerom za izbrani tip rutine. Razveljaviš lahko.", label: "Napis ob sličici, do približno 17 črk.", time: "Koliko minut traja korak; sivo je predlog. Desno je ura, do katere naj bo korak opravljen. Trajanje gre s korakom, ko ga premakneš.", pick: "Klikni in izberi drugo sličico.", del: "Izprazni vrstico. Razveljaviš lahko." },
     printHint: ["Pri tiskanju nastavi:", "velikost A4", "merilo 100 %", "brez robov", "lahko tudi shraniš kot PDF"], step: "Korak", ok: "✓ Vse sličice so najdene in vsi napisi se prilegajo.", suggest: "Manjka sličica? Predlagaj jo", warnTitle: "Opozorila", watchTitle: "Na kaj paziti", watch: [["Starost", "list je za otroke od 3 let naprej."], ["Magnetki", "uporabi le magnetke, varne za otroke in kemično neškodljive. Če otrok pogoltne magnetek, takoj pojdi k zdravniku."], ["Pisala", "za kljukice uporabi le pisala, varna za otroke in kemično neškodljiva."], ["Zdravila", "daje in hrani jih odrasel. Niso sladkarija."], ["Kopanje", "majhnega otroka nikoli ne pusti samega v kadi."], ["Zobki", "sledi navodilom svojega zobozdravnika."], ["Nagrade", "magnetek pomeni »narejeno«. Ne obljubljaj daril za magnetke: nagrada lahko otroku vzame lastno motivacijo ob doseganju uspeha in zmanjša veselje do opravila."], ["Brez pritiska", "ure na listu so za odrasle, ne za priganjanje. Če korak izpade ali se vrstni red pomeša, ohrani mir in poskusi znova naslednjič."]], guide: "Več o uporabi in varnosti", newTab: "(odpre se v novem zavihku)", project: "Projekt na GitHubu", madeBy: "Naredil", hide: "Skrij", show: "Pokaži",
   },
   en: {
@@ -44,13 +45,14 @@ const T = {
     example: "Load example", replaced: "The example replaced your sheet.", stepRemoved: "Step removed.", skip: "Skip to the form", previewName: "Sheet preview", linkReplaced: "The link replaced your sheet.", copy: "Share link", copied: "Link copied.", linkHint: "A link to the finished sheet, without the editing app. The link holds all the data to make a copy of the shared routine again.", undo: "Undo", undone: "Your sheet is back.", print: "Print",
     type: "Routine type", sheetTitle: "Sheet title", skies: { dawn: "morning", afternoon: "day", night: "evening" },
     times: "Time on the sheet", background: "Background", backgrounds: { gradient: "color", white: "white", none: "none (less ink)" },
+    layout: "Picture layout", layouts: { center: "in the middle", sides: "left and right" },
     pictures: "Image group", themes: { all: "all pictures", bear: "teddy bear", plain: "no character" },
     label: "Step", labelHint: "e.g. BRUSH TEETH", language: "Language", moved: n => `Moved to place ${n}`, picture: "Picture", time: "Duration", start: "Routine start", end: "Wished end", endsAt: x => `Ends at ${x}`,
     converted: (u, n) => `The times from an older link are turned into durations.${u ? ` Out of order: ${u}; these steps take the default duration.` : ""}${n ? ` No time: ${n}; default duration.` : ""} Set the “Routine start” and the “Wished end”.`, spare: n => `+${n} min to spare`, over: n => `−${n} min over`, minutes: "minutes", auto: "Automatic", none: "No picture", pick: "Change picture", closePick: "Close the picture choice", removeStep: "Clear row", move: "Move step", moveHint: "Drag, or tap here and then tap the new place. Keyboard: up and down arrows.", moveDesc: "Alt and the up or down arrow move the step. Tap the handle, then another row's handle, to swap them.",
     warnNoMatch: (s, l) => `${s}: no picture for “${l}”. Click “?” and pick a picture or “No picture”.`,
     warnMismatch: (s, l) => `${s}: the picture may not match the label “${l}”.`,
     warnLong: (s, l) => `${s}: “${l}” is too long for the frame; shorten it.`, tooLong: "The label is too long for the frame.",
-    tipOff: "Don't show this hint again", tips: { type: "Morning, day or evening: sets the sky colours and the example steps.", sheetTitle: "The text at the top of the sheet. A long title gets smaller.", background: "A coloured background looks best; white or none uses less ink.", pictures: "Whether the pictures show a teddy bear or no character.", times: "On: each step shows a time worked out from the start and the durations. The times are for adults.", start: "The time the routine starts. Without it the time fields on the sheet stay empty.", end: "When the routine should be over. The form shows how much time is left or missing; it is not on the sheet.", example: "Replaces your sheet with the example for the chosen routine type. You can undo it.", label: "The label next to the picture, up to about 17 letters.", time: "How many minutes the step takes; grey is a suggestion. On the right is the time the step should be done by. The duration moves with the step.", pick: "Click to choose another picture.", del: "Clears the row. You can undo it." },
+    tipOff: "Don't show this hint again", tips: { type: "Morning, day or evening: sets the sky colours and the example steps.", layout: "In the middle the pictures sit together, so the eye does not jump across the sheet. Left and right has larger labels.", sheetTitle: "The text at the top of the sheet. A long title gets smaller.", background: "A coloured background looks best; white or none uses less ink.", pictures: "Whether the pictures show a teddy bear or no character.", times: "On: each step shows a time worked out from the start and the durations. The times are for adults.", start: "The time the routine starts. Without it the time fields on the sheet stay empty.", end: "When the routine should be over. The form shows how much time is left or missing; it is not on the sheet.", example: "Replaces your sheet with the example for the chosen routine type. You can undo it.", label: "The label next to the picture, up to about 17 letters.", time: "How many minutes the step takes; grey is a suggestion. On the right is the time the step should be done by. The duration moves with the step.", pick: "Click to choose another picture.", del: "Clears the row. You can undo it." },
     printHint: ["When printing, set:", "size A4", "scale 100%", "margins “None”", "you can also save it as a PDF"], step: "Step", ok: "✓ All pictures found and all labels fit.", suggest: "Missing a picture? Suggest one", warnTitle: "Warnings", watchTitle: "What to watch for", watch: [["Age", "the sheet is for children aged 3 and up."], ["Magnets", "use only magnets that are safe for children and chemically harmless. If a child swallows a magnet, see a doctor at once."], ["Pens", "for ticks, use only pens that are safe for children and chemically harmless."], ["Medicine", "an adult gives and keeps it. It is not a sweet."], ["Bath", "never leave a young child alone in the bath."], ["Teeth", "follow your dentist's advice."], ["Rewards", "a magnet means “done”. Don't promise gifts for magnets: a reward can take away the child's own motivation to succeed and lessen the joy of the task."], ["No pressure", "the times on the sheet are for adults, not for hurrying. If a step is skipped or the order gets mixed up, stay calm and try again next time."]], guide: "More about use and safety", newTab: "(opens in a new tab)", project: "Project on GitHub", madeBy: "Made by", hide: "Hide", show: "Show",
   },
 };
@@ -129,11 +131,16 @@ function stars() {
   return out;
 }
 
-// same as layout(), centres(), title_space() and title_size() in tools/build.py
-function layout(n) {
+// same as layout(), centres(), title_space() and title_size() in tools/build.py; center: pictures in the middle (default)
+const centerTop = () => D.geometry.title_h + D.geometry.gap;
+function layout(n, center = false) {
   const g = D.geometry, w = g.page_w - 2 * g.margin;
   const area = g.page_h - g.margin - g.margin_bottom - g.footer + g.footer_gap, span = area - g.edge, top = Math.floor((w - g.gap) / 2 * 2) / 2;
   const half = x => Math.floor(x * 2) / 2;
+  if (center) {
+    const s = span - centerTop(), img = n === 1 ? g.img : Math.min(g.img, half((2 * s - g.gap * (n - 1)) / (n + 1)));
+    return { img, wide: false, p: n > 1 ? (s - img) / (n - 1) : 0, area };
+  }
   let narrow, wide;
   if (n === 1) { narrow = g.img; wide = top; }
   else {
@@ -147,7 +154,8 @@ function layout(n) {
   return { img, wide: wide > narrow, p: n > 1 ? (span - img) / (n - 1) : 0, area };
 }
 
-function titleSpace(n) {
+function titleSpace(n, center = false) {
+  if (center) return { x: 0, w: D.geometry.page_w - 2 * D.geometry.margin };
   const g = D.geometry, { img } = layout(n);
   let x = img + g.gap;
   if (img / 2 - g.circle / 2 - g.gap < g.title_h) x = img - 0.9 + g.circle + g.gap;
@@ -156,9 +164,9 @@ function titleSpace(n) {
 const TITLE_EM = 0.7;   // widest share of the font size per title character
 const titleSize = (title, width) => Math.min(21, (width - 15.8) / 25.4 * 72 / (TITLE_EM * Math.max(title.length, 1)));
 
-function centres(n) {
-  const g = D.geometry, { img, p, area } = layout(n);
-  return Array.from({ length: n }, (_, k) => n === 1 ? area / 2 : Math.round((img / 2 + k * p) * 1000) / 1000);
+function centres(n, center = false) {
+  const { img, p, area } = layout(n, center), top = center ? centerTop() : 0;
+  return Array.from({ length: n }, (_, k) => n === 1 ? top + (area - top) / 2 : Math.round((top + img / 2 + k * p) * 1000) / 1000);
 }
 
 // the reader's locale when it matches the page language (en-GB: 19:30, en-US: 7:30 PM, sl: 19:30),
@@ -175,11 +183,12 @@ function clockText(time, lang) {
 }
 
 function sheetHtml(sheet, lang = "sl") {
-  const n = sheet.steps.length, ys = centres(n);
+  const n = sheet.steps.length, center = sheet.layout !== "sides", ys = centres(n, center);
   const rows = sheet.steps.map((step, k) => {
     const i = k + 1, side = i % 2 ? "left" : "right";
     const pic = themed(step.image, sheet.theme || ALL);
-    const bg = pic && EDGES[pic] ? EDGES[pic][side === "left" ? 0 : 1] : D.missingBg;
+    // EDGES: [right edge, left edge]; centre layout: the card joins the picture's outer edge
+    const bg = pic && EDGES[pic] ? EDGES[pic][(side === "left") === !center ? 0 : 1] : D.missingBg;
     const style = `--step: ${step.color}; --bg: ${bg}; --ink: ${labelColor(step.color, bg)};`;
     const picture = pic ? `<img src="../images/${esc(pic)}.jpg" alt="${esc(step.label)}" />` : '<div class="rt-missing">?</div>';
     const clock = sheet.times === false ? "" : step.time ? `<div class="rt-time">${esc(clockText(step.time, lang))}</div>`
@@ -203,15 +212,15 @@ function sheetHtml(sheet, lang = "sl") {
     ? `<svg class="rt-sky" viewBox="0 0 210 297" preserveAspectRatio="none" aria-hidden="true"><g fill="#FFF8DC">${stars()}</g></svg>` : "";
   const noteIds = [...new Set(sheet.steps.map(st => st.image))].filter(i => D.stepNotes[i]);
   const notes = noteIds.length ? `<span class="rt-notes">${esc(noteIds.map(i => D.stepNotes[i][lang] || D.stepNotes[i].en).join(" "))}</span>` : "";
-  const { img, wide } = layout(n);
-  const ts = titleSpace(n);
+  const { img, wide } = layout(n, center);
+  const ts = titleSpace(n, center);
   let size = ` --img: ${img}mm; --title-x: ${ts.x}mm; --title-size: ${titleSize(sheet.title, ts.w).toFixed(2)}pt;`;
   if (wide) {   // label and time grow with the picture (+30 % at the largest), as in tools/build.py
     const k = 1 + 0.3 * (img - D.geometry.img) / (D.geometry.wide_max - D.geometry.img);
     size += ` --label: ${(13 * k).toFixed(1)}pt; --time: ${(15 * k).toFixed(1)}pt;`;
   }
   return `
-  <div class="page-a4 rt-page${wide ? " rt-wide" : ""}" style="background: ${background};${size}">${starry}
+  <div class="page-a4 rt-page${wide ? " rt-wide" : ""}${center ? " rt-center" : ""}" style="background: ${background};${size}">${starry}
     <div class="rt-grid">
       <div class="rt-header"><div class="rt-title">${esc(sheet.title)}</div></div>${rows}
     </div>
@@ -264,7 +273,7 @@ const exampleTimes = ex => fromTimes(ex.steps.map(st => ({ label: st.label, time
 const exampleSteps = ex => pad(exampleTimes(ex).steps.map(({ time, ...st }) => st));
 function fromExample(lang, sky = "night", base = {}) {   // the evening routine opens first
   const ex = example(sky, lang);
-  return { lang, background: base.background || "gradient", times: base.times === true, theme: base.theme || "bear",
+  return { lang, background: base.background || "gradient", times: base.times === true, theme: base.theme || "bear", layout: base.layout || "center",
            sheet: { title: bare(ex.title), sky, start: exampleTimes(ex).start, end: exampleTimes(ex).end, steps: exampleSteps(ex) } };
 }
 // loading an example would lose what the parent typed: rows with content that are not just an example (any language or type)
@@ -302,7 +311,7 @@ function clean(s) {
                   start: old ? old.start : HHMM.test(sh.start) ? sh.start : "", end: old ? old.end : HHMM.test(sh.end) ? sh.end : "",
                   steps: pad((old ? old.steps : steps).map(({ time, ...st }) => st)) };
   return { lang: own(T, s.lang) ? s.lang : "sl", background: ["gradient", "white", "none"].includes(s.background) ? s.background : "gradient",
-           times: s.times === true, theme: [ALL, ...D.themes].includes(s.theme) ? s.theme : "bear", sheet,
+           times: s.times === true, theme: [ALL, ...D.themes].includes(s.theme) ? s.theme : "bear", layout: s.layout === "sides" ? "sides" : "center", sheet,
            _old: old && { unordered: old.unordered, untimed: old.untimed } };   // shown in the status line until the first change
 }
 // first visit: the first of the browser's languages the page has (navigator.languages), else English
@@ -312,13 +321,13 @@ function browserLang() {
   return "en";
 }
 // ---------- share link: the sheet in the URL fragment (never sent to a server), base64url of compact JSON ----------
-// {l: language, b: background, t: 0 when the time is off, p: picture theme, s: sky, h: title, a: start, e: wished end,
+// {l: language, b: background, t: 0 when the time is off, p: picture theme, y: picture layout, s: sky, h: title, a: start, e: wished end,
 // r: [[label, minutes, image], ...]} (older links: [label, time of day, image]);
 // trailing empty rows and image "auto" are left out. Base64 is not encryption.
 function encodeSheet(st) {
   const r = st.sheet.steps.map(x => [x.label, x.mins, x.image === "auto" ? "" : x.image]);
   while (r.length && !r[r.length - 1][0] && !r[r.length - 1][1] && !r[r.length - 1][2]) r.pop();
-  const json = JSON.stringify({ l: st.lang, b: st.background, t: st.times ? 1 : 0, p: st.theme, s: st.sheet.sky, h: st.sheet.title, a: st.sheet.start, e: st.sheet.end, r });
+  const json = JSON.stringify({ l: st.lang, b: st.background, t: st.times ? 1 : 0, p: st.theme, y: st.layout, s: st.sheet.sky, h: st.sheet.title, a: st.sheet.start, e: st.sheet.end, r });
   let bin = ""; for (const b of new TextEncoder().encode(json)) bin += String.fromCharCode(b);
   return btoa(bin).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
 }
@@ -329,7 +338,7 @@ function decodeSheet(data) {
     const bin = atob(data.replace(/-/g, "+").replace(/_/g, "/"));
     const j = JSON.parse(new TextDecoder("utf-8", { fatal: true }).decode(Uint8Array.from(bin, c => c.charCodeAt(0))));
     if (!j || typeof j !== "object" || !Array.isArray(j.r)) return null;
-    return clean({ lang: j.l, background: j.b, times: j.t !== 0, theme: j.p,
+    return clean({ lang: j.l, background: j.b, times: j.t !== 0, theme: j.p, layout: j.y,
       sheet: { title: j.h, sky: j.s, start: j.a, end: j.e, steps: j.r.slice(0, MAX_STEPS).map(x => Array.isArray(x)
         ? { label: x[0], [typeof x[1] === "string" ? "time" : "mins"]: x[1], image: x[2] || "auto" } : {}) } });
   } catch (e) { return null; }
@@ -602,6 +611,7 @@ function renderEditor() {
       field(L.sheetTitle, tip(el("input", { class: "title", value: sheet.title, autocapitalize: "characters",
         oninput: e => { sheet.title = typedText(e); update(); } }), "sheetTitle"), "grow")]),
     el("div", { class: "row-top fields" }, [
+      field(L.layout, tip(select(L.layout, state.layout, L.layouts, v => { state.layout = v; update(true); }), "layout")),
       field(L.background, tip(select(L.background, state.background, L.backgrounds, v => { state.background = v; update(true); }), "background")),
       ...(THEMED ? [field(L.pictures, tip(select(L.pictures, state.theme, L.themes, v => { state.theme = v; sheet.steps.forEach(st => st._gallery()); update(); }), "pictures"))] : []),
       tip(el("label", { class: "grow check" }, [times, L.times]), "times"),
@@ -729,6 +739,7 @@ function refreshSteps() {
 // .rt-text grows with its label, so its own width says nothing; the room is frame minus circle
 function labelRoom(lab) {
   const card = lab.closest(".rt-card"), cs = getComputedStyle(card);
+  if (cs.flexDirection === "column") return card.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);   // centre: circle below
   return card.clientWidth - card.querySelector(".rt-check").offsetWidth
     - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight) - parseFloat(cs.columnGap || 0);
 }
@@ -736,7 +747,7 @@ function labelRoom(lab) {
 function renderPreview() {
   const L = t(), s = state.sheet, steps = filled(), { at } = schedule();
   const sky = state.background === "gradient" ? s.sky : state.background;
-  document.getElementById("sheets").innerHTML = sheetHtml({ title: s.title.toLocaleUpperCase(state.lang), sky, times: state.times, theme: state.theme, steps: steps.map((st, k) => resolve(st, k, at)) }, state.lang);
+  document.getElementById("sheets").innerHTML = sheetHtml({ title: s.title.toLocaleUpperCase(state.lang), sky, times: state.times, theme: state.theme, layout: state.layout, steps: steps.map((st, k) => resolve(st, k, at)) }, state.lang);
 
   const warnings = [];
   steps.forEach((st, k) => {

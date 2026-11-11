@@ -296,15 +296,16 @@ def main():
             bad = [k for k, v in json.loads(got).items() if not v]
             if bad:
                 errors.append(f"too-long label checks failed: {bad}")
-            # the form shows the state a link carries: type (sky), background, picture theme (shown once an image has
-            # a variant), time checkbox; also after a reload. Every picture on the sheet is in the theme or has no variant in it.
-            raw = json.dumps({"l": "sl", "b": "white", "t": 0, "p": "plain", "s": "dawn", "h": "JUTRO", "r": [["UMIJ ZOBE", "", ""], ["POSPRAVI POSTELJO", "", ""]]})
+            # the form shows the state a link carries: type (sky), picture layout, background, picture theme (shown once an
+            # image has a variant), time checkbox; also after a reload. Every picture on the sheet is in the theme or has no variant in it.
+            raw = json.dumps({"l": "sl", "b": "white", "t": 0, "p": "plain", "y": "sides", "s": "dawn", "h": "JUTRO", "r": [["UMIJ ZOBE", "", ""], ["POSPRAVI POSTELJO", "", ""]]})
             frag = base64.urlsafe_b64encode(raw.encode()).decode().rstrip("=")
             cdp.call("Page.navigate", url="about:blank")
             cdp.wait(0.5)
             cdp.call("Page.navigate", url=PAGE + "#" + frag)
             cdp.wait(2)
-            form_state = """JSON.stringify([...document.querySelectorAll('#maker select')].map(s => s.value).concat([document.querySelector('#maker input[type=checkbox]').checked]))"""
+            form_state = """JSON.stringify([...document.querySelectorAll('#maker select')].map(s => s.value).concat([document.querySelector('#maker input[type=checkbox]').checked,
+              !!document.querySelector('#sheets .rt-center')]))"""
             themed = cdp.call("Runtime.evaluate", expression="Object.values(SHEET_DATA.images).some(i => i.variant_of)", returnByValue=True)["result"]["value"]
             in_theme = """(() => { const I = SHEET_DATA.images;
               return [...document.querySelectorAll('#sheets img[src*="/images/"]')].map(i => i.getAttribute('src').match(/images\\/([^/]+)\\.jpg/)[1])
@@ -315,8 +316,8 @@ def main():
                     cdp.wait(2)
                 got = json.loads(cdp.call("Runtime.evaluate", expression=form_state, returnByValue=True)["result"]["value"])
                 print(f"form after {how}: {got}")
-                if got != ["sl", "dawn", "white"] + (["plain"] if themed else []) + [False]:
-                    errors.append(f"form after {how} does not show the sheet (language, type, background, theme, time): {got}")
+                if got != ["sl", "dawn", "sides", "white"] + (["plain"] if themed else []) + [False, False]:
+                    errors.append(f"form after {how} does not show the sheet (language, type, layout, background, theme, time, centre sheet): {got}")
                 if not cdp.call("Runtime.evaluate", expression=in_theme, returnByValue=True)["result"]["value"]:
                     errors.append(f"sheet after {how} shows a picture outside the theme though a variant exists")
             # image group: "bear" is the default, also for a link without one, and shows the bear picture of the step;
@@ -334,7 +335,7 @@ def main():
                     cdp.wait(0.5)
                     cdp.call("Page.navigate", url=PAGE + "#" + frag)
                     cdp.wait(2)
-                    got = cdp.call("Runtime.evaluate", expression="""JSON.stringify([document.querySelectorAll('#maker select')[3].value,
+                    got = cdp.call("Runtime.evaluate", expression="""JSON.stringify([document.querySelectorAll('#maker select')[4].value,
                       document.querySelector('#sheets img[src*="/images/"]').getAttribute('src').match(/images\\/([^/]+)\\.jpg/)[1]])""",
                       returnByValue=True)["result"]["value"]
                     print(f"image group {group or 'default'}: {got}")
@@ -348,7 +349,7 @@ def main():
                 got = cdp.call("Runtime.evaluate", expression="""(() => {
                   const thumb = document.querySelector('.step .thumb'), gal = thumb.parentElement.nextElementSibling.nextElementSibling;
                   thumb.click(); window.scrollTo(0, 200);
-                  const sel = document.querySelectorAll('#maker select')[3], y = scrollY, before = gal.querySelectorAll('img').length;
+                  const sel = document.querySelectorAll('#maker select')[4], y = scrollY, before = gal.querySelectorAll('img').length;
                   sel.focus({ preventScroll: true }); sel.value = sel.value === 'all' ? 'bear' : 'all'; sel.dispatchEvent(new Event('change'));
                   return JSON.stringify({ open: !gal.hidden && thumb.getAttribute('aria-expanded') === 'true',
                     refilled: gal.querySelectorAll('img').length !== before, focus: document.activeElement === sel, scroll: scrollY === y }); })()""",

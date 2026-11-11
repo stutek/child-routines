@@ -13,7 +13,7 @@ Free, no sign-up and no ads. What you type stays in your browser.
 ## Quick start
 
 1. Open the [sheet maker](https://routines.twotech.si/children/). It is easiest on a computer. It opens with an example evening routine.
-2. Pick the routine type and type the steps: we recommend 3 to 8. Click a picture to change it. For some steps, *Pictures* switches between a teddy bear and pictures without one. Type your own text to change the title and the steps; empty rows do not show on the sheet. For times on the sheet, turn on the *Time on the sheet* switch, type the start and how many minutes each step takes; with a wished end you see the time to spare or the overrun. Drag a row by its dots to change the order.
+2. Pick the routine type and type the steps: we recommend 3 to 8. Click a picture to change it. For some steps, *Pictures* switches between a teddy bear and pictures without one. *Picture layout* puts the pictures together in the middle (the eye does not jump across the sheet) or at the left and right edges (larger labels). Type your own text to change the title and the steps; empty rows do not show on the sheet. For times on the sheet, turn on the *Time on the sheet* switch, type the start and how many minutes each step takes; with a wished end you see the time to spare or the overrun. Drag a row by its dots to change the order.
 3. Click **Print**: A4, margins *None*, scale 100%. For a PDF file you can share, choose *Save as PDF* in the print window.
 4. When you change or adjust the routine, print a new sheet.
 5. To share the current view of the app with family and friends, use the *Share link* button.

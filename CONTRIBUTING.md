@@ -37,6 +37,7 @@ How to build sheets from the data files on your computer, with or without an AI 
    - `sky`: `dawn`, `afternoon`, `night`, your own CSS gradient stops, or `white` or `none` (transparent).
    - `stars`: `true` adds small stars (for night sheets).
    - `times`: `false` leaves out the time fields on this sheet.
+   - `layout`: `"sides"` puts the pictures at the page edges; without it they sit together in the middle.
    - Up to 8 steps per sheet; 6 to 7 look best. Split long routines into more sheets.
    - `label`: short, uppercase, one word where possible. The build fails visually if a label is too long: keep it under about 17 characters.
    - `image`: an image id from `images/`, or `null` for an empty placeholder.

@@ -18,6 +18,7 @@ Kako na svojem računalniku zgradite liste iz podatkovnih datotek, z agentom ali
    - `sky`: `dawn`, `afternoon`, `night`, lasten CSS preliv ali `white` oziroma `none` (prosojno).
    - `stars`: `true` doda zvezdice (za nočne liste).
    - `times`: `false` izpusti polja za uro na tem listu.
+   - `layout`: `"sides"` postavi sličice ob robova lista; brez njega so skupaj na sredini.
    - Največ 8 korakov na list, najlepše je 6 do 7. Dolge rutine razdelite na več listov.
    - `label`: kratko, z velikimi črkami, kjer gre z eno besedo, največ okoli 17 znakov.
    - `image`: oznaka slike iz `images/` ali `null` za prazno polje.

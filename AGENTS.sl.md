@@ -12,9 +12,12 @@ Listi A4 za tisk z rutino majhnega otroka (jutro, dan, večer). Visijo na hladil
 | `images/<oznaka>.jpg` + `.json`   | Slika 1024 × 1024 in metapodatki (model, poziv, ključne besede, tema, preverba). |
 | `images/README.md`                | Galerija vseh slik, zgradi jo `tools/build.py`.                                  |
 | `output/<jezik>-<ime>.html`       | Zgrajeni listi za tisk. Nikoli jih ne urejaj ročno.                              |
-| `children/`                            | Izdelovalnik listov v brskalniku (`index.html`, `app.js`).                       |
-| `tools/build.py`                  | Generator: rutine → output in `children/data.js` za izdelovalnik listov.              |
-| `tools/check_images.py`           | Preverba, ki teče v CI.                                                          |
+| `children/`                       | Izdelovalnik listov v brskalniku (`index.html`, `app.js`).                       |
+| `tools/build.py`                  | Generator: rutine → output in `children/data.js` za izdelovalnik listov.         |
+| `tools/check_images.py`           | Preverba slik in rutin.                                                          |
+| `tools/check.py`                  | Testni pipeline po stopnjah, poženeta ga pre-push hook in GitHub; preverbe sem.  |
+| `tools/pdf_test.py`               | Slike ostanejo ostre v tisku (v PDF ni rastrirane slike).                        |
+| `.github/workflows/pipeline.yml`  | Stopnja 1 → stopnja 2 → objava na GitHub Pages; edina pot objave strani.         |
 | `tools/copyright_check.py`        | Vrata za avtorske pravice (Vision Web Detection).                                |
 | `tools/lens_check.py`             | Ročna preverba z Google Lens prek razhroščevalnega Chroma.                       |
 | `docs/PROMPTS.md`                 | Slog slik, pozivi in izkušnje.                                                   |
@@ -25,6 +28,8 @@ Listi A4 za tisk z rutino majhnega otroka (jutro, dan, večer). Visijo na hladil
 
 ```bash
 pip install -r requirements.txt
+git config core.hooksPath .githooks   # enkrat na klon: git push najprej požene tools/check.py
+python3 tools/check.py          # vsi testi po stopnjah (okoli 2 min); stran se objavi le, če uspejo na GitHubu
 python3 tools/check_images.py   # mora izpisati 0 napak
 python3 tools/build.py          # po vsaki spremembi rutin ali slik znova zgradi output/
 python3 tools/preview.py        # nato osveži docs/preview.jpg (README); potrebuje Chrome in pdftoppm

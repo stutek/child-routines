@@ -49,6 +49,7 @@ How to build sheets from the data files on your computer, with or without an AI 
    pip install -r requirements.txt
    python3 tools/check_images.py   # checks images and routines; must print 0 errors
    python3 tools/build.py          # writes output/<lang>-<name>.html
+   python3 tools/check.py          # all tests, as on GitHub (needs Chrome and pdfimages); about 2 min
    ```
 
 4. Commit the routine and the rebuilt `output/` file.
@@ -79,11 +80,25 @@ How to build sheets from the data files on your computer, with or without an AI 
 
 3. Check it yourself first with an image search (for example Google Lens, tab *Exact matches*), both the raw image from the model and the final file after any edit. If the same or almost the same picture already exists on the web, do not submit it: generate a new one with a different composition. Details: [copyright check](.agents/skills/copyright-check/SKILL.md).
 
+## Tests
+
+One command runs them all, in stages, and stops at the first stage that fails: `python3 tools/check.py`. GitHub runs the same command for every pull request and push (`.github/workflows/pipeline.yml`), and publishes the site only after both stages pass. Maintainers run it before every push: `git config core.hooksPath .githooks` (once per clone) makes `git push` run it first.
+
+| Stage | Check                                 | It catches                                                                            |
+| ----- | ------------------------------------- | ------------------------------------------------------------------------------------- |
+| 1     | `tools/check_images.py`               | broken image files or metadata, routines pointing at missing pictures                 |
+| 1     | `tools/build.py` and `git diff`       | `output/`, `children/data.js` or the gallery not rebuilt after a change               |
+| 2     | `tools/pdf_test.py`                   | a picture rasterised in print (a CSS filter turns it grainy)                          |
+| 2     | `tools/web_test.py`                   | the sheet maker: phone widths, keyboard, links, labels that do not fit, printing      |
+| —     | `tools/preview.py`, by eye            | what a measurement cannot see; refreshes `docs/preview.jpg` after a visible change    |
+
+A new check goes into `tools/check.py`, never only into the workflow, so the local and the GitHub pipeline stay the same.
+
 ## The copyright gate
 
 Every pull request runs two automatic checks, and both must pass before merging:
 
-- **validate**: image files and metadata, routine files, rebuilt output.
+- **pipeline**: the tests above (stage 1 and stage 2).
 - **copyright-gate**: each new or changed image is searched on the web (Google Cloud Vision, Web Detection). If the web already has the same picture, part of it, or a page showing it, the check fails and the pull request cannot be merged. There are no manual exceptions: regenerate the image with a different composition and push again. Visually similar pictures do not count, only copies.
 
 ## With an AI agent
@@ -114,5 +129,6 @@ Fill in the checklist in the pull request template. Keep one routine or a few re
 ## Maintainers
 
 - Repository secret `VISION_API_KEY`: an API key of a Google Cloud project with the Cloud Vision API enabled (first 1,000 checks per month are free). Set it with `gh secret set VISION_API_KEY`.
-- Make `validate / check`, `copyright-gate / web-match` and `web-test / web` required status checks for `main` (repository settings, rules or branch protection).
+- Make `pipeline / Stage 1 · images, routines, rebuilt output`, `pipeline / Stage 2 · print and sheet maker in headless Chrome` and `copyright-gate / web-match` required status checks for `main` (repository settings, rules or branch protection).
+- GitHub Pages: Settings → Pages → Build and deployment → Source **GitHub Actions**, so the site is published by `pipeline.yml` only after the tests pass. The custom domain stays in those settings.
 - The gate runs on `pull_request_target`, from the base branch. Never change it to check out or run code from the pull request.

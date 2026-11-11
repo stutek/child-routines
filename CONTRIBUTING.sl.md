@@ -30,6 +30,7 @@ Kako na svojem računalniku zgradite liste iz podatkovnih datotek, z agentom ali
    pip install -r requirements.txt
    python3 tools/check_images.py   # preveri slike in rutine; izpiše 0 napak
    python3 tools/build.py          # zapiše output/<jezik>-<ime>.html
+   python3 tools/check.py          # vsi testi, kot na GitHubu (potrebuje Chrome in pdfimages); okoli 2 min
    ```
 
 4. Commitajte rutino in na novo zgrajeno datoteko v `output/`.
@@ -40,11 +41,25 @@ Kako na svojem računalniku zgradite liste iz podatkovnih datotek, z agentom ali
 2. Dodajte `images/<oznaka>.json` po zgledu v [angleški različici](CONTRIBUTING.md#add-an-image): model, privzeti napis koraka po jezikih (`label`, največ 17 znakov), ključne besede (besede, ki bi jih starš vpisal za ta korak; `beseda*` ujame začetek besede), temo (`theme`: `bear`, korak opravi medvedek, ali `plain`, brez lika: otrokove roke ali prostor; različica istega koraka v drugi temi je `images/<oznaka>-<tema>.json` z `"variant_of": "<oznaka>"`, brez `label` in `keywords`), celoten poziv (natančno prepisan), zgledne slike, urejanje, vaše uporabniško ime na GitHubu, licenca `CC0-1.0` in izid preverbe.
 3. Najprej preverite sami z iskanjem po slikah (na primer Google Lens, zavihek *Exact matches*), in sicer surovo sliko iz modela in končno datoteko po urejanju. Če enaka ali skoraj enaka slika na spletu že obstaja, je ne pošljite: ustvarite novo z drugačno kompozicijo. Podrobnosti: [preverba avtorstva](.agents/skills/copyright-check/SKILL.sl.md).
 
+## Testi
+
+En ukaz jih požene vse, po stopnjah, in se ustavi pri prvi stopnji, ki pade: `python3 tools/check.py`. GitHub požene isti ukaz za vsako zahtevo za združitev in vsak push (`.github/workflows/pipeline.yml`) in stran objavi šele, ko uspeta obe stopnji. Vzdrževalci ga poženejo pred vsakim pushem: `git config core.hooksPath .githooks` (enkrat na klon) poskrbi, da ga `git push` požene najprej.
+
+| Stopnja | Preverba                              | Kaj ujame                                                                              |
+| ------- | ------------------------------------- | -------------------------------------------------------------------------------------- |
+| 1       | `tools/check_images.py`               | pokvarjene slike ali metapodatke, rutine s sklicem na manjkajočo sliko                 |
+| 1       | `tools/build.py` in `git diff`        | `output/`, `children/data.js` ali galerija niso na novo zgrajeni po spremembi          |
+| 2       | `tools/pdf_test.py`                   | sliko, ki se v tisku rastrira (filter CSS jo naredi zrnato)                            |
+| 2       | `tools/web_test.py`                   | izdelovalnik: širine telefonov, tipkovnica, povezave, napisi, ki ne stanejo, tisk      |
+| —       | `tools/preview.py`, z očmi            | kar meritev ne vidi; po vidni spremembi osveži `docs/preview.jpg`                      |
+
+Nova preverba gre v `tools/check.py`, nikoli le v workflow, da lokalni in GitHubov pipeline ostaneta enaka.
+
 ## Vrata za avtorske pravice
 
 Vsaka zahteva za združitev sproži dve samodejni preverbi; obe morata uspeti:
 
-- **validate**: slike in metapodatki, rutine, na novo zgrajen `output/`.
+- **pipeline**: zgornji testi (stopnja 1 in stopnja 2).
 - **copyright-gate**: vsako novo ali spremenjeno sliko poišče na spletu (Google Cloud Vision, Web Detection). Če splet že ima isto sliko, njen del ali stran, ki jo prikazuje, preverba pade in zahteve ni mogoče združiti. Ročnih izjem ni: ustvarite novo sliko z drugačno kompozicijo in jo pošljite znova. Podobne slike ne štejejo, le kopije.
 
 ## Z agentom
@@ -75,5 +90,6 @@ Izpolnite kontrolni seznam v predlogi zahteve. V eni zahtevi naj bo ena rutina a
 ## Vzdrževalci
 
 - Skrivnost repozitorija `VISION_API_KEY`: ključ API projekta Google Cloud z vklopljenim Cloud Vision API (prvih 1.000 preverb na mesec je brezplačnih). Nastavite jo z `gh secret set VISION_API_KEY`.
-- `validate / check`, `copyright-gate / web-match` in `web-test / web` nastavite kot obvezne preverbe za `main` (nastavitve repozitorija, pravila ali zaščita veje).
+- `pipeline / Stage 1 · images, routines, rebuilt output`, `pipeline / Stage 2 · print and sheet maker in headless Chrome` in `copyright-gate / web-match` nastavite kot obvezne preverbe za `main` (nastavitve repozitorija, pravila ali zaščita veje).
+- GitHub Pages: Settings → Pages → Build and deployment → Source **GitHub Actions**, da stran objavi `pipeline.yml` šele po uspešnih testih. Lastna domena ostane v teh nastavitvah.
 - Vrata tečejo na `pull_request_target`, iz osnovne veje. Nikoli jih ne spremenite tako, da bi prevzela ali pognala kodo iz zahteve.

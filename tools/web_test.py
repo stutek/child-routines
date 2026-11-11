@@ -21,6 +21,8 @@ from websockets.sync.client import connect
 
 ROOT = Path(__file__).resolve().parent.parent
 PAGE = (ROOT / "children" / "index.html").as_uri()
+TMP = ROOT / ".private" / "tmp"
+TMP.mkdir(parents=True, exist_ok=True)
 PORT = 9333
 TIMEOUT = 20
 
@@ -52,7 +54,8 @@ class Cdp:
 
 def main():
     errors = []
-    with tempfile.TemporaryDirectory(ignore_cleanup_errors=True) as tmp:
+    # the browser profile lives in the repository, in its own folder per run (ignored by git), not in /tmp
+    with tempfile.TemporaryDirectory(prefix="web_test-", dir=TMP, ignore_cleanup_errors=True) as tmp:
         log = open(Path(tmp) / "chrome.log", "w+")
         chrome = subprocess.Popen(["google-chrome", "--headless=new", "--disable-gpu", "--no-sandbox", f"--user-data-dir={tmp}",
                                    f"--remote-debugging-port={PORT}", "--lang=sl", "about:blank"],

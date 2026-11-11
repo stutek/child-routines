@@ -1,0 +1,5 @@
+#!/bin/sh
+# Runs the whole test pipeline before a push (the same as GitHub, tools/check.py). It checks the working tree.
+# Enable once per clone: git config core.hooksPath .githooks
+# Skip in an emergency: git push --no-verify (GitHub still runs the pipeline and does not publish a failure).
+exec python3 tools/check.py

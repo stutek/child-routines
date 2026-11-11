@@ -1,0 +1,67 @@
+# Test pipeline and the only way the site is published: stage 1 → stage 2 → deploy (push to main only).
+# Each job runs one stage of tools/check.py, the same command the pre-push hook runs; add checks there, not here.
+# One-time setting: Settings → Pages → Build and deployment → Source: "GitHub Actions" (otherwise main is published
+# by GitHub directly, even when a test fails). The custom domain stays in those settings; the CNAME file is not read.
+name: pipeline
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  stage-1:
+    name: "Stage 1 · images, routines, rebuilt output"
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - run: python3 tools/check.py --stage 1
+
+  stage-2:
+    name: "Stage 2 · print and sheet maker in headless Chrome"
+    needs: stage-1
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - run: sudo apt-get install -y --no-install-recommends poppler-utils   # pdfimages for tools/pdf_test.py
+      - run: python3 tools/check.py --stage 2
+
+  deploy:
+    name: "Deploy · GitHub Pages"
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: stage-2
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    concurrency:
+      group: pages
+      cancel-in-progress: true
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      # the tracked files of the commit, as publishing from the branch served them (.nojekyll: no Jekyll)
+      - run: mkdir _site && git archive HEAD | tar -x -C _site
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+      - id: deployment
+        uses: actions/deploy-pages@v4

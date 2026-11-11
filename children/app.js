@@ -188,7 +188,7 @@ function centerTitleSize(title, width) {   // up to two lines at 21 pt, smaller 
 }
 function centerLabelSize(labels, img, times) {
   const g = D.geometry, cw = (g.page_w - 2 * g.margin - g.gap) / 2 - img;
-  const room = img - 1.5 - g.circle - g.card_bottom - 1.5 - 0.8 - (times ? 7.3 : 0), width = cw - 4;
+  const room = img - 1.5 - g.circle - (cw - g.circle) / 2 - 1.5 - 0.8 - (times ? 7.3 : 0), width = cw - 4;   // circle as far from the bottom as from the sides
   let pt = g.label_range[1];
   while (pt > g.label_range[0]) {
     const lines = labels.map(l => labelLines(l, pt, width));

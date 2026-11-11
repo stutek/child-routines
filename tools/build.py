@@ -173,7 +173,6 @@ LABEL_EM = {"A": .645, "B": .619, "C": .562, "D": .666, "E": .548, "F": .531, "G
 PT = 25.4 / 72          # mm per point
 LABEL_LINE = 1.05       # line height of a wrapped label (centre layout)
 LABEL_RANGE = (9, 20)   # pt, centre layout
-CARD_BOTTOM = 2         # mm from the magnet circle to the card's bottom edge, centre layout
 
 
 def text_width(text, pt, spacing=0.079):
@@ -197,12 +196,12 @@ def label_lines(label, pt, width, spacing=0.079):
 
 def center_label_size(labels, img, times):
     """Centre layout: one label size (pt) for the whole sheet, the largest at which every label fits its card.
-    Card: as wide as the space beside the picture, as tall as the picture; the magnet circle sits CARD_BOTTOM above its
-    bottom edge (as much as the sides would leave at 8 steps eats the label). Above it, with 1.5 mm padding and 1.5 mm
-    gap: the label (wrapped at spaces, 0.8 mm top padding) and, with times on the sheet, the time field (6.5 mm, 0.8 mm gap)."""
+    Card: as wide as the space beside the picture, as tall as the picture; the magnet circle sits as far above its
+    bottom edge as from its sides ((card - circle) / 2). Above it, with 1.5 mm padding and 1.5 mm gap: the label
+    (wrapped at spaces, 0.8 mm top padding) and, with times on the sheet, the time field (6.5 mm, 0.8 mm gap)."""
     g = GEOMETRY
     cw = (g["page_w"] - 2 * g["margin"] - g["gap"]) / 2 - img
-    room = img - 1.5 - g["circle"] - CARD_BOTTOM - 1.5 - 0.8 - (7.3 if times else 0)
+    room = img - 1.5 - g["circle"] - (cw - g["circle"]) / 2 - 1.5 - 0.8 - (7.3 if times else 0)
     width = cw - 4
     pt = LABEL_RANGE[1]
     while pt > LABEL_RANGE[0]:
@@ -577,10 +576,10 @@ CSS = """
 
     /* Centre layout (default): the pictures meet in the middle (3 mm apart), so the eye moves one picture across, not
        the page width; each step's card (as tall as its picture) runs outwards to the page edge, label and time above
-       the magnet circle. The circle sits 2 mm above the bottom edge (CARD_BOTTOM); label and time are
-       centred in the space above. The label wraps at spaces; its size, one for the sheet, is center_label_size().
+       the magnet circle. The circle sits as far above the bottom edge as from the sides (--cb); label and time sit
+       1.5 mm above it (bottom-anchored, the same gap on every card). The label wraps at spaces; its size, one for the sheet, is center_label_size().
        The seam is the picture's outer edge: it fades there over the full height, the number sits in the inner corner. */
-    .rt-center { --gapc: 3mm; --label: 11pt; --cw: calc((var(--page-w) - 2 * var(--margin) - var(--gapc)) / 2 - var(--img)); --cb: __CB__mm; }
+    .rt-center { --gapc: 3mm; --label: 11pt; --cw: calc((var(--page-w) - 2 * var(--margin) - var(--gapc)) / 2 - var(--img)); --cb: calc((var(--cw) - 35mm) / 2); }
     /* the card meets the picture edge to edge, no overlap: the picture has no border on that side, so the two shadows
        join without doubling (an overlap darkens the shadow under the seam and nicks the border) */
     .rt-center .rt-label { white-space: normal; text-align: center; line-height: 1.05; text-wrap: balance; }
@@ -600,7 +599,13 @@ CSS = """
     .rt-center .pic-left img { -webkit-mask-image: linear-gradient(to left, #000 88%, transparent 97%); mask-image: linear-gradient(to left, #000 88%, transparent 97%); }
     .rt-center .pic-right img { -webkit-mask-image: linear-gradient(to right, #000 88%, transparent 97%); mask-image: linear-gradient(to right, #000 88%, transparent 97%); }
     .rt-center .rt-card { top: calc(var(--y) - var(--img) / 2); height: var(--img); width: var(--cw); flex-direction: column; justify-content: flex-end; gap: 1.5mm; }
-    .rt-center .rt-text { flex-grow: 1; justify-content: center; }
+    .rt-center .rt-text { flex-grow: 1; justify-content: flex-end; }   /* bottom-anchored: every label and time sit 1.5 mm above the circle */
+    /* the gap is measured from the letters, not the line box: without the trim the space below the baseline grows
+       with the font (a 20 pt label stood 0.75 mm further from the circle than a 15 pt time) */
+    .rt-center .rt-label, .rt-center .rt-time { text-box-trim: trim-end; text-box-edge: cap alphabetic; }
+    /* the trim needs a block of text, not a flex row: the empty fields (__ : __) sit on the baseline as inline blocks */
+    .rt-center .rt-time { display: block; text-align: center; }
+    .rt-center .rt-time .blank { margin: 0 0.6mm; vertical-align: baseline; }
     .rt-center .rt-check { z-index: 2; }   /* inside the card: above its fill */
     /* the card is a plain rounded box here: the same box-shadow as the picture, so both print alike (a filter
        drop-shadow prints lighter than a box-shadow, and rasterises the card) */
@@ -609,7 +614,12 @@ CSS = """
        differently from the picture's border in the scaled preview, so the top line steps at the seam and the arcs
        look uneven. Paddings count from inside the border: 1.5 mm top and 2 mm sides from the card edge as before. */
     .rt-center .rt-card { border: 0.9mm solid var(--step); background: var(--bg); }
-    .rt-center .rt-card::before, .rt-center .rt-card::after { display: none; }
+    .rt-center .rt-card::after { display: none; }
+    /* a 0.3 mm strip of the card's fill reaches under the seam, between its borders (no shadow, so none doubles):
+       edge to edge, the background showed through the anti-aliased seam as a thin light line in print */
+    .rt-center .rt-card::before { top: 0; bottom: 0; left: auto; right: auto; width: 0.3mm; background: var(--bg); border-radius: 0; }
+    .rt-center .card-left::before { right: -0.3mm; }
+    .rt-center .card-right::before { left: -0.3mm; }
     .rt-center .card-left { left: 0; right: auto; border-radius: 6mm 0 0 6mm; border-right: 0;
                             padding: 0.6mm 2mm calc(var(--cb) - 0.9mm) 1.1mm; }
     .rt-center .card-right { right: 0; left: auto; border-radius: 0 6mm 6mm 0; border-left: 0;
@@ -624,7 +634,7 @@ CSS = """
 """
 
 
-CSS = CSS.replace("__CB__", str(CARD_BOTTOM)).replace("__IMG__", str(GEOMETRY["img"])).replace("__TITLE__", str(GEOMETRY["title_h"])).replace("__FOOTER__", str(GEOMETRY["footer"] - 1))
+CSS = CSS.replace("__IMG__", str(GEOMETRY["img"])).replace("__TITLE__", str(GEOMETRY["title_h"])).replace("__FOOTER__", str(GEOMETRY["footer"] - 1))
 
 
 def page_html(routine):
@@ -663,7 +673,7 @@ def web_data(routines):
         images[id_] = {"title": meta["title"], "label": meta.get("label", {}), "keywords": meta.get("keywords", {}),
                        **{k: meta[k] for k in ("theme", "variant_of") if k in meta}}
         edges.append(f'  "{id_}": ["{edge_color(id_, "left")}", "{edge_color(id_, "right")}"],')
-    data = {"css": CSS, "skies": SKIES, "plain": PLAIN, "missingBg": MISSING_BG, "geometry": {**GEOMETRY, "card_bottom": CARD_BOTTOM, "label_line": LABEL_LINE, "label_range": LABEL_RANGE}, "labelEm": LABEL_EM, "site": SITE, "mail": MAIL, "license": LICENSE, "safety": SAFETY, "stepNotes": STEP_NOTES, "under3": UNDER3, "qr": QR,
+    data = {"css": CSS, "skies": SKIES, "plain": PLAIN, "missingBg": MISSING_BG, "geometry": {**GEOMETRY, "label_line": LABEL_LINE, "label_range": LABEL_RANGE}, "labelEm": LABEL_EM, "site": SITE, "mail": MAIL, "license": LICENSE, "safety": SAFETY, "stepNotes": STEP_NOTES, "under3": UNDER3, "qr": QR,
             "themes": THEMES, "images": images, "examples": routines}
     return ("// Generated by tools/build.py; do not edit by hand.\n"
             f"window.SHEET_DATA = {json.dumps(data, ensure_ascii=False, indent=1)};\n"

@@ -478,9 +478,16 @@ def main():
               first().focus(); first().value = 'MOJE'; first().dispatchEvent(new Event('input')); first().blur(); await tick();
               const delays = [], st = window.setTimeout;
               window.setTimeout = (f, d, ...a) => { delays.push(d || 0); return st(f, d, ...a); };
+              const exH = ex().offsetHeight, top0 = ex().offsetTop, below0 = document.querySelector('#preview, #sheets').getBoundingClientRect().top;
               ex().click(); const u = inPlace(); u && u.dispatchEvent(new MouseEvent('click', {bubbles: true, detail: 2}));
               window.setTimeout = st;
               await tick(); r.inPlace = !!inPlace() && !document.querySelector('#undo button') && !ex();
+              // Undo in place keeps the button's height and the layout below; its icon is at most the font size, before the text
+              const ib = inPlace(), icon = ib.querySelector('img').getBoundingClientRect(), text = document.createRange();
+              text.selectNodeContents(ib.lastChild); const tr = text.getBoundingClientRect();
+              r.noJump = ib.offsetHeight === exH && ib.offsetTop === top0
+                && document.querySelector('#preview, #sheets').getBoundingClientRect().top === below0
+                && icon.height <= parseFloat(getComputedStyle(ib).fontSize) && icon.right <= tr.left && icon.top >= tr.top - 1 && icon.bottom <= tr.bottom + 1;
               r.doubleClickKept = first().value !== 'MOJE'; r.noTimer = !delays.some(d => d >= 5000);
               await tick(300); inPlace().click(); await tick();
               r.undone = first().value === 'MOJE' && !!ex() && !inPlace() && stored() === 'MOJE';

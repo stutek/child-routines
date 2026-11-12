@@ -325,7 +325,7 @@ function hideUndo() {
 function showUndo(message, inPlace = false) {
   const L = t(), u = document.getElementById("undo");
   undoAt = performance.now();
-  undoBtn = el("button", { class: inPlace ? "secondary" : null, onclick: () => {
+  undoBtn = el("button", { class: inPlace ? "undo-btn secondary" : "undo-btn", onclick: () => {
     if (inPlace && performance.now() - undoAt < 500) return;   // the second click of a double click on "Load example" must not undo it
     undoing = true; history.back();
   } }, [el("img", { class: "icon", src: "undo.svg", alt: "" }), L.undo]);

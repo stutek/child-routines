@@ -55,8 +55,10 @@
     .maker button:not(.del):not(.thumb):not(.grip):not(.print):not(.copy) { background: #DDF3EE; color: #115E59; }
     .maker .undo { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; font-size: 14px; font-weight: 600; color: #115E59; }
     .maker .undo:empty { display: none; }
-    .maker .undo button { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; }
-    .maker .undo .icon { width: 16px; height: 16px; }
+    .maker .undo button { padding: 4px 12px; }
+    /* the icon is at most the font size, in the text's line before "U", so Undo in place of "Load example" keeps its height */
+    .maker button.undo-btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.35em; }
+    .maker .undo-btn .icon { width: 1em; height: 1em; flex: none; }
     .maker button:disabled { opacity: 0.45; cursor: not-allowed; }
     /* skip link: off screen until it has focus (WCAG 2.4.1); its click moves focus, it never changes the address (the sheet lives in the fragment) */
     .skip { position: fixed; left: 8px; top: -100px; z-index: 20; padding: 8px 14px; border-radius: 10px; background: #0F766E; color: #fff; font-weight: 700; text-decoration: none; }
